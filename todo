@@ -1,14 +1,27 @@
-remove interactive portions
+fix ActiveCode portions
+what is this pythonds stuff?
 do we need summary, discussion?
 add better introductions throughout
-write out glossary
+consider if we want a glossary, and if so write it out
 move code blocks to {% include %} tags, for linting, testability etc
-what is this pythonds stuff?
-ensure good typography, eg curly quotes
 fix math formatting, e.g. http://localhost:4000/analysis/an-anagram-detection-example.html
 could/should we have sub sub sections? or just break sections into smaller chenks?
-specify gitbook version
+ensure curly quotes everywhere
+figure out if figures should be linked
 
-do full pass of editing
-custom styling
+branding
 
+is there an easier way to lint/pep8-ify this stuff?
+
+do full pass through editing for each section:
+    convert activecode portions
+    add a better introduction
+    move key terms to glossary, if any
+    move large code blocks out into include tags
+    improve sections
+    remove listing numbers
+    make sure all Python is idiomatic
+
+trees
+    use tuples (or named tuples in list-of-lists representation?)
+    more compact introduction incorporating intro, examples and definitions

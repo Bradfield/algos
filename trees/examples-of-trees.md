@@ -1,15 +1,7 @@
 Examples of Trees
 =================
 
-Now that we have studied linear data structures like stacks and queues
-and have some experience with recursion, we will look at a common data
-structure called the **tree**. Trees are used in many areas of computer
-science, including operating systems, graphics, database systems, and
-computer networking. Tree data structures have many things in common
-with their botanical cousins. A tree data structure has a root,
-branches, and leaves. The difference between a tree in nature and a tree
-in computer science is that a tree data structure has its root at the
-top and its leaves on the bottom.
+Tree data structures have many things in common with their botanical cousins. Both have a root, branches, and leaves. One diference is that we find it more intuitive to consider the root of a tree data structure to be at the “top”, for instance that the root of a file system is “above” its subdirectories.
 
 Before we begin our study of tree data structures, let’s look at a few
 common examples. Our first example of a tree is a classification tree
@@ -76,22 +68,21 @@ a simple web page written using HTML. Figure 3 &lt;fig\_html&gt; shows
 the tree that corresponds to each of the HTML tags used to create the
 page.
 
-    <html xmlns="http://www.w3.org/1999/xhtml" 
-      xml:lang="en" lang="en">
-    <head>
-    <meta http-equiv="Content-Type" 
-          content="text/html; charset=utf-8" />
+```html
+<html>
+<head>
     <title>simple</title>
-    </head>
-    <body>
+</head>
+<body>
     <h1>A simple web page</h1>
     <ul>
-    <li>List item one</li>
-    <li>List item two</li>
+        <li>List item one</li>
+        <li>List item two</li>
     </ul>
-    <h2><a href="http://www.cs.luther.edu">Luther CS </a><h2>
-    </body>
-    </html>
+    <h2><a href="https://www.google.com">Google</a><h2>
+</body>
+</html>
+```
 
 ![Figure 3: A Tree Corresponding to the Markup Elements of a Web
 Page](Figures/htmltree.png)

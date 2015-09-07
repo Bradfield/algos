@@ -4,73 +4,72 @@ Vocabulary and Definitions
 Now that we have looked at examples of trees, we will formally define a
 tree and its components.
 
-Node
+### Node
 
-:   A node is a fundamental part of a tree. It can have a name, which we
+A node is a fundamental part of a tree. It can have a name, which we
     call the “key.” A node may also have additional information. We call
     this additional information the “payload.” While the payload
     information is not central to many tree algorithms, it is often
     critical in applications that make use of trees.
 
-Edge
+### Edge
 
-:   An edge is another fundamental part of a tree. An edge connects two
+An edge is another fundamental part of a tree. An edge connects two
     nodes to show that there is a relationship between them. Every node
     (except the root) is connected by exactly one incoming edge from
     another node. Each node may have several outgoing edges.
 
-Root
+### Root
 
-:   The root of the tree is the only node in the tree that has no
-    incoming edges. In Figure Figure 2 &lt;fig\_filetree&gt;, / is the
-    root of the tree.
+The root of the tree is the only node in the tree that has no
+    incoming edges. In a filesystem, `/` is the root of the tree. In an HTML document, the `<html>` tag is the root of the tree.
 
-Path
+### Path
 
-:   A path is an ordered list of nodes that are connected by edges. For
+A path is an ordered list of nodes that are connected by edges. For
     example, Mammal $\rightarrow$ Carnivora $\rightarrow$ Felidae
     $\rightarrow$ Felis $\rightarrow$ Domestica is a path.
 
-Children
+### Children
 
-:   The set of nodes $c$ that have incoming edges from the same node to
+The set of nodes $c$ that have incoming edges from the same node to
     are said to be the children of that node. In Figure
-    Figure 2 &lt;fig\_filetree&gt;, nodes log/, spool/, and yp/ are the
+    Figure 2, nodes log/, spool/, and yp/ are the
     children of node var/.
 
-Parent
+### Parent
 
-:   A node is the parent of all the nodes it connects to with
-    outgoing edges. In Figure 2 &lt;fig\_filetree&gt; the node var/ is
+A node is the parent of all the nodes it connects to with
+    outgoing edges. In Figure 2 the node var/ is
     the parent of nodes log/, spool/, and yp/.
 
-Sibling
+### Sibling
 
-:   Nodes in the tree that are children of the same parent are said to
+Nodes in the tree that are children of the same parent are said to
     be siblings. The nodes etc/ and usr/ are siblings in the
     filesystem tree.
 
-Subtree
+### Subtree
 
-:   A subtree is a set of nodes and edges comprised of a parent and all
+A subtree is a set of nodes and edges comprised of a parent and all
     the descendants of that parent.
 
-Leaf Node
+### Leaf Node
 
-:   A leaf node is a node that has no children. For example, Human and
-    Chimpanzee are leaf nodes in Figure 1 &lt;fig\_biotree&gt;.
+A leaf node is a node that has no children. For example, Human and
+    Chimpanzee are leaf nodes in Figure 1.
 
-Level
+### Level
 
-:   The level of a node $n$ is the number of edges on the path from the
+The level of a node $n$ is the number of edges on the path from the
     root node to $n$. For example, the level of the Felis node in
-    Figure 1 &lt;fig\_biotree&gt; is five. By definition, the level of
+    Figure 1 is five. By definition, the level of
     the root node is zero.
 
-Height
+### Height
 
-:   The height of a tree is equal to the maximum level of any node in
-    the tree. The height of the tree in Figure 2 &lt;fig\_filetree&gt;
+The height of a tree is equal to the maximum level of any node in
+    the tree. The height of the tree in Figure 2
     is two.
 
 With the basic vocabulary now defined, we can move on to a formal
@@ -88,7 +87,7 @@ that connect pairs of nodes. A tree has the following properties:
 -   If each node in the tree has a maximum of two children, we say that
     the tree is a **binary tree**.
 
-Figure 3 &lt;fig\_nodeedgetree&gt; illustrates a tree that fits
+Figure 3 illustrates a tree that fits
 definition one. The arrowheads on the edges indicate the direction of
 the connection.
 
@@ -98,9 +97,9 @@ Edges](Figures/treedef1.png)
 *Definition Two:* A tree is either empty or consists of a root and zero
 or more subtrees, each of which is also a tree. The root of each subtree
 is connected to the root of the parent tree by an edge.
-Figure 4 &lt;fig\_recursivetree&gt; illustrates this recursive
+Figure 4 illustrates this recursive
 definition of a tree. Using the recursive definition of a tree, we know
-that the tree in Figure 4 &lt;fig\_recursivetree&gt; has at least four
+that the tree in Figure 4 has at least four
 nodes, since each of the triangles representing a subtree must have a
 root. It may have many more nodes than that, but we do not know unless
 we look deeper into the tree.
