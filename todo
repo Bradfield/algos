@@ -1,4 +1,3 @@
-fix figures/references
 remove interactive portions
 do we need summary, discussion?
 add better introductions throughout
@@ -8,6 +7,7 @@ what is this pythonds stuff?
 ensure good typography, eg curly quotes
 fix math formatting, e.g. http://localhost:4000/analysis/an-anagram-detection-example.html
 could/should we have sub sub sections? or just break sections into smaller chenks?
+specify gitbook version
 
 do full pass of editing
 custom styling

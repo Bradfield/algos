@@ -2,5 +2,16 @@
   "structure": {
     "readme": "introduction.md"
   },
-  "version": "2.3.0"
+  "plugins": [
+    "image-captions"
+  ],
+  "pluginsConfig": {
+      "image-captions": {
+          "caption": "_CAPTION_"
+      }
+  },
+  "gitbook": "2.3.0",
+  "styles": {
+    "website": "website.css"
+  }
 }
