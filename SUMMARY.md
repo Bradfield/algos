@@ -21,8 +21,7 @@ This is the summary of my book.
     * [Discussion questions](analysis/discussion-questions.md)
     * [Programming exercises](analysis/programming-exercises.md)
 
-* Linear data structures
-    * [Objectives](linear-data-structures/objectives.md)
+* [Linear data structures](linear-data-structures/objectives.md)
     * [What are linear structures](linear-data-structures/what-are-linear-structures.md)
     * [Whatisa stack](linear-data-structures/whatisa-stack.md)
     * [The stack abstract data type](linear-data-structures/the-stack-abstract-data-type.md)
@@ -50,9 +49,7 @@ This is the summary of my book.
     * [Discussion questions](linear-data-structures/discussion-questions.md)
     * [Programming exercises](linear-data-structures/programming-exercises.md)
 
-
-* Recursion
-    * [Objectives](recursion/objectives.md)
+* [Recursion](recursion/objectives.md)
     * [What is recursion](recursion/what-is-recursion.md)
     * [pythonds calculatingthe sumofa listof numbers](recursion/pythonds-calculatingthe-sumofa-listof-numbers.md)
     * [The three lawsof recursion](recursion/the-three-lawsof-recursion.md)
@@ -70,8 +67,7 @@ This is the summary of my book.
     * [Glossary](recursion/glossary.md)
     * [pythonds programming exercises](recursion/pythonds-programming-exercises.md)
 
-* Sorting and searching
-    * [Objectives](sorting-and-searching/objectives.md)
+* [Sorting and searching](sorting-and-searching/objectives.md)
     * [searching](sorting-and-searching/searching.md)
     * [The sequential search](sorting-and-searching/the-sequential-search.md)
     * [The binary search](sorting-and-searching/the-binary-search.md)
@@ -88,8 +84,7 @@ This is the summary of my book.
     * [Discussion questions](sorting-and-searching/discussion-questions.md)
     * [Programming exercises](sorting-and-searching/programming-exercises.md)
 
-* Trees and tree algorithms
-    * [Objectives](trees/objectives.md)
+* [Trees and tree algorithms](trees/objectives.md)
     * [Examplesof trees](trees/examplesof-trees.md)
     * [Vocabularyand definitions](trees/vocabularyand-definitions.md)
     * [Listof lists representation](trees/listof-lists-representation.md)
@@ -112,8 +107,7 @@ This is the summary of my book.
     * [Discussion questions](trees/discussion-questions.md)
     * [Programming exercises](trees/programming-exercises.md)
 
-* Graphs and Graph Algorithms
-    * [Objectives](graphs/objectives.md)
+* [Graphs and Graph Algorithms](graphs/objectives.md)
     * [Vocabularyand definitions](graphs/vocabularyand-definitions.md)
     * [The graph abstract data type](graphs/the-graph-abstract-data-type.md)
     * [An adjacency matrix](graphs/an-adjacency-matrix.md)
