@@ -1,5 +1,5 @@
 Why Study Data Structures and Abstract Data Types?
----
+===
 
 To manage the complexity of problems and the problem-solving process,
 computer scientists use abstractions to allow them to focus on the “big

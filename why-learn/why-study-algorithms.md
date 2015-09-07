@@ -1,5 +1,5 @@
 Why Study Algorithms?
----
+===
 
 Computer scientists learn by experience. We learn by seeing others solve
 problems and by solving problems by ourselves. Being exposed to

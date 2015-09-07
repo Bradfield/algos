@@ -1,5 +1,5 @@
-What Is Computer Science?
----
+What is Computer Science?
+===
 
 Computer science is often difficult to define. This is probably due to
 the unfortunate use of the word “computer” in the name. As you are

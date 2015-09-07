@@ -1,5 +1,5 @@
-What Is Programming?
----
+What is Programming?
+===
 
 **Programming** is the process of taking an algorithm and encoding it
 into a notation, a programming language, so that it can be executed by a

@@ -1,5 +1,6 @@
 {
   "structure": {
     "readme": "introduction.md"
-  }
+  },
+  "version": "2.3.0"
 }
