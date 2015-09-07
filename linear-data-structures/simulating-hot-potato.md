@@ -1,4 +1,4 @@
-Simulation: Hot Potato
+Simulating Hot Potato
 ======================
 
 One of the typical applications for showing a queue in action is to

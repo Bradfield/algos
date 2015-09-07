@@ -196,8 +196,6 @@ nodes that were visited during the insertion process.
 
 ![Figure 2: Inserting a Node with Key = 19](Figures/bstput.png)
 
-> **Self Check**
-
 Once the tree is constructed, the next task is to implement the
 retrieval of a value for a given key. The `get` method is even easier
 than the `put` method because it simply searches the tree recursively
@@ -241,7 +239,7 @@ can see, all the `__getitem__` method does is call `get`.
             return self._get(key,currentNode.rightChild)
 
     def __getitem__(self,key):
-        return self.get(key) 
+        return self.get(key)
 
 Using `get`, we can implement the `in` operation by writing a
 `__contains__` method for the `BinarySearchTree`. The `__contains__`

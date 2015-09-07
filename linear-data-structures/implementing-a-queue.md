@@ -48,5 +48,3 @@ Further manipulation of this queue would give the following results:
     'dog'
     >>> q.size()
     2
-
-> **Self Check**

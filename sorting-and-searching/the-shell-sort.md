@@ -64,4 +64,3 @@ $O(n^{2})$. By changing the increment, for example using $2^{k}-1$ (1,
 3, 7, 15, 31, and so on), a shell sort can perform at
 $O(n^{\frac {3}{2}})$.
 
-> **Self Check**

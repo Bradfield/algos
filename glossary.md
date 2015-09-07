@@ -178,9 +178,6 @@ Definition needed
 # linked list traversal
 Definition needed
 
-# list
-Definition needed
-
 # load factor
 Definition needed
 
@@ -188,12 +185,6 @@ Definition needed
 Definition needed
 
 # logarithmic
-Definition needed
-
-# map
-Definition needed
-
-# map
 Definition needed
 
 # median of three
@@ -209,9 +200,6 @@ Definition needed
 Definition needed
 
 # min/max heap
-Definition needed
-
-# node
 Definition needed
 
 # node
@@ -233,9 +221,6 @@ Definition needed
 Definition needed
 
 # partition
-Definition needed
-
-# path
 Definition needed
 
 # path

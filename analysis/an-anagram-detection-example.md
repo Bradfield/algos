@@ -113,5 +113,3 @@ millions of characters, there would be more concern. As a computer
 scientist, when given a choice of algorithms, it will be up to you to
 determine the best use of computing resources given a particular
 problem.
-
-> **Self Check**

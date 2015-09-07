@@ -108,7 +108,7 @@ call.
             return True
         maze.updatePosition(startRow, startColumn, TRIED)
 
-        # Otherwise, use logical short circuiting to try each 
+        # Otherwise, use logical short circuiting to try each
         # direction in turn (if needed)
         found = searchFrom(maze, startRow-1, startColumn) or \
                 searchFrom(maze, startRow+1, startColumn) or \
@@ -172,7 +172,7 @@ initial view of the maze on the screen.
 Figure 3: An Example Maze Data File
 
     ++++++++++++++++++++++
-    +   +   ++ ++     +   
+    +   +   ++ ++     +
     + +   +       +++ + ++
     + + +  ++  ++++   + ++
     +++ ++++++    +++ +  +
@@ -303,10 +303,3 @@ the turtle.
 > ++++++++++++++++++++++ + + ++ ++ + + ++++++++++ + + ++ ++++ +++ ++ + +
 > + + ++ +++ + + ++ ++ + + +++++ + + ++ + + +++++ +++ + + ++ + + + + S+
 > + + +++++ + + + + + + ++++++++++++++++++++++ &lt;/pre&gt;
-
-> **Self Check**
->
-> Modify the maze search program so that the calls to searchFrom are in
-> a different order. Watch the program run. Can you explain why the
-> behavior is different? Can you predict what path the turtle will
-> follow for a given change in order?

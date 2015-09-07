@@ -89,4 +89,3 @@ correct resulting digit can be appended to the answer. For example, if
 the remainder 13 is removed from the stack, the digit D is appended to
 the resulting string.
 
-> **Self Check**

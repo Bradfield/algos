@@ -23,5 +23,3 @@ as the bubble sort and is therefore also $O(n^{2})$. However, due to the
 reduction in the number of exchanges, the selection sort typically
 executes faster in benchmark studies. In fact, for our list, the bubble
 sort makes 20 exchanges, while the selection sort makes only 8.
-
-> **Self Check**

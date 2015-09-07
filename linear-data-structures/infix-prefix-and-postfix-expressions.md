@@ -324,5 +324,3 @@ postfix evaluation programs we assumed that there were no errors in the
 input expression. Using these programs as a starting point, you can
 easily see how error detection and reporting can be included. We leave
 this as an exercise at the end of the chapter.
-
-> **Self Check**
