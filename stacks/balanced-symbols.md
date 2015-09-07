@@ -1,5 +1,5 @@
 Balanced Symbols (A General Case)
-=================================
+====
 
 The balanced parentheses problem shown above is a specific case of a
 more general situation that arises in many programming languages. The
@@ -38,12 +38,35 @@ the two symbols do not match, the string is not balanced. Once again, if
 the entire string is processed and nothing is left on the stack, the
 string is correctly balanced.
 
-The Python program to implement this is shown in
-ActiveCode 1 &lt;lst\_parcheck2&gt;. The only change appears in line 16
-where we call a helper function, `matches`, to assist with
-symbol-matching. Each symbol that is removed from the stack must be
-checked to see that it matches the current closing symbol. If a mismatch
-occurs, the boolean variable `balanced` is set to `False`.
+The Python program to implement this is shown below. The only change is that we use a dictionary to ensure that symbols popped from the stack correctly match our expectations of pairing with the symbol being considered at the time.
+
+```python
+PAIRINGS = {
+    '(': ')',
+    '{': '}',
+    '[': ']'
+}
+
+def is_balanced(symbols):
+    stack = []
+    for s in symbols:
+        if s in PAIRINGS.keys():
+            stack.append(s)
+            continue
+        try:
+            expected_opening_symbol = stack.pop()
+        except IndexError:  # too many closing symbols
+            return False
+        if s != PAIRINGS[expected_opening_symbol]:  # mismatch
+            return False
+    return len(stack) == 0  # false if too many opening symbols
+
+is_balanced('{{([][])}()}')  # => True
+is_balanced('{[])')  # => False
+is_balanced('((()))')  # => True
+is_balanced('(()')  # => False
+is_balanced('())')  # => False
+```
 
 These two examples show that stacks are very important data structures
 for the processing of language constructs in computer science. Almost
