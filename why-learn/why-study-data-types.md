@@ -22,7 +22,7 @@ providing this level of abstraction, we are creating an
 details of the implementation, we are hiding them from the user’s view.
 This is called **information hiding**.
 
-Figure 2 &lt;fig\_adt&gt; shows a picture of what an abstract data type
+Figure 2 shows a picture of what an abstract data type
 is and how it operates. The user interacts with the interface, using the
 operations that have been specified by the abstract data type. The
 abstract data type is the shell that the user interacts with. The

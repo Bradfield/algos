@@ -18,10 +18,10 @@ items are near the base.
 Many examples of stacks occur in everyday situations. Almost any
 cafeteria has a stack of trays or plates where you take the one at the
 top, uncovering a new tray or plate for the next customer in line.
-Imagine a stack of books on a desk (Figure 1 &lt;fig\_bookstack&gt;).
+Imagine a stack of books on a desk (Figure 1).
 The only book whose cover is visible is the one on top. To access others
 in the stack, we need to remove the ones that are sitting on top of
-them. Figure 2 &lt;fig\_objectstack&gt; shows another stack. This one
+them. Figure 2 shows another stack. This one
 contains a number of primitive Python data objects.
 
 ![Figure 1: A Stack of Books](Figures/bookstack2.png)
@@ -36,7 +36,7 @@ begin removing books. The order that they are removed is exactly the
 reverse of the order that they were placed. Stacks are fundamentally
 important, as they can be used to reverse the order of items. The order
 of insertion is the reverse of the order of removal.
-Figure 3 &lt;fig\_reversal&gt; shows the Python data object stack as it
+Figure 3 shows the Python data object stack as it
 was created and then again as items are removed. Note the order of the
 objects.
 

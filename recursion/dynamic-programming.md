@@ -85,7 +85,7 @@ The trouble with the algorithm in Listing 7 &lt;lst\_change1&gt; is that
 it is extremely inefficient. In fact, it takes 67,716,925 recursive
 calls to find the optimal solution to the 4 coins, 63 cents problem! To
 understand the fatal flaw in our approach look at
-Figure 5 &lt;fig\_c1ct&gt;, which illustrates a small fraction of the
+Figure 5, which illustrates a small fraction of the
 377 function calls needed to find the optimal set of coins to make
 change for 26 cents.
 
@@ -134,7 +134,7 @@ of the algorithm we already know the minimum number of coins needed to
 make change for any smaller amount.
 
 Let’s look at how we would fill in a table of minimum coins to use in
-making change for 11 cents. Figure 4 &lt;fig\_dpcoins&gt; illustrates
+making change for 11 cents. Figure 4 illustrates
 the process. We start with one cent. The only solution possible is one
 coin (a penny). The next row shows the minimum for one cent and two
 cents. Again, the only solution is two pennies. The fifth row is where
@@ -145,7 +145,7 @@ cents is four, plus one more penny to make five, equals five coins. Or
 we can look at zero cents plus one more nickel to make five cents equals
 1 coin. Since the minimum of one and five is one we store 1 in the
 table. Fast forward again to the end of the table and consider 11 cents.
-Figure 5 &lt;fig\_eleven&gt; shows the three options that we have to
+Figure 5 shows the three options that we have to
 consider:
 
 1.  A penny plus the minimum number of coins to make change for

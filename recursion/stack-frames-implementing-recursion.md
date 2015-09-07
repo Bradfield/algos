@@ -9,7 +9,7 @@ ActiveCode 1 &lt;lst\_recstack&gt;.
 
 Each time we make a call to `toStr`, we push a character on the stack.
 Returning to the previous example we can see that after the fourth call
-to `toStr` the stack would look like Figure 5 &lt;fig\_recstack&gt;.
+to `toStr` the stack would look like Figure 5.
 Notice that now we can simply pop the characters off the stack and
 concatenate them into the final result, `"1010"`.
 
@@ -20,7 +20,7 @@ The previous example gives us some insight into how Python implements a
 recursive function call. When a function is called in Python, a **stack
 frame** is allocated to handle the local variables of the function. When
 the function returns, the return value is left on top of the stack for
-the calling function to access. Figure 6 &lt;fig\_callstack&gt;
+the calling function to access. Figure 6
 illustrates the call stack after the return statement on line 4.
 
 ![Figure 6: Call Stack Generated from

@@ -8,7 +8,7 @@ performance of key operations. Let us start by thinking about how this
 balance condition changes the worst-case tree. There are two
 possibilities to consider, a left-heavy tree and a right heavy tree. If
 we consider trees of heights 0, 1, 2, and 3,
-Figure 2 &lt;fig\_worstAVL&gt; illustrates the most unbalanced
+Figure 2 illustrates the most unbalanced
 left-heavy tree possible under the new rules.
 
 ![Figure 2: Worst-Case Left-Heavy AVL Trees](Figures/worstAVL.png)

@@ -36,7 +36,7 @@ where $w,v \in V$. We can add a third component to the edge tuple to
 represent a weight. A subgraph $s$ is a set of edges $e$ and vertices
 $v$ such that $e \subset E$ and $v \subset V$.
 
-Figure  2 &lt;fig\_dgsimple&gt; shows another example of a simple
+Figure  2 shows another example of a simple
 weighted digraph. Formally we can represent this graph as the set of six
 vertices:
 
@@ -50,7 +50,7 @@ $$E = \left\{ \begin{array}{l}(v0,v1,5), (v1,v2,4), (v2,v3,9), (v3,v4,7), (v4,v0
 
 ![Figure 2: A Simple Example of a Directed Graph](Figures/digraph.png)
 
-The example graph in Figure 2 &lt;fig\_dgsimple&gt; helps illustrate two
+The example graph in Figure 2 helps illustrate two
 other key graph terms:
 
 Path
@@ -61,14 +61,14 @@ Path
     unweighted path length is the number of edges in the path,
     specifically $n-1$. The weighted path length is the sum of the
     weights of all the edges in the path. For example in
-    Figure 2 &lt;fig\_dgsimple&gt; the path from $V3$ to $V1$ is the
+    Figure 2 the path from $V3$ to $V1$ is the
     sequence of vertices $(V3,V4,V0,V1)$. The edges are
     $\left\{(v3,v4,7),(v4,v0,1),(v0,v1,5) \right\}$.
 
 Cycle
 
 :   A cycle in a directed graph is a path that starts and ends at the
-    same vertex. For example, in Figure 2 &lt;fig\_dgsimple&gt; the path
+    same vertex. For example, in Figure 2 the path
     $(V5,V2,V3,V5)$ is a cycle. A graph with no cycles is called an
     **acyclic graph**. A directed graph with no cycles is called a
     **directed acyclic graph** or a **DAG**. We will see that we can

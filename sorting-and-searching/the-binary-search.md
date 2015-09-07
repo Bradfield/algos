@@ -17,7 +17,7 @@ must be in the upper half.
 We can then repeat the process with the upper half. Start at the middle
 item and compare it against what we are looking for. Again, we either
 find it or split the list in half, therefore eliminating another large
-part of our possible search space. Figure 3 &lt;fig\_binsearch&gt; shows
+part of our possible search space. Figure 3 shows
 how this algorithm can quickly find the value 54. The complete function
 is shown in CodeLens 3 &lt;lst\_binarysearchpy&gt;.
 

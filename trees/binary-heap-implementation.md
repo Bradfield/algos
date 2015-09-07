@@ -12,7 +12,7 @@ the left and right subtrees of the root. In our heap implementation we
 keep the tree balanced by creating a **complete binary tree**. A
 complete binary tree is a tree in which each level has all of its nodes.
 The exception to this is the bottom level of the tree, which we fill in
-from left to right. Figure 1 &lt;fig\_comptree&gt; shows an example of a
+from left to right. Figure 1 shows an example of a
 complete binary tree.
 
 ![Figure 1: A Complete Binary Tree](Figures/compTree.png)
@@ -25,7 +25,7 @@ the list. Similarly, the right child of the parent is at position
 $2p + 1$ in the list. To find the parent of any node in the tree, we can
 simply use Python’s integer division. Given that a node is at position
 $n$ in the list, the parent is at position $n/2$.
-Figure 2 &lt;fig\_heapOrder&gt; shows a complete binary tree and also
+Figure 2 shows a complete binary tree and also
 gives the list representation of the tree. Note the $2p$ and $2p+1$
 relationship between parent and children. The list representation of the
 tree, along with the full structure property, allows us to efficiently
@@ -40,7 +40,7 @@ The method that we will use to store items in a heap relies on
 maintaining the heap order property. The **heap order property** is as
 follows: In a heap, for every node $x$ with parent $p$, the key in $p$
 is smaller than or equal to the key in $x$.
-Figure 2 &lt;fig\_heapOrder&gt; also illustrates a complete binary tree
+Figure 2 also illustrates a complete binary tree
 that has the heap order property.
 
 ![Figure 2: A Complete Binary Tree, along with its List
@@ -73,7 +73,7 @@ appending is that we will very likely violate the heap structure
 property. However, it is possible to write a method that will allow us
 to regain the heap structure property by comparing the newly added item
 with its parent. If the newly added item is less than its parent, then
-we can swap the item with its parent. Figure 2 &lt;fig\_percUp&gt; shows
+we can swap the item with its parent. Figure 2 shows
 the series of swaps needed to percolate the newly added item up to its
 proper position in the tree.
 
@@ -125,7 +125,7 @@ Moving the last item maintains our heap structure property. However, we
 have probably destroyed the heap order property of our binary heap.
 Second, we will restore the heap order property by pushing the new root
 node down the tree to its proper position.
-Figure 3 &lt;fig\_percDown&gt; shows the series of swaps needed to move
+Figure 3 shows the series of swaps needed to move
 the new root node to its proper position in the heap.
 
 ![Figure 3: Percolating the Root Node down the
@@ -200,7 +200,7 @@ Listing 6 &lt;lst\_heap6&gt; shows the code to build the entire heap.
 ![Figure 4: Building a Heap from the List \[9, 6, 5, 2,
 3\]](Figures/buildheap.png)
 
-Figure 4 &lt;fig\_buildheap&gt; shows the swaps that the `buildHeap`
+Figure 4 shows the swaps that the `buildHeap`
 method makes as it moves the nodes in an initial tree of \[9, 6, 5, 2,
 3\] into their proper positions. Although we start out in the middle of
 the tree and work our way back toward the root, the `percDown` method
@@ -209,14 +209,14 @@ the heap is a complete binary tree, any nodes past the halfway point
 will be leaves and therefore have no children. Notice that when `i=1`,
 we are percolating down from the root of the tree, so this may require
 multiple swaps. As you can see in the rightmost two trees of
-Figure 4 &lt;fig\_buildheap&gt;, first the 9 is moved out of the root
+Figure 4, first the 9 is moved out of the root
 position, but after 9 is moved down one level in the tree, `percDown`
 ensures that we check the next set of children farther down in the tree
 to ensure that it is pushed as low as it can go. In this case it results
 in a second swap with 3. Now that 9 has been moved to the lowest level
 of the tree, no further swapping can be done. It is useful to compare
 the list representation of this series of swaps as shown in
-Figure 4 &lt;fig\_buildheap&gt; with the tree representation.
+Figure 4 with the tree representation.
 
     i = 2  [0, 9, 5, 6, 2, 3]
     i = 1  [0, 9, 2, 6, 5, 3]

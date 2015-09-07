@@ -4,7 +4,7 @@ Building the Knight’s Tour Graph
 To represent the knight’s tour problem as a graph we will use the
 following two ideas: Each square on the chessboard can be represented as
 a node in the graph. Each legal move by the knight can be represented as
-an edge in the graph. Figure 1 &lt;fig\_knightmoves&gt; illustrates the
+an edge in the graph. Figure 1 illustrates the
 legal moves by a knight and the corresponding edges in a graph.
 
 ![Figure 1: Legal Moves for a Knight on Square 12, and the Corresponding
@@ -18,7 +18,7 @@ create a list of legal moves for that position on the board. All legal
 moves are then converted into edges in the graph. Another helper
 function `posToNodeId` converts a location on the board in terms of a
 row and a column into a linear vertex number similar to the vertex
-numbers shown in Figure 1 &lt;fig\_knightmoves&gt;.
+numbers shown in Figure 1.
 
 **Listing 1**
 
@@ -66,7 +66,7 @@ that is generated is still on the board.
         else:
             return False
 
-Figure 2 &lt;fig\_bigknight&gt; shows the complete graph of possible
+Figure 2 shows the complete graph of possible
 moves on an eight-by-eight board. There are exactly 336 edges in the
 graph. Notice that the vertices corresponding to the edges of the board
 have fewer connections (legal moves) than the vertices in the middle of

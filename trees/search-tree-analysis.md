@@ -33,7 +33,7 @@ a new node.
 
 Unfortunately it is possible to construct a search tree that has height
 $n$ simply by inserting the keys in sorted order! An example of such a
-tree is shown in Figure 6 &lt;fig\_skewedtree\_analysis&gt;. In this
+tree is shown in Figure 6. In this
 case the performance of the `put` method is $O(n)$.
 
 ![Figure 6: A skewed binary search tree would give poor

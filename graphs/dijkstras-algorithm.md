@@ -30,7 +30,7 @@ in the graph.
     def dijkstra(aGraph,start):
         pq = PriorityQueue()
         start.setDistance(0)
-        pq.buildHeap([(v.getDistance(),v) for v in aGraph])        
+        pq.buildHeap([(v.getDistance(),v) for v in aGraph])
         while not pq.isEmpty():
             currentVert = pq.delMin()
             for nextVert in currentVert.getConnections():
@@ -66,7 +66,7 @@ all their direct costs. So we update the costs to each of these three
 nodes. We also set the predecessor for each node to $u$ and we add each
 node to the priority queue. We use the distance as the key for the
 priority queue. The state of the algorithm is shown in
-Figure 3 &lt;fig\_dija&gt;.
+Figure 3.
 
 In the next iteration of the `while` loop we examine the vertices that
 are adjacent to $x$. The vertex $x$ is next because it has the lowest
@@ -79,16 +79,16 @@ the case for $u$ or $v$ since their distances are 0 and 2 respectively.
 However, we now learn that the distance to $w$ is smaller if we go
 through $x$ than from $u$ directly to $w$. Since that is the case we
 update $w$ with a new distance and change the predecessor for $w$ from
-$u$ to $x$. See Figure 4 &lt;fig\_dijb&gt; for the state of all the
+$u$ to $x$. See Figure 4 for the state of all the
 vertices.
 
 The next step is to look at the vertices neighboring $v$ (see
-Figure 5 &lt;fig\_dijc&gt;). This step results in no changes to the
+Figure 5). This step results in no changes to the
 graph, so we move on to node $y$. At node $y$ (see
-Figure 6 &lt;fig\_dijd&gt;) we discover that it is cheaper to get to
+Figure 6) we discover that it is cheaper to get to
 both $w$ and $z$, so we adjust the distances and predecessor links
 accordingly. Finally we check nodes $w$ and $z$ (see see
-Figure 6 &lt;fig\_dije&gt; and see Figure 8 &lt;fig\_dijf&gt;). However,
+Figure 6). However,
 no additional changes are found and so the priority queue is empty and
 Dijkstra’s algorithm exits.
 

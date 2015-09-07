@@ -10,10 +10,10 @@ items, the shell sort uses an increment `i`, sometimes called the
 **gap**, to create a sublist by choosing all items that are `i` items
 apart.
 
-This can be seen in Figure 6 &lt;fig\_incrementsA&gt;. This list has
+This can be seen in Figure 6. This list has
 nine items. If we use an increment of three, there are three sublists,
 each of which can be sorted by an insertion sort. After completing these
-sorts, we get the list shown in Figure 7 &lt;fig\_incrementsB&gt;.
+sorts, we get the list shown in Figure 7.
 Although this list is not completely sorted, something very interesting
 has happened. By sorting the sublists, we have moved the items closer to
 where they actually belong.
@@ -24,7 +24,7 @@ Three](Figures/shellsortA.png)
 ![Figure 7: A Shell Sort after Sorting Each
 Sublist](Figures/shellsortB.png)
 
-Figure 8 &lt;fig\_incrementsC&gt; shows a final insertion sort using an
+Figure 8 shows a final insertion sort using an
 increment of one; in other words, a standard insertion sort. Note that
 by performing the earlier sublist sorts, we have now reduced the total
 number of shifting operations necessary to put the list in its final
@@ -41,7 +41,7 @@ unique feature of the shell sort. The function shown in
 ActiveCode 1 &lt;lst\_shell&gt; uses a different set of increments. In
 this case, we begin with $\frac {n}{2}$ sublists. On the next pass,
 $\frac {n}{4}$ sublists are sorted. Eventually, a single list is sorted
-with the basic insertion sort. Figure 9 &lt;fig\_incrementsD&gt; shows
+with the basic insertion sort. Figure 9 shows
 the first sublists for our example using this increment.
 
 The following invocation of the `shellSort` function shows the partially

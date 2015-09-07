@@ -46,7 +46,7 @@ we remain inside the `while` loop and look at the next vertex in
 **Listing 3**
 
     from pythonds.graphs import Graph, Vertex
-    def knightTour(n,path,u,limit): 
+    def knightTour(n,path,u,limit):
             u.setColor('gray')
             path.append(u)
             if n < limit:
@@ -56,7 +56,7 @@ we remain inside the `while` loop and look at the next vertex in
                 while i < len(nbrList) and not done:
                     if nbrList[i].getColor() == 'white':
                         done = knightTour(n+1, path, nbrList[i], limit)
-                    i = i + 1    
+                    i = i + 1
                 if not done:  # prepare to backtrack
                     path.pop()
                     u.setColor('white')
@@ -70,21 +70,21 @@ we will assume that the call to the `getConnections` method on line 6
 orders the nodes in alphabetical order. We begin by calling
 `knightTour(0,path,A,6)`
 
-`knightTour` starts with node A Figure 3 &lt;fig\_kta&gt;. The nodes
+`knightTour` starts with node A Figure 3. The nodes
 adjacent to A are B and D. Since B is before D alphabetically, DFS
-selects B to expand next as shown in Figure 4 &lt;fig\_ktb&gt;.
+selects B to expand next as shown in Figure 4.
 Exploring B happens when `knightTour` is called recursively. B is
 adjacent to C and D, so `knightTour` elects to explore C next. However,
-as you can see in Figure 5 &lt;fig\_ktc&gt; node C is a dead end with no
+as you can see in Figure 5 node C is a dead end with no
 adjacent white nodes. At this point we change the color of node C back
 to white. The call to `knightTour` returns a value of `False`. The
 return from the recursive call effectively backtracks the search to
-vertex B (see Figure 6 &lt;fig\_ktd&gt;). The next vertex on the list to
+vertex B (see Figure 6). The next vertex on the list to
 explore is vertex D, so `knightTour` makes a recursive call moving to
-node D (see Figure 7 &lt;fig\_kte&gt;). From vertex D on, `knightTour`
+node D (see Figure 7). From vertex D on, `knightTour`
 can continue to make recursive calls until we get to node C again (see
-Figure 8 &lt;fig\_ktf&gt;, Figure 9 &lt;fig\_ktg&gt;, and
-Figure 10 &lt;fig\_kth&gt;). However, this time when we get to node C
+Figure 8, and
+Figure 10). However, this time when we get to node C
 the test `n < limit` fails so we know that we have exhausted all the
 nodes in the graph. At this point we can return `True` to indicate that
 we have made a successful tour of the graph. When we return the list,
@@ -107,7 +107,7 @@ traverse the graph to visit each node exactly once.
 
 ![Figure 10: Finish](Figures/ktdfsh.png)
 
-Figure 11 &lt;fig\_tour&gt; shows you what a complete tour around an
+Figure 11 shows you what a complete tour around an
 eight-by-eight board looks like. There are many possible tours; some are
 symmetric. With some modification you can make circular tours that start
 and end at the same square.

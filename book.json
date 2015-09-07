@@ -3,7 +3,8 @@
     "readme": "introduction.md"
   },
   "plugins": [
-    "image-captions"
+    "image-captions",
+    "mathjax"
   ],
   "pluginsConfig": {
       "image-captions": {

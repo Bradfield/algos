@@ -10,7 +10,7 @@ After the second pass, the next largest is in place. This process
 continues and requires $n-1$ passes to sort *n* items, since the final
 item must be in place after the $(n-1)$ st pass.
 
-Figure 3 &lt;fig\_selectionsort&gt; shows the entire sorting process. On
+Figure 3 shows the entire sorting process. On
 each pass, the largest remaining item is selected and then placed in its
 proper location. The first pass places 93, the second pass places 77,
 the third places 55, and so on. The function is shown in

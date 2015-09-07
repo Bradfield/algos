@@ -9,7 +9,7 @@ expressions.
 
 ![Figure 1: A Parse Tree for a Simple Sentence](Figures/nlParse.png)
 
-Figure 1 &lt;fig\_nlparse&gt; shows the hierarchical structure of a
+Figure 1 shows the hierarchical structure of a
 simple sentence. Representing a sentence as a tree structure allows us
 to work with the individual parts of the sentence by using subtrees.
 
@@ -17,7 +17,7 @@ to work with the individual parts of the sentence by using subtrees.
 
 We can also represent a mathematical expression such as
 $((7 + 3) * (5 - 2))$ as a parse tree, as shown in
-Figure 2 &lt;fig\_meparse&gt;. We have already looked at fully
+Figure 2. We have already looked at fully
 parenthesized expressions, so what do we know about this expression? We
 know that multiplication has a higher precedence than either addition or
 subtraction. Because of the parentheses, we know that before we can do
@@ -30,7 +30,7 @@ evaluates to 10. The subtraction, which is the right subtree, evaluates
 to 3. Using the hierarchical structure of trees, we can simply replace
 an entire subtree with one node once we have evaluated the expressions
 in the children. Applying this replacement procedure gives us the
-simplified tree shown in Figure 3 &lt;fig\_mesimple&gt;.
+simplified tree shown in Figure 3.
 
 ![Figure 3: A Simplified Parse Tree for
 $((7+3)*(5-2))$](Figures/meSimple.png)
@@ -72,7 +72,7 @@ outlined above in action. We will use the expression $(3 + (4 * 5))$. We
 will parse this expression into the following list of character tokens
 `['(', '3', '+',` `'(', '4', '*', '5' ,')',')']`. Initially we will
 start out with a parse tree that consists of an empty root node.
-Figure 4 &lt;fig\_bldExpstep&gt; illustrates the structure and contents
+Figure 4 illustrates the structure and contents
 of the parse tree, as each new token is processed.
 
 ![](Figures/buildExp1.png)
@@ -91,7 +91,7 @@ of the parse tree, as each new token is processed.
 
 ![Figure 4: Tracing Parse Tree Construction](Figures/buildExp8.png)
 
-Using Figure 4 &lt;fig\_bldExpstep&gt;, let’s walk through the example
+Using Figure 4, let’s walk through the example
 step by step:
 
 a)  Create an empty tree.
@@ -144,8 +144,8 @@ Now that we have built a parse tree, what can we do with it? As a first
 example, we will write a function to evaluate the parse tree, returning
 the numerical result. To write this function, we will make use of the
 hierarchical nature of the tree. Look back at
-Figure 2 &lt;fig\_meparse&gt;. Recall that we can replace the original
-tree with the simplified tree shown in Figure 3 &lt;fig\_mesimple&gt;.
+Figure 2. Recall that we can replace the original
+tree with the simplified tree shown in Figure 3.
 This suggests that we can write an algorithm that evaluates a parse tree
 by recursively evaluating each subtree.
 
@@ -163,7 +163,7 @@ effectively moves us down the tree, toward a leaf node.
 To put the results of the two recursive calls together, we can simply
 apply the operator stored in the parent node to the results returned
 from evaluating both children. In the example from
-Figure 3 &lt;fig\_mesimple&gt; we see that the two children of the root
+Figure 3 we see that the two children of the root
 evaluate to themselves, namely 10 and 3. Applying the multiplication
 operator gives us a final result of 30.
 
@@ -187,7 +187,7 @@ in the usual way `function(param1,param2)`. So the lookup
 **Listing 1**
 
 Finally, we will trace the `evaluate` function on the parse tree we
-created in Figure 4 &lt;fig\_bldExpstep&gt;. When we first call
+created in Figure 4. When we first call
 `evaluate`, we pass the root of the entire tree as the parameter
 `parseTree`. Then we obtain references to the left and right children to
 make sure they exist. The recursive call takes place on line 9. We begin

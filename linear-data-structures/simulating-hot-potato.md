@@ -4,7 +4,7 @@ Simulating Hot Potato
 One of the typical applications for showing a queue in action is to
 simulate a real situation that requires data to be managed in a FIFO
 manner. To begin, let’s consider the children’s game Hot Potato. In this
-game (see Figure 2 &lt;fig\_quhotpotato&gt;) children line up in a
+game (see Figure 2) children line up in a
 circle and pass an item from neighbor to neighbor as fast as they can.
 At a certain point in the game, the action is stopped and the child who
 has the item (the potato) is removed from the circle. Play continues
@@ -32,7 +32,7 @@ counting. It will return the name of the last person remaining after
 repetitive counting by `num`. What happens at that point is up to you.
 
 To simulate the circle, we will use a queue (see
-Figure 3 &lt;fig\_qupotatoqueue&gt;). Assume that the child holding the
+Figure 3). Assume that the child holding the
 potato will be at the front of the queue. Upon passing the potato, the
 simulation will simply dequeue and then immediately enqueue that child,
 putting her at the end of the line. She will then wait until all the

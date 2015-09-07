@@ -13,7 +13,7 @@ character to the rear of the deque. At this point, the deque will be
 acting very much like an ordinary queue. However, we can now make use of
 the dual functionality of the deque. The front of the deque will hold
 the first character of the string and the rear of the deque will hold
-the last character (see Figure 2 &lt;fig\_palindrome&gt;).
+the last character (see Figure 2).
 
 ![Figure 2: A Deque](Figures/palindromesetup.png)
 

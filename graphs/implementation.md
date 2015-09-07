@@ -41,7 +41,7 @@ parameter.
             return self.connectedTo[nbr]
 
 The `Graph` class, shown in the next listing, contains a dictionary that
-maps vertex names to vertex objects. In Figure 4 &lt;fig\_adjlist&gt;
+maps vertex names to vertex objects. In Figure 4
 this dictionary object is represented by the shaded gray box. `Graph`
 also provides methods for adding vertices to a graph and connecting one
 vertex to another. The `getVertices` method returns the names of all of
@@ -86,23 +86,23 @@ over the vertices in a graph by name, or by the objects themselves.
             return iter(self.vertList.values())
 
 Using the `Graph` and `Vertex` classes just defined, the following
-Python session creates the graph in Figure 2 &lt;fig\_dgsimple&gt;.
+Python session creates the graph in Figure 2.
 First we create six vertices numbered 0 through 5. Then we display the
 vertex dictionary. Notice that for each key 0 through 5 we have created
 an instance of a `Vertex`. Next, we add the edges that connect the
 vertices together. Finally, a nested loop verifies that each edge in the
 graph is properly stored. You should check the output of the edge list
-at the end of this session against Figure 2 &lt;fig\_dgsimple&gt;.
+at the end of this session against Figure 2.
 
     >>> g = Graph()
     >>> for i in range(6):
     ...    g.addVertex(i)
     >>> g.vertList
-    {0: <adjGraph.Vertex instance at 0x41e18>, 
-     1: <adjGraph.Vertex instance at 0x7f2b0>, 
-     2: <adjGraph.Vertex instance at 0x7f288>, 
-     3: <adjGraph.Vertex instance at 0x7f350>, 
-     4: <adjGraph.Vertex instance at 0x7f328>, 
+    {0: <adjGraph.Vertex instance at 0x41e18>,
+     1: <adjGraph.Vertex instance at 0x7f2b0>,
+     2: <adjGraph.Vertex instance at 0x7f288>,
+     3: <adjGraph.Vertex instance at 0x7f350>,
+     4: <adjGraph.Vertex instance at 0x7f328>,
      5: <adjGraph.Vertex instance at 0x7f300>}
     >>> g.addEdge(0,1,5)
     >>> g.addEdge(0,5,2)
@@ -114,9 +114,9 @@ at the end of this session against Figure 2 &lt;fig\_dgsimple&gt;.
     >>> g.addEdge(5,4,8)
     >>> g.addEdge(5,2,1)
     >>> for v in g:
-    ...    for w in v.getConnections(): 
+    ...    for w in v.getConnections():
     ...        print("( %s , %s )" % (v.getId(), w.getId()))
-    ... 
+    ...
     ( 0 , 5 )
     ( 0 , 1 )
     ( 1 , 2 )

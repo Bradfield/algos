@@ -6,7 +6,7 @@ the parent are found in the left subtree, and keys that are greater than
 the parent are found in the right subtree. We will call this the **bst
 property**. As we implement the Map interface as described above, the
 bst property will guide our implementation.
-Figure 1 &lt;fig\_simpleBST&gt; illustrates this property of a binary
+Figure 1 illustrates this property of a binary
 search tree, showing the keys without any associated values. Notice that
 the property holds for each parent and child. All of the keys in the
 left subtree are less than the key in the root. All of the keys in the
@@ -16,7 +16,7 @@ right subtree are greater than the root.
 
 Now that you know what a binary search tree is, we will look at how a
 binary search tree is constructed. The search tree in
-Figure 1 &lt;fig\_simpleBST&gt; represents the nodes that exist after we
+Figure 1 represents the nodes that exist after we
 have inserted the following keys in the order shown:
 $70,31,93,94,14,23,73$. Since 70 was the first key inserted into the
 tree, it is the root. Next, 31 is less than 70, so it becomes the left
@@ -190,7 +190,7 @@ Python dictionary.
     def __setitem__(self,k,v):
         self.put(k,v)
 
-Figure 2 &lt;fig\_bstput&gt; illustrates the process for inserting a new
+Figure 2 illustrates the process for inserting a new
 node into a binary search tree. The lightly shaded nodes indicate the
 nodes that were visited during the insertion process.
 
@@ -294,11 +294,11 @@ Once we’ve found the node containing the key we want to delete, there
 are three cases that we must consider:
 
 1.  The node to be deleted has no children
-    (see Figure 3 &lt;fig\_bstdel1&gt;).
+    (see Figure 3).
 2.  The node to be deleted has only one child
-    (see Figure 4 &lt;fig\_bstdel2&gt;).
+    (see Figure 4).
 3.  The node to be deleted has two children
-    (see Figure 5 &lt;fig\_bstdel3&gt;).
+    (see Figure 5).
 
 The first case is straightforward (see Listing 8 &lt;lst\_bst8&gt;). If
 the current node has no children all we need to do is delete the node

@@ -9,7 +9,7 @@ index values are ordered, it is possible for us to visit them in
 sequence. This process gives rise to our first searching technique, the
 **sequential search**.
 
-Figure 1 &lt;fig\_seqsearch&gt; shows how this search works. Starting at
+Figure 1 shows how this search works. Starting at
 the first item in the list, we simply move from item to item, following
 the underlying sequential ordering until we either find what we are
 looking for or run out of items. If we run out of items, we have
@@ -64,7 +64,7 @@ ascending order, from low to high. If the item we are looking for is
 present in the list, the chance of it being in any one of the *n*
 positions is still the same as before. We will still have the same
 number of comparisons to find the item. However, if the item is not
-present there is a slight advantage. Figure 2 &lt;fig\_seqsearch2&gt;
+present there is a slight advantage. Figure 2
 shows this process as the algorithm looks for the item 50. Notice that
 items are still compared in sequence until 54. At this point, however,
 we know something extra. Not only is 54 not the item we are looking for,

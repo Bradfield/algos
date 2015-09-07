@@ -118,14 +118,14 @@ matching left parenthesis, giving us B C \*, we would in effect have
 converted the subexpression to postfix notation. If the addition
 operator were also moved to its corresponding right parenthesis position
 and the matching left parenthesis were removed, the complete postfix
-expression would result (see Figure 6 &lt;fig\_moveright&gt;).
+expression would result (see Figure 6).
 
 ![Figure 6: Moving Operators to the Right for Postfix
 Notation](Figures/moveright.png)
 
 If we do the same thing but instead of moving the symbol to the position
 of the right parenthesis, we move it to the left, we get prefix notation
-(see Figure 7 &lt;fig\_moveleft&gt;). The position of the parenthesis
+(see Figure 7). The position of the parenthesis
 pair is actually a clue to the final position of the enclosed operator.
 
 ![Figure 7: Moving Operators to the Left for Prefix
@@ -138,7 +138,7 @@ either the left or the right parenthesis depending on whether you want
 prefix or postfix notation.
 
 Here is a more complex expression: (A + B) \* C - (D - E) \* (F + G).
-Figure 8 &lt;fig\_complexmove&gt; shows the conversion to postfix and
+Figure 8 shows the conversion to postfix and
 prefix notations.
 
 ![Figure 8: Converting a Complex Expression to Prefix and Postfix
@@ -216,7 +216,7 @@ string of tokens in postfix order.
     `opstack`. Any operators still on the stack can be removed and
     appended to the end of the output list.
 
-Figure 9 &lt;fig\_intopost&gt; shows the conversion algorithm working on
+Figure 9 shows the conversion algorithm working on
 the expression A \* B + C \* D. Note that the first \* operator is
 removed upon seeing the + operator. Also, + stays on the stack when the
 second \* occurs, since multiplication has precedence over addition. At
@@ -277,12 +277,12 @@ We can now handle this result by placing it back on the stack so that it
 can be used as an operand for the later operators in the expression.
 When the final operator is processed, there will be only one value left
 on the stack. Pop and return it as the result of the expression.
-Figure 10 &lt;fig\_evalpost1&gt; shows the stack contents as this entire
+Figure 10 shows the stack contents as this entire
 example expression is being processed.
 
 ![Figure 10: Stack Contents During Evaluation](Figures/evalpostfix1.png)
 
-Figure 11 &lt;fig\_evalpost2&gt; shows a slightly more complex example,
+Figure 11 shows a slightly more complex example,
 7 8 + 3 2 + /. There are two things to note in this example. First, the
 stack size grows, shrinks, and then grows again as the subexpressions
 are evaluated. Second, the division operation needs to be handled

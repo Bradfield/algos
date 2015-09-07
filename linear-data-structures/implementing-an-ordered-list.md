@@ -5,7 +5,7 @@ In order to implement the ordered list, we must remember that the
 relative positions of the items are based on some underlying
 characteristic. The ordered list of integers given above (17, 26, 31,
 54, 77, and 93) can be represented by a linked structure as shown in
-Figure 15 &lt;fig\_orderlinked&gt;. Again, the node and link structure
+Figure 15. Again, the node and link structure
 is ideal for representing the relative positioning of the items.
 
 ![Figure 15: An Ordered Linked List](Figures/orderlinkedlist.png)
@@ -37,7 +37,7 @@ find the item it is exactly what we need. However, in the case where the
 item is not in the list, we can take advantage of the ordering to stop
 the search as soon as possible.
 
-For example, Figure 16 &lt;fig\_stopearly&gt; shows the ordered linked
+For example, Figure 16 shows the ordered linked
 list as a search is looking for the value 45. As we traverse, starting
 at the head of the list, we first compare against 17. Since 17 is not
 the item we are looking for, we move to the next node, in this case 26.
@@ -87,7 +87,7 @@ in the existing ordered list.
 
 Assume we have the ordered list consisting of 17, 26, 54, 77, and 93 and
 we want to add the value 31. The `add` method must decide that the new
-item belongs between 26 and 54. Figure 17 &lt;fig\_orderinsert&gt; shows
+item belongs between 26 and 54. Figure 17 shows
 the setup that we need. As we explained earlier, we need to traverse the
 linked list looking for the place where the new node will be added. We
 know we have found that place when either we run out of nodes (`current`
@@ -110,7 +110,7 @@ larger than the item. In either case, when the iteration fails, we have
 found the location for the new node.
 
 The remainder of the method completes the two-step process shown in
-Figure 17 &lt;fig\_orderinsert&gt;. Once a new node has been created for
+Figure 17. Once a new node has been created for
 the item, the only remaining question is whether the new node will be
 added at the beginning of the linked list or some place in the middle.
 Again, `previous == None` (line 13) can be used to provide the answer.

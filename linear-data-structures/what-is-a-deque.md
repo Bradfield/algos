@@ -8,7 +8,7 @@ deque different is the unrestrictive nature of adding and removing
 items. New items can be added at either the front or the rear. Likewise,
 existing items can be removed from either end. In a sense, this hybrid
 linear structure provides all the capabilities of stacks and queues in a
-single data structure. Figure 1 &lt;fig\_basicdeque&gt; shows a deque of
+single data structure. Figure 1 shows a deque of
 Python data objects.
 
 It is important to note that even though the deque can assume many of

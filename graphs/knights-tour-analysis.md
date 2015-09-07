@@ -12,14 +12,14 @@ have to wait up to a half hour to get the results! The reason for this
 is that the knight’s tour problem as we have implemented it so far is an
 exponential algorithm of size $O(k^N)$, where N is the number of squares
 on the chess board, and k is a small constant.
-Figure 12 &lt;fig\_8array&gt; can help us visualize why this is so. The
+Figure 12 can help us visualize why this is so. The
 root of the tree represents the starting point of the search. From there
 the algorithm generates and checks each of the possible moves the knight
 can make. As we have noted before the number of moves possible depends
 on the position of the knight on the board. In the corners there are
 only two legal moves, on the squares adjacent to the corners there are
 three and in the middle of the board there are eight.
-Figure 13 &lt;fig\_numMoves&gt; shows the number of moves possible for
+Figure 13 shows the number of moves possible for
 each position on a board. At the next level of the tree there are once
 again between 2 and 8 possible next moves from the position we are
 currently exploring. The number of possible positions to examine
@@ -89,4 +89,4 @@ algorithm, named after H. C. Warnsdorff who published his idea in 1823.
                         c = c + 1
                 resList.append((c,v))
         resList.sort(key=lambda x: x[0])
-        return [y[1] for y in resList]   
+        return [y[1] for y in resList]

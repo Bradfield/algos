@@ -3,7 +3,7 @@ Sierpinski Triangle
 
 Another fractal that exhibits the property of self-similarity is the
 Sierpinski triangle. An example is shown in
-Figure 3 &lt;fig\_sierpinski&gt;. The Sierpinski triangle illustrates a
+Figure 3. The Sierpinski triangle illustrates a
 three-way recursive algorithm. The procedure for drawing a Sierpinski
 triangle by hand is simple. Start with a single large triangle. Divide
 this large triangle into four new triangles by connecting the midpoint
@@ -23,7 +23,7 @@ number of times we want to divide the triangle into pieces. Sometimes we
 call this number the “degree” of the fractal. Each time we make a
 recursive call, we subtract 1 from the degree until we reach 0. When we
 reach a degree of 0, we stop making recursive calls. The code that
-generated the Sierpinski Triangle in Figure 3 &lt;fig\_sierpinski&gt; is
+generated the Sierpinski Triangle in Figure 3 is
 shown in ActiveCode 1 &lt;lst\_st&gt;.
 
 The program in ActiveCode 1 &lt;lst\_st&gt; follows the ideas outlined
@@ -46,11 +46,11 @@ Finally, it fills in the lower-right corner, working its way toward the
 smallest triangle in the lower right.
 
 Sometimes it is helpful to think of a recursive algorithm in terms of a
-diagram of function calls. Figure 4 &lt;fig\_stcalltree&gt; shows that
+diagram of function calls. Figure 4 shows that
 the recursive calls are always made going to the left. The active
 functions are outlined in black, and the inactive function calls are in
 gray. The farther you go toward the bottom of
-Figure 4 &lt;fig\_stcalltree&gt;, the smaller the triangles. The
+Figure 4, the smaller the triangles. The
 function finishes drawing one level at a time; once it is finished with
 the bottom left it moves to the bottom middle, and so on.
 

@@ -40,7 +40,7 @@ dictionary.
 
 **Listing 6**
 
-Figure 4 &lt;fig\_listvdict&gt; summarizes the results of running
+Figure 4 summarizes the results of running
 Listing 6 &lt;lst\_listvdict&gt;. You can see that the dictionary is
 consistently faster. For the smallest list size of 10,000 elements a
 dictionary is 89.4 times faster than a list. For the largest list size

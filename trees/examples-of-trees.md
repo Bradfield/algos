@@ -5,7 +5,7 @@ Tree data structures have many things in common with their botanical cousins. Bo
 
 Before we begin our study of tree data structures, let’s look at a few
 common examples. Our first example of a tree is a classification tree
-from biology. Figure 1 &lt;fig\_biotree&gt; shows an example of the
+from biology. Figure 1 shows an example of the
 biological classification of some animals. From this simple example, we
 can learn about several properties of trees. The first property this
 example demonstrates is that trees are hierarchical. By hierarchical, we
@@ -39,13 +39,13 @@ that is the child of Musca without affecting the child of Felis.
 
 A third property is that each leaf node is unique. We can specify a path
 from the root of the tree to a leaf that uniquely identifies each
-species in the animal kingdom; for example, Animalia $\rightarrow$
-Chordate $\rightarrow$ Mammal $\rightarrow$ Carnivora $\rightarrow$
-Felidae $\rightarrow$ Felis $\rightarrow$ Domestica.
+species in the animal kingdom; for example, Animalia $$\rightarrow$$
+Chordate $$\rightarrow$$ Mammal $$\rightarrow$$ Carnivora $$\rightarrow$$
+Felidae $$\rightarrow$$ Felis $$\rightarrow$$ Domestica.
 
 Another example of a tree structure that you probably use every day is a
 file system. In a file system, directories, or folders, are structured
-as a tree. Figure 2 &lt;fig\_filetree&gt; illustrates a small part of a
+as a tree. Figure 2 illustrates a small part of a
 Unix file system hierarchy.
 
 ![Figure 2: A Small Part of the Unix File System
@@ -64,7 +64,7 @@ from /etc/httpd to /usr/etc/httpd, but would not affect the contents or
 any children of the httpd directory.
 
 A final example of a tree is a web page. The following is an example of
-a simple web page written using HTML. Figure 3 &lt;fig\_html&gt; shows
+a simple web page written using HTML. Figure 3 shows
 the tree that corresponds to each of the HTML tags used to create the
 page.
 

@@ -27,7 +27,7 @@ to another.
 As a student of computer science you may wonder about the courses you
 must take in order to get a major. A graph is good way to represent the
 prerequisites and other interdependencies among courses.
-Figure 1 &lt;fig1&gt; shows another graph. This one represents the
+Figure 1 shows another graph. This one represents the
 courses and the order in which they must be taken to complete a major in
 computer science at Luther College.
 

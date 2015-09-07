@@ -20,7 +20,7 @@ line (so that we can pop the tray stack). Well-behaved lines, or queues,
 are very restrictive in that they have only one way in and only one way
 out. There is no jumping in the middle and no leaving before you have
 waited the necessary amount of time to get to the front.
-Figure 1 &lt;fig\_qubasicqueue&gt; shows a simple queue of Python data
+Figure 1 shows a simple queue of Python data
 objects.
 
 ![Figure 1: A Queue of Python Data Objects](Figures/basicqueue.png)

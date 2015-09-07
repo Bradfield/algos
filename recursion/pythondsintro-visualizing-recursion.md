@@ -96,10 +96,10 @@ simultaneously? Will it be drawn right side first then left side?
 
 Notice how each branch point on the tree corresponds to a recursive
 call, and notice how the tree is drawn to the right all the way down to
-its shortest twig. You can see this in Figure 1 &lt;fig\_tree1&gt;. Now,
+its shortest twig. You can see this in Figure 1. Now,
 notice how the program works its way back up the trunk until the entire
 right side of the tree is drawn. You can see the right half of the tree
-in Figure 2 &lt;fig\_tree2&gt;. Then the left side of the tree is drawn,
+in Figure 2. Then the left side of the tree is drawn,
 but not by going as far out to the left as possible. Rather, once again
 the entire right side of the left tree is drawn until we finally make
 our way out to the smallest twig on the left.

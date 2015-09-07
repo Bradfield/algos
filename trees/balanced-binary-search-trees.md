@@ -27,7 +27,7 @@ purposes of implementing an AVL tree, and gaining the benefit of having
 a balanced tree we will define a tree to be in balance if the balance
 factor is -1, 0, or 1. Once the balance factor of a node in a tree is
 outside this range we will need to have a procedure to bring the tree
-back into balance. Figure 1 &lt;fig\_unbal&gt; shows an example of an
+back into balance. Figure 1 shows an example of an
 unbalanced, right-heavy tree and the balance factors of each node.
 
 ![Figure 1: An Unbalanced Right-Heavy Tree with Balance

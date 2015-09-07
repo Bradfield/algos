@@ -6,10 +6,10 @@ commonly known as a **linked list**. Recall that we need to be sure that
 we can maintain the relative positioning of the items. However, there is
 no requirement that we maintain that positioning in contiguous memory.
 For example, consider the collection of items shown in
-Figure 1 &lt;fig\_idea&gt;. It appears that these values have been
+Figure 1. It appears that these values have been
 placed randomly. If we can maintain some explicit information in each
 item, namely the location of the next item (see
-Figure 2 &lt;fig\_idea2&gt;), then the relative position of each item
+Figure 2), then the relative position of each item
 can be expressed by simply following the link from one item to the next.
 
 ![Figure 1: Items Not Constrained in Their Physical
@@ -34,9 +34,9 @@ First, the node must contain the list item itself. We will call this the
 to the next node. Listing 1 &lt;lst\_nodeclass&gt; shows the Python
 implementation. To construct a node, you need to supply the initial data
 value for the node. Evaluating the assignment statement below will yield
-a node object containing the value 93 (see Figure 3 &lt;fig\_node&gt;).
+a node object containing the value 93 (see Figure 3).
 You should note that we will typically represent a node object as shown
-in Figure 4 &lt;fig\_node2&gt;. The `Node` class also includes the usual
+in Figure 4. The `Node` class also includes the usual
 methods to access and modify the data and the next reference.
 
 **Listing 1**
@@ -81,11 +81,11 @@ statement
     >>> mylist = UnorderedList()
 
 creates the linked list representation shown in
-Figure 5 &lt;fig\_initlinkedlist&gt;. As we discussed in the `Node`
+Figure 5. As we discussed in the `Node`
 class, the special reference `None` will again be used to state that the
 head of the list does not refer to anything. Eventually, the example
 list given earlier will be represented by a linked list as shown in
-Figure 6 &lt;fig\_linkedlist&gt;. The head of the list refers to the
+Figure 6. The head of the list refers to the
 first node which contains the first item of the list. In turn, that node
 holds a reference to the next node (the next item) and so on. It is very
 important to note that the list class itself does not contain any node
@@ -127,7 +127,7 @@ beginning, of the list. In other words, we will make the new item the
 first item of the list and the existing items will need to be linked to
 this new first item so that they follow.
 
-The linked list shown in Figure 6 &lt;fig\_linkedlist&gt; was built by
+The linked list shown in Figure 6 was built by
 calling the `add` method a number of times.
 
     >>> mylist.add(31)
@@ -146,7 +146,7 @@ The `add` method is shown in Listing 4 &lt;lst\_add&gt;. Each item of
 the list must reside in a node object. Line 2 creates a new node and
 places the item as its data. Now we must complete the process by linking
 the new node into the existing structure. This requires two steps as
-shown in Figure 7 &lt;fig\_addtohead&gt;. Step 1 (line 3) changes the
+shown in Figure 7. Step 1 (line 3) changes the
 `next` reference of the new node to refer to the old first node of the
 list. Now that the rest of the list has been properly attached to the
 new node, we can modify the head of the list to refer to the new node.
@@ -155,7 +155,7 @@ The assignment statement in line 4 sets the head of the list.
 The order of the two steps described above is very important. What
 happens if the order of line 3 and line 4 is reversed? If the
 modification of the head of the list happens first, the result can be
-seen in Figure 8 &lt;fig\_wrongorder&gt;. Since the head was the only
+seen in Figure 8. Since the head was the only
 external reference to the list nodes, all of the original nodes are lost
 and can no longer be accessed.
 
@@ -190,7 +190,7 @@ has not seen the end of the list (`None`), we move current along to the
 next node via the assignment statement in line 6. Again, the ability to
 compare a reference to `None` is very useful. Every time current moves
 to a new node, we add $1$ to `count`. Finally, `count` gets returned
-after the iteration stops. Figure 9 &lt;fig\_traversal&gt; shows this
+after the iteration stops. Figure 9 shows this
 process as it proceeds down the list.
 
 **Listing 5**
@@ -253,7 +253,7 @@ item 17.
 Since 17 is in the list, the traversal process needs to move only to the
 node containing 17. At that point, the variable `found` is set to `True`
 and the `while` condition will fail, leading to the return value seen
-above. This process can be seen in Figure 10 &lt;fig\_searchpic&gt;.
+above. This process can be seen in Figure 10.
 
 ![Figure 10: Successful Search for the Value 17](Figures/search.png)
 
@@ -296,7 +296,7 @@ starts out at the list head as in the other traversal examples.
 `previous`, however, is assumed to always travel one node behind
 current. For this reason, `previous` starts out with a value of `None`
 since there is no node before the head (see
-Figure 11 &lt;fig\_removeinit&gt;). The boolean variable `found` will
+Figure 11). The boolean variable `found` will
 again be used to control the iteration.
 
 In lines 6–7 we ask whether the item stored in the current node is the
@@ -306,7 +306,7 @@ ahead. Again, the order of these two statements is crucial. `previous`
 must first be moved one node ahead to the location of `current`. At that
 point, `current` can be moved. This process is often referred to as
 “inch-worming” as `previous` must catch up to `current` before `current`
-moves ahead. Figure 12 &lt;fig\_prevcurr&gt; shows the movement of
+moves ahead. Figure 12 shows the movement of
 `previous` and `current` as they progress down the list looking for the
 node containing the value 17.
 
@@ -335,7 +335,7 @@ References](Figures/removeinit.png)
 List](Figures/prevcurr.png)
 
 Once the searching step of the `remove` has been completed, we need to
-remove the node from the linked list. Figure 13 &lt;fig\_removepic1&gt;
+remove the node from the linked list. Figure 13
 shows the link that must be modified. However, there is a special case
 that needs to be addressed. If the item to be removed happens to be the
 first item in the list, then `current` will reference the first node in
@@ -343,7 +343,7 @@ the linked list. This also means that `previous` will be `None`. We said
 earlier that `previous` would be referring to the node whose next
 reference needs to be modified in order to complete the remove. In this
 case, it is not `previous` but rather the head of the list that needs to
-be changed (see Figure 14 &lt;fig\_removehead&gt;).
+be changed (see Figure 14).
 
 ![Figure 13: Removing an Item from the Middle of the
 List](Figures/remove.png)

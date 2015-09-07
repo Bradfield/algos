@@ -9,13 +9,13 @@ pancakes you must heat the griddle, mix all the ingredients together and
 spoon the mix onto a hot griddle. When the pancakes start to bubble you
 turn them over and let them cook until they are golden brown on the
 bottom. Before you eat your pancakes you are going to want to heat up
-some syrup. Figure 27 &lt;fig\_pancakes&gt; illustrates this process as
+some syrup. Figure 27 illustrates this process as
 a graph.
 
 ![Figure 27: The Steps for Making Pancakes](Figures/pancakes.png)
 
 The difficult thing about making pancakes is knowing what to do first.
-As you can see from Figure 27 &lt;fig\_pancakes&gt; you might start by
+As you can see from Figure 27 you might start by
 heating the griddle or by adding any of the ingredients to the pancake
 mix. To help us decide the precise order in which we should do each of
 the steps required to make our pancakes we turn to a graph algorithm
@@ -38,14 +38,14 @@ search. The algorithm for the topological sort is as follows:
 2.  Store the vertices in a list in decreasing order of finish time.
 3.  Return the ordered list as the result of the topological sort.
 
-Figure 28 &lt;fig\_pancakesDFS&gt; shows the depth first forest
+Figure 28 shows the depth first forest
 constructed by `dfs` on the pancake-making graph shown in
-Figure 26 &lt;fig\_pancakes&gt;.
+Figure 26.
 
 ![Figure 28: Result of Depth First Search on the Pancake
 Graph](Figures/pancakesDFS.png)
 
-Finally, Figure 29 &lt;fig\_pancakesTS&gt; shows the results of applying
+Finally, Figure 29 shows the results of applying
 the topological sort algorithm to our graph. Now all the ambiguity has
 been removed and we know exactly the order in which to perform the
 pancake making steps.

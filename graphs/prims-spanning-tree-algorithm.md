@@ -8,7 +8,7 @@ everyone who may be listening. This is important in gaming so that all
 the players know the very latest position of every other player. This is
 important for Internet radio so that all the listeners that are tuned in
 are getting all the data they need to reconstruct the song they are
-listening to. Figure 9 &lt;fig\_bcast1&gt; illustrates the broadcast
+listening to. Figure 9 illustrates the broadcast
 problem.
 
 ![Figure 9: The Broadcast Problem](Figures/bcast1.png)
@@ -19,7 +19,7 @@ also help you appreciate the solution that we will propose when we are
 done. To begin, the broadcast host has some information that the
 listeners all need to receive. The simplest solution is for the
 broadcasting host to keep a list of all of the listeners and send
-individual messages to each. In Figure 9 &lt;fig\_bcast1&gt; we show a
+individual messages to each. In Figure 9 we show a
 small network with a broadcaster and some listeners. Using this first
 approach, four copies of every message would be sent. Assuming that the
 least cost path is used, let’s see how many times each router would
@@ -52,7 +52,7 @@ $T$ for a graph $G = (V,E)$ as follows. $T$ is an acyclic subset of $E$
 that connects all the vertices in $V$. The sum of the weights of the
 edges in T is minimized.
 
-Figure 10 &lt;fig\_mst1&gt; shows a simplified version of the broadcast
+Figure 10 shows a simplified version of the broadcast
 graph and highlights the edges that form a minimum spanning tree for the
 graph. Now to solve our broadcast problem, the broadcast host simply
 sends a single copy of the broadcast message into the network. Each
@@ -109,8 +109,8 @@ vertex to add to the growing graph.
                   nextVert.setDistance(newCost)
                   pq.decreaseKey(nextVert,newCost)
 
-The following sequence of figures (Figure 11 &lt;fig\_mst1&gt; through
-Figure 17 &lt;fig\_mst1&gt;) shows the algorithm in operation on our
+The following sequence of figures (Figure 11 through
+Figure 17) shows the algorithm in operation on our
 sample tree. We begin with the starting vertex as A. The distances to
 all the other vertices are initialized to infinity. Looking at the
 neighbors of A we can update distances to two of the additional vertices

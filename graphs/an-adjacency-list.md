@@ -7,9 +7,9 @@ master list of all the vertices in the Graph object and then each vertex
 object in the graph maintains a list of the other vertices that it is
 connected to. In our implementation of the `Vertex` class we will use a
 dictionary rather than a list where the dictionary keys are the
-vertices, and the values are the weights. Figure 4 &lt;fig\_adjlist&gt;
+vertices, and the values are the weights. Figure 4
 illustrates the adjacency list representation for the graph in
-Figure 2 &lt;fig\_dgsimple&gt;.
+Figure 2.
 
 ![Figure 4: An Adjacency List Representation of a
 Graph](Figures/adjlist.png)

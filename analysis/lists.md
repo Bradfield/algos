@@ -193,7 +193,7 @@ Listing 5 &lt;lst\_poplists&gt; implements this test.
         pz = popzero.timeit(number=1000)
         print("%15.5f, %15.5f" %(pz,pt))
 
-Figure 3 &lt;fig\_poptest&gt; shows the results of our experiment. You
+Figure 3 shows the results of our experiment. You
 can see that as the list gets longer and longer the time it takes to
 `pop(0)` also increases while the time for `pop` stays very flat. This
 is exactly what we would expect to see for a $O(n)$ and $O(1)$

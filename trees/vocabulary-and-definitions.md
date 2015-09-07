@@ -27,8 +27,8 @@ The root of the tree is the only node in the tree that has no
 ### Path
 
 A path is an ordered list of nodes that are connected by edges. For
-    example, Mammal $\rightarrow$ Carnivora $\rightarrow$ Felidae
-    $\rightarrow$ Felis $\rightarrow$ Domestica is a path.
+    example, Mammal $$\rightarrow$$ Carnivora $$\rightarrow$$ Felidae
+    $$\rightarrow$$ Felis $$\rightarrow$$ Domestica is a path.
 
 ### Children
 

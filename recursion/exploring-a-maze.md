@@ -12,7 +12,7 @@ the minotaur. Theseus used a ball of thread to help him find his way
 back out again once he had finished off the beast. In our problem we
 will assume that our turtle is dropped down somewhere into the middle of
 the maze and must find its way out. Look at
-Figure 2 &lt;fig\_mazescreen&gt; to get an idea of where we are going in
+Figure 2 to get an idea of where we are going in
 this section.
 
 ![Figure 2: The Finished Maze Search Program](Figures/maze.png)
@@ -147,11 +147,11 @@ Listing 5 &lt;lst\_maze1&gt;, and Listing 6 &lt;lst\_maze2&gt;. The
 `__init__` method takes the name of a file as its only parameter. This
 file is a text file that represents a maze by using “+” characters for
 walls, spaces for open squares, and the letter “S” to indicate the
-starting position. Figure 3 &lt;fig\_exmaze&gt; is an example of a maze
+starting position. Figure 3 is an example of a maze
 data file. The internal representation of the maze is a list of lists.
 Each row of the `mazelist` instance variable is also a list. This
 secondary list contains one character per square using the characters
-described above. For the data file in Figure 3 &lt;fig\_exmaze&gt; the
+described above. For the data file in Figure 3 the
 internal representation looks like the following:
 
     [ ['+','+','+','+',...,'+','+','+','+','+','+','+'],

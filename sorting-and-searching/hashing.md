@@ -22,7 +22,7 @@ value starting at 0. For example, we will have a slot named 0, a slot
 named 1, a slot named 2, and so on. Initially, the hash table contains
 no items so every slot is empty. We can implement a hash table by using
 a list with each element initialized to the special Python value `None`.
-Figure 4 &lt;fig\_hashtable1&gt; shows a hash table of size $m=11$. In
+Figure 4 shows a hash table of size $m=11$. In
 other words, there are *m* slots in the table, named 0 through 10.
 
 ![Figure 4: Hash Table with 11 Empty Slots](Figures/hashtable.png)
@@ -41,7 +41,7 @@ functions, since the result must be in the range of slot names.
 
 Once the hash values have been computed, we can insert each item into
 the hash table at the designated position as shown in
-Figure 5 &lt;fig\_hashtable2&gt;. Note that 6 of the 11 slots are now
+Figure 5. Note that 6 of the 11 slots are now
 occupied. This is referred to as the **load factor**, and is commonly
 denoted by $\lambda = \frac {numberofitems}{tablesize}$. For this
 example, $\lambda = \frac {6}{11}$.
@@ -126,7 +126,7 @@ values.
 
 We can then take these three ordinal values, add them up, and use the
 remainder method to get a hash value (see
-Figure 6 &lt;fig\_stringhash&gt;). Listing 1 &lt;lst\_hashfunction1&gt;
+Figure 6
 shows a function called `hash` that takes a string and a table size and
 returns the hash value in the range from 0 to `tablesize`-1.
 
@@ -145,7 +145,7 @@ Values](Figures/stringhash.png)
 It is interesting to note that when using this hash function, anagrams
 will always be given the same hash value. To remedy this, we could use
 the position of the character as a weight.
-Figure 7 &lt;fig\_stringhash2&gt; shows one possible way to use the
+Figure 7 shows one possible way to use the
 positional value as a weighting factor. The modification to the `hash`
 function is left as an exercise.
 
@@ -181,11 +181,11 @@ that it tries to find the next open slot or address in the hash table.
 By systematically visiting each slot one at a time, we are performing an
 open addressing technique called **linear probing**.
 
-Figure 8 &lt;fig\_linearprobing&gt; shows an extended set of integer
+Figure 8 shows an extended set of integer
 items under the simple remainder method hash function
 (54,26,93,17,77,31,44,55,20). Table 4 &lt;tbl\_hashvalues1&gt; above
 shows the hash values for the original items.
-Figure 5 &lt;fig\_hashtable2&gt; shows the original contents. When we
+Figure 5 shows the original contents. When we
 attempt to place 44 into slot 0, a collision occurs. Under linear
 probing, we look sequentially, slot by slot, until we find an open
 position. In this case, we find slot 1.
@@ -215,7 +215,7 @@ filled by the linear probing resolution. This will have an impact on
 other items that are being inserted, as we saw when we tried to add the
 item 20 above. A cluster of values hashing to 0 had to be skipped to
 finally find an open position. This cluster is shown in
-Figure 9 &lt;fig\_clustering&gt;.
+Figure 9.
 
 ![Figure 9: A Cluster of Items for Slot 0](Figures/clustering.png)
 
@@ -223,7 +223,7 @@ One way to deal with clustering is to extend the linear probing
 technique so that instead of looking sequentially for the next open
 slot, we skip slots, thereby more evenly distributing the items that
 have caused collisions. This will potentially reduce the clustering that
-occurs. Figure 10 &lt;fig\_linearprobing2&gt; shows the items when
+occurs. Figure 10 shows the items when
 collision resolution is done with a “plus 3” probe. This means that once
 a collision occurs, we will look at every third slot until we find one
 that is empty.
@@ -248,7 +248,7 @@ increments the hash value by 1, 3, 5, 7, 9, and so on. This means that
 if the first hash value is *h*, the successive values are $h+1$, $h+4$,
 $h+9$, $h+16$, and so on. In other words, quadratic probing uses a skip
 consisting of successive perfect squares.
-Figure 11 &lt;fig\_quadratic&gt; shows our example values after they are
+Figure 11 shows our example values after they are
 placed using this technique.
 
 ![Figure 11: Collision Resolution with Quadratic
@@ -260,7 +260,7 @@ each slot to hold a reference to a collection (or chain) of items.
 table. When collisions happen, the item is still placed in the proper
 slot of the hash table. As more and more items hash to the same
 location, the difficulty of searching for the item in the collection
-increases. Figure 12 &lt;fig\_chaining&gt; shows the items as they are
+increases. Figure 12 shows the items as they are
 added to a hash table that uses chaining to resolve collisions.
 
 ![Figure 12: Collision Resolution with Chaining](Figures/chaining.png)

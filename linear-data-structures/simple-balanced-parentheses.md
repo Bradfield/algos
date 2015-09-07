@@ -46,7 +46,7 @@ parentheses from left to right and decide whether the symbols are
 balanced. To solve this problem we need to make an important
 observation. As you process symbols from left to right, the most recent
 opening parenthesis must match the next closing symbol (see
-Figure 4 &lt;fig\_parmatch&gt;). Also, the first opening symbol
+Figure 4). Also, the first opening symbol
 processed may have to wait until the very last symbol for its match.
 Closing symbols match opening symbols in the reverse order of their
 appearance; they match from the inside out. This is a clue that stacks

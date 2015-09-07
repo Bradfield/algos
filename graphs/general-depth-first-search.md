@@ -90,7 +90,7 @@ this test is done by checking that the color of the other node is
 non-white.
 
 The search begins at vertex A of the graph
-(Figure 14 &lt;fig\_gdfsa&gt;). Since all of the vertices are white at
+(Figure 14). Since all of the vertices are white at
 the beginning of the search the algorithm visits vertex A. The first
 step in visiting a vertex is to set the color to gray, which indicates
 that the vertex is being explored and the discovery time is set to 1.
@@ -98,34 +98,34 @@ Since vertex A has two adjacent vertices (B, D) each of those need to be
 visited as well. We’ll make the arbitrary decision that we will visit
 the adjacent vertices in alphabetical order.
 
-Vertex B is visited next (Figure 15 &lt;fig\_gdfsb&gt;), so its color is
+Vertex B is visited next (Figure 15), so its color is
 set to gray and its discovery time is set to 2. Vertex B is also
 adjacent to two other nodes (C, D) so we will follow the alphabetical
 order and visit node C next.
 
-Visiting vertex C (Figure 16 &lt;fig\_gdfsc&gt;) brings us to the end of
+Visiting vertex C (Figure 16) brings us to the end of
 one branch of the tree. After coloring the node gray and setting its
 discovery time to 3, the algorithm also determines that there are no
 adjacent vertices to C. This means that we are done exploring node C and
 so we can color the vertex black, and set the finish time to 4. You can
 see the state of our search at this point in
-Figure 17 &lt;fig\_gdfsd&gt;.
+Figure 17.
 
 Since vertex C was the end of one branch we now return to vertex B and
 continue exploring the nodes adjacent to B. The only additional vertex
 to explore from B is D, so we can now visit D
-(Figure 18 &lt;fig\_gdfse&gt;) and continue our search from vertex D.
-Vertex D quickly leads us to vertex E (Figure 19 &lt;fig\_gdfsf&gt;).
+(Figure 18) and continue our search from vertex D.
+Vertex D quickly leads us to vertex E (Figure 19).
 Vertex E has two adjacent vertices, B and F. Normally we would explore
 these adjacent vertices alphabetically, but since B is already colored
 gray the algorithm recognizes that it should not visit B since doing so
 would put the algorithm in a loop! So exploration continues with the
-next vertex in the list, namely F (Figure 20 &lt;fig\_gdfsg&gt;).
+next vertex in the list, namely F (Figure 20).
 
 Vertex F has only one adjacent vertex, C, but since C is colored black
 there is nothing else to explore, and the algorithm has reached the end
 of another branch. From here on, you will see in
-Figure 21 &lt;fig\_gdfsh&gt; through Figure 25 &lt;fig\_gdfsl&gt;  that
+Figure 21  that
 the algorithm works its way back to the first node, setting finish times
 and coloring vertices black.
 
@@ -169,7 +169,7 @@ The starting and finishing times for each node display a property called
 the **parenthesis property**. This property means that all the children
 of a particular node in the depth first tree have a later discovery time
 and an earlier finish time than their parent.
-Figure 26 &lt;fig\_dfstree&gt; shows the tree constructed by the depth
+Figure 26 shows the tree constructed by the depth
 first search algorithm.
 
 ![Figure 26: The Resulting Depth First Search Tree](Figures/dfstree.png)

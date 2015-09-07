@@ -14,7 +14,7 @@ pivot value belongs in the final sorted list, commonly called the
 **split point**, will be used to divide the list for subsequent calls to
 the quick sort.
 
-Figure 12 &lt;fig\_splitvalue&gt; shows that 54 will serve as our first
+Figure 12 shows that 54 will serve as our first
 pivot value. Since we have looked at this example a few times already,
 we know that 54 will eventually end up in the position currently holding
 31. The **partition** process will happen next. It will find the split
@@ -27,10 +27,10 @@ Sort](Figures/firstsplit.png)
 Partitioning begins by locating two position markers—let’s call them
 `leftmark` and `rightmark`—at the beginning and end of the remaining
 items in the list (positions 1 and 8 in
-Figure 13 &lt;fig\_partitionA&gt;). The goal of the partition process is
+Figure 13). The goal of the partition process is
 to move items that are on the wrong side with respect to the pivot value
 while also converging on the split point.
-Figure 13 &lt;fig\_partitionA&gt; shows this process as we locate the
+Figure 13 shows this process as we locate the
 position of 54.
 
 ![Figure 13: Finding the Split Point for 54](Figures/partitionA.png)
@@ -45,7 +45,7 @@ exchange these two items and then repeat the process again.
 At the point where `rightmark` becomes less than `leftmark`, we stop.
 The position of `rightmark` is now the split point. The pivot value can
 be exchanged with the contents of the split point and the pivot value is
-now in place (Figure 14 &lt;fig\_partitionB&gt;). In addition, all the
+now in place (Figure 14). In addition, all the
 items to the left of the split point are less than the pivot value, and
 all the items to the right of the split point are greater than the pivot
 value. The list can now be divided at the split point and the quick sort

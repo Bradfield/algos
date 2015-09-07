@@ -44,11 +44,11 @@ def _put(self,key,val,currentNode):
             self._put(key,val,currentNode.rightChild)
         else:
             currentNode.rightChild = TreeNode(key,val,parent=currentNode)
-            self.updateBalance(currentNode.rightChild)      
+            self.updateBalance(currentNode.rightChild)
 
 def updateBalance(self,node):
     if node.balanceFactor > 1 or node.balanceFactor < -1:
-        self.rebalance(node)    
+        self.rebalance(node)
         return
     if node.parent != None:
         if node.isLeftChild():
@@ -77,7 +77,7 @@ sacrificing performance. In order to bring an AVL Tree back into balance
 we will perform one or more **rotations** on the tree.
 
 To understand what a rotation is let us look at a very simple example.
-Consider the tree in the left half of Figure 3 &lt;fig\_unbalsimple&gt;.
+Consider the tree in the left half of Figure 3.
 This tree is out of balance with a balance factor of -2. To bring this
 tree into balance we will use a left rotation around the subtree rooted
 at node A.
@@ -102,7 +102,7 @@ Furthermore we need to make sure to update all of the parent pointers
 appropriately.
 
 Let's look at a slightly more complicated tree to illustrate the right
-rotation. The left side of Figure 4 &lt;fig\_rightrot1&gt; shows a tree
+rotation. The left side of Figure 4 shows a tree
 that is left-heavy and with a balance factor of 2 at the root. To
 perform a right rotation we essentially do the following:
 
@@ -141,7 +141,7 @@ point to the new root; otherwise we change the parent of the right child
 to point to the new root. (lines 10-13). Finally we set the parent of
 the old root to be the new root. This is a lot of complicated
 bookkeeping, so we encourage you to trace through this function while
-looking at Figure 3 &lt;fig\_unbalsimple&gt;. The `rotateRight` method
+looking at Figure 3. The `rotateRight` method
 is symmetrical to `rotateLeft` so we will leave it to you to study the
 code for `rotateRight`.
 
@@ -181,7 +181,7 @@ are correct.
 
 ![Figure 5: A Left Rotation](Figures/bfderive.png)
 
-Figure 5 &lt;fig\_bfderive&gt; shows a left rotation. B and D are the
+Figure 5 shows a left rotation. B and D are the
 pivotal nodes and A, C, E are their subtrees. Let $h_x$ denote the
 height of a particular subtree rooted at node $x$. By definition we know
 the following:
@@ -230,14 +230,14 @@ exercises for you.
 
 Now you might think that we are done. We know how to do our left and
 right rotations, and we know when we should do a left or right rotation,
-but take a look at Figure 6 &lt;fig\_hardrotate&gt;. Since node A has a
+but take a look at Figure 6. Since node A has a
 balance factor of -2 we should do a left rotation. But, what happens
 when we do the left rotation around A?
 
 ![Figure 6: An Unbalanced Tree that is More Difficult to
 Balance](Figures/hardunbalanced.png)
 
-Figure 7 &lt;fig\_badrotate&gt; shows us that after the left rotation we
+Figure 7 shows us that after the left rotation we
 are now out of balance the other way. If we do a right rotation to
 correct the situation we are right back where we started.
 
@@ -255,9 +255,9 @@ To correct this problem we must use the following set of rules:
     right heavy then do a left rotation on the left child, followed by
     the original right rotation.
 
-Figure 8 &lt;fig\_rotatelr&gt; shows how these rules solve the dilemma
-we encountered in Figure 6 &lt;fig\_hardrotate&gt; and
-Figure 7 &lt;fig\_badrotate&gt;. Starting with a right rotation around
+Figure 8 shows how these rules solve the dilemma
+we encountered in Figure 6 and
+Figure 7. Starting with a right rotation around
 node C puts the tree in a position where the left rotation around A
 brings the entire subtree back into balance.
 
@@ -293,7 +293,7 @@ The discussion questions &lt;tree\_discuss&gt; provide you the
 opportunity to rebalance a tree that requires a left rotation followed
 by a right. In addition the discussion questions provide you with the
 opportunity to rebalance some trees that are a little more complex than
-the tree in Figure 8 &lt;fig\_rotatelr&gt;.
+the tree in Figure 8.
 
 By keeping the tree in balance at all times, we can ensure that the
 `get` method will run in order $O(log_2(n))$ time. But the question is

@@ -21,7 +21,7 @@ could make students wait too long. What page rate should be used?
 
 We could decide by building a simulation that models the laboratory. We
 will need to construct representations for students, printing tasks, and
-the printer (Figure 4 &lt;fig\_qulabsim&gt;). As students submit
+the printer (Figure 4). As students submit
 printing tasks, we will add them to a waiting list, a queue of print
 tasks attached to the printer. When the printer completes a task, it
 will look at the queue to see if there are any remaining tasks to
@@ -128,7 +128,7 @@ provide a length from 1 to 20 pages. We have chosen to use the
     18
     >>> random.randrange(1,21)
     8
-    >>> 
+    >>>
 
 Each task will also need to keep a timestamp to be used for computing
 waiting time. This timestamp will represent the time that the task was

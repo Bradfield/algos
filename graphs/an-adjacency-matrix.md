@@ -6,9 +6,9 @@ matrix. In this matrix implementation, each of the rows and columns
 represent a vertex in the graph. The value that is stored in the cell at
 the intersection of row $v$ and column $w$ indicates if there is an edge
 from vertex $v$ to vertex $w$. When two vertices are connected by an
-edge, we say that they are **adjacent**. Figure 3 &lt;fig\_adjmat&gt;
+edge, we say that they are **adjacent**. Figure 3
 illustrates the adjacency matrix for the graph in
-Figure 2 &lt;fig\_dgsimple&gt;. A value in a cell represents the weight
+Figure 2. A value in a cell represents the weight
 of the edge from vertex $v$ to vertex $w$.
 
 ![Figure 3: An Adjacency Matrix Representation for a
@@ -20,7 +20,7 @@ However, notice that most of the cells in the matrix are empty. Because
 most of the cells are empty we say that this matrix is “sparse.” A
 matrix is not a very efficient way to store sparse data. In fact, in
 Python you must go out of your way to even create a matrix structure
-like the one in Figure 3 &lt;fig\_adjmat&gt;.
+like the one in Figure 3.
 
 The adjacency matrix is a good implementation for a graph when the
 number of edges is large. But what do we mean by large? How many edges

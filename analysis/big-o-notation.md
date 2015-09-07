@@ -78,7 +78,7 @@ Table 1 &lt;tbl\_fntable&gt;. In order to decide which of these
 functions is the dominant part of any $T(n)$ function, we must see how
 they compare with one another as *n* gets large.
 
-Figure 1 &lt;fig\_graphfigure&gt; shows graphs of the common functions
+Figure 1 shows graphs of the common functions
 from Table 1 &lt;tbl\_fntable&gt;. Notice that when *n* is small, the
 functions are not very well defined with respect to one another. It is
 hard to tell which is dominant. However, as *n* grows, there is a
@@ -122,7 +122,7 @@ can be ignored as *n* grows larger.
 ![Figure 2: Comparing $T(n)$ with Common Big-O
 Functions](Figures/newplot2.png)
 
-Figure 2 &lt;fig\_graphfigure2&gt; shows a few of the common Big-O
+Figure 2 shows a few of the common Big-O
 functions as they compare with the $T(n)$ function discussed above. Note
 that $T(n)$ is initially larger than the cubic function. However, as n
 grows, the cubic function quickly overtakes $T(n)$. It is easy to see

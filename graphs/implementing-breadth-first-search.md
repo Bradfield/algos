@@ -80,11 +80,11 @@ things happen:
         currentVert.setColor('black')
 
 Let’s look at how the `bfs` function would construct the breadth first
-tree corresponding to the graph in Figure 1 &lt;fig\_wordladder&gt;.
+tree corresponding to the graph in Figure 1.
 Starting from fool we take all nodes that are adjacent to fool and add
 them to the tree. The adjacent nodes include pool, foil, foul, and cool.
 Each of these nodes are added to the queue of new nodes to expand.
-Figure 3 &lt;fig\_bfs1&gt; shows the state of the in-progress tree along
+Figure 3 shows the state of the in-progress tree along
 with the queue after this step.
 
 ![Figure 3: The First Step in the Breadth First
@@ -97,7 +97,7 @@ cool has already been changed to gray. This indicates that there is a
 shorter path to cool and that cool is already on the queue for further
 expansion. The only new node added to the queue while examining pool is
 poll. The new state of the tree and queue is shown in
-Figure 4 &lt;fig\_bfs2&gt;.
+Figure 4.
 
 ![Figure 4: The Second Step in the Breadth First
 Search](Figures/bfs2.png)
@@ -105,7 +105,7 @@ Search](Figures/bfs2.png)
 The next vertex on the queue is foil. The only new node that foil can
 add to the tree is fail. As `bfs` continues to process the queue,
 neither of the next two nodes add anything new to the queue or the tree.
-Figure 5 &lt;fig\_bfs3&gt; shows the tree and the queue after expanding
+Figure 5 shows the tree and the queue after expanding
 all the vertices on the second level of the tree.
 
 ![Figure 5: Breadth First Search Tree After Completing One
@@ -114,9 +114,9 @@ Level](Figures/bfs3.png)
 ![FIgure 6: Final Breadth First Search Tree](Figures/bfsDone.png)
 
 You should continue to work through the algorithm on your own so that
-you are comfortable with how it works. Figure 6 &lt;fig\_bfsDone&gt;
+you are comfortable with how it works. Figure 6
 shows the final breadth first search tree after all the vertices in
-Figure 3 &lt;fig\_wordladder&gt; have been expanded. The amazing thing
+Figure 3 have been expanded. The amazing thing
 about the breadth first search solution is that we have not only solved
 the FOOL–SAGE problem we started out with, but we have solved many other
 problems along the way. We can start at any vertex in the breadth first

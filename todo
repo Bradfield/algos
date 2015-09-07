@@ -3,11 +3,8 @@ what is this pythonds stuff?
 do we need summary, discussion?
 add better introductions throughout
 consider if we want a glossary, and if so write it out
-move code blocks to {% include %} tags, for linting, testability etc
-fix math formatting, e.g. http://localhost:4000/analysis/an-anagram-detection-example.html
-could/should we have sub sub sections? or just break sections into smaller chenks?
-ensure curly quotes everywhere
-figure out if figures should be linked
+move code blocks either to {% include %} tags or literate python, for linting, testability etc
+break into more logical chunks or just break sections into smaller chenks?
 
 branding
 
@@ -21,6 +18,8 @@ do full pass through editing for each section:
     improve sections
     remove listing numbers
     make sure all Python is idiomatic
+    fix math formatting
+    ensure curly quotes everywhere
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

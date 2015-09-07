@@ -35,7 +35,7 @@ traversals. First let’s look at the preorder traversal. As an example of
 a tree to traverse, we will represent this book as a tree. The book is
 the root of the tree, and each chapter is a child of the root. Each
 section within a chapter is a child of the chapter, and each subsection
-is a child of its section, and so on. Figure 5 &lt;fig\_booktree&gt;
+is a child of its section, and so on. Figure 5
 shows a limited version of a book with only two chapters. Note that the
 traversal algorithm works for trees with any number of children, but we
 will stick with binary trees for now.
@@ -76,7 +76,7 @@ is `None`, then the function returns without taking any action.
         if tree:
             print(tree.getRootVal())
             preorder(tree.getLeftChild())
-            preorder(tree.getRightChild())  
+            preorder(tree.getRightChild())
 
 We can also implement `preorder` as a method of the `BinaryTree` class.
 The code for implementing `preorder` as an internal method is shown in

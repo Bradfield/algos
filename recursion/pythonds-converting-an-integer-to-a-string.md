@@ -43,7 +43,7 @@ we will use integer division plus remainder to get results of 7 and 6
 respectively. Finally, we have reduced the problem to converting 7,
 which we can do easily since it satisfies the base case condition of
 $n < base$, where $base = 10$. The series of operations we have just
-performed is illustrated in Figure 3 &lt;fig\_tostr&gt;. Notice that the
+performed is illustrated in Figure 3. Notice that the
 numbers we want to remember are in the remainder boxes along the right
 side of the diagram.
 
@@ -65,7 +65,7 @@ to its base 2 string representation (`"1010"`).
 ![Figure 4: Converting the Number 10 to its Base 2 String
 Representation](Figures/toStrBase2.png)
 
-Figure 4 &lt;fig\_tostr2&gt; shows that we get the results we are
+Figure 4 shows that we get the results we are
 looking for, but it looks like the digits are in the wrong order. The
 algorithm works correctly because we make the recursive call first on
 line 6, then we add the string representation of the remainder. If we

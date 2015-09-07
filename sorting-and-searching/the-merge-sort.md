@@ -10,9 +10,9 @@ has more than one item, we split the list and recursively invoke a merge
 sort on both halves. Once the two halves are sorted, the fundamental
 operation, called a **merge**, is performed. Merging is the process of
 taking two smaller sorted lists and combining them together into a
-single, sorted, new list. Figure 10 &lt;fig\_mergesortA&gt; shows our
+single, sorted, new list. Figure 10 shows our
 familiar example list as it is being split by `mergeSort`.
-Figure 11 &lt;fig\_mergesortB&gt; shows the simple lists, now sorted, as
+Figure 11 shows the simple lists, now sorted, as
 they are merged back together.
 
 ![Figure 10: Splitting the List in a Merge Sort](Figures/mergesortA.png)

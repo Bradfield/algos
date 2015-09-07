@@ -19,7 +19,7 @@ tower of 64 disks is $2^{64}-1 = 18,446,744,073,709,551,615$. At a rate
 of one move per second, that is $584,942,417,355$ years! Clearly there
 is more to this puzzle than meets the eye.
 
-Figure 1 &lt;fig\_hanoi&gt; shows an example of a configuration of disks
+Figure 1 shows an example of a configuration of disks
 in the middle of a move from the first peg to the third. Notice that, as
 the rules specify, the disks on each peg are stacked so that smaller
 disks are always on top of the larger disks. If you have not tried to

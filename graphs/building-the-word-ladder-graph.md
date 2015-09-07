@@ -5,7 +5,7 @@ Our first problem is to figure out how to turn a large collection of
 words into a graph. What we would like is to have an edge from one word
 to another if the two words are only different by a single letter. If we
 can create such a graph, then any path from one word to another is a
-solution to the word ladder puzzle. Figure 1 &lt;fig\_wordladder&gt;
+solution to the word ladder puzzle. Figure 1
 shows a small graph of some words that solve the FOOL to SAGE word
 ladder problem. Notice that the graph is an undirected graph and that
 the edges are unweighted.
@@ -29,7 +29,7 @@ We can do much better by using the following approach. Suppose that we
 have a huge number of buckets, each of them with a four-letter word on
 the outside, except that one of the letters in the label has been
 replaced by an underscore. For example, consider
-Figure 2 &lt;fig\_wordbucket&gt;, we might have a bucket labeled
+Figure 2, we might have a bucket labeled
 “pop\_.” As we process each word in our list we compare the word with
 each bucket, using the ‘\_’ as a wildcard, so both “pope” and “pops”
 would match “pop\_.” Every time we find a matching bucket, we put our
@@ -54,7 +54,7 @@ Python code required to build the graph.
 
     def buildGraph(wordFile):
         d = {}
-        g = Graph()    
+        g = Graph()
         wfile = open(wordFile,'r')
         # create buckets of words that differ by one letter
         for line in wfile:

@@ -12,7 +12,7 @@ just enough to understand another very important graph algorithm.
 ![Figure 1: Overview of Connectivity in the
 Internet](Figures/Internet.png)
 
-Figure 1 &lt;fig\_inet&gt; shows you a high-level overview of how
+Figure 1 shows you a high-level overview of how
 communication on the Internet works. When you use your browser to
 request a web page from a server, the request must travel over your
 local area network and out onto the Internet through a router. The
@@ -20,7 +20,7 @@ request travels over the Internet and eventually arrives at a router for
 the local area network where the server is located. The web page you
 requested then travels back through the same routers to get to your
 browser. Inside the cloud labelled “Internet” in
-Figure 1 &lt;fig\_inet&gt; are additional routers. The job of all of
+Figure 1 are additional routers. The job of all of
 these routers is to work together to get your information from place to
 place. You can see there are many routers for yourself if your computer
 supports the `traceroute` command. The text below shows the output of
@@ -28,14 +28,14 @@ the `traceroute` command which illustrates that there are 13 routers
 between the web server at Luther College and the mail server at the
 University of Minnesota.
 
-    1  192.203.196.1  
-    2  hilda.luther.edu (216.159.75.1)  
+    1  192.203.196.1
+    2  hilda.luther.edu (216.159.75.1)
     3  ICN-Luther-Ether.icn.state.ia.us (207.165.237.137)
-    4  ICN-ISP-1.icn.state.ia.us (209.56.255.1)  
+    4  ICN-ISP-1.icn.state.ia.us (209.56.255.1)
     5  p3-0.hsa1.chi1.bbnplanet.net (4.24.202.13)
     6  ae-1-54.bbr2.Chicago1.Level3.net (4.68.101.97)
     7  so-3-0-0.mpls2.Minneapolis1.Level3.net (64.159.4.214)
-    8  ge-3-0.hsa2.Minneapolis1.Level3.net (4.68.112.18) 
+    8  ge-3-0.hsa2.Minneapolis1.Level3.net (4.68.112.18)
     9  p1-0.minnesota.bbnplanet.net (4.24.226.74)
     10  TelecomB-BR-01-V4002.ggnet.umn.edu (192.42.152.37)
     11  TelecomB-BN-01-Vlan-3000.ggnet.umn.edu (128.101.58.1)
@@ -43,7 +43,7 @@ University of Minnesota.
     13  baldrick.cs.umn.edu (128.101.80.129)(N!)  88.631 ms (N!)
 
 
-    Routers from One Host to the Next over the Internet      
+    Routers from One Host to the Next over the Internet
 
 Each router on the Internet is connected to one or more other routers.
 So if you run the `traceroute` command at different times of the day,
@@ -57,7 +57,7 @@ routers as a graph with weighted edges.
 ![Figure 2: Connections and Weights between Routers in the
 Internet](Figures/routeGraph.png)
 
-Figure 2 &lt;fig\_network&gt; shows a small example of a weighted graph
+Figure 2 shows a small example of a weighted graph
 that represents the interconnection of routers in the Internet. The
 problem that we want to solve is to find the path with the smallest
 total weight along which to route any given message. This problem should

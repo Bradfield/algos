@@ -57,7 +57,7 @@ length 1 is trivial; it is just the number in the list. Second, on line
 `listsum` algorithm recursive. A recursive function is a function that
 calls itself.
 
-Figure 1 &lt;fig\_recsumin&gt; shows the series of **recursive calls**
+Figure 1 shows the series of **recursive calls**
 that are needed to sum the list $[1, 3, 5, 7, 9]$. You should think of
 this series of calls as a series of simplifications. Each time we make a
 recursive call we are solving a smaller problem, until we reach the
@@ -68,7 +68,7 @@ Numbers](Figures/sumlistIn.png)
 
 When we reach the point where the problem is as simple as it can get, we
 begin to piece together the solutions of each of the small problems
-until the initial problem is solved. Figure 2 &lt;fig\_recsumout&gt;
+until the initial problem is solved. Figure 2
 shows the additions that are performed as `listsum` works its way
 backward through the series of calls. When `listsum` returns from the
 topmost problem, we have the solution to the whole problem.
