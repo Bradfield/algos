@@ -1,0 +1,16 @@
+fix names of files, sections
+convert all titles to sentence case
+could we have sub sub sections?
+fix figures/references
+remove interactive portions
+fix code samples, ensure good syntax highlighting
+do we need key terms, summary, programming problems?
+add better introductions throughout
+use glossary
+move code blocks to {% include %} tags, for linting, testability etc
+what is this pythonds stuff?
+custom styling
+ensure good typography, eg curly quotes
+fix math formatting, e.g. http://localhost:4000/analysis/an-anagram-detection-example.html
+
+do full pass of editing
