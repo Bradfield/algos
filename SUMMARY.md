@@ -16,7 +16,6 @@
     * [Dictionaries](analysis/dictionaries.md)
     * [Summary](analysis/summary.md)
     * [Discussion Questions](analysis/discussion-questions.md)
-    * [Programming Exercises](analysis/programming-exercises.md)
 
 * [Linear Data Structures](linear-data-structures/objectives.md)
     * [What are Linear Structures?](linear-data-structures/what-are-linear-structures.md)
@@ -43,7 +42,6 @@
     * [Implementing an Ordered List](linear-data-structures/implementing-an-ordered-list.md)
     * [Summary](linear-data-structures/summary.md)
     * [Discussion Questions](linear-data-structures/discussion-questions.md)
-    * [Programming Exercises](linear-data-structures/programming-exercises.md)
 
 * [Recursion](recursion/objectives.md)
     * [What is Recursion](recursion/what-is-recursion.md)
@@ -60,7 +58,6 @@
     * [Summary](recursion/summary.md)
     * [Discussion Questions](recursion/discussion-questions.md)
     * [Glossary](recursion/glossary.md)
-    * [pythonds Programming Exercises](recursion/pythonds-programming-exercises.md)
 
 * [Sorting and Searching](sorting-and-searching/objectives.md)
     * [Searching](sorting-and-searching/searching.md)
@@ -76,7 +73,6 @@
     * [The Quick Sort](sorting-and-searching/the-quick-sort.md)
     * [Summary](sorting-and-searching/summary.md)
     * [Discussion Questions](sorting-and-searching/discussion-questions.md)
-    * [Programming Exercises](sorting-and-searching/programming-exercises.md)
 
 * [Trees and Tree Algorithms](trees/objectives.md)
     * [Examplesof Trees](trees/examples-of-trees.md)
@@ -98,7 +94,6 @@
     * [Summary of map ADT Implementations](trees/summary-of-map-adt-implementations.md)
     * [Summary](trees/summary.md)
     * [Discussion Questions](trees/discussion-questions.md)
-    * [Programming Exercises](trees/programming-exercises.md)
 
 * [Graphs and Graph Algorithms](graphs/objectives.md)
     * [Vocabulary and Definitions](graphs/vocabulary-and-definitions.md)
@@ -124,4 +119,3 @@
     * [Prims Spanning Tree Algorithm](graphs/prims-spanning-tree-algorithm.md)
     * [Summary](graphs/summary.md)
     * [Discussion Questions](graphs/discussion-questions.md)
-    * [Programming Exercises](graphs/programming-exercises.md)

@@ -1,6 +1,6 @@
 fix figures/references
 remove interactive portions
-do we need summary, discussion, programming problems?
+do we need summary, discussion?
 add better introductions throughout
 write out glossary
 move code blocks to {% include %} tags, for linting, testability etc
