@@ -1,12 +1,14 @@
 # Summary
 
-* [Analysis](analysis/introduction.md)
+* Analysis
+    * [Introduction](analysis/introduction.md)
     * [Big-O Notation](analysis/big-o-notation.md)
     * [An Anagram Detection Example](analysis/an-anagram-detection-example.md)
     * [Performance of Python Data Structures](analysis/performance-of-python-data-structures.md)
     * [Review Questions](analysis/review-questions.md)
 
-* [Stacks](stacks/introduction.md)
+* Stacks
+    * [Introduction](stacks/introduction.md)
     * [The Stack Abstract Data Type](stacks/the-stack-abstract-data-type.md)
     * [Implementing a Stack](stacks/implementing-a-stack.md)
     * [Simple Balanced Parentheses](stacks/simple-balanced-parentheses.md)

@@ -4,7 +4,8 @@
   },
   "plugins": [
     "image-captions",
-    "mathjax"
+    "mathjax",
+    "ungrey"
   ],
   "pluginsConfig": {
       "image-captions": {
