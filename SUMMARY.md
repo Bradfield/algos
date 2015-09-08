@@ -1,21 +1,10 @@
 # Summary
 
-* [Why Learn This?](why-learn/introduction.md.todo)
-    * [What is Computer Science?](why-learn/what-is-computer-science.md.todo)
-    * [What is Programming?](why-learn/what-is-programming.md.todo)
-    * [Why Study Data Structures and Abstract Data Types?](why-learn/why-study-data-types.md.todo)
-    * [Why Study Algorithms?](why-learn/why-study-algorithms.md.todo)
-
-* [Analysis](analysis/objectives.md.todo)
-    * [Objectives](analysis/objectives.md.todo)
-    * [What is Algorithm Analysis](analysis/what-is-algorithm-analysis.md.todo)
-    * [Big-O Notation](analysis/big-o-notation.md.todo)
-    * [An Anagram Detection Example](analysis/an-anagram-detection-example.md.todo)
-    * [Performance of Python Data Structures](analysis/performance-of-python-data-structures.md.todo)
-    * [Lists](analysis/lists.md.todo)
-    * [Dictionaries](analysis/dictionaries.md.todo)
-    * [Summary](analysis/summary.md.todo)
-    * [Discussion Questions](analysis/discussion-questions.md.todo)
+* [Analysis](analysis/introduction.md)
+    * [Big-O Notation](analysis/big-o-notation.md)
+    * [An Anagram Detection Example](analysis/an-anagram-detection-example.md)
+    * [Performance of Python Data Structures](analysis/performance-of-python-data-structures.md)
+    * [Review Questions](analysis/review-questions.md)
 
 * [Stacks](stacks/introduction.md)
     * [The Stack Abstract Data Type](stacks/the-stack-abstract-data-type.md)

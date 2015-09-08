@@ -1,7 +1,6 @@
 fix ActiveCode portions
 what is this pythonds stuff?
 do we need summary, discussion?
-add better introductions throughout
 consider if we want a glossary, and if so write it out
 move code blocks either to {% include %} tags or literate python, for linting, testability etc
 break into more logical chunks or just break sections into smaller chenks?
@@ -11,6 +10,7 @@ branding
 is there an easier way to lint/pep8-ify this stuff?
 
 do full pass through editing for each section:
+    add better instructions
     convert activecode portions
     add a better introduction
     move key terms to glossary, if any
