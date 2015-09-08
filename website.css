@@ -9,3 +9,17 @@ figure {
 pre .glossary-term {
   border-bottom: none !important;
 }
+
+.fa-check {
+  display: none !important;
+}
+
+.book .book-summary {
+  width: 350px;
+}
+
+@media (min-width: 600px) {
+  .book.with-summary .book-body {
+    left: 350px;
+  }
+}

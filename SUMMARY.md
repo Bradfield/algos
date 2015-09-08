@@ -1,14 +1,14 @@
 # Summary
 
 * Analysis
-    * [Introduction](analysis/introduction.md)
+    * [What is Algorithm Analysis?](analysis/what-is-algorithm-analysis.md)
     * [Big-O Notation](analysis/big-o-notation.md)
     * [An Anagram Detection Example](analysis/an-anagram-detection-example.md)
     * [Performance of Python Data Structures](analysis/performance-of-python-data-structures.md)
     * [Review Questions](analysis/review-questions.md)
 
 * Stacks
-    * [Introduction](stacks/introduction.md)
+    * [What is a Stack?](stacks/what-is-a-stack.md)
     * [The Stack Abstract Data Type](stacks/the-stack-abstract-data-type.md)
     * [Implementing a Stack](stacks/implementing-a-stack.md)
     * [Simple Balanced Parentheses](stacks/simple-balanced-parentheses.md)
