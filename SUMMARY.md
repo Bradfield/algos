@@ -16,18 +16,21 @@
     * [Converting Number Bases](stacks/converting-number-bases.md)
     * [Infix, Prefix, Postfix](stacks/infix-prefix-and-postfix-expressions.md)
 
-* [Queues](linear-data-structures/what-is-a-queue.md.todo)
+* Queues
+    * [What is a Queue?](linear-data-structures/what-is-a-queue.md.todo)
     * [The Queue Abstract Data Type](linear-data-structures/the-queue-abstract-data-type.md.todo)
     * [Implementing a Queue](linear-data-structures/implementing-a-queue.md.todo)
     * [Simulating Hot Potato](linear-data-structures/simulating-hot-potato.md.todo)
     * [Simulating Printing Tasks](linear-data-structures/simulating-printing-tasks.md.todo)
 
-* [Deques](linear-data-structures/what-is-a-deque.md.todo)
+* Deques
+    * [What is a Deque?](linear-data-structures/what-is-a-deque.md.todo)
     * [The Deque Abstract Data Type](linear-data-structures/the-deque-abstract-data-type.md.todo)
     * [Implementing a Deque](linear-data-structures/implementing-a-deque.md.todo)
     * [Palindrome Checker](linear-data-structures/palindrome-checker.md.todo)
 
-* [Linked Lists](linear-data-structures/lists.md.todo)
+* Linked Lists
+    * [What is a List?](linear-data-structures/lists.md.todo)
     * [The Unordered List Abstract Data Type](linear-data-structures/the-unordered-list-abstract-data-type.md.todo)
     * [Implementing an Unordered List](linear-data-structures/implementing-an-unordered-list.md.todo)
     * [The Ordered List Abstract Data Type](linear-data-structures/the-ordered-list-abstract-data-type.md.todo)
@@ -35,7 +38,7 @@
     * [Summary](linear-data-structures/summary.md.todo)
     * [Discussion Questions](linear-data-structures/discussion-questions.md.todo)
 
-* [Recursion](recursion/objectives.md.todo)
+* Recursion
     * [What is Recursion](recursion/what-is-recursion.md.todo)
     * [pythonds - Calculating the sum of a List of Numbers](recursion/pythonds-calculating-the-sum-of-a-list-of-numbers.md.todo)
     * [The Three Laws of Recursion](recursion/the-three-laws-of-recursion.md.todo)
@@ -51,7 +54,7 @@
     * [Discussion Questions](recursion/discussion-questions.md.todo)
     * [Glossary](recursion/glossary.md.todo)
 
-* [Sorting and Searching](sorting-and-searching/objectives.md.todo)
+* Sorting and Searching
     * [Searching](sorting-and-searching/searching.md.todo)
     * [The Sequential Search](sorting-and-searching/the-sequential-search.md.todo)
     * [The Binary Search](sorting-and-searching/the-binary-search.md.todo)
@@ -66,7 +69,8 @@
     * [Summary](sorting-and-searching/summary.md.todo)
     * [Discussion Questions](sorting-and-searching/discussion-questions.md.todo)
 
-* [Trees and Tree Algorithms](trees/introduction.md)
+* Trees and Tree Algorithms
+    * [Introduction](trees/introduction.md)
     * [Examples of Trees](trees/examples-of-trees.md)
     * [Vocabulary and Definitions](trees/vocabulary-and-definitions.md)
     * [List of Lists Representation](trees/list-of-lists-representation.md)
@@ -87,7 +91,7 @@
     * [Summary](trees/summary.md.todo)
     * [Discussion Questions](trees/discussion-questions.md.todo)
 
-* [Graphs and Graph Algorithms](graphs/objectives.md.todo)
+* Graphs and Graph Algorithms
     * [Vocabulary and Definitions](graphs/vocabulary-and-definitions.md.todo)
     * [The Graph Abstract Data Type](graphs/the-graph-abstract-data-type.md.todo)
     * [An Adjacency Matrix](graphs/an-adjacency-matrix.md.todo)
