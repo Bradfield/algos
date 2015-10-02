@@ -20,25 +20,21 @@ line (so that we can pop the tray stack). Well-behaved lines, or queues,
 are very restrictive in that they have only one way in and only one way
 out. There is no jumping in the middle and no leaving before you have
 waited the necessary amount of time to get to the front.
-Figure 1 shows a simple queue of Python data
-objects.
 
-![Figure 1: A Queue of Python Data Objects](Figures/basicqueue.png)
+![A Queue of Python Data Objects](figures/basic-queue.png)
 
-Computer science also has common examples of queues. Our computer
-laboratory has 30 computers networked with a single printer. When
-students want to print, their print tasks “get in line” with all the
+Queues are a very prevalent model for data flow in real life. Consider
+an office with 30 computers networked with a single printer. When
+somebody wants to print, their print tasks “get in line” with all the
 other printing tasks that are waiting. The first task in is the next to
 be completed. If you are last in line, you must wait for all the other
-tasks to print ahead of you. We will explore this interesting example in
-more detail later.
+tasks to print ahead of you.
 
-In addition to printing queues, operating systems use a number of
-different queues to control processes within a computer. The scheduling
-of what gets done next is typically based on a queuing algorithm that
-tries to execute programs as quickly as possible and serve as many users
-as it can. Also, as we type, sometimes keystrokes get ahead of the
-characters that appear on the screen. This is due to the computer doing
-other work at that moment. The keystrokes are being placed in a
-queue-like buffer so that they can eventually be displayed on the screen
-in the proper order.
+Operating systems also use a number of different queues to control
+processes within a computer. The scheduling of what gets done next is
+typically based on a queuing algorithm that tries to execute programs as
+quickly as possible and serve as many users as it can. Also, as we type,
+sometimes keystrokes get ahead of the characters that appear on the
+screen. This is due to the computer doing other work at that moment. The
+keystrokes are being placed in a queue-like buffer so that they can
+eventually be displayed on the screen in the proper order.

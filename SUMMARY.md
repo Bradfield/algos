@@ -17,11 +17,10 @@
     * [Infix, Prefix, Postfix](stacks/infix-prefix-and-postfix-expressions.md)
 
 * Queues
-    * [What is a Queue?](linear-data-structures/what-is-a-queue.md.todo)
-    * [The Queue Abstract Data Type](linear-data-structures/the-queue-abstract-data-type.md.todo)
-    * [Implementing a Queue](linear-data-structures/implementing-a-queue.md.todo)
-    * [Simulating Hot Potato](linear-data-structures/simulating-hot-potato.md.todo)
-    * [Simulating Printing Tasks](linear-data-structures/simulating-printing-tasks.md.todo)
+    * [What is a Queue?](queues/what-is-a-queue.md)
+    * [The Queue Abstract Data Type](queues/the-queue-abstract-data-type.md)
+    * [Implementing a Queue](queues/implementing-a-queue.md)
+    * [Simulating Hot Potato](queues/simulating-hot-potato.md)
 
 * Deques
     * [What is a Deque?](linear-data-structures/what-is-a-deque.md.todo)
