@@ -13,7 +13,7 @@ others. Some possible unordered list operations are given below.
     modifies the list. Assume the item is present in the list.
 -   `search(item)` searches for the item in the list. It needs the item
     and returns a boolean value.
--   `isEmpty()` tests to see whether the list is empty. It needs no
+-   `is_empty()` tests to see whether the list is empty. It needs no
     parameters and returns a boolean value.
 -   `size()` returns the number of items in the list. It needs no
     parameters and returns an integer.
@@ -22,7 +22,7 @@ others. Some possible unordered list operations are given below.
     Assume the item is not already in the list.
 -   `index(item)` returns the position of item in the list. It needs the
     item and returns the index. Assume the item is in the list.
--   `insert(pos,item)` adds a new item to the list at position pos. It
+-   `insert(pos, item)` adds a new item to the list at position pos. It
     needs the item and returns nothing. Assume the item is not already
     in the list and there are enough existing items to have
     position pos.

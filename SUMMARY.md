@@ -28,14 +28,12 @@
     * [Implementing a Deque](deques/implementing-a-deque.md)
     * [Palindrome Checker](deques/palindrome-checker.md)
 
-* Linked Lists
-    * [What is a List?](linear-data-structures/lists.md.todo)
-    * [The Unordered List Abstract Data Type](linear-data-structures/the-unordered-list-abstract-data-type.md.todo)
-    * [Implementing an Unordered List](linear-data-structures/implementing-an-unordered-list.md.todo)
-    * [The Ordered List Abstract Data Type](linear-data-structures/the-ordered-list-abstract-data-type.md.todo)
-    * [Implementing an Ordered List](linear-data-structures/implementing-an-ordered-list.md.todo)
-    * [Summary](linear-data-structures/summary.md.todo)
-    * [Discussion Questions](linear-data-structures/discussion-questions.md.todo)
+* Lists
+    * [What is a List?](lists/what-is-a-list.md)
+    * [The Unordered List Abstract Data Type](lists/the-unordered-list-abstract-data-type.md)
+    * [Implementing an Unordered List](lists/implementing-an-unordered-list.md)
+    * [The Ordered List Abstract Data Type](lists/the-ordered-list-abstract-data-type.md)
+    * [Implementing an Ordered List](lists/implementing-an-ordered-list.md)
 
 * Recursion
     * [What is Recursion](recursion/what-is-recursion.md.todo)
