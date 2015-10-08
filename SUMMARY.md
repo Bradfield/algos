@@ -23,10 +23,10 @@
     * [Simulating Hot Potato](queues/simulating-hot-potato.md)
 
 * Deques
-    * [What is a Deque?](linear-data-structures/what-is-a-deque.md.todo)
-    * [The Deque Abstract Data Type](linear-data-structures/the-deque-abstract-data-type.md.todo)
-    * [Implementing a Deque](linear-data-structures/implementing-a-deque.md.todo)
-    * [Palindrome Checker](linear-data-structures/palindrome-checker.md.todo)
+    * [What is a Deque?](deques/what-is-a-deque.md)
+    * [The Deque Abstract Data Type](deques/the-deque-abstract-data-type.md)
+    * [Implementing a Deque](deques/implementing-a-deque.md)
+    * [Palindrome Checker](deques/palindrome-checker.md)
 
 * Linked Lists
     * [What is a List?](linear-data-structures/lists.md.todo)
