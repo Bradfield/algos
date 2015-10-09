@@ -36,20 +36,13 @@
     * [Implementing an Ordered List](lists/implementing-an-ordered-list.md)
 
 * Recursion
-    * [What is Recursion](recursion/what-is-recursion.md.todo)
-    * [pythonds - Calculating the sum of a List of Numbers](recursion/pythonds-calculating-the-sum-of-a-list-of-numbers.md.todo)
-    * [The Three Laws of Recursion](recursion/the-three-laws-of-recursion.md.todo)
-    * [pythonds Converting an Integer to a String](recursion/pythonds-converting-an-integer-to-a-string.md.todo)
-    * [Stack Frames Implementing Recursion](recursion/stack-frames-implementing-recursion.md.todo)
-    * [pythondsintro Visualizing Recursion](recursion/pythondsintro-visualizing-recursion.md.todo)
-    * [pythonds Sierpinski Triangle](recursion/pythonds-sierpinski-triangle.md.todo)
-    * [Complex Recursive Problems](recursion/complex-recursive-problems.md.todo)
-    * [Towerof Hanoi](recursion/tower-of-hanoi.md.todo)
-    * [Exploringa Maze](recursion/exploring-a-maze.md.todo)
-    * [Dynamic Programming](recursion/dynamic-programming.md.todo)
-    * [Summary](recursion/summary.md.todo)
-    * [Discussion Questions](recursion/discussion-questions.md.todo)
-    * [Glossary](recursion/glossary.md.todo)
+    * [What is Recursion?](recursion/what-is-recursion.md)
+    * [Calculating the Sum of a List of Numbers](recursion/calculating-the-sum-of-a-list-of-numbers.md)
+    * [The Three Laws of Recursion](recursion/the-three-laws-of-recursion.md)
+    * [Converting an Integer to a String](recursion/converting-an-integer-to-a-string.md)
+    * [Stack Frames Implementing Recursion](recursion/stack-frames-implementing-recursion.md)
+    * [Tower of Hanoi](recursion/tower-of-hanoi.md)
+    * [Dynamic Programming](recursion/dynamic-programming.md)
 
 * Sorting and Searching
     * [Searching](sorting-and-searching/searching.md.todo)

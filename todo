@@ -1,13 +1,11 @@
-bring mathjax back once we can install it again https://github.com/brianmcd/contextify/issues/180
-
-fix ActiveCode portions
+fix ActiveCode portions (search for "ActiveCode")
 what is this pythonds stuff?
 do we need summary, discussion?
-consider if we want a glossary, and if so write it out
 move code blocks either to {% include %} tags or literate python, for linting, testability etc
 break into more logical chunks or just break sections into smaller chenks?
-
+remove unused figures
 branding
+line numbers for code samples?
 
 is there an easier way to lint/pep8-ify this stuff?
 
@@ -15,7 +13,6 @@ do full pass through editing for each section:
     add better instructions
     convert activecode portions
     add a better introduction
-    move key terms to glossary, if any
     move large code blocks out into include tags
     improve sections
     remove listing numbers
@@ -26,3 +23,6 @@ do full pass through editing for each section:
 trees
     use tuples (or named tuples in list-of-lists representation?)
     more compact introduction incorporating intro, examples and definitions
+
+recursion
+    maybe add more/better examples

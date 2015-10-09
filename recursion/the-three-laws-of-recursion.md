@@ -10,20 +10,19 @@ important laws:
 3.  A recursive algorithm must call itself, recursively.
 
 Let’s look at each one of these laws in more detail and see how it was
-used in the `listsum` algorithm. First, a base case is the condition
+used in the `sum_of` algorithm. First, a base case is the condition
 that allows the algorithm to stop recursing. A base case is typically a
-problem that is small enough to solve directly. In the `listsum`
+problem that is small enough to solve directly. In the `sum_of`
 algorithm the base case is a list of length 1.
 
 To obey the second law, we must arrange for a change of state that moves
 the algorithm toward the base case. A change of state means that some
 data that the algorithm is using is modified. Usually the data that
-represents our problem gets smaller in some way. In the `listsum`
+represents our problem gets smaller in some way. In the `sum_of`
 algorithm our primary data structure is a list, so we must focus our
 state-changing efforts on the list. Since the base case is a list of
 length 1, a natural progression toward the base case is to shorten the
-list. This is exactly what happens on line 5 of
-ActiveCode 2 &lt;lst\_recsum&gt; when we call `listsum` with a shorter
+list. This is exactly what happens in the `sum_of` algorithm when we call `sum_of` with a shorter
 list.
 
 The final law is that the algorithm must call itself. This is the very
@@ -41,5 +40,3 @@ smaller and easier problems.
 In the remainder of this chapter we will look at more examples of
 recursion. In each case we will focus on designing a solution to a
 problem by using the three laws of recursion.
-
-> **Self Check**

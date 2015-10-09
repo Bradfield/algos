@@ -3,17 +3,17 @@ Converting an Integer to a String in Any Base
 
 Suppose you want to convert an integer to a string in some base between
 binary and hexadecimal. For example, convert the integer 10 to its
-string representation in decimal as `"10"`, or to its string
-representation in binary as `"1010"`. While there are many algorithms to
+string representation in decimal as `'10'`, or to its string
+representation in binary as `'1010'`. While there are many algorithms to
 solve this problem, including the algorithm discussed in the stack
 section, the recursive formulation of the problem is very elegant.
 
 Let’s look at a concrete example using base 10 and the number 769.
 Suppose we have a sequence of characters corresponding to the first 10
-digits, like `convString = "0123456789"`. It is easy to convert a number
+digits, like `CHAR_FOR_INT = '0123456789'`. It is easy to convert a number
 less than 10 to its string equivalent by looking it up in the sequence.
-For example, if the number is 9, then the string is `convString[9]` or
-`"9"`. If we can arrange to break up the number 769 into three
+For example, if the number is 9, then the string is `CHAR_FOR_INT[9]` or
+`'9'`. If we can arrange to break up the number 769 into three
 single-digit numbers, 7, 6, and 9, then converting it to a string is
 simple. A number less than 10 sounds like a good base case.
 
@@ -42,58 +42,48 @@ base. Now our job is to convert 76 to its string representation. Again
 we will use integer division plus remainder to get results of 7 and 6
 respectively. Finally, we have reduced the problem to converting 7,
 which we can do easily since it satisfies the base case condition of
-$n < base$, where $base = 10$. The series of operations we have just
-performed is illustrated in Figure 3. Notice that the
+$$n < base$$, where $$base = 10$$. The series of operations we have just
+performed is illustrated below. Notice that the
 numbers we want to remember are in the remainder boxes along the right
 side of the diagram.
 
-![Figure 3: Converting an Integer to a String in Base
-10](Figures/toStr.png)
+![Converting an Integer to a String in Base 10](figures/to-string-base-10.png)
 
-ActiveCode 1 &lt;lst\_rectostr&gt; shows the Python code that implements
-the algorithm outlined above for any base between 2 and 16.
 
-Notice that in line 3 we check for the base case where `n` is less than
+Below is a Python implementation of this algorithm for any base between 2 and 16.
+
+```python
+CHAR_FOR_INT = '0123456789ABCDEF'
+
+def to_string(n, base):
+    if n < base:
+        return CHAR_FOR_INT[n]
+
+    return to_string(n // base, base) + CHAR_FOR_INT[n % base]
+
+to_string(1453, 16)  # => 5AD
+```
+
+Notice that we check for the base case where `n` is less than
 the base we are converting to. When we detect the base case, we stop
-recursing and simply return the string from the `convertString`
-sequence. In line 6 we satisfy both the second and third laws–by making
+recursing and simply return the string from the `CHAR_FOR_INT`
+sequence. Subsequently we satisfy both the second and third laws–by making
 the recursive call and by reducing the problem size–using division.
 
 Let’s trace the algorithm again; this time we will convert the number 10
-to its base 2 string representation (`"1010"`).
+to its base 2 string representation (`'1010'`).
 
-![Figure 4: Converting the Number 10 to its Base 2 String
-Representation](Figures/toStrBase2.png)
+The diagram below shows that we get the results we are
+looking for, but it looks like the digits are in the wrong order.
 
-Figure 4 shows that we get the results we are
-looking for, but it looks like the digits are in the wrong order. The
-algorithm works correctly because we make the recursive call first on
-line 6, then we add the string representation of the remainder. If we
-reversed returning the `convertString` lookup and returning the `toStr`
+
+![Converting the Number 10 to its Base 2 String
+Representation](Figures/to-string-base-2.png)
+
+The
+algorithm works correctly because we make the recursive call first, then we add the string representation of the remainder. If we
+reversed returning the `CHAR_FOR_INT` lookup and returning the `to_string`
 call, the resulting string would be backward! But by delaying the
 concatenation operation until after the recursive call has returned, we
 get the result in the proper order. This should remind you of our
 discussion of stacks back in the previous chapter.
-
-> **Self Check**
->
-> Write a function that takes a string as a parameter and returns a new
-> string that is the reverse of the old string.
->
-> Write a function that takes a string as a parameter and returns True
-> if the string is a palindrome, False otherwise. Remember that a string
-> is a palindrome if it is spelled the same both forward and backward.
-> For example: radar is a palindrome. for bonus points palindromes can
-> also be phrases, but you need to remove the spaces and punctuation
-> before checking. for example: madam i'm adam is a palindrome. Other
-> fun palindromes include:
->
-> -   kayak
-> -   aibohphobia
-> -   Live not on evil
-> -   Reviled did I live, said I, as evil I did deliver
-> -   Go hang a salami; I'm a lasagna hog.
-> -   Able was I ere I saw Elba
-> -   Kanakanak -- a town in Alaska
-> -   Wassamassaw -- a town in South Dakota
-

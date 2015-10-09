@@ -15,19 +15,17 @@ would crumble into dust and the world would vanish.
 
 Although the legend is interesting, you need not worry about the world
 ending any time soon. The number of moves required to correctly move a
-tower of 64 disks is $2^{64}-1 = 18,446,744,073,709,551,615$. At a rate
-of one move per second, that is $584,942,417,355$ years! Clearly there
+tower of 64 disks is $$2^{64}-1 = 18,446,744,073,709,551,615$$. At a rate
+of one move per second, that is $$584,942,417,355$$ years! Clearly there
 is more to this puzzle than meets the eye.
 
-Figure 1 shows an example of a configuration of disks
-in the middle of a move from the first peg to the third. Notice that, as
+The animation below demonstrates a solution to the puzzle with four discs. Notice that, as
 the rules specify, the disks on each peg are stacked so that smaller
 disks are always on top of the larger disks. If you have not tried to
 solve this puzzle before, you should try it now. You do not need fancy
 disks and poles–a pile of books or pieces of paper will work.
 
-![Figure 1: An Example Arrangement of Disks for the Tower of
-Hanoi](Figures/hanoi.png)
+![An animated solution of the Tower of Hanoi puzzle for four disks](figures/hanoi.gif)
 
 How do we go about solving this problem recursively? How would you go
 about solving this problem at all? What is our base case? Let’s think
@@ -62,44 +60,49 @@ case. The simplest Tower of Hanoi problem is a tower of one disk. In
 this case, we need move only a single disk to its final destination. A
 tower of one disk will be our base case. In addition, the steps outlined
 above move us toward the base case by reducing the height of the tower
-in steps 1 and 3. Listing 1 &lt;lst\_hanoi&gt; shows the Python code to
-solve the Tower of Hanoi puzzle.
+in steps 1 and 3. Below we present a possiblem Python solution to the Tower of Hanoi puzzle.
 
-**Listing 1**
 
-    def moveTower(height,fromPole, toPole, withPole):
-        if height >= 1:
-            moveTower(height-1,fromPole,withPole,toPole)
-            moveDisk(fromPole,toPole)
-            moveTower(height-1,withPole,toPole,fromPole)
+```python
+def move_tower(height, from_pole, to_pole, with_pole):
+    if height >= 1:
+        move_tower(height - 1, from_pole, with_pole, to_pole)
+        move_disk(from_pole, to_pole)
+        move_tower(height - 1, with_pole, to_pole, from_pole)
+```
 
-Notice that the code in Listing 1 &lt;lst\_hanoi&gt; is almost identical
+Notice that the code above is almost identical
 to the English description. The key to the simplicity of the algorithm
-is that we make two different recursive calls, one on line 3 and a
-second on line 5. On line 3 we move all but the bottom disk on the
-initial tower to an intermediate pole. The next line simply moves the
-bottom disk to its final resting place. Then on line 5 we move the tower
+is that we make two different recursive calls, the first to move all but the bottom disk on the
+initial tower to an intermediate pole. Before we make a second recursive call, we simply move the
+bottom disk to its final resting place. Finally we move the tower
 from the intermediate pole to the top of the largest disk. The base case
 is detected when the tower height is 0; in this case there is nothing to
-do, so the `moveTower` function simply returns. The important thing to
+do, so the `move_tower` function simply returns. The important thing to
 remember about handling the base case this way is that simply returning
-from `moveTower` is what finally allows the `moveDisk` function to be
+from `move_tower` is what finally allows the `move_disk` function to be
 called.
 
-The function `moveDisk`, shown in Listing 2 &lt;lst\_movedisk&gt;, is
-very simple. All it does is print out that it is moving a disk from one
-pole to another. If you type in and run the `moveTower` program you can
-see that it gives you a very efficient solution to the puzzle.
+If we implement this simple `move_disk` function, we can then illustrate the required moves to solve the problem:
 
-**Listing 2**
+```python
+def move_disk(from_pole, to_pole):
+    print('moving disk from {} to {}'.format(from_pole, to_pole))
+```
 
-    def moveDisk(fp,tp):
-        print("moving disk from",fp,"to",tp)
+Now, calling `move_tower` with the arguments `3, 'A', 'B', 'C'` will give us the output:
 
-The program in ActiveCode 1 provides the entire solution for three
-disks.
+```
+moving disk from A to B
+moving disk from A to C
+moving disk from B to C
+moving disk from A to B
+moving disk from C to A
+moving disk from C to B
+moving disk from A to B
+```
 
-Now that you have seen the code for both `moveTower` and `moveDisk`, you
+Now that you have seen the code for both `move_tower` and `move_disk`, you
 may be wondering why we do not have a data structure that explicitly
 keeps track of what disks are on what poles. Here is a hint: if you were
 going to explicitly keep track of the disks, you would probably use
