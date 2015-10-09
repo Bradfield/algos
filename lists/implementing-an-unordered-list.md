@@ -279,8 +279,7 @@ def remove(self, item):
     while True:
         if current.value == item:
             break
-        previous = current
-        current = current.next
+        previous, current = current, current.next
 
     if previous is None:
         self.head = current.next

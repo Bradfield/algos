@@ -23,7 +23,7 @@ are the same as those of the unordered list.
     modifies the list. Assume the item is present in the list.
 -   `search(item)` searches for the item in the list. It needs the item
     and returns a boolean value.
--   `isEmpty()` tests to see whether the list is empty. It needs no
+-   `is_empty()` tests to see whether the list is empty. It needs no
     parameters and returns a boolean value.
 -   `size()` returns the number of items in the list. It needs no
     parameters and returns an integer.
