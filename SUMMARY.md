@@ -48,9 +48,8 @@
     * [Searching](searching/searching.md)
     * [The Sequential Search](searching/the-sequential-search.md)
     * [The Binary Search](searching/the-binary-search.md)
-
-* Maps
-    * [Hashing](maps/hashing.md)
+    * [Hashing](searching/hashing.md)
+    * [The Map Abstract Data Type](searching/the-map-abstract-data-type.md)
 
 * Sorting
     * [Sorting](sorting/sorting.md.todo)

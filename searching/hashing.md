@@ -6,7 +6,7 @@ algorithms by taking advantage of information about where items are
 stored in the collection with respect to one another. For example, by
 knowing that a list was ordered, we could search in logarithmic time
 using a binary search. In this section we will attempt to go one step
-further by building a data structure that can be searched in $O(1)$
+further by building a data structure that can be searched in $$O(1)$$
 time. This concept is referred to as **hashing**.
 
 In order to do this, we will need to know even more about where the
@@ -22,10 +22,10 @@ value starting at 0. For example, we will have a slot named 0, a slot
 named 1, a slot named 2, and so on. Initially, the hash table contains
 no items so every slot is empty. We can implement a hash table by using
 a list with each element initialized to the special Python value `None`.
-Figure 4 shows a hash table of size $m=11$. In
+The illustration below shows a hash table of size $$m=11$$. In
 other words, there are *m* slots in the table, named 0 through 10.
 
-![Figure 4: Hash Table with 11 Empty Slots](Figures/hashtable.png)
+![Hash Table with 11 Empty Slots](figures/hash-table.png)
 
 The mapping between an item and the slot where that item belongs in the
 hash table is called the **hash function**. The hash function will take
@@ -34,23 +34,31 @@ names, between 0 and *m*-1. Assume that we have the set of integer items
 54, 26, 93, 17, 77, and 31. Our first hash function, sometimes referred
 to as the “remainder method,” simply takes an item and divides it by the
 table size, returning the remainder as its hash value
-($h(item)=item \% 11$). Table 4 &lt;tbl\_hashvalues1&gt; gives all of
+($$h(item)=item \% 11$$). The table below gives all of
 the hash values for our example items. Note that this remainder method
 (modulo arithmetic) will typically be present in some form in all hash
 functions, since the result must be in the range of slot names.
 
-Once the hash values have been computed, we can insert each item into
-the hash table at the designated position as shown in
-Figure 5. Note that 6 of the 11 slots are now
-occupied. This is referred to as the **load factor**, and is commonly
-denoted by $\lambda = \frac {numberofitems}{tablesize}$. For this
-example, $\lambda = \frac {6}{11}$.
+Item  |  Hash Value
+--- | ---
+54 | 10
+26 | 4
+93 | 5
+17 | 6
+77 | 0
+31 | 9
 
-![Figure 5: Hash Table with Six Items](Figures/hashtable2.png)
+Once the hash values have been computed, we can insert each item into
+the hash table at the designated position as shown in the illustration below. Note that 6 of the 11 slots are now
+occupied. This is referred to as the **load factor**, and is commonly
+denoted by $$\lambda = \frac {numberofitems}{tablesize}$$. For this
+example, $$\lambda = \frac {6}{11}$$.
+
+![Hash Table with Six Items](figures/hash-table-2.png)
 
 Now when we want to search for an item, we simply use the hash function
 to compute the slot name for the item and then check the hash table to
-see if it is present. This searching operation is $O(1)$, since a
+see if it is present. This searching operation is $$O(1)$$, since a
 constant amount of time is required to compute the hash value and then
 index the hash table at that location. If everything is where it should
 be, we have found a constant time search algorithm.
@@ -58,10 +66,10 @@ be, we have found a constant time search algorithm.
 You can probably already see that this technique is going to work only
 if each item maps to a unique location in the hash table. For example,
 if the item 44 had been the next item in our collection, it would have a
-hash value of 0 ($44 \% 11 == 0$). Since 77 also had a hash value of 0,
+hash value of 0 ($$44 \% 11 == 0%$$). Since 77 also had a hash value of 0,
 we would have a problem. According to the hash function, two or more
 items would need to be in the same slot. This is referred to as a
-**collision** (it may also be called a “clash”). Clearly, collisions
+**collision**. Clearly, collisions
 create a problem for the hashing technique. We will discuss them in
 detail later.
 
@@ -96,61 +104,68 @@ dividing the item into equal-size pieces (the last piece may not be of
 equal size). These pieces are then added together to give the resulting
 hash value. For example, if our item was the phone number 436-555-4601,
 we would take the digits and divide them into groups of 2
-(43,65,55,46,01). After the addition, $43+65+55+46+01$, we get 210. If
+(43,65,55,46,01). After the addition, $$43+65+55+46+01$$, we get 210. If
 we assume our hash table has 11 slots, then we need to perform the extra
 step of dividing by 11 and keeping the remainder. In this case
-$210\ \%\ 11$ is 1, so the phone number 436-555-4601 hashes to slot 1.
+$$210\ \%\ 11$$ is 1, so the phone number 436-555-4601 hashes to slot 1.
 Some folding methods go one step further and reverse every other piece
 before the addition. For the above example, we get
-$43+56+55+64+01 = 219$ which gives $219\ \%\ 11 = 10$.
+$$43+56+55+64+01 = 219$$ which gives $$219\ \%\ 11 = 10$$.
 
 Another numerical technique for constructing a hash function is called
 the **mid-square method**. We first square the item, and then extract
 some portion of the resulting digits. For example, if the item were 44,
-we would first compute $44 ^{2} = 1,936$. By extracting the middle two
-digits, 93, and performing the remainder step, we get 5 ($93\ \%\ 11$).
-Table 5 &lt;tbl\_hashvalues2&gt; shows items under both the remainder
+we would first compute $$44 ^{2} = 1,936$$. By extracting the middle two
+digits, 93, and performing the remainder step, we get 5 ($$93\ \%\ 11$$).
+The table below shows items under both the remainder
 method and the mid-square method. You should verify that you understand
 how these values were computed.
+
+Item  |  Remainder |  Mid-Square
+--- | --- | ---
+54 | 10 | 3
+26 | 4  | 7
+93 | 5  | 9
+17 | 6  | 8
+77 | 0  | 4
+31 | 9  | 6
 
 We can also create hash functions for character-based items such as
 strings. The word “cat” can be thought of as a sequence of ordinal
 values.
 
-    >>> ord('c')
-    99
-    >>> ord('a')
-    97
-    >>> ord('t')
-    116
+```python
+>>> ord('c')
+99
+>>> ord('a')
+97
+>>> ord('t')
+116
+```
 
 We can then take these three ordinal values, add them up, and use the
-remainder method to get a hash value (see
-Figure 6
-shows a function called `hash` that takes a string and a table size and
-returns the hash value in the range from 0 to `tablesize`-1.
+remainder method to get a hash value.
 
-![Figure 6: Hashing a String Using Ordinal
-Values](Figures/stringhash.png)
+![Hashing a String Using Ordinal Values](figures/string-hash.png)
 
-**Listing 1**
+Below is a a function called `hash` that takes a string and a table size and
+returns the hash value in the range from 0 to `tablesize - 1`.
 
-    def hash(astring, tablesize):
-        sum = 0
-        for pos in range(len(astring)):
-            sum = sum + ord(astring[pos])
-
-        return sum%tablesize
+```python
+def hash(astring, tablesize):
+    the_sum = sum(ord(char) for char in astring)
+    return the_sum % tablesize
+```
 
 It is interesting to note that when using this hash function, anagrams
 will always be given the same hash value. To remedy this, we could use
 the position of the character as a weight.
-Figure 7 shows one possible way to use the
+The illustration below shows one possible way to use the
 positional value as a weighting factor. The modification to the `hash`
 function is left as an exercise.
 
-![Figure 7: Hashing a String Using Ordinal Values with
-Weighting](Figures/stringhash2.png)
+![Hashing a String Using Ordinal Values with
+Weighting](figures/string-hash-2.png)
 
 You may be able to think of a number of additional ways to compute hash
 values for items in a collection. The important thing to remember is
@@ -181,11 +196,9 @@ that it tries to find the next open slot or address in the hash table.
 By systematically visiting each slot one at a time, we are performing an
 open addressing technique called **linear probing**.
 
-Figure 8 shows an extended set of integer
+The illustration below shows an extended set of integer
 items under the simple remainder method hash function
-(54,26,93,17,77,31,44,55,20). Table 4 &lt;tbl\_hashvalues1&gt; above
-shows the hash values for the original items.
-Figure 5 shows the original contents. When we
+(54, 26, 93, 17, 77, 31, 44, 55, 20). When we
 attempt to place 44 into slot 0, a collision occurs. Under linear
 probing, we look sequentially, slot by slot, until we find an open
 position. In this case, we find slot 1.
@@ -195,8 +208,7 @@ the next open position. The final value of 20 hashes to slot 9. Since
 slot 9 is full, we begin to do linear probing. We visit slots 10, 0, 1,
 and 2, and finally find an empty slot at position 3.
 
-![Figure 8: Collision Resolution with Linear
-Probing](Figures/linearprobing1.png)
+![Collision Resolution with Linear Probing](figures/linear-probing-1.png)
 
 Once we have built a hash table using open addressing and linear
 probing, it is essential that we utilize the same methods to search for
@@ -214,10 +226,9 @@ occur at the same hash value, a number of surrounding slots will be
 filled by the linear probing resolution. This will have an impact on
 other items that are being inserted, as we saw when we tried to add the
 item 20 above. A cluster of values hashing to 0 had to be skipped to
-finally find an open position. This cluster is shown in
-Figure 9.
+finally find an open position. This cluster is shown below.
 
-![Figure 9: A Cluster of Items for Slot 0](Figures/clustering.png)
+![A Cluster of Items for Slot 0](figures/clustering.png)
 
 One way to deal with clustering is to extend the linear probing
 technique so that instead of looking sequentially for the next open
@@ -228,15 +239,14 @@ collision resolution is done with a “plus 3” probe. This means that once
 a collision occurs, we will look at every third slot until we find one
 that is empty.
 
-![Figure 10: Collision Resolution Using “Plus
-3”](Figures/linearprobing2.png)
+![Collision Resolution Using “Plus 3”](figures/linear-probing-2.png)
 
 The general name for this process of looking for another slot after a
 collision is **rehashing**. With simple linear probing, the rehash
-function is $newhashvalue = rehash(oldhashvalue)$ where
-$rehash(pos) = (pos + 1) \% sizeoftable$. The “plus 3” rehash can be
-defined as $rehash(pos) = (pos+3) \% sizeoftable$. In general,
-$rehash(pos) = (pos + skip) \% sizeoftable$. It is important to note
+function is $$newhashvalue = rehash(oldhashvalue)$$ where
+$$rehash(pos) = (pos + 1) \% sizeoftable$$. The “plus 3” rehash can be
+defined as $$rehash(pos) = (pos+3) \% sizeoftable$$. In general,
+$$rehash(pos) = (pos + skip) \% sizeoftable$$. It is important to note
 that the size of the “skip” must be such that all the slots in the table
 will eventually be visited. Otherwise, part of the table will be unused.
 To ensure this, it is often suggested that the table size be a prime
@@ -245,14 +255,13 @@ number. This is the reason we have been using 11 in our examples.
 A variation of the linear probing idea is called **quadratic probing**.
 Instead of using a constant “skip” value, we use a rehash function that
 increments the hash value by 1, 3, 5, 7, 9, and so on. This means that
-if the first hash value is *h*, the successive values are $h+1$, $h+4$,
-$h+9$, $h+16$, and so on. In other words, quadratic probing uses a skip
+if the first hash value is *h*, the successive values are $$h+1$$, $$h+4$$,
+$$h+9$$, $$h+16$$, and so on. In other words, quadratic probing uses a skip
 consisting of successive perfect squares.
-Figure 11 shows our example values after they are
+The illustration below shows our example values after they are
 placed using this technique.
 
-![Figure 11: Collision Resolution with Quadratic
-Probing](Figures/quadratic.png)
+![Collision Resolution with Quadratic Probing](figures/quadratic.png)
 
 An alternative method for handling the collision problem is to allow
 each slot to hold a reference to a collection (or chain) of items.
@@ -260,10 +269,10 @@ each slot to hold a reference to a collection (or chain) of items.
 table. When collisions happen, the item is still placed in the proper
 slot of the hash table. As more and more items hash to the same
 location, the difficulty of searching for the item in the collection
-increases. Figure 12 shows the items as they are
+increases. The illustration below shows the items as they are
 added to a hash table that uses chaining to resolve collisions.
 
-![Figure 12: Collision Resolution with Chaining](Figures/chaining.png)
+![Collision Resolution with Chaining](figures/chaining.png)
 
 When we want to search for an item, we use the hash function to generate
 the slot where it should reside. Since each slot holds a collection, we
@@ -272,179 +281,10 @@ advantage is that on the average there are likely to be many fewer items
 in each slot, so the search is perhaps more efficient. We will look at
 the analysis for hashing at the end of this section.
 
-> **Self Check**
-
-Implementing the `Map` Abstract Data Type
------------------------------------------
-
-One of the most useful Python collections is the dictionary. Recall that
-a dictionary is an associative data type where you can store key–data
-pairs. The key is used to look up the associated data value. We often
-refer to this idea as a **map**.
-
-The map abstract data type is defined as follows. The structure is an
-unordered collection of associations between a key and a data value. The
-keys in a map are all unique so that there is a one-to-one relationship
-between a key and a value. The operations are given below.
-
--   `Map()` Create a new, empty map. It returns an empty map collection.
--   `put(key,val)` Add a new key-value pair to the map. If the key is
-    already in the map then replace the old value with the new value.
--   `get(key)` Given a key, return the value stored in the map or
-    `None` otherwise.
--   `del` Delete the key-value pair from the map using a statement of
-    the form `del map[key]`.
--   `len()` Return the number of key-value pairs stored in the map.
--   `in` Return `True` for a statement of the form `key in map`, if the
-    given key is in the map, `False` otherwise.
-
-One of the great benefits of a dictionary is the fact that given a key,
-we can look up the associated data value very quickly. In order to
-provide this fast look up capability, we need an implementation that
-supports an efficient search. We could use a list with sequential or
-binary search but it would be even better to use a hash table as
-described above since looking up an item in a hash table can approach
-$O(1)$ performance.
-
-In Listing 2 &lt;lst\_hashtablecodeconstructor&gt; we use two lists to
-create a `HashTable` class that implements the Map abstract data type.
-One list, called `slots`, will hold the key items and a parallel list,
-called `data`, will hold the data values. When we look up a key, the
-corresponding position in the data list will hold the associated data
-value. We will treat the key list as a hash table using the ideas
-presented earlier. Note that the initial size for the hash table has
-been chosen to be 11. Although this is arbitrary, it is important that
-the size be a prime number so that the collision resolution algorithm
-can be as efficient as possible.
-
-**Listing 2**
-
-    class HashTable:
-        def __init__(self):
-            self.size = 11
-            self.slots = [None] * self.size
-            self.data = [None] * self.size
-
-`hashfunction` implements the simple remainder method. The collision
-resolution technique is linear probing with a “plus 1” rehash function.
-The `put` function (see Listing 3 &lt;lst\_hashtablecodestore&gt;)
-assumes that there will eventually be an empty slot unless the key is
-already present in the `self.slots`. It computes the original hash value
-and if that slot is not empty, iterates the `rehash` function until an
-empty slot occurs. If a nonempty slot already contains the key, the old
-data value is replaced with the new data value.
-
-**Listing 3**
-
-    def put(self,key,data):
-      hashvalue = self.hashfunction(key,len(self.slots))
-
-      if self.slots[hashvalue] == None:
-        self.slots[hashvalue] = key
-        self.data[hashvalue] = data
-      else:
-        if self.slots[hashvalue] == key:
-          self.data[hashvalue] = data  #replace
-        else:
-          nextslot = self.rehash(hashvalue,len(self.slots))
-          while self.slots[nextslot] != None and \
-                          self.slots[nextslot] != key:
-            nextslot = self.rehash(nextslot,len(self.slots))
-
-          if self.slots[nextslot] == None:
-            self.slots[nextslot]=key
-            self.data[nextslot]=data
-          else:
-            self.data[nextslot] = data #replace
-
-    def hashfunction(self,key,size):
-         return key%size
-
-    def rehash(self,oldhash,size):
-        return (oldhash+1)%size
-
-Likewise, the `get` function (see
-Listing 4 &lt;lst\_hashtablecodesearch&gt;) begins by computing the
-initial hash value. If the value is not in the initial slot, `rehash` is
-used to locate the next possible position. Notice that line 15
-guarantees that the search will terminate by checking to make sure that
-we have not returned to the initial slot. If that happens, we have
-exhausted all possible slots and the item must not be present.
-
-The final methods of the `HashTable` class provide additional dictionary
-functionality. We overload the \_\_getitem\_\_ and \_\_setitem\_\_
-methods to allow access using`[]`. This means that once a `HashTable`
-has been created, the familiar index operator will be available. We
-leave the remaining methods as exercises.
-
-**Listing 4**
-
-    def get(self,key):
-      startslot = self.hashfunction(key,len(self.slots))
-
-      data = None
-      stop = False
-      found = False
-      position = startslot
-      while self.slots[position] != None and  \
-                           not found and not stop:
-         if self.slots[position] == key:
-           found = True
-           data = self.data[position]
-         else:
-           position=self.rehash(position,len(self.slots))
-           if position == startslot:
-               stop = True
-      return data
-
-    def __getitem__(self,key):
-        return self.get(key)
-
-    def __setitem__(self,key,data):
-        self.put(key,data)
-
-The following session shows the `HashTable` class in action. First we
-will create a hash table and store some items with integer keys and
-string data values.
-
-    >>> H=HashTable()
-    >>> H[54]="cat"
-    >>> H[26]="dog"
-    >>> H[93]="lion"
-    >>> H[17]="tiger"
-    >>> H[77]="bird"
-    >>> H[31]="cow"
-    >>> H[44]="goat"
-    >>> H[55]="pig"
-    >>> H[20]="chicken"
-    >>> H.slots
-    [77, 44, 55, 20, 26, 93, 17, None, None, 31, 54]
-    >>> H.data
-    ['bird', 'goat', 'pig', 'chicken', 'dog', 'lion',
-           'tiger', None, None, 'cow', 'cat']
-
-Next we will access and modify some items in the hash table. Note that
-the value for the key 20 is being replaced.
-
-    >>> H[20]
-    'chicken'
-    >>> H[17]
-    'tiger'
-    >>> H[20]='duck'
-    >>> H[20]
-    'duck'
-    >>> H.data
-    ['bird', 'goat', 'pig', 'duck', 'dog', 'lion',
-           'tiger', None, None, 'cow', 'cat']
-    >> print(H[99])
-    None
-
-The complete hash table example can be found in ActiveCode 1.
-
 Analysis of Hashing
 -------------------
 
-We stated earlier that in the best case hashing would provide a $O(1)$,
+We stated earlier that in the best case hashing would provide a $$O(1)$$,
 constant time search technique. However, due to collisions, the number
 of comparisons is typically not so simple. Even though a complete
 analysis of hashing is beyond the scope of this text, we can state some
@@ -452,9 +292,9 @@ well-known results that approximate the number of comparisons necessary
 to search for an item.
 
 The most important piece of information we need to analyze the use of a
-hash table is the load factor, $\lambda$. Conceptually, if $\lambda$ is
+hash table is the load factor, $$\lambda$$. Conceptually, if $$\lambda$$ is
 small, then there is a lower chance of collisions, meaning that items
-are more likely to be in the slots where they belong. If $\lambda$ is
+are more likely to be in the slots where they belong. If $$\lambda$$ is
 large, meaning that the table is filling up, then there are more and
 more collisions. This means that collision resolution is more difficult,
 requiring more comparisons to find an empty slot. With chaining,
@@ -463,9 +303,9 @@ increased collisions means an increased number of items on each chain.
 As before, we will have a result for both a successful and an
 unsuccessful search. For a successful search using open addressing with
 linear probing, the average number of comparisons is approximately
-$\frac{1}{2}\left(1+\frac{1}{1-\lambda}\right)$ and an unsuccessful
+$$\frac{1}{2}\left(1+\frac{1}{1-\lambda}\right)$$ and an unsuccessful
 search gives
-$\frac{1}{2}\left(1+\left(\frac{1}{1-\lambda}\right)^2\right)$ If we are
+$$\frac{1}{2}\left(1+\left(\frac{1}{1-\lambda}\right)^2\right)$$ If we are
 using chaining, the average number of comparisons is
-$1 + \frac {\lambda}{2}$ for the successful case, and simply $\lambda$
+$$1 + \frac {\lambda}{2}$$ for the successful case, and simply $$\lambda$$
 comparisons if the search is unsuccessful.
