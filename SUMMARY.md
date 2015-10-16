@@ -60,8 +60,6 @@
     * [The Shell Sort](sorting/the-shell-sort.md.todo)
     * [The Merge Sort](sorting/the-merge-sort.md.todo)
     * [The Quick Sort](sorting/the-quick-sort.md.todo)
-    * [Summary](sorting/summary.md.todo)
-    * [Discussion Questions](sorting/discussion-questions.md.todo)
 
 * Trees and Tree Algorithms
     * [Introduction](trees/introduction.md)
@@ -82,8 +80,6 @@
     * [AVL Tree Performance](trees/avl-tree-performance.md.todo)
     * [AVL Tree Implementation](trees/avl-tree-implementation.md.todo)
     * [Summary of map ADT Implementations](trees/summary-of-map-adt-implementations.md.todo)
-    * [Summary](trees/summary.md.todo)
-    * [Discussion Questions](trees/discussion-questions.md.todo)
 
 * Graphs and Graph Algorithms
     * [Vocabulary and Definitions](graphs/vocabulary-and-definitions.md.todo)
@@ -107,5 +103,3 @@
     * [Dijkstra’s Algorithm](graphs/dijkstras-algorithm.md.todo)
     * [Analysis of Dijkstra’s Algorithm](graphs/analysis-of-dijkstras-algorithm.md.todo)
     * [Prims Spanning Tree Algorithm](graphs/prims-spanning-tree-algorithm.md.todo)
-    * [Summary](graphs/summary.md.todo)
-    * [Discussion Questions](graphs/discussion-questions.md.todo)
