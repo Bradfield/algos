@@ -44,20 +44,24 @@
     * [Tower of Hanoi](recursion/tower-of-hanoi.md)
     * [Dynamic Programming](recursion/dynamic-programming.md)
 
-* Sorting and Searching
-    * [Searching](sorting-and-searching/searching.md.todo)
-    * [The Sequential Search](sorting-and-searching/the-sequential-search.md.todo)
-    * [The Binary Search](sorting-and-searching/the-binary-search.md.todo)
-    * [Hashing](sorting-and-searching/hashing.md.todo)
-    * [Sorting](sorting-and-searching/sorting.md.todo)
-    * [The Bubble Sort](sorting-and-searching/the-bubble-sort.md.todo)
-    * [The Selection Sort](sorting-and-searching/the-selection-sort.md.todo)
-    * [The Insertion Sort](sorting-and-searching/the-insertion-sort.md.todo)
-    * [The Shell Sort](sorting-and-searching/the-shell-sort.md.todo)
-    * [The Merge Sort](sorting-and-searching/the-merge-sort.md.todo)
-    * [The Quick Sort](sorting-and-searching/the-quick-sort.md.todo)
-    * [Summary](sorting-and-searching/summary.md.todo)
-    * [Discussion Questions](sorting-and-searching/discussion-questions.md.todo)
+* Searching
+    * [Searching](searching/searching.md)
+    * [The Sequential Search](searching/the-sequential-search.md)
+    * [The Binary Search](searching/the-binary-search.md)
+
+* Maps
+    * [Hashing](maps/hashing.md)
+
+* Sorting
+    * [Sorting](sorting/sorting.md.todo)
+    * [The Bubble Sort](sorting/the-bubble-sort.md.todo)
+    * [The Selection Sort](sorting/the-selection-sort.md.todo)
+    * [The Insertion Sort](sorting/the-insertion-sort.md.todo)
+    * [The Shell Sort](sorting/the-shell-sort.md.todo)
+    * [The Merge Sort](sorting/the-merge-sort.md.todo)
+    * [The Quick Sort](sorting/the-quick-sort.md.todo)
+    * [Summary](sorting/summary.md.todo)
+    * [Discussion Questions](sorting/discussion-questions.md.todo)
 
 * Trees and Tree Algorithms
     * [Introduction](trees/introduction.md)
