@@ -88,7 +88,7 @@ Figure 3 shows the state of the in-progress tree along
 with the queue after this step.
 
 ![Figure 3: The First Step in the Breadth First
-Search](Figures/bfs1.png)
+Search](figures/bfs1.png)
 
 In the next step `bfs` removes the next node (pool) from the front of
 the queue and repeats the process for all of its adjacent nodes.
@@ -100,7 +100,7 @@ poll. The new state of the tree and queue is shown in
 Figure 4.
 
 ![Figure 4: The Second Step in the Breadth First
-Search](Figures/bfs2.png)
+Search](figures/bfs2.png)
 
 The next vertex on the queue is foil. The only new node that foil can
 add to the tree is fail. As `bfs` continues to process the queue,
@@ -109,9 +109,9 @@ Figure 5 shows the tree and the queue after expanding
 all the vertices on the second level of the tree.
 
 ![Figure 5: Breadth First Search Tree After Completing One
-Level](Figures/bfs3.png)
+Level](figures/bfs3.png)
 
-![FIgure 6: Final Breadth First Search Tree](Figures/bfsDone.png)
+![FIgure 6: Final Breadth First Search Tree](figures/bfsDone.png)
 
 You should continue to work through the algorithm on your own so that
 you are comfortable with how it works. Figure 6

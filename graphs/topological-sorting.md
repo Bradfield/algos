@@ -12,7 +12,7 @@ bottom. Before you eat your pancakes you are going to want to heat up
 some syrup. Figure 27 illustrates this process as
 a graph.
 
-![Figure 27: The Steps for Making Pancakes](Figures/pancakes.png)
+![Figure 27: The Steps for Making Pancakes](figures/pancakes.png)
 
 The difficult thing about making pancakes is knowing what to do first.
 As you can see from Figure 27 you might start by
@@ -43,7 +43,7 @@ constructed by `dfs` on the pancake-making graph shown in
 Figure 26.
 
 ![Figure 28: Result of Depth First Search on the Pancake
-Graph](Figures/pancakesDFS.png)
+Graph](figures/pancakesDFS.png)
 
 Finally, Figure 29 shows the results of applying
 the topological sort algorithm to our graph. Now all the ambiguity has
@@ -51,4 +51,4 @@ been removed and we know exactly the order in which to perform the
 pancake making steps.
 
 ![Figure 29: Result of Topological Sort on Directed Acyclic
-Graph](Figures/pancakesTS.png)
+Graph](figures/pancakesTS.png)

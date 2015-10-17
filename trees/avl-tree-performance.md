@@ -11,7 +11,7 @@ we consider trees of heights 0, 1, 2, and 3,
 Figure 2 illustrates the most unbalanced
 left-heavy tree possible under the new rules.
 
-![Figure 2: Worst-Case Left-Heavy AVL Trees](Figures/worstAVL.png)
+![Figure 2: Worst-Case Left-Heavy AVL Trees](figures/worstAVL.png)
 
 Looking at the total number of nodes in the tree we see that for a tree
 of height 0 there is 1 node, for a tree of height 1 there is $1+1

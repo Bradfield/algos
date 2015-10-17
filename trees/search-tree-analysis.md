@@ -37,7 +37,7 @@ tree is shown in Figure 6. In this
 case the performance of the `put` method is $O(n)$.
 
 ![Figure 6: A skewed binary search tree would give poor
-performance](Figures/skewedTree.png)
+performance](figures/skewedTree.png)
 
 Now that you understand that the performance of the `put` method is
 limited by the height of the tree, you can probably guess that other

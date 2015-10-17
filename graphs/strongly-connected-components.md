@@ -18,7 +18,7 @@ be huge, so we have limited it to web sites that are no more than 10
 links away from the CS home page.
 
 ![Figure 30: The Graph Produced by Links from the Luther Computer
-Science Home Page](Figures/cshome.png)
+Science Home Page](figures/cshome.png)
 
 If you study the graph in Figure 30 you might make
 some interesting observations. First you might notice that many of the
@@ -40,7 +40,7 @@ connected components. The strongly connected components are identified
 by the different shaded areas.
 
 ![Figure 31: A Directed Graph with Three Strongly Connected
-Components](Figures/scc1.png)
+Components](figures/scc1.png)
 
 Once the strongly connected components have been identified we can show
 a simplified view of the graph by combining all the vertices in one
@@ -48,7 +48,7 @@ strongly connected component into a single larger vertex. The simplified
 version of the graph in Figure 31 is shown in
 Figure 32.
 
-![Figure 32: The Reduced Graph](Figures/scc2.png)
+![Figure 32: The Reduced Graph](figures/scc2.png)
 
 Once again we will see that we can create a very powerful and efficient
 algorithm by making use of a depth first search. Before we tackle the
@@ -59,9 +59,9 @@ edge from node A to node B in the original graph then $G^T$ will contain
 and edge from node B to node A. Figure 33 and
 Figure 34 show a simple graph and its transposition.
 
-![Figure 33: A Graph $G$](Figures/transpose1.png)
+![Figure 33: A Graph $G$](figures/transpose1.png)
 
-![Figure 34: Its Transpose $G^T$](Figures/transpose2.png)
+![Figure 34: Its Transpose $G^T$](figures/transpose2.png)
 
 Look at the figures again. Notice that the graph in
 Figure 33 has two strongly connected components. Now
@@ -87,13 +87,13 @@ by the DFS algorithm. Figure 36 shows the starting
 and finishing times computed by running DFS on the transposed graph.
 
 ![Figure 35: Finishing times for the original graph
-$G$](Figures/scc1a.png)
+$G$](figures/scc1a.png)
 
-![Figure 36: Finishing times for $G^T$](Figures/scc1b.png)
+![Figure 36: Finishing times for $G^T$](figures/scc1b.png)
 
 Finally, Figure 37 shows the forest of three
 trees produced in step 3 of the strongly connected component algorithm.
 You will notice that we do not provide you with the Python code for the
 SCC algorithm, we leave writing this program as an exercise.
 
-![Figure 37: Strongly Connected Components](Figures/sccforest.png)
+![Figure 37: Strongly Connected Components](figures/sccforest.png)

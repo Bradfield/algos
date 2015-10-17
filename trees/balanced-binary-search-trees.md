@@ -31,4 +31,4 @@ back into balance. Figure 1 shows an example of an
 unbalanced, right-heavy tree and the balance factors of each node.
 
 ![Figure 1: An Unbalanced Right-Heavy Tree with Balance
-Factors](Figures/unbalanced.png)
+Factors](figures/unbalanced.png)

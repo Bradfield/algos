@@ -10,7 +10,7 @@ shows a small graph of some words that solve the FOOL to SAGE word
 ladder problem. Notice that the graph is an undirected graph and that
 the edges are unweighted.
 
-![Figure 1: A Small Word Ladder Graph](Figures/wordgraph.png)
+![Figure 1: A Small Word Ladder Graph](figures/wordgraph.png)
 
 We could use several different approaches to create the graph we need to
 solve this problem. Let’s start with the assumption that we have a list
@@ -37,7 +37,7 @@ word in that bucket. Once we have all the words in the appropriate
 buckets we know that all the words in the bucket must be connected.
 
 ![Figure 2: Word Buckets for Words That are Different by One
-Letter](Figures/wordbuckets.png)
+Letter](figures/wordbuckets.png)
 
 In Python, we can implement the scheme we have just described by using a
 dictionary. The labels on the buckets we have just described are the

@@ -10,7 +10,7 @@ computer networking. However, we will talk about how the Internet works
 just enough to understand another very important graph algorithm.
 
 ![Figure 1: Overview of Connectivity in the
-Internet](Figures/Internet.png)
+Internet](figures/Internet.png)
 
 Figure 1 shows you a high-level overview of how
 communication on the Internet works. When you use your browser to
@@ -55,7 +55,7 @@ it will not surprise you to learn that we can represent the network of
 routers as a graph with weighted edges.
 
 ![Figure 2: Connections and Weights between Routers in the
-Internet](Figures/routeGraph.png)
+Internet](figures/routeGraph.png)
 
 Figure 2 shows a small example of a weighted graph
 that represents the interconnection of routers in the Internet. The

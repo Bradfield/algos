@@ -11,7 +11,7 @@ are getting all the data they need to reconstruct the song they are
 listening to. Figure 9 illustrates the broadcast
 problem.
 
-![Figure 9: The Broadcast Problem](Figures/bcast1.png)
+![Figure 9: The Broadcast Problem](figures/bcast1.png)
 
 There are some brute force solutions to this problem, so let’s look at
 them first to help understand the broadcast problem better. This will
@@ -64,7 +64,7 @@ to G. No router sees more than one copy of any message, and all the
 listeners that are interested see a copy of the message.
 
 ![Figure 10: Minimum Spanning Tree for the Broadcast
-Graph](Figures/mst1.png)
+Graph](figures/mst1.png)
 
 The algorithm we will use to solve this problem is called Prim’s
 algorithm. Prim’s algorithm belongs to a family of algorithms called the
@@ -135,16 +135,16 @@ to be grafted into the spanning tree but in a different location. The
 rest of the algorithm proceeds as you would expect, adding each new node
 to the tree.
 
-![Figure 11: Tracing Prim’s Algorithm](Figures/prima.png)
+![Figure 11: Tracing Prim’s Algorithm](figures/prima.png)
 
-![Figure 12: Tracing Prim’s Algorithm](Figures/primb.png)
+![Figure 12: Tracing Prim’s Algorithm](figures/primb.png)
 
-![Figure 13: Tracing Prim’s Algorithm](Figures/primc.png)
+![Figure 13: Tracing Prim’s Algorithm](figures/primc.png)
 
-![Figure 14: Tracing Prim’s Algorithm](Figures/primd.png)
+![Figure 14: Tracing Prim’s Algorithm](figures/primd.png)
 
-![Figure 15: Tracing Prim’s Algorithm](Figures/prime.png)
+![Figure 15: Tracing Prim’s Algorithm](figures/prime.png)
 
-![Figure 16: Tracing Prim’s Algorithm](Figures/primf.png)
+![Figure 16: Tracing Prim’s Algorithm](figures/primf.png)
 
-![Figure 17: Tracing Prim’s Algorithm](Figures/primg.png)
+![Figure 17: Tracing Prim’s Algorithm](figures/primg.png)

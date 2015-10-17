@@ -92,7 +92,7 @@ definition one. The arrowheads on the edges indicate the direction of
 the connection.
 
 ![Figure 3: A Tree Consisting of a Set of Nodes and
-Edges](Figures/treedef1.png)
+Edges](figures/treedef1.png)
 
 *Definition Two:* A tree is either empty or consists of a root and zero
 or more subtrees, each of which is also a tree. The root of each subtree
@@ -105,4 +105,4 @@ root. It may have many more nodes than that, but we do not know unless
 we look deeper into the tree.
 
 ![Figure 4: A recursive Definition of a
-tree](Figures/TreeDefRecursive.png)
+tree](figures/TreeDefRecursive.png)

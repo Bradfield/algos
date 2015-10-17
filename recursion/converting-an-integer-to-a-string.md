@@ -78,7 +78,7 @@ looking for, but it looks like the digits are in the wrong order.
 
 
 ![Converting the Number 10 to its Base 2 String
-Representation](Figures/to-string-base-2.png)
+Representation](figures/to-string-base-2.png)
 
 The
 algorithm works correctly because we make the recursive call first, then we add the string representation of the remainder. If we

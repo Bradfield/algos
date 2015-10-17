@@ -83,7 +83,7 @@ tree into balance we will use a left rotation around the subtree rooted
 at node A.
 
 ![Figure 3: Transforming an Unbalanced Tree Using a Left
-Rotation](Figures/simpleunbalanced.png)
+Rotation](figures/simpleunbalanced.png)
 
 To perform a left rotation we essentially do the following:
 
@@ -114,7 +114,7 @@ perform a right rotation we essentially do the following:
     empty at this point. This allows us to add a new node as the left
     child without any further consideration.
 
-![](Figures/rightrotate1.png)
+![](figures/rightrotate1.png)
 
 > align
 >
@@ -179,7 +179,7 @@ balance factors without completely recalculating the heights of the new
 subtrees? The following derivation should convince you that these lines
 are correct.
 
-![Figure 5: A Left Rotation](Figures/bfderive.png)
+![Figure 5: A Left Rotation](figures/bfderive.png)
 
 Figure 5 shows a left rotation. B and D are the
 pivotal nodes and A, C, E are their subtrees. Let $h_x$ denote the
@@ -235,14 +235,14 @@ balance factor of -2 we should do a left rotation. But, what happens
 when we do the left rotation around A?
 
 ![Figure 6: An Unbalanced Tree that is More Difficult to
-Balance](Figures/hardunbalanced.png)
+Balance](figures/hardunbalanced.png)
 
 Figure 7 shows us that after the left rotation we
 are now out of balance the other way. If we do a right rotation to
 correct the situation we are right back where we started.
 
 ![Figure 7: After a Left Rotation the Tree is Out of Balance in the
-Other Direction](Figures/badrotate.png)
+Other Direction](figures/badrotate.png)
 
 To correct this problem we must use the following set of rules:
 
@@ -262,7 +262,7 @@ node C puts the tree in a position where the left rotation around A
 brings the entire subtree back into balance.
 
 ![Figure 8: A Right Rotation Followed by a Left
-Rotation](Figures/rotatelr.png)
+Rotation](figures/rotatelr.png)
 
 The code that implements these rules can be found in our `rebalance`
 method, which is shown in Listing 3 &lt;lst\_rebalance&gt;. Rule number

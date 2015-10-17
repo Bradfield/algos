@@ -130,40 +130,40 @@ the algorithm works its way back to the first node, setting finish times
 and coloring vertices black.
 
 ![Figure 14: Constructing the Depth First Search
-Tree-10](Figures/gendfsa.png)
+Tree-10](figures/gendfsa.png)
 
 ![Figure 15: Constructing the Depth First Search
-Tree-11](Figures/gendfsb.png)
+Tree-11](figures/gendfsb.png)
 
 ![Figure 16: Constructing the Depth First Search
-Tree-12](Figures/gendfsc.png)
+Tree-12](figures/gendfsc.png)
 
 ![Figure 17: Constructing the Depth First Search
-Tree-13](Figures/gendfsd.png)
+Tree-13](figures/gendfsd.png)
 
 ![Figure 18: Constructing the Depth First Search
-Tree-14](Figures/gendfse.png)
+Tree-14](figures/gendfse.png)
 
 ![Figure 19: Constructing the Depth First Search
-Tree-15](Figures/gendfsf.png)
+Tree-15](figures/gendfsf.png)
 
 ![Figure 20: Constructing the Depth First Search
-Tree-16](Figures/gendfsg.png)
+Tree-16](figures/gendfsg.png)
 
 ![Figure 21: Constructing the Depth First Search
-Tree-17](Figures/gendfsh.png)
+Tree-17](figures/gendfsh.png)
 
 ![Figure 22: Constructing the Depth First Search
-Tree-18](Figures/gendfsi.png)
+Tree-18](figures/gendfsi.png)
 
 ![Figure 23: Constructing the Depth First Search
-Tree-19](Figures/gendfsj.png)
+Tree-19](figures/gendfsj.png)
 
 ![Figure 24: Constructing the Depth First Search
-Tree-20](Figures/gendfsk.png)
+Tree-20](figures/gendfsk.png)
 
 ![Figure 25: Constructing the Depth First Search
-Tree-21](Figures/gendfsl.png)
+Tree-21](figures/gendfsl.png)
 
 The starting and finishing times for each node display a property called
 the **parenthesis property**. This property means that all the children
@@ -172,4 +172,4 @@ and an earlier finish time than their parent.
 Figure 26 shows the tree constructed by the depth
 first search algorithm.
 
-![Figure 26: The Resulting Depth First Search Tree](Figures/dfstree.png)
+![Figure 26: The Resulting Depth First Search Tree](figures/dfstree.png)

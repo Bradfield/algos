@@ -40,7 +40,7 @@ shows a limited version of a book with only two chapters. Note that the
 traversal algorithm works for trees with any number of children, but we
 will stick with binary trees for now.
 
-![Figure 5: Representing a Book as a Tree](Figures/booktree.png)
+![Figure 5: Representing a Book as a Tree](figures/booktree.png)
 
 Suppose that you wanted to read this book from front to back. The
 preorder traversal gives you exactly that ordering. Starting at the root

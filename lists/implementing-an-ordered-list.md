@@ -84,7 +84,7 @@ the item we wish to add. In our example, seeing the value 54 causes us
 to stop.
 
 ![Adding an Item to an Ordered Linked
-List](Figures/ordered-list-insert.png)
+List](figures/ordered-list-insert.png)
 
 As we saw with unordered lists, it is necessary to have an additional
 reference, again called `previous`, since `current` will not provide

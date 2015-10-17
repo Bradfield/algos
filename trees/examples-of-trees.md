@@ -17,7 +17,7 @@ no matter how deep we go in the classification tree, all the organisms
 are still animals.
 
 ![Figure 1: Taxonomy of Some Common Animals Shown as a
-Tree](Figures/biology.png)
+Tree](figures/biology.png)
 
 Notice that you can start at the top of the tree and follow a path made
 of circles and arrows all the way to the bottom. At each level of the
@@ -49,7 +49,7 @@ as a tree. Figure 2 illustrates a small part of a
 Unix file system hierarchy.
 
 ![Figure 2: A Small Part of the Unix File System
-Hierarchy](Figures/directory.png)
+Hierarchy](figures/directory.png)
 
 The file system tree has much in common with the biological
 classification tree. You can follow a path from the root to any
@@ -85,7 +85,7 @@ page.
 ```
 
 ![Figure 3: A Tree Corresponding to the Markup Elements of a Web
-Page](Figures/htmltree.png)
+Page](figures/htmltree.png)
 
 The HTML source code and the tree accompanying the source illustrate
 another hierarchy. Notice that each level of the tree corresponds to a

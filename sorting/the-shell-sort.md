@@ -19,10 +19,10 @@ has happened. By sorting the sublists, we have moved the items closer to
 where they actually belong.
 
 ![Figure 6: A Shell Sort with Increments of
-Three](Figures/shellsortA.png)
+Three](figures/shellsortA.png)
 
 ![Figure 7: A Shell Sort after Sorting Each
-Sublist](Figures/shellsortB.png)
+Sublist](figures/shellsortB.png)
 
 Figure 8 shows a final insertion sort using an
 increment of one; in other words, a standard insertion sort. Note that
@@ -32,9 +32,9 @@ order. For this case, we need only four more shifts to complete the
 process.
 
 ![Figure 8: ShellSort: A Final Insertion Sort with Increment of
-1](Figures/shellsortC.png)
+1](figures/shellsortC.png)
 
-![Figure 9: Initial Sublists for a Shell Sort](Figures/shellsortD.png)
+![Figure 9: Initial Sublists for a Shell Sort](figures/shellsortD.png)
 
 We said earlier that the way in which the increments are chosen is the
 unique feature of the shell sort. The function shown in

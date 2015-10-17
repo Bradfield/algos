@@ -26,10 +26,10 @@ currently exploring. The number of possible positions to examine
 corresponds to the number of nodes in the search tree.
 
 ![Figure 12: A Search Tree for the Knight’s
-Tour](Figures/8arrayTree.png)
+Tour](figures/8arrayTree.png)
 
 ![Figure 13: Number of Possible Moves for Each
-Square](Figures/moveCount.png)
+Square](figures/moveCount.png)
 
 We have already seen that the number of nodes in a binary tree of height
 N is $2^{N+1}-1$. For a tree with nodes that may have up to eight

@@ -12,7 +12,7 @@ the property holds for each parent and child. All of the keys in the
 left subtree are less than the key in the root. All of the keys in the
 right subtree are greater than the root.
 
-![Figure 1: A Simple Binary Search Tree](Figures/simpleBST.png)
+![Figure 1: A Simple Binary Search Tree](figures/simpleBST.png)
 
 Now that you know what a binary search tree is, we will look at how a
 binary search tree is constructed. The search tree in
@@ -194,7 +194,7 @@ Figure 2 illustrates the process for inserting a new
 node into a binary search tree. The lightly shaded nodes indicate the
 nodes that were visited during the insertion process.
 
-![Figure 2: Inserting a Node with Key = 19](Figures/bstput.png)
+![Figure 2: Inserting a Node with Key = 19](figures/bstput.png)
 
 Once the tree is constructed, the next task is to implement the
 retrieval of a value for a given key. The `get` method is even easier
@@ -314,7 +314,7 @@ case is shown in here.
             currentNode.parent.rightChild = None
 
 ![Figure 3: Deleting Node 16, a Node without
-Children](Figures/bstdel1.png)
+Children](figures/bstdel1.png)
 
 The second case is only slightly more complicated (see
 Listing 9 &lt;lst\_bst9&gt;). If a node has only a single child, then we
@@ -367,7 +367,7 @@ decision proceeds as follows:
                      currentNode.rightChild.rightChild)
 
 ![Figure 4: Deleting Node 25, a Node That Has a Single
-Child](Figures/bstdel2.png)
+Child](figures/bstdel2.png)
 
 The third case is the most difficult case to handle (see
 Listing 10 &lt;lst\_bst10&gt;). If a node has two children, then it is
@@ -384,7 +384,7 @@ Once the successor has been removed, we simply put it in the tree in
 place of the node to be deleted.
 
 ![Figure 5: Deleting Node 5, a Node with Two
-Children](Figures/bstdel3.png)
+Children](figures/bstdel3.png)
 
 The code to handle the third case is shown in the next listing. Notice
 that we make use of the helper methods `findSuccessor` and `findMin` to

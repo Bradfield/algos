@@ -9,7 +9,7 @@ represents the left subtree. The third element of the list will be
 another list that represents the right subtree. To illustrate this
 storage technique, let’s look at an example:
 
-![A Small Tree](Figures/smalltree.png)
+![A Small Tree](figures/smalltree.png)
 
 ```python
 tree = [

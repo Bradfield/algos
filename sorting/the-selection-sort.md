@@ -16,7 +16,7 @@ proper location. The first pass places 93, the second pass places 77,
 the third places 55, and so on. The function is shown in
 ActiveCode 1 &lt;lst\_selectionsortcode&gt;.
 
-![Figure 3: `selectionSort`](Figures/selectionsortnew.png)
+![Figure 3: `selectionSort`](figures/selectionsortnew.png)
 
 You may see that the selection sort makes the same number of comparisons
 as the bubble sort and is therefore also $O(n^{2})$. However, due to the

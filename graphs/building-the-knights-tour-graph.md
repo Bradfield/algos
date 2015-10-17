@@ -8,7 +8,7 @@ an edge in the graph. Figure 1 illustrates the
 legal moves by a knight and the corresponding edges in a graph.
 
 ![Figure 1: Legal Moves for a Knight on Square 12, and the Corresponding
-Graph](Figures/knightmoves.png)
+Graph](figures/knightmoves.png)
 
 To build the full graph for an n-by-n board we can use the Python
 function shown in Listing 1 &lt;lst\_knighttour1&gt;. The `knightGraph`
@@ -75,4 +75,4 @@ was fully connected there would be 4,096 edges. Since there are only 336
 edges, the adjacency matrix would be only 8.2 percent full.
 
 ![Figure 2: All Legal Moves for a Knight on an $8 \times 8$
-Chessboard](Figures/bigknight.png)
+Chessboard](figures/bigknight.png)

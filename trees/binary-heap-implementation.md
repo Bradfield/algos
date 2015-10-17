@@ -15,7 +15,7 @@ The exception to this is the bottom level of the tree, which we fill in
 from left to right. Figure 1 shows an example of a
 complete binary tree.
 
-![Figure 1: A Complete Binary Tree](Figures/compTree.png)
+![Figure 1: A Complete Binary Tree](figures/compTree.png)
 
 Another interesting property of a complete tree is that we can represent
 it using a single list. We do not need to use nodes and references or
@@ -44,7 +44,7 @@ Figure 2 also illustrates a complete binary tree
 that has the heap order property.
 
 ![Figure 2: A Complete Binary Tree, along with its List
-Representation](Figures/heapOrder.png)
+Representation](figures/heapOrder.png)
 
 Heap Operations
 ---------------
@@ -78,7 +78,7 @@ the series of swaps needed to percolate the newly added item up to its
 proper position in the tree.
 
 ![Figure 2: Percolate the New Node up to Its Proper
-Position](Figures/percUp.png)
+Position](figures/percUp.png)
 
 Notice that when we percolate an item up, we are restoring the heap
 property between the newly added item and the parent. We are also
@@ -129,7 +129,7 @@ Figure 3 shows the series of swaps needed to move
 the new root node to its proper position in the heap.
 
 ![Figure 3: Percolating the Root Node down the
-Tree](Figures/percDown.png)
+Tree](figures/percDown.png)
 
 In order to maintain the heap order property, all we need to do is swap
 the root with its smallest child less than the root. After the initial
@@ -198,7 +198,7 @@ Listing 6 &lt;lst\_heap6&gt; shows the code to build the entire heap.
             i = i - 1
 
 ![Figure 4: Building a Heap from the List \[9, 6, 5, 2,
-3\]](Figures/buildheap.png)
+3\]](figures/buildheap.png)
 
 Figure 4 shows the swaps that the `buildHeap`
 method makes as it moves the nodes in an initial tree of \[9, 6, 5, 2,

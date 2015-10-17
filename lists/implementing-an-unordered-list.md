@@ -183,7 +183,7 @@ external reference to the list nodes, all of the original nodes are lost
 and can no longer be accessed.
 
 ![Result of Reversing the Order of the Two
-Steps](Figures/wrong-order.png)
+Steps](figures/wrong-order.png)
 
 The next methods that we will implement–`size`, `search`, and
 `remove`–are all based on a technique known as **linked list

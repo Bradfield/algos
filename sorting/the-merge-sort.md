@@ -15,9 +15,9 @@ familiar example list as it is being split by `mergeSort`.
 Figure 11 shows the simple lists, now sorted, as
 they are merged back together.
 
-![Figure 10: Splitting the List in a Merge Sort](Figures/mergesortA.png)
+![Figure 10: Splitting the List in a Merge Sort](figures/mergesortA.png)
 
-![Figure 11: Lists as They Are Merged Together](Figures/mergesortB.png)
+![Figure 11: Lists as They Are Merged Together](figures/mergesortB.png)
 
 The `mergeSort` function shown in ActiveCode 1 &lt;lst\_merge&gt; begins
 by asking the base case question. If the length of the list is less than

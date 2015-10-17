@@ -22,7 +22,7 @@ point and at the same time move other items to the appropriate side of
 the list, either less than or greater than the pivot value.
 
 ![Figure 12: The First Pivot Value for a Quick
-Sort](Figures/firstsplit.png)
+Sort](figures/firstsplit.png)
 
 Partitioning begins by locating two position markers—let’s call them
 `leftmark` and `rightmark`—at the beginning and end of the remaining
@@ -33,7 +33,7 @@ while also converging on the split point.
 Figure 13 shows this process as we locate the
 position of 54.
 
-![Figure 13: Finding the Split Point for 54](Figures/partitionA.png)
+![Figure 13: Finding the Split Point for 54](figures/partitionA.png)
 
 We begin by incrementing `leftmark` until we locate a value that is
 greater than the pivot value. We then decrement `rightmark` until we
@@ -52,7 +52,7 @@ value. The list can now be divided at the split point and the quick sort
 can be invoked recursively on the two halves.
 
 ![Figure 14: Completing the Partition Process to Find the Split Point
-for 54](Figures/partitionB.png)
+for 54](figures/partitionB.png)
 
 The `quickSort` function shown in ActiveCode 1 &lt;lst\_quick&gt;
 invokes a recursive function, `quickSortHelper`. `quickSortHelper`

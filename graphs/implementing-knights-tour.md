@@ -91,25 +91,25 @@ we have made a successful tour of the graph. When we return the list,
 `path` has the values `[A,B,D,E,F,C]`, which is the the order we need to
 traverse the graph to visit each node exactly once.
 
-![Figure 3: Start with node A](Figures/ktdfsa.png)
+![Figure 3: Start with node A](figures/ktdfsa.png)
 
-![Figure 4: Explore B](Figures/ktdfsb.png)
+![Figure 4: Explore B](figures/ktdfsb.png)
 
-![Figure 5: Node C is a dead end](Figures/ktdfsc.png)
+![Figure 5: Node C is a dead end](figures/ktdfsc.png)
 
-![Figure 6: Backtrack to B](Figures/ktdfsd.png)
+![Figure 6: Backtrack to B](figures/ktdfsd.png)
 
-![Figure 7: Explore D](Figures/ktdfse.png)
+![Figure 7: Explore D](figures/ktdfse.png)
 
-![Figure 8: Explore E](Figures/ktdfsf.png)
+![Figure 8: Explore E](figures/ktdfsf.png)
 
-![Figure 9: Explore F](Figures/ktdfsg.png)
+![Figure 9: Explore F](figures/ktdfsg.png)
 
-![Figure 10: Finish](Figures/ktdfsh.png)
+![Figure 10: Finish](figures/ktdfsh.png)
 
 Figure 11 shows you what a complete tour around an
 eight-by-eight board looks like. There are many possible tours; some are
 symmetric. With some modification you can make circular tours that start
 and end at the same square.
 
-![Figure 11: A Complete Tour of the Board](Figures/completeTour.png)
+![Figure 11: A Complete Tour of the Board](figures/completeTour.png)

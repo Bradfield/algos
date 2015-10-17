@@ -10,4 +10,4 @@ existing items can be removed from either end. In a sense, this hybrid
 linear structure provides all the capabilities of stacks and queues in a
 single data structure.
 
-![A Deque of Python Data Objects](Figures/basic-deque.png)
+![A Deque of Python Data Objects](figures/basic-deque.png)

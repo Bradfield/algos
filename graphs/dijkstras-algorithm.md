@@ -92,17 +92,17 @@ Figure 6). However,
 no additional changes are found and so the priority queue is empty and
 Dijkstra’s algorithm exits.
 
-![Figure 3: Tracing Dijkstra’s Algorithm](Figures/dijkstraa.png)
+![Figure 3: Tracing Dijkstra’s Algorithm](figures/dijkstraa.png)
 
-![Figure 4: Tracing Dijkstra’s Algorithm](Figures/dijkstrab.png)
+![Figure 4: Tracing Dijkstra’s Algorithm](figures/dijkstrab.png)
 
-![Figure 5: Tracing Dijkstra’s Algorithm](Figures/dijkstrac.png)
+![Figure 5: Tracing Dijkstra’s Algorithm](figures/dijkstrac.png)
 
-![Figure 6: Tracing Dijkstra’s Algorithm](Figures/dijkstrad.png)
+![Figure 6: Tracing Dijkstra’s Algorithm](figures/dijkstrad.png)
 
-![Figure 7: Tracing Dijkstra’s Algorithm](Figures/dijkstrae.png)
+![Figure 7: Tracing Dijkstra’s Algorithm](figures/dijkstrae.png)
 
-![Figure 8: Tracing Dijkstra’s Algorithm](Figures/dijkstraf.png)
+![Figure 8: Tracing Dijkstra’s Algorithm](figures/dijkstraf.png)
 
 It is important to note that Dijkstra’s algorithm works only when the
 weights are all positive. You should convince yourself that if you

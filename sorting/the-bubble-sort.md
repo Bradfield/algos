@@ -13,7 +13,7 @@ that need to be compared on the first pass. It is important to note that
 once the largest value in the list is part of a pair, it will
 continually be moved along until the pass is complete.
 
-![Figure 1: `bubbleSort`: The First Pass](Figures/bubblepass.png)
+![Figure 1: `bubbleSort`: The First Pass](figures/bubblepass.png)
 
 At the start of the second pass, the largest value is now in place.
 There are $n-1$ items left to sort, meaning that there will be $n-2$
@@ -47,7 +47,7 @@ the $i$ and $(i+1)th$ items using the three–step procedure described
 earlier. Note that we could also have used the simultaneous assignment
 to swap the items.
 
-![Figure 2: Exchanging Two Values in Python](Figures/swap.png)
+![Figure 2: Exchanging Two Values in Python](figures/swap.png)
 
 The following activecode example shows the complete `bubbleSort`
 function working on the list shown above.

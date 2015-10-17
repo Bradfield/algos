@@ -12,7 +12,7 @@ illustrates the adjacency list representation for the graph in
 Figure 2.
 
 ![Figure 4: An Adjacency List Representation of a
-Graph](Figures/adjlist.png)
+Graph](figures/adjlist.png)
 
 The advantage of the adjacency list implementation is that it allows us
 to compactly represent a sparse graph. The adjacency list also allows us

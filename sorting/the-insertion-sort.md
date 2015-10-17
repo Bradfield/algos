@@ -9,7 +9,7 @@ Figure 4 shows the insertion sorting process.
 The shaded items represent the ordered sublists as the algorithm makes
 each pass.
 
-![Figure 4: `insertionSort`](Figures/insertionsort.png)
+![Figure 4: `insertionSort`](figures/insertionsort.png)
 
 We begin by assuming that a list with one item (position $0$) is already
 sorted. On each pass, one for each item 1 through $n-1$, the current
@@ -27,7 +27,7 @@ encountered, the shifting process stops and 31 is placed in the open
 position. Now we have a sorted sublist of six items.
 
 ![Figure 5: `insertionSort`: Fifth Pass of the
-Sort](Figures/insertionpass.png)
+Sort](figures/insertionpass.png)
 
 The implementation of `insertionSort`
 (ActiveCode 1 &lt;lst\_insertion&gt;) shows that there are again $n-1$

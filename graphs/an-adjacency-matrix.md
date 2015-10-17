@@ -12,7 +12,7 @@ Figure 2. A value in a cell represents the weight
 of the edge from vertex $v$ to vertex $w$.
 
 ![Figure 3: An Adjacency Matrix Representation for a
-Graph](Figures/adjMat.png)
+Graph](figures/adjMat.png)
 
 The advantage of the adjacency matrix is that it is simple, and for
 small graphs it is easy to see which nodes are connected to other nodes.

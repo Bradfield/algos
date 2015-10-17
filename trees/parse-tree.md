@@ -7,13 +7,13 @@ this section we will look at parse trees. Parse trees can be used to
 represent real-world constructions like sentences or mathematical
 expressions.
 
-![Figure 1: A Parse Tree for a Simple Sentence](Figures/nlParse.png)
+![Figure 1: A Parse Tree for a Simple Sentence](figures/nlParse.png)
 
 Figure 1 shows the hierarchical structure of a
 simple sentence. Representing a sentence as a tree structure allows us
 to work with the individual parts of the sentence by using subtrees.
 
-![Figure 2: Parse Tree for $((7+3)*(5-2))$](Figures/meParse.png)
+![Figure 2: Parse Tree for $((7+3)*(5-2))$](figures/meParse.png)
 
 We can also represent a mathematical expression such as
 $((7 + 3) * (5 - 2))$ as a parse tree, as shown in
@@ -33,7 +33,7 @@ in the children. Applying this replacement procedure gives us the
 simplified tree shown in Figure 3.
 
 ![Figure 3: A Simplified Parse Tree for
-$((7+3)*(5-2))$](Figures/meSimple.png)
+$((7+3)*(5-2))$](figures/meSimple.png)
 
 In the rest of this section we are going to examine parse trees in more
 detail. In particular we will look at
@@ -75,21 +75,21 @@ start out with a parse tree that consists of an empty root node.
 Figure 4 illustrates the structure and contents
 of the parse tree, as each new token is processed.
 
-![](Figures/buildExp1.png)
+![](figures/buildExp1.png)
 
-![](Figures/buildExp2.png)
+![](figures/buildExp2.png)
 
-![](Figures/buildExp3.png)
+![](figures/buildExp3.png)
 
-![](Figures/buildExp4.png)
+![](figures/buildExp4.png)
 
-![](Figures/buildExp5.png)
+![](figures/buildExp5.png)
 
-![](Figures/buildExp6.png)
+![](figures/buildExp6.png)
 
-![](Figures/buildExp7.png)
+![](figures/buildExp7.png)
 
-![Figure 4: Tracing Parse Tree Construction](Figures/buildExp8.png)
+![Figure 4: Tracing Parse Tree Construction](figures/buildExp8.png)
 
 Using Figure 4, let’s walk through the example
 step by step:
