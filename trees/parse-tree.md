@@ -133,7 +133,7 @@ abstract data types, we are now ready to write a Python function to create a
 parse tree. The code for our parse tree builder is presented below.
 
 ```python
-from earlier_section import BinaryTree
+from earlier_section import Node
 
 
 def build_parse_tree(expression):
