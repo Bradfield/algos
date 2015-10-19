@@ -14,10 +14,10 @@ the graph algorithms we will study in the next chapter.
 
 You can probably think of a couple of easy ways to implement a priority
 queue using sorting functions and lists. However, inserting into a list
-is $O(n)$ and sorting a list is $O(n \log{n})$. We can do better. The
+is $$O(n)$$ and sorting a list is $$O(n \log{n})$$. We can do better. The
 classic way to implement a priority queue is using a data structure
 called a **binary heap**. A binary heap will allow us both enqueue and
-dequeue items in $O(\log{n})$.
+dequeue items in $$O(\log{n})$$.
 
 The binary heap is interesting to study because when we diagram the heap
 it looks a lot like a tree, but when we implement it we use only a
@@ -26,3 +26,16 @@ common variations: the **min heap**, in which the smallest key is always
 at the front, and the **max heap**, in which the largest key value is
 always at the front. In this section we will implement the min heap. We
 leave a max heap implementation as an exercise.
+
+The basic operations we will implement for our binary heap are as
+follows:
+
+-   `BinaryHeap()` creates a new, empty, binary heap.
+-   `insert(k)` adds a new item to the heap.
+-   `find_min()` returns the item with the minimum key value, leaving
+    item in the heap.
+-   `del_min()` returns the item with the minimum key value, removing the
+    item from the heap.
+-   `is_empty()` returns true if the heap is empty, false otherwise.
+-   `size()` returns the number of items in the heap.
+-   `build_heap(list)` builds a new heap from a list of keys.
