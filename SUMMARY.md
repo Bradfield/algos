@@ -69,16 +69,13 @@
     * [Parse Tree](trees/parse-tree.md)
     * [Tree Traversals](trees/tree-traversals.md)
     * [Priority Queues with Binary Heaps](trees/priority-queues-with-binary-heaps.md)
-
     * [Binary Heap Implementation](trees/binary-heap-implementation.md)
     * [Binary Search Trees](trees/binary-search-trees.md)
-    * [Search Tree Operations](trees/search-tree-operations.md)
     * [Search Tree Implementation](trees/search-tree-implementation.md)
     * [Search Tree Analysis](trees/search-tree-analysis.md)
     * [Balanced Binary Search Trees](trees/balanced-binary-search-trees.md)
-    * [AVL Tree Performance](trees/avl-tree-performance.md)
     * [AVL Tree Implementation](trees/avl-tree-implementation.md)
-    * [Summary of map ADT Implementations](trees/summary-of-map-adt-implementations.md)
+    * [Summary of Map ADT Implementations](trees/summary-of-map-adt-implementations.md)
 
 * Graphs and Graph Algorithms
     * [Vocabulary and Definitions](graphs/vocabulary-and-definitions.md.todo)

@@ -6,6 +6,8 @@ break into more logical chunks or just break sections into smaller chenks?
 remove unused figures
 branding
 line numbers for code samples?
+delete everything with "listing"
+delete everything with "figure"
 
 is there an easier way to lint/pep8-ify this stuff?
 

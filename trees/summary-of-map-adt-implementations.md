@@ -1,9 +1,16 @@
 Summary of Map ADT Implementations
 ==================================
 
-Over the past two chapters we have looked at several data structures
+Over the past few chapters we have looked at several data structures
 that can be used to implement the map abstract data type. A binary
 Search on a list, a hash table, a binary search tree, and a balanced
 binary search tree. To conclude this section, let’s summarize the
 performance of each data structure for the key operations defined by the
-map ADT (see Table 1 &lt;tab\_compare&gt;).
+map ADT.
+
+operation |  Sorted List | Hash Table  | Binary Search Tree | AVL Tree
+--- | --- | --- | --- | ---
+`put` | $$O(n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
+`get` | $$O(log2n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
+`in`  | $$O(log2n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
+`del` | $$O(n)$$)   | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
