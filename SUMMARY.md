@@ -51,15 +51,6 @@
     * [Hashing](searching/hashing.md)
     * [The Map Abstract Data Type](searching/the-map-abstract-data-type.md)
 
-* Sorting
-    * [Sorting](sorting/sorting.md.todo)
-    * [The Bubble Sort](sorting/the-bubble-sort.md.todo)
-    * [The Selection Sort](sorting/the-selection-sort.md.todo)
-    * [The Insertion Sort](sorting/the-insertion-sort.md.todo)
-    * [The Shell Sort](sorting/the-shell-sort.md.todo)
-    * [The Merge Sort](sorting/the-merge-sort.md.todo)
-    * [The Quick Sort](sorting/the-quick-sort.md.todo)
-
 * Trees and Tree Algorithms
     * [Introduction](trees/introduction.md)
     * [Examples of Trees](trees/examples-of-trees.md)
