@@ -5,43 +5,41 @@ This book is a practical—and we hope, entertaining—introduction to some
 of the most important data structures and algorithms in computer
 science.
 
-Throughout, we provide implementations and examples in idiomatic Python,
-to help convey the *usefulness* of these data structures and algorithms,
-both directly and as models for analogous or derivative work that you
-do.
+We have written the examples in this book in idiomatic Python to help
+convey the *usefulness* of these data structures and algorithms, both
+directly and as models for analogous work that you will do.
 
-Many practicing software engineers are skeptical that data structures
-and algorithms are as useful as we suggest. Our best explanation for
-this skepticism is that they never encountered the content in a way that
-was encouraged deep understanding. Perhaps they were [unfortunate
-enough](http://v.cx/2010/04/feynman-brazil-education) to study the
-content in a computer science program that encouraged rote memorization,
-or subjected themselves to such an experience for the sake of passing
+Many software engineers are skeptical that this subject matter is
+useful. Our best explanation for such skepticism is that those engineers
+never encountered these topics in a way that was encouraged deep
+understanding. Perhaps they were [unfortunate
+enough](http://v.cx/2010/04/feynman-brazil-education) to participate in
+a computer science program that encouraged rote memorization, or
+subjected themselves to such an experience for the sake of succeeding at
 technical interviews. Or perhaps they became adequate programmers
-without having encountered the content at all, and doubt that there may
-be more to learn than what they already know.
+without having encountered the content at all, and presume that they
+have reached the limits of their capabilities.
 
-Whatever the case may be, we’re confident that the usefulness of this
-content increases proportionally to the depth at which you understand
-it—a depth that comes through a combination of study and application.
-Those who understand trees in depth are more likely to identify tree
-shapes in their own data, and have the confidence to apply a traversal
-algorithm with predictable results. Those who have Big-O analysis as a
-tool in their toolkits are not only better at discussing alternatives
-and deciding between trade offs, they are overall more cognizant of the
-trade offs that we implicitly make as software engineers every day.
-Those who see recursion everywhere see recursion everywhere :)
+Whatever the case, we’re confident that the usefulness of studying
+algorithms and data structures increases proportionally to the depth at
+which you understand it—a depth that comes through a combination of
+study and application. Those who understand trees in depth are more
+likely to identify tree shapes in their own data, and have the
+confidence to apply a traversal algorithm appropriately. Those who count
+Big-O analysis as a tool in their toolkits not only have a better
+vocabulary for comparing alternative strategies, they are also more
+cognizant overall of the trade offs we implicitly make every day. Those
+who see recursion everywhere see recursion everywhere :)
 
 One trade off that *we* have made is to sacrifice breadth for the sake
 of depth. We cover fewer data structures and algorithms than a typical
-introductory text may cover, so that we can focus more on those that we
-consider to be more fundamental. For instance we do not cover sorting
-algorithms at all, and instead spend more time walking you through
-interesting applications of tree and graph traversal algorithms. For
-this reason, we hope that you work through the examples slowly, with a
-REPL or text editor open, verifying that you absorb and appreciate the
-content at the depth required to appreciate its usefulness for decades
-to come.
+introductory text may cover, in order to focus more on what we consider
+to be important. For instance we do not cover sorting algorithms at all,
+and instead spend more time walking you through interesting applications
+of tree and graph traversal algorithms. For this reason, we hope that
+you work through the examples slowly, with a REPL or text editor open,
+verifying that you absorb and appreciate the content at the depth
+required to appreciate its usefulness for decades to come.
 
 Assumed Knowledge
 ---
