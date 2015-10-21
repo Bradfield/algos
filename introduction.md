@@ -40,12 +40,3 @@ of tree and graph traversal algorithms. For this reason, we hope that
 you work through the examples slowly, with a REPL or text editor open,
 verifying that you absorb and appreciate the content at the depth
 required to appreciate its usefulness for decades to come.
-
-Assumed Knowledge
----
-
-This book assumes intermediate knowledge of Python. If you encounter any
-unfamiliar Python usage, we encourage you to use [Learn Python the Hard
-Way](http://learnpythonthehardway.org/) or [Dive into
-Python](http://www.diveintopython.net/toc/index.html), both of which are
-excellent and freely available online.
