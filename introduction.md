@@ -24,12 +24,12 @@ Whatever the case, we’re confident that the usefulness of studying
 algorithms and data structures increases proportionally to the depth at
 which you understand it—a depth that comes through a combination of
 study and application. Those who understand trees in depth are more
-likely to identify tree shapes in their own data, and have the
-confidence to apply a traversal algorithm appropriately. Those who count
-Big-O analysis as a tool in their toolkits not only have a better
-vocabulary for comparing alternative strategies, they are also more
-cognizant overall of the trade offs we implicitly make every day. Those
-who see recursion everywhere see recursion everywhere :)
+likely to identify tree shapes in their own data, unlocking superior
+solutions to their problems. Those who count Big-O analysis as a tool in
+their toolkits not only have a better vocabulary for comparing
+alternative strategies, they are also more cognizant overall of the
+trade offs we implicitly make every day. Those who see recursion
+everywhere see recursion everywhere :)
 
 One trade off that *we* have made is to sacrifice breadth for the sake
 of depth. We cover fewer data structures and algorithms than a typical
