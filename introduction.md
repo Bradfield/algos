@@ -20,7 +20,7 @@ technical interviews. Or perhaps they became adequate programmers
 without having encountered the content at all, and presume that they
 have reached the limits of their capabilities.
 
-Whatever the case, we’re confident that the usefulness algorithms and
+Whatever the case, we’re confident that the usefulness of algorithms and
 data structures is proportional to the depth at which you understand it.
 Those who understand trees in depth are more likely to identify tree
 shapes in their own data, unlocking superior solutions to their
