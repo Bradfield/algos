@@ -34,9 +34,10 @@ everywhere see recursion everywhere :)
 One trade off that *we* have made is to sacrifice breadth for the sake
 of depth. We cover fewer data structures and algorithms than a typical
 introductory text may cover, in order to focus more on what we consider
-to be important. For instance we do not cover sorting algorithms at all,
-and instead spend more time walking you through interesting applications
-of tree and graph traversal algorithms. For this reason, we hope that
-you work through the examples slowly, with a REPL or text editor open,
-verifying that you absorb and appreciate the content at the depth
-required to appreciate its usefulness for decades to come.
+to be important. For instance we do not cover sorting algorithms at all—
+a topic that rarely arises in practice— and instead spend more time
+walking you through interesting applications of tree and graph traversal
+algorithms. For this reason, we hope that you work through the examples
+slowly, with a REPL or text editor open, verifying that you absorb and
+appreciate the content at the depth required to appreciate its
+usefulness for decades to come.
