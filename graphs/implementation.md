@@ -54,7 +54,7 @@ class Graph(object):
     def add_vertex(self, vertex):
         self.verticies[vertex.key] = vertex
 
-    def getVertex(self, key):
+    def get_vertex(self, key):
         try:
             return self.verticies[key]
         except KeyError:

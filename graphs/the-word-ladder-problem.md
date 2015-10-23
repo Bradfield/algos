@@ -16,7 +16,7 @@ shows one possible solution to the problem posed above.
     POLE
     PALE
     SALE
-    SAGE        
+    SAGE
 
 There are many variations of the word ladder puzzle. For example you
 might be given a particular number of steps in which to accomplish the
@@ -31,4 +31,3 @@ going:
 -   Represent the relationships between the words as a graph.
 -   Use the graph algorithm known as breadth first search to find an
     efficient path from the starting word to the ending word.
-
