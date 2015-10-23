@@ -1,7 +1,7 @@
 # Summary
 
 * Analysis
-    * [What is Algorithm Analysis?](analysis/what-is-algorithm-analysis.md)
+    * [Introduction to Algorithm Analysis](analysis/introduction.md)
     * [Big-O Notation](analysis/big-o-notation.md)
     * [An Anagram Detection Example](analysis/an-anagram-detection-example.md)
     * [Performance of Python Data Structures](analysis/performance-of-python-data-structures.md)
