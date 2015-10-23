@@ -2,24 +2,22 @@ Big-O Notation
 ==============
 
 When trying to characterize an algorithm’s efficiency in terms of
-execution time, independent of any particular program or computer, it is
-important to quantify the number of operations or steps that the
-algorithm will require. If each of these steps is considered to be a
-basic unit of computation, then the execution time for an algorithm can
-be expressed as the number of steps required to solve the problem.
-Deciding on an appropriate basic unit of computation can be a
-complicated problem and will depend on how the algorithm is implemented.
+execution time, independent of any particular program or computer, we
+must quantify the number of operations or steps that the algorithm will
+require. If each of these steps is considered to be a basic unit of
+computation, then the execution time for an algorithm can be expressed
+as the number of steps required to solve the problem.
 
-A good basic unit of computation for comparing the summation algorithms
-shown earlier might be to count the number of assignment statements
-performed to compute the sum. In the function `sumOfN`, the number of
-assignment statements is 1 ($$theSum = 0$$) plus the value of *n* (the
-number of times we perform $$theSum=theSum+i$$). We can denote this by a
-function, call it T, where $$T(n)=1 + n$$. The parameter *n* is often
+In our summation algorithms shown earlier, a good basic unit of
+computation  might be to count the number of assignment statements
+performed to compute the sum. In the function `sum_of_n`, the number of
+assignment statements is 1 (`the\_sum = 0`) plus the value of *n* (the
+number of times we perform `the\_sum=the\_sum+i`). We can denote this by
+a function, call it T, where $$T(n)=1 + n$$. The parameter *n* is often
 referred to as the “size of the problem,” and we can read this as “T(n)
-is the time it takes to solve a problem of size n, namely 1+n steps.”
+is the time it takes to solve a problem of size n, namely 1 + n steps.”
 
-In the summation functions given above, it makes sense to use the number
+In the summation functions given earlier, it makes sense to use the number
 of terms in the summation to denote the size of the problem. We can then
 say that the sum of the first 100,000 integers is a bigger instance of
 the summation problem than the sum of the first 1,000. Because of this,
@@ -103,17 +101,17 @@ not really do anything, it is instructive to see how we can take actual
 code and analyze performance.
 
 ```python
-a=5
-b=6
-c=10
+a = 5
+b = 6
+c = 10
 for i in range(n):
    for j in range(n):
       x = i * i
       y = j * j
       z = i * j
 for k in range(n):
-   w = a*k + 45
-   v = b*b
+   w = a * k + 45
+   v = b * b
 d = 33
 ```
 

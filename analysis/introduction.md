@@ -110,16 +110,16 @@ In this case, the average again turns out to be about 10 times the
 previous.
 
 Now consider the approach below, which shows a different
-means of solving the summation problem. This function, `sum_of_n_arithmetic`, takes
+means of solving the summation problem. This function, `arithmetic_sum`, takes
 advantage of a closed equation $$\sum_{i=1}^{n} i = \frac {(n)(n+1)}{2}$$
 to compute the sum of the first `n` integers without iterating.
 
 ```python
-def sum_of_n_arithmetic(n):
+def arithmetic_sum(n):
     return n * (n + 1) / 2
 ```
 
-If we do the same benchmark measurement for `sum_of_n_arithmetic`, using five
+If we do the same benchmark measurement for `arithmetic_sum`, using five
 different values for `n` (10,000, 100,000, 1,000,000, 10,000,000, and
 100,000,000), we get the following results:
 
@@ -134,7 +134,7 @@ Sum is 5000000050000000, required 0.00000119 seconds
 There are two important things to notice about this output. First, the
 times recorded above are shorter than any of the previous examples.
 Second, they are very consistent no matter what the value of `n`. It
-appears that `sum_of_n_arithmetic` is hardly impacted by the number of integers
+appears that `arithmetic_sum` is hardly impacted by the number of integers
 being added.
 
 But what does this benchmark really tell us? Intuitively, we can see
@@ -144,7 +144,7 @@ longer. Also, the time required for the iterative solution seems to
 increase as we increase the value of `n`. However, there is a problem.
 If we ran the same function on a different computer or used a different
 programming language, we would likely get different results. It could
-take even longer to perform `sum_of_n_arithmetic` if the computer were older.
+take even longer to perform `arithmetic_sum` if the computer were older.
 
 We need a better way to characterize these algorithms with respect to
 execution time. The benchmark technique computes the actual time to
