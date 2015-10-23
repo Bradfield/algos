@@ -1,15 +1,14 @@
 An Anagram Detection Example
 ============================
 
-A good example problem for showing algorithms with different orders of
-magnitude is the classic anagram detection problem for strings. One
+To explore different orders of magnitude, let’s consider four different
+solutions to the problem of detecting if a string is an anagram. One
 string is an anagram of another if the second is simply a rearrangement
-of the first. For example, `'heart'` and `'earth'` are anagrams. The
-strings `'python'` and `'typhon'` are anagrams as well. For the sake of
-simplicity, we will assume that the two strings in question are of equal
-length and that they are made up of symbols from the set of 26 lowercase
-alphabetic characters. Our goal is to write a boolean function that will
-take two strings and return whether they are anagrams.
+of the first. For example, `'heart'` and `'earth'` are anagrams. For the
+sake of simplicity, we will assume that the two strings in question are
+of equal length and that they are made up of symbols from the set of 26
+lowercase alphabetic characters. Our goal is to write a boolean function
+that will take two strings and return whether they are anagrams.
 
 Solution 1: Checking Off
 ------------------------
@@ -64,7 +63,12 @@ Another solution to the anagram problem will make use of the fact that
 even though `s1` and `s2` are different, they are anagrams only if they
 consist of exactly the same characters. So, if we begin by sorting each
 string alphabetically, from a to z, we will end up with the same string
-if the original two strings are anagrams. Below is a possible implementation of this strategy. We use the Python builtin function `sorted` to return an iterable of the sorted characters in each string, and `itertools.izip_longest` to iterate over one character from each of the sorted strings at a time, all the way through to the end of the longer string.
+if the original two strings are anagrams. Below is a possible
+implementation of this strategy. We use the Python builtin function
+`sorted` to return an iterable of the sorted characters in each string,
+and `itertools.izip_longest` to iterate over one character from each of
+the sorted strings at a time, all the way through to the end of the
+longer string.
 
 ```python
 from itertools import izip_longest
@@ -82,11 +86,10 @@ anagram_sort_and_compare('abcde','abcd')  # => False
 At first glance you may be tempted to think that this algorithm is
 $$O(n)$$, since there is one simple iteration to compare the *n*
 characters after the sorting process. However, the two calls to the
-Python `sorted` method are not without their own cost. As we will see in a
-later chapter, sorting is typically either $$O(n^{2})$$ or $$O(n\log n)$$,
-so the sorting operations dominate the iteration. In the end, this
-algorithm will have the same order of magnitude as that of the sorting
-process.
+Python `sorted` method are not without their own cost. Sorting is
+typically either $$O(n^{2})$$ or $$O(n\log n)$$, so the sorting
+operations dominate the iteration. In the end, this algorithm will have
+the same order of magnitude as that of the sorting process.
 
 Solution 3: Brute Force
 -----------------------
@@ -104,7 +107,7 @@ time and so it will still generate $$n!$$ different strings.
 
 It turns out that $$n!$$ grows even faster than $$2^{n}$$ as *n* gets large.
 In fact, if `s1` were 20 characters long, there would be
-$$20!=2,432,902,008,176,640,000$$ possible candidate strings. If we
+$$20!$$ or 2,432,902,008,176,640,000 possible candidate strings. If we
 processed one possibility every second, it would still take us
 77,146,816,596 years to go through the entire list. This is probably not
 going to be a good solution.
@@ -172,10 +175,10 @@ it could only do so by using additional storage to keep the two lists of
 character counts. In other words, this algorithm sacrificed space in
 order to gain time.
 
-This is a common occurrence. On many occasions you will need to make
+This is a common tradeoff. On many occasions you will need to make
 decisions between time and space trade-offs. In this case, the amount of
 extra space is not significant. However, if the underlying alphabet had
-millions of characters, there would be more concern. As a computer
-scientist, when given a choice of algorithms, it will be up to you to
+millions of characters, there would be more concern. As a software
+engineer, when given a choice of algorithms, it will be up to you to
 determine the best use of computing resources given a particular
 problem.
