@@ -5,7 +5,6 @@
     * [Big-O Notation](analysis/big-o-notation.md)
     * [An Anagram Detection Example](analysis/an-anagram-detection-example.md)
     * [Performance of Python Data Structures](analysis/performance-of-python-data-structures.md)
-    * [Review Questions](analysis/review-questions.md)
 
 * Stacks
     * [What is a Stack?](stacks/what-is-a-stack.md)
