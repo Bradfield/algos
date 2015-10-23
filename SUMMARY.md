@@ -69,11 +69,11 @@
     * [Summary of Map ADT Implementations](trees/summary-of-map-adt-implementations.md)
 
 * Graphs and Graph Algorithms
-    * [Vocabulary and Definitions](graphs/vocabulary-and-definitions.md.todo)
-    * [The Graph Abstract Data Type](graphs/the-graph-abstract-data-type.md.todo)
-    * [An Adjacency Matrix](graphs/an-adjacency-matrix.md.todo)
-    * [An Adjacency List](graphs/an-adjacency-list.md.todo)
-    * [Implementation](graphs/implementation.md.todo)
+    * [Introduction](graphs/introduction.md)
+    * [The Graph Abstract Data Type](graphs/the-graph-abstract-data-type.md)
+    * [An Adjacency Matrix](graphs/an-adjacency-matrix.md)
+    * [An Adjacency List](graphs/an-adjacency-list.md)
+    * [Implementation](graphs/implementation.md)
     * [The Word Ladder Problem](graphs/the-word-ladder-problem.md.todo)
     * [Building the Word Ladder Graph](graphs/building-the-word-ladder-graph.md.todo)
     * [Implementing Breadth First Search](graphs/implementing-breadth-first-search.md.todo)
