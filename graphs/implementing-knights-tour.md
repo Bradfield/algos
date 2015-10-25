@@ -19,97 +19,81 @@ the depth first search algorithm finds a dead end (a place in the graph
 where there are no more moves possible) it backs up the tree to the next
 deepest vertex that allows it to make a legal move.
 
-The `knightTour` function takes four parameters: `n`, the current depth
+The `knight_tour` function takes four parameters: `n`, the current depth
 in the search tree; `path`, a list of vertices visited up to this point;
 `u`, the vertex in the graph we wish to explore; and `limit` the number
-of nodes in the path. The `knightTour` function is recursive. When the
-`knightTour` function is called, it first checks the base case
+of nodes in the path. The `knight_tour` function is recursive. When the
+`knight_tour` function is called, it first checks the base case
 condition. If we have a path that contains 64 vertices, we return from
-`knightTour` with a status of `True`, indicating that we have found a
+`knight_tour` with a status of `True`, indicating that we have found a
 successful tour. If the path is not long enough we continue to explore
 one level deeper by choosing a new vertex to explore and calling
-`knightTour` recursively for that vertex.
+`knight_tour` recursively for that vertex.
 
 DFS also uses colors to keep track of which vertices in the graph have
 been visited. Unvisited vertices are colored white, and visited vertices
 are colored gray. If all neighbors of a particular vertex have been
 explored and we have not yet reached our goal length of 64 vertices, we
 have reached a dead end. When we reach a dead end we must backtrack.
-Backtracking happens when we return from `knightTour` with a status of
+Backtracking happens when we return from `knight_tour` with a status of
 `False`. In the breadth first search we used a queue to keep track of
 which vertex to visit next. Since depth first search is recursive, we
 are implicitly using a stack to help us with our backtracking. When we
-return from a call to `knightTour` with a status of `False`, in line 11,
+return from a call to `knight_tour` with a status of `False`, in line 11,
 we remain inside the `while` loop and look at the next vertex in
 `nbrList`.
 
 **Listing 3**
+```python
 
-    from pythonds.graphs import Graph, Vertex
-    def knightTour(n,path,u,limit):
-            u.setColor('gray')
-            path.append(u)
-            if n < limit:
-                nbrList = list(u.getConnections())
-                i = 0
-                done = False
-                while i < len(nbrList) and not done:
-                    if nbrList[i].getColor() == 'white':
-                        done = knightTour(n+1, path, nbrList[i], limit)
-                    i = i + 1
-                if not done:  # prepare to backtrack
-                    path.pop()
-                    u.setColor('white')
-            else:
-                done = True
-            return done
+def knight_tour(n,path,u,limit):
+    u.setColor('gray')
+    path.append(u)
+    if n < limit:
+        nbrList = list(u.getConnections())
+        i = 0
+        done = False
+        while i < len(nbrList) and not done:
+            if nbrList[i].getColor() == 'white':
+                done = knight_tour(n+1, path, nbrList[i], limit)
+            i = i + 1
+        if not done:  # prepare to backtrack
+            path.pop()
+            u.setColor('white')
+    else:
+        done = True
+    return done
+```
 
-Let's look at a simple example of `knightTour` in action. You can refer
+Let's look at a simple example of `knight_tour` in action. You can refer
 to the figures below to follow the steps of the search. For this example
 we will assume that the call to the `getConnections` method on line 6
 orders the nodes in alphabetical order. We begin by calling
-`knightTour(0,path,A,6)`
+`knight_tour(0,path,A,6)`
 
-`knightTour` starts with node A Figure 3. The nodes
-adjacent to A are B and D. Since B is before D alphabetically, DFS
-selects B to expand next as shown in Figure 4.
-Exploring B happens when `knightTour` is called recursively. B is
-adjacent to C and D, so `knightTour` elects to explore C next. However,
-as you can see in Figure 5 node C is a dead end with no
-adjacent white nodes. At this point we change the color of node C back
-to white. The call to `knightTour` returns a value of `False`. The
-return from the recursive call effectively backtracks the search to
-vertex B (see Figure 6). The next vertex on the list to
-explore is vertex D, so `knightTour` makes a recursive call moving to
-node D (see Figure 7). From vertex D on, `knightTour`
-can continue to make recursive calls until we get to node C again (see
-Figure 8, and
-Figure 10). However, this time when we get to node C
-the test `n < limit` fails so we know that we have exhausted all the
-nodes in the graph. At this point we can return `True` to indicate that
-we have made a successful tour of the graph. When we return the list,
-`path` has the values `[A,B,D,E,F,C]`, which is the the order we need to
-traverse the graph to visit each node exactly once.
+![Start with node A](figures/ktdfsa.png)
 
-![Figure 3: Start with node A](figures/ktdfsa.png)
+![Explore B](figures/ktdfsb.png)
 
-![Figure 4: Explore B](figures/ktdfsb.png)
+![Node C is a dead end](figures/ktdfsc.png)
 
-![Figure 5: Node C is a dead end](figures/ktdfsc.png)
+![Backtrack to B](figures/ktdfsd.png)
 
-![Figure 6: Backtrack to B](figures/ktdfsd.png)
+![Explore D](figures/ktdfse.png)
 
-![Figure 7: Explore D](figures/ktdfse.png)
+![Explore E](figures/ktdfsf.png)
 
-![Figure 8: Explore E](figures/ktdfsf.png)
+![Explore F](figures/ktdfsg.png)
 
-![Figure 9: Explore F](figures/ktdfsg.png)
+![Finish](figures/ktdfsh.png)
 
-![Figure 10: Finish](figures/ktdfsh.png)
+It is remarkable that our choice of data structure and
+algorithm has allowed us to straightforwardly solve a problem that
+remained impervious to thoughtful mathematical investigation for
+centuries.
 
-Figure 11 shows you what a complete tour around an
-eight-by-eight board looks like. There are many possible tours; some are
-symmetric. With some modification you can make circular tours that start
-and end at the same square.
+With some modification, the algorithm can also be used to discover
+one of a number of “closed” (circular) tours, which can therefore be
+started at any square of the board:
 
-![Figure 11: A Complete Tour of the Board](figures/completeTour.png)
+![A Closed Tour](figures/knights-tour-closed.png)
