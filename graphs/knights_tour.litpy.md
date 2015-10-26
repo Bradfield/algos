@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 """
 The Knight’s Tour Problem
-=========================
+===
 
 The “[knight’s tour](https://en.wikipedia.org/wiki/Knight%27s_tour)” is
 a classic problem in graph theory, first posed over 1,000 years ago and
@@ -24,38 +25,51 @@ some real computing power, or both.
 Once again we will solve the problem using two main steps:
 
 -   Represent the legal moves of a knight on a chessboard as a graph.
--   Use a graph algorithm to find a path of length
-    $$rows \times columns - 1$$ where every vertex on the graph is visited
-    exactly once.
+-   Use a graph algorithm to find a path where every vertex on the graph
+    is visited exactly once.
 
 Building the Knight’s Tour Graph
 ---
 
 To represent the knight’s tour problem as a graph we will use the
 following two ideas: Each square on the chessboard can be represented as
-a node in the graph.
+a node in the graph. Each legal move by the knight can be represented as
+an edge in the graph.
+
+We will use a Python dictionary to hold our graph, with the keys being
+tuples of coordinates representing the squares of the board, and the
+values being sets representing the valid squares to which a knight can
+move from that square.
 
 To build the full graph for an n-by-n board we can use the Python
-function shown below. The `build_knight_graph` function makes one pass
+function shown below. The `build_graph` function makes one pass
 over the entire board. At each square on the board the
-`build_knight_graph` function calls a helper, `generate_legal_moves`, to
-create a list of legal moves for that position on the board. All legal
-moves are then converted into edges in the graph.]
+`build_graph` function calls a helper generator, `legal_moves_from`, to
+generate a list of legal moves for that position on the board. All legal
+moves are then made into undirected edges of the graph by adding the
+vertices appropriately to one anothers sets of legal moves.
 """
 
-from prior_section import Graph
+from collections import defaultdict
 
-def build_knight_graph(board_size):
-    graph = Graph()
+
+def add_edge(graph, vertex_a, vertex_b):
+    graph[vertex_a].add(vertex_b)
+    graph[vertex_b].add(vertex_a)
+
+
+def build_graph(board_size):
+    graph = defaultdict(set)
     for row in range(board_size):
         for col in range(board_size):
             for to_row, to_col in legal_moves_from(row, col, board_size):
-                graph.add_edge((row, col), (to_row, to_col))
+                add_edge(graph, (row, col), (to_row, to_col))
     return graph
 
 """
-The `legal_moves_from` generator below takes the position of the
-knight on the board and yields any of the eight possible moves that are still on the board.
+The `legal_moves_from` generator below takes the position of the knight
+on the board and yields any of the eight possible moves that are still
+on the board.
 """
 
 MOVE_OFFSETS = (
@@ -90,13 +104,7 @@ The search algorithm we will use to solve the knight’s tour problem is
 called **depth first search** (**DFS**). Whereas the breadth first
 search algorithm discussed in the previous section builds a search tree
 one level at a time, a depth first search creates a search tree by
-exploring one branch of the tree as deeply as possible. In this section
-we will look at two algorithms that implement a depth first search. The
-first algorithm we will look at directly solves the knight’s tour
-problem by explicitly forbidding a node to be visited more than once.
-The second implementation is more general, but allows nodes to be
-visited more than once as the tree is constructed. The second version is
-used in subsequent sections to develop additional graph algorithms.
+exploring one branch of the tree as deeply as possible.
 
 The depth first exploration of the graph is exactly what we need in
 order to find a path that has exactly 63 edges. We will see that when
@@ -104,61 +112,73 @@ the depth first search algorithm finds a dead end (a place in the graph
 where there are no more moves possible) it backs up the tree to the next
 deepest vertex that allows it to make a legal move.
 
-The `knight_tour` function takes four parameters: `n`, the current depth
-in the search tree; `path`, a list of vertices visited up to this point;
-`u`, the vertex in the graph we wish to explore; and `limit` the number
-of nodes in the path. The `knight_tour` function is recursive. When the
-`knight_tour` function is called, it first checks the base case
-condition. If we have a path that contains 64 vertices, we return from
-`knight_tour` with a status of `True`, indicating that we have found a
-successful tour. If the path is not long enough we continue to explore
-one level deeper by choosing a new vertex to explore and calling
-`knight_tour` recursively for that vertex.
+The `find_solution_for` function takes just two arguments: a `board_size`
+argument and a heuristic function, which you should ignore for now but
+to which we will return.
 
-DFS also uses colors to keep track of which vertices in the graph have
-been visited. Unvisited vertices are colored white, and visited vertices
-are colored gray. If all neighbors of a particular vertex have been
-explored and we have not yet reached our goal length of 64 vertices, we
-have reached a dead end. When we reach a dead end we must backtrack.
-Backtracking happens when we return from `knight_tour` with a status of
-`False`. In the breadth first search we used a queue to keep track of
-which vertex to visit next. Since depth first search is recursive, we
-are implicitly using a stack to help us with our backtracking. When we
-return from a call to `knight_tour` with a status of `False`, in line 11,
-we remain inside the `while` loop and look at the next vertex in
-`nbrList`.
+It then constructs a graph using the `build_graph` function described
+above, and for each vertex in the graph attempts to traverse depth first
+by way of the `traverse` function.
+
+The `traverse` function is a little more interesting. It accepts a path,
+as a list as a list of coordinates, as well as the vertex currently
+being considered. If the traversal has proceeded deep enough that we
+know that every square has been visited once, then we return the full
+path traversed.
+
+Otherwise, we use our graph to look up the legal moves from the current
+vertex, and exclude the vertices that we know have already been visited,
+to determine the vertices that are `yet_to_visit`. At this point we
+recursively call traverse with each of the vertices to visit, along with
+the path to reach that vertex including the current vertex. If any of
+the recursive calls return a path, then that path is the return value of
+the outer call, otherwise we return None.
 """
 
-def knight_tour(n,path,u,limit):
-    u.setColor('gray')
-    path.append(u)
-    if n < limit:
-        nbrList = list(u.getConnections())
-        i = 0
-        done = False
-        while i < len(nbrList) and not done:
-            if nbrList[i].getColor() == 'white':
-                done = knight_tour(n+1, path, nbrList[i], limit)
-            i = i + 1
-        if not done:  # prepare to backtrack
-            path.pop()
-            u.setColor('white')
-    else:
-        done = True
-    return done
+
+def first_true(sequence):
+    for item in sequence:
+        if item:
+            return item
+    return None
+
+
+def find_solution_for(board_size, heuristic=lambda graph: None):
+    graph = build_graph(board_size)
+    total_squares = board_size * board_size
+
+    def traverse(path, current_vertex):
+        if len(path) + 1 == total_squares:
+            # including the current square, we've visited every square,
+            # so return the path as a solution
+            return path + [current_vertex]
+
+        yet_to_visit = graph[current_vertex] - set(path)
+        if not yet_to_visit:
+            # no unvisited neighbors, so dead end
+            return False
+
+        # try all valid paths from here
+        next_vertices = sorted(yet_to_visit, heuristic(graph))
+        return first_true(traverse(path + [current_vertex], vertex)
+                          for vertex in next_vertices)
+
+    # try to find a solution from any square on the board
+    return first_true(traverse([], starting_vertex)
+                      for starting_vertex in graph)
+
+
+# find_solution_for(5)  # => [(1, 3), (0, 1), (2, 0), (4, 1), (2, 2), ... ]
 
 """
-Let's look at a simple example of `knight_tour` in action. You can refer
-to the figures below to follow the steps of the search. For this example
-we will assume that the call to the `getConnections` method on line 6
-orders the nodes in alphabetical order. We begin by calling
-`knight_tour(0,path,A,6)`
+Let's look at a simple example of an equivalent of this `traverse`
+function in action.
 
-![Start with node A](figures/ktdfsa.png)
+![Start with vertex A](figures/ktdfsa.png)
 
 ![Explore B](figures/ktdfsb.png)
 
-![Node C is a dead end](figures/ktdfsc.png)
+![Vertex C is a dead end](figures/ktdfsc.png)
 
 ![Backtrack to B](figures/ktdfsd.png)
 
@@ -187,7 +207,7 @@ Knight’s Tour Analysis
 
 There is one last interesting topic regarding the knight’s tour problem,
 then we will move on to the general version of the depth first search.
-The topic is performance. In particular, `knight_tour` is very sensitive
+The topic is performance. In particular, our algorithm is very sensitive
 to the method you use to select the next vertex to visit. For example,
 on a five-by-five board you can produce a path in about 1.5 seconds on a
 reasonably fast computer. But what happens if you try an eight-by-eight
@@ -200,19 +220,17 @@ The diagram below can help us visualize why this is so.
 
 ![A Search Tree for the Knight’s Tour](figures/8-array-tree.png)
 
-The
-root of the tree represents the starting point of the search. From there
-the algorithm generates and checks each of the possible moves the knight
-can make. As we have noted before the number of moves possible depends
-on the position of the knight on the board. In the corners there are
-only two legal moves, on the squares adjacent to the corners there are
-three and in the middle of the board there are eight.
-The diagram below shows the number of moves possible for
-each position on a board. At the next level of the tree there are once
-again between 2 and 8 possible next moves from the position we are
-currently exploring. The number of possible positions to examine
-corresponds to the number of nodes in the search tree.
-
+The root of the tree represents the starting point of the search. From
+there the algorithm generates and checks each of the possible moves the
+knight can make. As we have noted before the number of moves possible
+depends on the position of the knight on the board. In the corners there
+are only two legal moves, on the squares adjacent to the corners there
+are three and in the middle of the board there are eight. The diagram
+below shows the number of moves possible for each position on a board.
+At the next level of the tree there are once again between 2 and 8
+possible next moves from the position we are currently exploring. The
+number of possible positions to examine corresponds to the number of
+nodes in the search tree.
 
 ![Number of Possible Moves for Each Square](figures/move-count.png)
 
@@ -237,48 +255,47 @@ express $$k$$ as a function of the board size.
 
 Luckily there is a way to speed up the eight-by-eight case so that it
 runs in under one second. In the listing below we show the code that
-speeds up the `knight_tour`. This function (see
-below), called `order_by_available` will be used in
-place of the call to `u.getConnections` in the code previously shown
-above. The critical line in the `order_by_available` function is line 10. This
-line ensures that we select the vertex to go next that has the fewest
-available moves. You might think this is really counter productive; why
-not select the node that has the most available moves? You can try that
-approach easily by running the program yourself and inserting the line
-`resList.reverse()` right after the sort.
+speeds up the `travers`. This function, called `warnsdorffs_heuristic`
+when passed as the heuristic function to `find_solution_for` above will
+cause the `next_vertices` to be sorted prioritizing those who which
+have the _fewest_ subsequent legal moves.
 
-The problem with using the vertex with the most available moves as your
-next vertex on the path is that it tends to have the knight visit the
-middle squares early on in the tour. When this happens it is easy for
-the knight to get stranded on one side of the board where it cannot
-reach unvisited squares on the other side of the board. On the other
-hand, visiting the squares with the fewest available moves first pushes
-the knight to visit the squares around the edges of the board first.
-This ensures that the knight will visit the hard-to-reach corners early
-and can use the middle squares to hop across the board only when
-necessary. Utilizing this kind of knowledge to speed up an algorithm is
-called a heuristic. Humans use heuristics every day to help make
-decisions, heuristic searches are often used in the field of artificial
-intelligence. This particular heuristic is called Warnsdorff’s
-algorithm, named after H. C. Warnsdorff who published his idea in 1823.
+This may seem counterintutitive; why not select the node that has the
+_most_ available moves? The problem with using the vertex with the most
+available moves as your next vertex on the path is that it tends to have
+the knight visit the middle squares early on in the tour. When this
+happens it is easy for the knight to get stranded on one side of the
+board where it cannot reach unvisited squares on the other side of the
+board. On the other hand, visiting the squares with the fewest available
+moves first pushes the knight to visit the squares around the edges of
+the board first. This ensures that the knight will visit the hard-to-
+reach corners early and can use the middle squares to hop across the
+board only when necessary. Utilizing this kind of knowledge to speed up
+an algorithm is called a heuristic. Humans use heuristics every day to
+help make decisions, heuristic searches are often used in the field of
+artificial intelligence. This particular heuristic is called
+Warnsdorff’s heuristic, named after H. C. Warnsdorff who published his
+idea in 1823, becoming the first person to describe a procedure to
+complete the knight's tour.
 """
 
 
-def order_by_available(n):
-    resList = []
-    for v in n.getConnections():
-        if v.getColor() == 'white':
-            c = 0
-            for w in v.getConnections():
-                if w.getColor() == 'white':
-                    c = c + 1
-            resList.append((c, v))
-    resList.sort(key=lambda x: x[0])
-    return [y[1] for y in resList]
+def warnsdorffs_heuristic(graph):
+    """
+    Given a graph, return a comparator function that prioritizes nodes
+    with the fewest subsequent moves
+    """
+    def comparator(a, b):
+        return len(graph[a]) - len(graph[b])
+
+    return comparator
+
+# find_solution_for(8, warnsdorffs_heuristic)
+# => [(7, 3), (6, 1), (4, 0), (2, 1), (0, 0), (1, 2), ... ]
 
 """
 For fun, here is a very large ($$130 \times 130$$) open knight's
-tour created using Warnsdorf‘s rule:
+tour created using Warnsdorff's heuristic:
 
 ![130x130 Open Tour](figures/knights-tour-130.png)
 """
