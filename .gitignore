@@ -3,3 +3,4 @@ node_modules
 *.epub
 *.mobi
 *.pdf
+*.mdc

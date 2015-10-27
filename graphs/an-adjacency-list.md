@@ -2,17 +2,15 @@ An Adjacency List
 =================
 
 A more space-efficient way to implement a sparsely connected graph is to
-use an adjacency list. In an adjacency list implementation we keep a
-master list of all the vertices in the Graph object and then each vertex
+use the unfortunately named adjacency list structure. In an adjacency list implementation we keep a
+master collection of all the vertices in the Graph object and then each vertex
 object in the graph maintains a list of the other vertices that it is
 connected to. In our implementation of the `Vertex` class we will use a
-dictionary rather than a list where the dictionary keys are the
-vertices, and the values are the weights. Figure 4
-illustrates the adjacency list representation for the graph in
-Figure 2.
+dictionary rather than a list as our master collection, where the dictionary keys are the
+vertices, and the values are the weights. The diagram below shows an
+adjacency list representation of the example graph we have been discussing.
 
-![Figure 4: An Adjacency List Representation of a
-Graph](figures/adjlist.png)
+![An Adjacency List Representation of a Graph](figures/adjacency-list.png)
 
 The advantage of the adjacency list implementation is that it allows us
 to compactly represent a sparse graph. The adjacency list also allows us
