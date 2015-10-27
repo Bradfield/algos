@@ -1,3 +1,6 @@
+choose a better name
+get auto builds working
+add CI
 what is this pythonds stuff?
 do we need summary, discussion?
 move code samples to literate python
@@ -8,8 +11,6 @@ delete everything with "listing"
 delete everything with "figure"
 make all captions sentence case
 pick more consistent section names - currently some are the theme, some are the example problem
-
-is there an easier way to lint/pep8-ify this stuff?
 
 do full pass through editing for each section:
     add better instructions
