@@ -1,7 +1,10 @@
 import imp
+import os
 import unittest
 
-knights_tour = imp.load_source('knights_tour', 'knights_tour.litpy.md')
+dirname = os.path.dirname(os.path.realpath(__file__))
+source_file = os.path.join(dirname, 'knights-tour.md')
+knights_tour = imp.load_source('knights_tour', source_file)
 
 
 class TestCorrectness(unittest.TestCase):

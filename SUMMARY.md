@@ -77,7 +77,7 @@
     * [Building the Word Ladder Graph](graphs/building-the-word-ladder-graph.md)
     * [Implementing Breadth First Search](graphs/implementing-breadth-first-search.md)
     * [Breadth First Search Analysis](graphs/breadth-first-search-analysis.md)
-    * [The Knights Tour Problem](graphs/knights_tour.litpy.md)
+    * [The Knights Tour Problem](graphs/knights-tour.md)
     * [General Depth First Search](graphs/general-depth-first-search.md.todo)
     * [Depth First Search Analysis](graphs/depth-first-search-analysis.md.todo)
     * [Topological Sorting](graphs/topological-sorting.md.todo)
