@@ -5,6 +5,7 @@
   "plugins": [
     "image-captions",
     "ungrey",
+    "literate-python",
     "mathjax"
   ],
   "pluginsConfig": {
