@@ -6,7 +6,9 @@
     "image-captions",
     "ungrey",
     "literate-python",
-    "mathjax"
+    "mathjax",
+    "prism",
+    "-highlight"
   ],
   "pluginsConfig": {
       "image-captions": {
