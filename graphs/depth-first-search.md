@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 General Depth First Search
 ==========================
 
@@ -21,7 +24,7 @@ finish times of the nodes provide some interesting properties we can use
 in later algorithms.
 
 The code for our depth first search is shown in
-Listing 5 &lt;lst\_dfsgeneral&gt;. Since the two functions `dfs` and its
+below. Since the two functions `dfs` and its
 helper `dfsvisit` use a variable to keep track of the time across calls
 to `dfsvisit` we chose to implement the code as methods of a class that
 inherits from the `Graph` class. This implementation extends the graph
@@ -35,35 +38,73 @@ of the depth first forest. It may look unusual to see the statement
 `for aVertex in self`, but remember that in this case `self` is an
 instance of the `DFSGraph` class, and iterating over all the vertices in
 an instance of a graph is a natural thing to do.
+"""
 
-**Listing 5**
+from collections import defaultdict
 
-    from pythonds.graphs import Graph
-    class DFSGraph(Graph):
-        def __init__(self):
-            super().__init__()
-            self.time = 0
+simple_graph = {
+    'A': ['B', 'D'],
+    'B': ['C', 'D'],
+    'C': [],
+    'D': ['E'],
+    'E': ['B', 'F'],
+    'F': ['C']
+}
 
-        def dfs(self):
-            for aVertex in self:
-                aVertex.setColor('white')
-                aVertex.setPred(-1)
-            for aVertex in self:
-                if aVertex.getColor() == 'white':
-                    self.dfsvisit(aVertex)
 
-        def dfsvisit(self,startVertex):
-            startVertex.setColor('gray')
-            self.time += 1
-            startVertex.setDiscovery(self.time)
-            for nextVertex in startVertex.getConnections():
-                if nextVertex.getColor() == 'white':
-                    nextVertex.setPred(startVertex)
-                    self.dfsvisit(nextVertex)
-            startVertex.setColor('black')
-            self.time += 1
-            startVertex.setFinish(self.time)
+def depth_first_search(graph, starting_vertex):
+    visited = set()
+    counter = [0]
+    traversal_times = defaultdict(dict)
 
+    def traverse(vertex):
+        visited.add(vertex)
+        counter[0] += 1
+        traversal_times[vertex]['discovery'] = counter[0]
+
+        for next_vertex in graph[vertex]:
+            if next_vertex not in visited:
+                traverse(next_vertex)
+
+        counter[0] += 1
+        traversal_times[vertex]['finish'] = counter[0]
+
+    # in this case start with just one vertex, but we could equally
+    # dfs from all_vertices to product a dfs forest
+    traverse(starting_vertex)
+    return traversal_times
+
+traversal_times = depth_first_search(simple_graph, 'A')
+# =>
+# {
+#     'A': {
+#         'discovery': 1,
+#         'finish': 12
+#     },
+#     'B': {
+#         'discovery': 2,
+#         'finish': 11
+#     },
+#     'C': {
+#         'discovery': 3,
+#         'finish': 4
+#     },
+#     'D': {
+#         'discovery': 5,
+#         'finish': 10
+#     },
+#     'E': {
+#         'discovery': 6,
+#         'finish': 9
+#     },
+#     'F': {
+#         'discovery': 7,
+#         'finish': 8
+#     }
+# }
+
+
+"""
 Although our implementation of `bfs` was only interested in considering
 nodes for which there was a path leading back to the start, it is
 possible to create a breadth first forest that represents the shortest
@@ -71,7 +112,7 @@ path between all pairs of nodes in the graph. We leave this as an
 exercise. In our next two algorithms we will see why keeping track of
 the depth first forest is important.
 
-The `dfsvisit` method starts with a single vertex called `startVertex`
+The `dfsvisit` method starts with a single vertex called `starting_vertex`
 and explores all of the neighboring white vertices as deeply as
 possible. If you look carefully at the code for `dfsvisit` and compare
 it to breadth first search, what you should notice is that the
@@ -130,40 +171,40 @@ the algorithm works its way back to the first node, setting finish times
 and coloring vertices black.
 
 ![Figure 14: Constructing the Depth First Search
-Tree-10](figures/gendfsa.png)
+Tree-10](figures/depth-first-search-a.png)
 
 ![Figure 15: Constructing the Depth First Search
-Tree-11](figures/gendfsb.png)
+Tree-11](figures/depth-first-search-b.png)
 
 ![Figure 16: Constructing the Depth First Search
-Tree-12](figures/gendfsc.png)
+Tree-12](figures/depth-first-search-c.png)
 
 ![Figure 17: Constructing the Depth First Search
-Tree-13](figures/gendfsd.png)
+Tree-13](figures/depth-first-search-d.png)
 
 ![Figure 18: Constructing the Depth First Search
-Tree-14](figures/gendfse.png)
+Tree-14](figures/depth-first-search-e.png)
 
 ![Figure 19: Constructing the Depth First Search
-Tree-15](figures/gendfsf.png)
+Tree-15](figures/depth-first-search-f.png)
 
 ![Figure 20: Constructing the Depth First Search
-Tree-16](figures/gendfsg.png)
+Tree-16](figures/depth-first-search-g.png)
 
 ![Figure 21: Constructing the Depth First Search
-Tree-17](figures/gendfsh.png)
+Tree-17](figures/depth-first-search-h.png)
 
 ![Figure 22: Constructing the Depth First Search
-Tree-18](figures/gendfsi.png)
+Tree-18](figures/depth-first-search-i.png)
 
 ![Figure 23: Constructing the Depth First Search
-Tree-19](figures/gendfsj.png)
+Tree-19](figures/depth-first-search-j.png)
 
 ![Figure 24: Constructing the Depth First Search
-Tree-20](figures/gendfsk.png)
+Tree-20](figures/depth-first-search-k.png)
 
 ![Figure 25: Constructing the Depth First Search
-Tree-21](figures/gendfsl.png)
+Tree-21](figures/depth-first-search-l.png)
 
 The starting and finishing times for each node display a property called
 the **parenthesis property**. This property means that all the children
@@ -173,3 +214,16 @@ Figure 26 shows the tree constructed by the depth
 first search algorithm.
 
 ![Figure 26: The Resulting Depth First Search Tree](figures/dfstree.png)
+
+Analysis
+---
+
+The general running time for depth first search is as follows. The loops
+in `dfs` both run in $$O(V)$$, not counting what happens in `dfsvisit`,
+since they are executed once for each vertex in the graph. In `dfsvisit`
+the loop is executed once for each edge in the adjacency list of the
+current vertex. Since `dfsvisit` is only called recursively if the
+vertex is white, the loop will execute a maximum of once for every edge
+in the graph or $$O(E)$$. So, the total time for depth first search is
+$$O(V + E)$$.
+"""
