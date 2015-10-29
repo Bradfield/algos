@@ -17,7 +17,7 @@ the “front.” The queue operations are:
     parameters and returns an integer.
 
 As an example, if we assume that `q` is a queue that has been created
-and is currently empty, then the table belowe shows
+and is currently empty, then the table below shows
 the results of a sequence of queue operations. The queue contents are
 shown such that the front is on the right. 4 was the first item enqueued
 so it is the first item returned by dequeue.

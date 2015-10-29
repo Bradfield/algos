@@ -1,6 +1,5 @@
 choose a better name
 move all code samples to literate python
-remove unused figures
 branding
 make all captions sentence case
 pick more consistent section names - currently some are the theme, some are the example problem
@@ -9,7 +8,6 @@ ops
     move away from gitbook hosting
     get auto builds working
     add CI
-
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

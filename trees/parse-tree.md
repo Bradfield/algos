@@ -73,7 +73,7 @@ outlined above in action. We will use the expression $$(3 + (4 * 5))$$. We
 will parse this expression into the following list of character tokens
 `['(', '3', '+', '(', '4', '*', '5' ,')',')']`. Initially we will
 start out with a parse tree that consists of an empty root node.
-The figures belowe illustrate the structure and contents
+The figures below illustrate the structure and contents
 of the parse tree, as each new token is processed.
 
 ![ ](figures/buildExp1.png)
