@@ -241,7 +241,6 @@ lowest value possible. This way any operator that is compared against it
 will have higher precedence and will be placed on top of it.
 
 ```python
-from pythonds.basic.stack import Stack
 
 PRECEDENCE = {
   '*': 3,

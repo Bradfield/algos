@@ -137,7 +137,6 @@ example_graph = {
 
 print dict(create_spanning_tree(example_graph, 'A'))
 
-# from pythonds.graphs import PriorityQueue, Graph, Vertex
 
 # def prim(G,start):
 #     pq = PriorityQueue()
