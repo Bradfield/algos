@@ -1,6 +1,4 @@
 choose a better name
-get auto builds working
-add CI
 move all code samples to literate python
 remove unused figures
 branding
@@ -8,7 +6,11 @@ delete everything with "listing"
 delete everything with "figure"
 make all captions sentence case
 pick more consistent section names - currently some are the theme, some are the example problem
-move away from gitbook hosting
+
+ops
+    move away from gitbook hosting
+    get auto builds working
+    add CI
 
 
 trees

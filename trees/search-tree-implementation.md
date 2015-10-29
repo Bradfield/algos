@@ -292,13 +292,13 @@ case is shown below.
 ```
 ![Deleting Node 16, a Node without Children](figures/binary-search-tree-delete-1.png)
 
-The second case is only slightly more complicated (see below). If a node has only a single child, then we
-can simply promote the child to take the place of its parent. The code
-for this case is shown in the next listing. As you look at this code you
-will see that there are six cases to consider. Since the cases are
-symmetric with respect to either having a left or right child we will
-just discuss the case where the current node has a left child. The
-decision proceeds as follows:
+The second case is only slightly more complicated (see below). If a node
+has only a single child, then we can simply promote the child to take
+the place of its parent. The code for this case is shown in the next
+code sample. As you look at this code you will see that there are six
+cases to consider. Since the cases are symmetric with respect to either
+having a left or right child we will just discuss the case where the
+current node has a left child. The decision proceeds as follows:
 
 1.  If the current node is a left child then we only need to update the
     parent reference of the left child to point to the parent of the

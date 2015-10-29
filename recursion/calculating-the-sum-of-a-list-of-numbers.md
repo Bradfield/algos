@@ -65,8 +65,8 @@ def sum_of(numbers):
 sum_of([1,3,5,7,9])  # => 25
 ```
 
-There are a few key ideas in this listing to look at. First, on line 2
-we are checking to see if the list is one element long. This check is
+There are a few key ideas in this code sample to look at. First, on line
+2 we are checking to see if the list is one element long. This check is
 crucial and is our escape clause from the function. The sum of a list of
 length 1 is trivial; it is just the number in the list. Second, on line
 5 our function calls itself! This is the reason that we call the

@@ -255,11 +255,11 @@ problem. We will leave it as an exercise for you to see if you can
 express $$k$$ as a function of the board size.
 
 Luckily there is a way to speed up the eight-by-eight case so that it
-runs in under one second. In the listing below we show the code that
-speeds up the `travers`. This function, called `warnsdorffs_heuristic`
+runs in under one second. In the code sample below we show the code that
+speeds up the `traverse`. This function, called `warnsdorffs_heuristic`
 when passed as the heuristic function to `find_solution_for` above will
-cause the `next_vertices` to be sorted prioritizing those who which
-have the _fewest_ subsequent legal moves.
+cause the `next_vertices` to be sorted prioritizing those who which have
+the _fewest_ subsequent legal moves.
 
 This may seem counterintutitive; why not select the node that has the
 _most_ available moves? The problem with using the vertex with the most
