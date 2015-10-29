@@ -23,21 +23,19 @@ black. As we will see after looking at the algorithm, the discovery and
 finish times of the nodes provide some interesting properties we can use
 in later algorithms.
 
-The code for our depth first search is shown in
-below. Since the two functions `dfs` and its
-helper `dfsvisit` use a variable to keep track of the time across calls
-to `dfsvisit` we chose to implement the code as methods of a class that
-inherits from the `Graph` class. This implementation extends the graph
-class by adding a `time` instance variable and the two methods `dfs` and
-`dfsvisit`. Looking at line 11 you will notice that the `dfs` method
-iterates over all of the vertices in the graph calling `dfsvisit` on the
-nodes that are white. The reason we iterate over all the nodes, rather
-than simply searching from a chosen starting node, is to make sure that
-all nodes in the graph are considered and that no vertices are left out
-of the depth first forest. It may look unusual to see the statement
-`for aVertex in self`, but remember that in this case `self` is an
-instance of the `DFSGraph` class, and iterating over all the vertices in
-an instance of a graph is a natural thing to do.
+The code for our depth first search is shown below. We use a set to
+maintain a record of the nodes that have been visited as we recursively
+traverse through our sample graph. For each vertex, any neighboring
+vertices that have not yet been visited are traversed. This is much like
+our depth first traversal for our knight's tour solution, except that
+we do not need to keep track of the path taken to reach every vertex,
+allowing us to more simply use our `visited` set.
+
+We also introduce a `traversal_times` dictionary here in which the keys
+are vertices and the values we populate as dictionaries of the form
+`{'discovery': m, 'finish': n}`, where the `m` and `n` values are
+integers obtained by incrementing a counter before and after each time
+a new vertex is traversed.
 """
 
 from collections import defaultdict
@@ -105,125 +103,106 @@ traversal_times = depth_first_search(simple_graph, 'A')
 
 
 """
-Although our implementation of `bfs` was only interested in considering
-nodes for which there was a path leading back to the start, it is
-possible to create a breadth first forest that represents the shortest
-path between all pairs of nodes in the graph. We leave this as an
-exercise. In our next two algorithms we will see why keeping track of
-the depth first forest is important.
 
-The `dfsvisit` method starts with a single vertex called `starting_vertex`
-and explores all of the neighboring white vertices as deeply as
-possible. If you look carefully at the code for `dfsvisit` and compare
-it to breadth first search, what you should notice is that the
-`dfsvisit` algorithm is almost identical to `bfs` except that on the
-last line of the inner `for` loop, `dfsvisit` calls itself recursively
-to continue the search at a deeper level, whereas `bfs` adds the node to
-a queue for later exploration. It is interesting to note that where
-`bfs` uses a queue, `dfsvisit` uses a stack. You don’t see a stack in
-the code, but it is implicit in the recursive call to `dfsvisit`.
+The `traverse` method starts with a single vertex called and explores
+all of the neighboring unvisited vertices as deeply as possible. If you
+look carefully at the code for `traverse` and compare it to breadth
+first search, what you should notice is that the `traverse` algorithm is
+almost identical to `breadth_first_search` except that on the last line
+of the inner `for` loop, `traverse` calls itself recursively to continue
+the search at a deeper level, whereas `breadth_first_search` adds the
+node to a queue for later exploration. It is interesting to note that
+where `breadth_first_search` uses a queue, `traverse` uses a stack. You
+don’t see a stack in the code, but it is implicit in the recursive call
+to `traverse`.
 
 The following sequence of figures illustrates the depth first search
 algorithm in action for a small graph. In these figures, the dotted
 lines indicate edges that are checked, but the node at the other end of
 the edge has already been added to the depth first tree. In the code
-this test is done by checking that the color of the other node is
-non-white.
+this test is done by checking that the other node has been visited.
 
-The search begins at vertex A of the graph
-(Figure 14). Since all of the vertices are white at
-the beginning of the search the algorithm visits vertex A. The first
-step in visiting a vertex is to set the color to gray, which indicates
-that the vertex is being explored and the discovery time is set to 1.
-Since vertex A has two adjacent vertices (B, D) each of those need to be
-visited as well. We’ll make the arbitrary decision that we will visit
-the adjacent vertices in alphabetical order.
+The search begins at vertex A of the graph (below). Since all of the
+vertices are unvisited at the beginning of the search the algorithm
+visits vertex A. The first step in visiting a vertex is to add it to the
+`visited` set, indicated here with a gray color, and the discovery time
+is set to 1. Since vertex A has two adjacent vertices (B, D) each of
+those need to be visited as well. We’ll make the arbitrary decision that
+we will visit the adjacent vertices in alphabetical order.
 
-Vertex B is visited next (Figure 15), so its color is
-set to gray and its discovery time is set to 2. Vertex B is also
-adjacent to two other nodes (C, D) so we will follow the alphabetical
-order and visit node C next.
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-a.png)
 
-Visiting vertex C (Figure 16) brings us to the end of
-one branch of the tree. After coloring the node gray and setting its
-discovery time to 3, the algorithm also determines that there are no
-adjacent vertices to C. This means that we are done exploring node C and
-so we can color the vertex black, and set the finish time to 4. You can
-see the state of our search at this point in
-Figure 17.
+Vertex B is visited next (see below), so its color is set to gray and
+its discovery time is set to 2. Vertex B is also adjacent to two other
+nodes (C, D) so we will follow the alphabetical order and visit node C
+next.
+
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-b.png)
+
+Visiting vertex C (see below) brings us to the end of one branch of the
+tree. After adding the node to `visited` and setting its discovery time
+to 3, the algorithm also determines that there are no adjacent vertices
+to C.
+
+
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-c.png)
+
+This means that we are done exploring node C and so we can color the
+vertex black, and set the finish time to 4. You can see the state of our
+search at this point below.
+
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-d.png)
 
 Since vertex C was the end of one branch we now return to vertex B and
 continue exploring the nodes adjacent to B. The only additional vertex
-to explore from B is D, so we can now visit D
-(Figure 18) and continue our search from vertex D.
-Vertex D quickly leads us to vertex E (Figure 19).
+to explore from B is D, so we can now visit D (below) and continue our
+search from vertex D.
+
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-e.png)
+
+
+Vertex D quickly leads us to vertex E:
+
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-f.png)
+
 Vertex E has two adjacent vertices, B and F. Normally we would explore
-these adjacent vertices alphabetically, but since B is already colored
-gray the algorithm recognizes that it should not visit B since doing so
-would put the algorithm in a loop! So exploration continues with the
-next vertex in the list, namely F (Figure 20).
+these adjacent vertices alphabetically, but since B has already been
+visited the algorithm recognizes that it should not visit B since doing
+so would put the algorithm in a loop! So exploration continues with the
+next vertex in the list, namely F.
 
-Vertex F has only one adjacent vertex, C, but since C is colored black
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-g.png)
+
+Vertex F has only one adjacent vertex, C, but since C has been visited
 there is nothing else to explore, and the algorithm has reached the end
-of another branch. From here on, you will see in
-Figure 21  that
-the algorithm works its way back to the first node, setting finish times
-and coloring vertices black.
+of another branch. From here on, you will see that the algorithm works
+its way back to the first node, setting finish times.
 
-![Figure 14: Constructing the Depth First Search
-Tree-10](figures/depth-first-search-a.png)
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-h.png)
 
-![Figure 15: Constructing the Depth First Search
-Tree-11](figures/depth-first-search-b.png)
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-i.png)
 
-![Figure 16: Constructing the Depth First Search
-Tree-12](figures/depth-first-search-c.png)
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-j.png)
 
-![Figure 17: Constructing the Depth First Search
-Tree-13](figures/depth-first-search-d.png)
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-k.png)
 
-![Figure 18: Constructing the Depth First Search
-Tree-14](figures/depth-first-search-e.png)
-
-![Figure 19: Constructing the Depth First Search
-Tree-15](figures/depth-first-search-f.png)
-
-![Figure 20: Constructing the Depth First Search
-Tree-16](figures/depth-first-search-g.png)
-
-![Figure 21: Constructing the Depth First Search
-Tree-17](figures/depth-first-search-h.png)
-
-![Figure 22: Constructing the Depth First Search
-Tree-18](figures/depth-first-search-i.png)
-
-![Figure 23: Constructing the Depth First Search
-Tree-19](figures/depth-first-search-j.png)
-
-![Figure 24: Constructing the Depth First Search
-Tree-20](figures/depth-first-search-k.png)
-
-![Figure 25: Constructing the Depth First Search
-Tree-21](figures/depth-first-search-l.png)
+![Constructing the Depth First Search
+Tree](figures/depth-first-search-l.png)
 
 The starting and finishing times for each node display a property called
 the **parenthesis property**. This property means that all the children
 of a particular node in the depth first tree have a later discovery time
 and an earlier finish time than their parent.
-Figure 26 shows the tree constructed by the depth
-first search algorithm.
 
-![Figure 26: The Resulting Depth First Search Tree](figures/dfstree.png)
-
-Analysis
----
-
-The general running time for depth first search is as follows. The loops
-in `dfs` both run in $$O(V)$$, not counting what happens in `dfsvisit`,
-since they are executed once for each vertex in the graph. In `dfsvisit`
-the loop is executed once for each edge in the adjacency list of the
-current vertex. Since `dfsvisit` is only called recursively if the
-vertex is white, the loop will execute a maximum of once for every edge
-in the graph or $$O(E)$$. So, the total time for depth first search is
-$$O(V + E)$$.
 """

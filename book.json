@@ -15,7 +15,7 @@
           "caption": "_CAPTION_"
       }
   },
-  "gitbook": "2.4.1",
+  "gitbook": "2.x.x",
   "styles": {
     "website": "website.css"
   }

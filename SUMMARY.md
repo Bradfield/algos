@@ -75,7 +75,7 @@
     * [Implementation](graphs/implementation.md)
     * [The Word Ladder Problem](graphs/word-ladder.md)
     * [The Knight’s Tour Problem](graphs/knights-tour.md)
-    * [General Depth First Search](graphs/depth-first-search.md.todo)
+    * [General Depth First Search](graphs/depth-first-search.md)
     * [Topological Sorting](graphs/topological-sorting.md.todo)
     * [Strongly Connected Components](graphs/strongly-connected-components.md.todo)
     * [Shortest Path Problems](graphs/shortest-path-problems.md.todo)
