@@ -76,7 +76,7 @@ components for a graph.
     connected component. Output the vertex ids for each vertex in each
     tree in the forest to identify the component.
 
-Let's trace the operation of the steps described above on the example
+Let’s trace the operation of the steps described above on the example
 graph above with the three strongly connected components. Here are the
 start and finish times computed for the original graph:
 

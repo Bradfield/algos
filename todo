@@ -13,16 +13,6 @@ pick more consistent section names - currently some are the theme, some are the 
 move away from gitbook hosting
 use the word "section" in preference to "chapter"
 
-do full pass through editing for each section:
-    add better instructions
-    convert activecode portions
-    add a better introduction
-    move large code blocks out into include tags
-    improve sections
-    remove listing numbers
-    make sure all Python is idiomatic
-    fix math formatting
-    ensure curly quotes everywhere
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

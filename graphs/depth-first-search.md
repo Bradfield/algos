@@ -27,7 +27,7 @@ The code for our depth first search is shown below. We use a set to
 maintain a record of the nodes that have been visited as we recursively
 traverse through our sample graph. For each vertex, any neighboring
 vertices that have not yet been visited are traversed. This is much like
-our depth first traversal for our knight's tour solution, except that
+our depth first traversal for our knight’s tour solution, except that
 we do not need to keep track of the path taken to reach every vertex,
 allowing us to more simply use our `visited` set.
 

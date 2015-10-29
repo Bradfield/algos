@@ -7,7 +7,7 @@ The Knight’s Tour Problem
 The “[knight’s tour](https://en.wikipedia.org/wiki/Knight%27s_tour)” is
 a classic problem in graph theory, first posed over 1,000 years ago and
 pondered by legendary mathematicians including Leonhard Euler before
-finally being solved in 1823. We will use the knight's tour problem to
+finally being solved in 1823. We will use the knight’s tour problem to
 illustrate a second common graph algorithm called depth first search.
 
 The knight’s tour puzzle is played on a chess board with a single chess
@@ -15,7 +15,7 @@ piece, the knight. The object of the puzzle is to find a sequence of
 moves that allow the knight to visit every square on the board exactly
 once, like so:
 
-![One possible knight's tour](figures/knights-tour.gif)
+![One possible knight’s tour](figures/knights-tour.gif)
 
 One such sequence is called a “tour.” The upper bound on the
 number of possible legal tours for an eight-by-eight chessboard is known
@@ -172,7 +172,7 @@ def find_solution_for(board_size, heuristic=lambda graph: None):
 # find_solution_for(5)  # => [(1, 3), (0, 1), (2, 0), (4, 1), (2, 2), ... ]
 
 """
-Let's look at a simple example of an equivalent of this `traverse`
+Let’s look at a simple example of an equivalent of this `traverse`
 function in action.
 
 ![Start with vertex A](figures/ktdfsa.png)
@@ -277,7 +277,7 @@ help make decisions, heuristic searches are often used in the field of
 artificial intelligence. This particular heuristic is called
 Warnsdorff’s heuristic, named after H. C. Warnsdorff who published his
 idea in 1823, becoming the first person to describe a procedure to
-complete the knight's tour.
+complete the knight’s tour.
 """
 
 
@@ -295,8 +295,8 @@ def warnsdorffs_heuristic(graph):
 # => [(7, 3), (6, 1), (4, 0), (2, 1), (0, 0), (1, 2), ... ]
 
 """
-For fun, here is a very large ($$130 \times 130$$) open knight's
-tour created using Warnsdorff's heuristic:
+For fun, here is a very large ($$130 \times 130$$) open knight’s
+tour created using Warnsdorff’s heuristic:
 
 ![130x130 Open Tour](figures/knights-tour-130.png)
 """

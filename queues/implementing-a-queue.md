@@ -24,4 +24,4 @@ class Queue(object):
         return len(self.__items)
 ```
 
-In practice, many Python programmers will use the standard library's `collections.deque` class to achieve $$O(1)$$ enqueues and dequeues. We will cover deques in depth in the next chapter; for now consider deques to be a combination of a stack and a queue, enabling $$O(1)$$ pushing and popping from both ends.
+In practice, many Python programmers will use the standard library’s `collections.deque` class to achieve $$O(1)$$ enqueues and dequeues. We will cover deques in depth in the next chapter; for now consider deques to be a combination of a stack and a queue, enabling $$O(1)$$ pushing and popping from both ends.
