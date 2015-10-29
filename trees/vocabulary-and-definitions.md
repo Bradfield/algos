@@ -22,32 +22,31 @@ An edge is another fundamental part of a tree. An edge connects two
 ### Root
 
 The root of the tree is the only node in the tree that has no
-    incoming edges. In a filesystem, `/` is the root of the tree. In an HTML document, the `<html>` tag is the root of the tree.
+    incoming edges. In a file system, `/` is the root of the tree. In an HTML document, the `<html>` tag is the root of the tree.
 
 ### Path
 
 A path is an ordered list of nodes that are connected by edges. For
-    example, Mammal $$\rightarrow$$ Carnivora $$\rightarrow$$ Felidae
-    $$\rightarrow$$ Felis $$\rightarrow$$ Domestica is a path.
+    example, $$Mammal \rightarrow Carnivora \rightarrow Felidae \rightarrow Felis \rightarrow Domestica$$ is a path.
 
 ### Children
 
-The set of nodes $c$ that have incoming edges from the same node to
-    are said to be the children of that node. In Figure
-    Figure 2, nodes log/, spool/, and yp/ are the
+The set of nodes $$c$$ that have incoming edges from the same node to
+    are said to be the children of that node. in our file system
+    example, nodes log/, spool/, and yp/ are the
     children of node var/.
 
 ### Parent
 
 A node is the parent of all the nodes it connects to with
-    outgoing edges. In Figure 2 the node var/ is
+    outgoing edges. In our file system example the node var/ is
     the parent of nodes log/, spool/, and yp/.
 
 ### Sibling
 
 Nodes in the tree that are children of the same parent are said to
     be siblings. The nodes etc/ and usr/ are siblings in the
-    filesystem tree.
+    file system tree.
 
 ### Subtree
 
@@ -57,19 +56,19 @@ A subtree is a set of nodes and edges comprised of a parent and all
 ### Leaf Node
 
 A leaf node is a node that has no children. For example, Human and
-    Chimpanzee are leaf nodes in Figure 1.
+    Chimpanzee are leaf nodes in our animal taxonomy example.
 
 ### Level
 
-The level of a node $n$ is the number of edges on the path from the
-    root node to $n$. For example, the level of the Felis node in
-    Figure 1 is five. By definition, the level of
+The level of a node $$n$$ is the number of edges on the path from the
+    root node to $$n$$. For example, the level of the Felis node in
+    our animal taxonomy example is five. By definition, the level of
     the root node is zero.
 
 ### Height
 
 The height of a tree is equal to the maximum level of any node in
-    the tree. The height of the tree in Figure 2
+    the tree. The height of the tree in our file system example
     is two.
 
 With the basic vocabulary now defined, we can move on to a formal
@@ -81,28 +80,27 @@ which will prove to be very useful, is a recursive definition.
 that connect pairs of nodes. A tree has the following properties:
 
 -   One node of the tree is designated as the root node.
--   Every node $n$, except the root node, is connected by an edge from
-    exactly one other node $p$, where $p$ is the parent of $n$.
+-   Every node $$n$$, except the root node, is connected by an edge from
+    exactly one other node $$p$$, where $$p$$ is the parent of $$n$$.
 -   A unique path traverses from the root to each node.
 -   If each node in the tree has a maximum of two children, we say that
     the tree is a **binary tree**.
 
-Figure 3 illustrates a tree that fits
+The diagram below illustrates a tree that fits
 definition one. The arrowheads on the edges indicate the direction of
 the connection.
 
-![Figure 3: A Tree Consisting of a Set of Nodes and
-Edges](figures/treedef1.png)
+![A Tree Consisting of a Set of Nodes and
+Edges](figures/tree-definition.png)
 
 *Definition Two:* A tree is either empty or consists of a root and zero
 or more subtrees, each of which is also a tree. The root of each subtree
 is connected to the root of the parent tree by an edge.
-Figure 4 illustrates this recursive
+The diagram below illustrates this recursive
 definition of a tree. Using the recursive definition of a tree, we know
-that the tree in Figure 4 has at least four
+that the tree below has at least four
 nodes, since each of the triangles representing a subtree must have a
 root. It may have many more nodes than that, but we do not know unless
 we look deeper into the tree.
 
-![Figure 4: A recursive Definition of a
-tree](figures/TreeDefRecursive.png)
+![A recursive Definition of a tree](figures/tree-definition-recursive.png)

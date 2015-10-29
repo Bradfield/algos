@@ -234,10 +234,9 @@ One way to deal with clustering is to extend the linear probing
 technique so that instead of looking sequentially for the next open
 slot, we skip slots, thereby more evenly distributing the items that
 have caused collisions. This will potentially reduce the clustering that
-occurs. Figure 10 shows the items when
-collision resolution is done with a “plus 3” probe. This means that once
-a collision occurs, we will look at every third slot until we find one
-that is empty.
+occurs. The illustration below shows the items when collision resolution
+is done with a “plus 3” probe. This means that once a collision occurs,
+we will look at every third slot until we find one that is empty.
 
 ![Collision Resolution Using “Plus 3”](figures/linear-probing-2.png)
 

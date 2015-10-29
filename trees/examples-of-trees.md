@@ -1,11 +1,15 @@
 Examples of Trees
 =================
 
-Tree data structures have many things in common with their botanical cousins. Both have a root, branches, and leaves. One diference is that we find it more intuitive to consider the root of a tree data structure to be at the “top”, for instance that the root of a file system is “above” its subdirectories.
+Tree data structures have many things in common with their botanical
+cousins. Both have a root, branches, and leaves. One diference is that
+we find it more intuitive to consider the root of a tree data structure
+to be at the “top”, for instance that the root of a file system is
+“above” its subdirectories.
 
 Before we begin our study of tree data structures, let’s look at a few
 common examples. Our first example of a tree is a classification tree
-from biology. Figure 1 shows an example of the
+from biology. The illustration below shows an example of the
 biological classification of some animals. From this simple example, we
 can learn about several properties of trees. The first property this
 example demonstrates is that trees are hierarchical. By hierarchical, we
@@ -16,7 +20,7 @@ of the layer above) is the Phylum, then the Class, and so on. However,
 no matter how deep we go in the classification tree, all the organisms
 are still animals.
 
-![Figure 1: Taxonomy of Some Common Animals Shown as a
+![Taxonomy of Some Common Animals Shown as a
 Tree](figures/biology.png)
 
 Notice that you can start at the top of the tree and follow a path made
@@ -45,10 +49,9 @@ Felidae $$\rightarrow$$ Felis $$\rightarrow$$ Domestica.
 
 Another example of a tree structure that you probably use every day is a
 file system. In a file system, directories, or folders, are structured
-as a tree. Figure 2 illustrates a small part of a
-Unix file system hierarchy.
+as a tree:
 
-![Figure 2: A Small Part of the Unix File System
+![A Small Part of the Unix File System
 Hierarchy](figures/directory.png)
 
 The file system tree has much in common with the biological
@@ -64,9 +67,7 @@ from /etc/httpd to /usr/etc/httpd, but would not affect the contents or
 any children of the httpd directory.
 
 A final example of a tree is a web page. The following is an example of
-a simple web page written using HTML. Figure 3 shows
-the tree that corresponds to each of the HTML tags used to create the
-page.
+a simple web page written using HTML.
 
 ```html
 <html>
@@ -84,7 +85,10 @@ page.
 </html>
 ```
 
-![Figure 3: A Tree Corresponding to the Markup Elements of a Web
+Here in the tree that corresponds to each of the HTML tags used to
+create the page.
+
+![A Tree Corresponding to the Markup Elements of a Web
 Page](figures/htmltree.png)
 
 The HTML source code and the tree accompanying the source illustrate

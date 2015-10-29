@@ -98,7 +98,7 @@ Furthermore we need to make sure to update all of the parent pointers
 appropriately.
 
 Let’s look at a slightly more complicated tree to illustrate the right
-rotation. The left side of Figure 4 shows a tree
+rotation. The left side of the illustration below shows a tree
 that is left-heavy and with a balance factor of 2 at the root. To
 perform a right rotation we essentially do the following:
 

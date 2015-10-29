@@ -58,24 +58,22 @@ The example above helps illustrate two other key graph terms:
 
 **Path**
 
-A path in a graph is a sequence of vertices that are connected
-by edges. Formally we would define a path as $$w_1, w_2, ..., w_n$$
-such that $$(w_i, w_{i+1}) \in E$$ for all $$1 \le i \le n-1$$. The
-unweighted path length is the number of edges in the path,
-specifically $$n-1$$. The weighted path length is the sum of the
-weights of all the edges in the path. For example in
-Figure 2 the path from $$V3$$ to $$V1$$ is the
-sequence of vertices $$(V3,V4,V0,V1)$$. The edges are
+A path in a graph is a sequence of vertices that are connected by edges.
+Formally we would define a path as $$w_1, w_2, ..., w_n$$ such that
+$$(w_i, w_{i+1}) \in E$$ for all $$1 \le i \le n-1$$. The unweighted
+path length is the number of edges in the path, specifically $$n-1$$.
+The weighted path length is the sum of the weights of all the edges in
+the path. For example in the above graph the path from $$V3$$ to $$V1$$
+is the sequence of vertices $$(V3,V4,V0,V1)$$. The edges are
 $$\left\{(v3,v4,7),(v4,v0,1),(v0,v1,5) \right\}$$.
 
 **Cycle**
 
-A cycle in a directed graph is a path that starts and ends at the
-same vertex. For example, in Figure 2 the path
-$$(V5,V2,V3,V5)$$ is a cycle. A graph with no cycles is called an
-**acyclic graph**. A directed graph with no cycles is called a
-**directed acyclic graph** or a **DAG**. We will see that we can
-solve several important problems if the problem can be represented
-as a DAG.
+A cycle in a directed graph is a path that starts and ends at the same
+vertex. For example, in the above graph the path $$(V5,V2,V3,V5)$$ is a
+cycle. A graph with no cycles is called an **acyclic graph**. A directed
+graph with no cycles is called a **directed acyclic graph** or a
+**DAG**. We will see that we can solve several important problems if the
+problem can be represented as a DAG.
 
 

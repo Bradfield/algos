@@ -2,8 +2,6 @@ choose a better name
 move all code samples to literate python
 remove unused figures
 branding
-delete everything with "listing"
-delete everything with "figure"
 make all captions sentence case
 pick more consistent section names - currently some are the theme, some are the example problem
 

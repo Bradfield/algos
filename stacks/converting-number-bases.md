@@ -33,7 +33,7 @@ have a remainder of 0. It will have the digit 0 in the ones place. An
 odd value will have a remainder of 1 and will have the digit 1 in the
 ones place. We think about building our binary number as a sequence of
 digits; the first remainder we compute will actually be the last digit
-in the sequence. As shown in Figure 5, we again see
+in the sequence. As shown below, we again see
 the reversal property that signals that a stack is likely to be the
 appropriate data structure for solving the problem.
 

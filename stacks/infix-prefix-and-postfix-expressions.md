@@ -137,8 +137,8 @@ expression would result.
 
 If we do the same thing but instead of moving the symbol to the position
 of the right parenthesis, we move it to the left, we get prefix notation
-(see Figure 7). The position of the parenthesis
-pair is actually a clue to the final position of the enclosed operator.
+(below). The position of the parenthesis pair is actually a clue to the
+final position of the enclosed operator.
 
 ![Moving Operators to the Left for Prefix Notation](figures/move-left.png)
 
