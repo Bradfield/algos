@@ -34,3 +34,4 @@ recursion
 graphs
     revisit general depth first search to better explain depth first forrests and account for it in the code, for instance using the pancake example
     better example than Luther Computer Science in strongly-connected-components
+    for prim's need to fix code to reflect diagrams, add test, interleave diagrams with prose

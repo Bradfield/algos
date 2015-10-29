@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 Prim’s Spanning Tree Algorithm
 ==============================
 
@@ -8,10 +11,10 @@ everyone who may be listening. This is important in gaming so that all
 the players know the very latest position of every other player. This is
 important for Internet radio so that all the listeners that are tuned in
 are getting all the data they need to reconstruct the song they are
-listening to. Figure 9 illustrates the broadcast
-problem.
+listening to. This diagram illustrates the broadcast
+problem:
 
-![Figure 9: The Broadcast Problem](figures/bcast1.png)
+![The Broadcast Problem](figures/broadcast-problem.png)
 
 There are some brute force solutions to this problem, so let’s look at
 them first to help understand the broadcast problem better. This will
@@ -19,8 +22,8 @@ also help you appreciate the solution that we will propose when we are
 done. To begin, the broadcast host has some information that the
 listeners all need to receive. The simplest solution is for the
 broadcasting host to keep a list of all of the listeners and send
-individual messages to each. In Figure 9 we show a
-small network with a broadcaster and some listeners. Using this first
+individual messages to each. In the diagram above we show a small
+network with a broadcaster and some listeners. Using this first
 approach, four copies of every message would be sent. Assuming that the
 least cost path is used, let’s see how many times each router would
 handle the same message.
@@ -48,23 +51,23 @@ more unnecessary messages than our first strategy.
 
 The solution to this problem lies in the construction of a minimum
 weight **spanning tree**. Formally we define the minimum spanning tree
-$T$ for a graph $G = (V,E)$ as follows. $T$ is an acyclic subset of $E$
-that connects all the vertices in $V$. The sum of the weights of the
-edges in T is minimized.
+$$T$$ for a graph $$G = (V,E)$$ as follows. $$T$$ is an acyclic subset
+of $$E$$ that connects all the vertices in $$V$$. The sum of the weights
+of the edges in T is minimized.
 
-Figure 10 shows a simplified version of the broadcast
-graph and highlights the edges that form a minimum spanning tree for the
-graph. Now to solve our broadcast problem, the broadcast host simply
-sends a single copy of the broadcast message into the network. Each
-router forwards the message to any neighbor that is part of the spanning
-tree, excluding the neighbor that just sent it the message. In this
-example A forwards the message to B. B forwards the message to D and C.
-D forwards the message to E, which forwards it to F, which forwards it
-to G. No router sees more than one copy of any message, and all the
-listeners that are interested see a copy of the message.
+The diagram below shows a simplified version of the broadcast graph and
+highlights the edges that form a minimum spanning tree for the graph.
+Now to solve our broadcast problem, the broadcast host simply sends a
+single copy of the broadcast message into the network. Each router
+forwards the message to any neighbor that is part of the spanning tree,
+excluding the neighbor that just sent it the message. In this example A
+forwards the message to B. B forwards the message to D and C. D forwards
+the message to E, which forwards it to F, which forwards it to G. No
+router sees more than one copy of any message, and all the listeners
+that are interested see a copy of the message.
 
-![Figure 10: Minimum Spanning Tree for the Broadcast
-Graph](figures/mst1.png)
+![Minimum Spanning Tree for the Broadcast
+Graph](figures/minimum-spanning-tree.png)
 
 The algorithm we will use to solve this problem is called Prim’s
 algorithm. Prim’s algorithm belongs to a family of algorithms called the
@@ -83,34 +86,78 @@ We define a safe edge as any edge that connects a vertex that is in the
 spanning tree to a vertex that is not in the spanning tree. This ensures
 that the tree will always remain a tree and therefore have no cycles.
 
-The Python code to implement Prim’s algorithm is shown in
-Listing 2 &lt;lst\_prims&gt;. Prim’s algorithm is similar to Dijkstra’s
-algorithm in that they both use a priority queue to select the next
-vertex to add to the growing graph.
+The Python code to implement Prim’s algorithm is shown below. Prim’s
+algorithm is similar to Dijkstra’s algorithm in that they both use a
+priority queue to select the next vertex to add to the growing graph.
+"""
 
-**Listing 2**
+from collections import defaultdict
+import heapq
 
-    from pythonds.graphs import PriorityQueue, Graph, Vertex
 
-    def prim(G,start):
-        pq = PriorityQueue()
-        for v in G:
-            v.setDistance(sys.maxsize)
-            v.setPred(None)
-        start.setDistance(0)
-        pq.buildHeap([(v.getDistance(),v) for v in G])
-        while not pq.isEmpty():
-            currentVert = pq.delMin()
-            for nextVert in currentVert.getConnections():
-              newCost = currentVert.getWeight(nextVert) \
-                      + currentVert.getDistance()
-              if nextVert in pq and newCost<nextVert.getDistance():
-                  nextVert.setPred(currentVert)
-                  nextVert.setDistance(newCost)
-                  pq.decreaseKey(nextVert,newCost)
+def create_spanning_tree(graph, starting_vertex):
+    tree = defaultdict(set)
+    distances = {vertex: float('infinity') for vertex in graph}
+    distances[starting_vertex] = 0
 
-The following sequence of figures (Figure 11 through
-Figure 17) shows the algorithm in operation on our
+    entry_lookup = {}
+    pq = []
+
+    added = set()
+
+    for vertex, distance in distances.items():
+        entry = [distance, vertex]
+        entry_lookup[vertex] = entry
+        heapq.heappush(pq, entry)
+
+    while len(pq) > 0:
+        current_distance, current_vertex = heapq.heappop(pq)
+
+        for neighbor, neighbor_distance in graph[current_vertex].items():
+            distance = distances[current_vertex] + neighbor_distance
+
+            if distance < distances[neighbor] and neighbor in pq:
+                added.add(neighbor)
+                distances[neighbor] = distance
+                entry_lookup[neighbor][0] = distance
+                tree[current_vertex].add(neighbor)
+
+    return tree
+
+
+example_graph = {
+    'A': {'B': 2, 'C': 3},
+    'B': {'A': 2, 'C': 1, 'D': 1, 'E': 4},
+    'C': {'A': 3, 'B': 1, 'F': 5},
+    'D': {'B': 1, 'E': 1},
+    'E': {'B': 4, 'D': 1, 'F': 1},
+    'F': {'C': 5, 'E': 1, 'G': 1},
+    'G': {'F': 1},
+}
+
+print dict(create_spanning_tree(example_graph, 'A'))
+
+# from pythonds.graphs import PriorityQueue, Graph, Vertex
+
+# def prim(G,start):
+#     pq = PriorityQueue()
+#     for v in G:
+#         v.setDistance(sys.maxsize)
+#         v.setPred(None)
+#     start.setDistance(0)
+#     pq.buildHeap([(v.getDistance(),v) for v in G])
+#     while not pq.isEmpty():
+#         currentVert = pq.delMin()
+#         for nextVert in currentVert.getConnections():
+#           newCost = currentVert.getWeight(nextVert) \
+#                   + currentVert.getDistance()
+#           if nextVert in pq and newCost<nextVert.getDistance():
+#               nextVert.setPred(currentVert)
+#               nextVert.setDistance(newCost)
+#               pq.decreaseKey(nextVert,newCost)
+
+"""
+The following sequence of diagrams shows the algorithm in operation on our
 sample tree. We begin with the starting vertex as A. The distances to
 all the other vertices are initialized to infinity. Looking at the
 neighbors of A we can update distances to two of the additional vertices
@@ -135,16 +182,17 @@ to be grafted into the spanning tree but in a different location. The
 rest of the algorithm proceeds as you would expect, adding each new node
 to the tree.
 
-![Figure 11: Tracing Prim’s Algorithm](figures/prima.png)
+![Tracing Prim’s Algorithm](figures/prima.png)
 
-![Figure 12: Tracing Prim’s Algorithm](figures/primb.png)
+![Tracing Prim’s Algorithm](figures/primb.png)
 
-![Figure 13: Tracing Prim’s Algorithm](figures/primc.png)
+![Tracing Prim’s Algorithm](figures/primc.png)
 
-![Figure 14: Tracing Prim’s Algorithm](figures/primd.png)
+![Tracing Prim’s Algorithm](figures/primd.png)
 
-![Figure 15: Tracing Prim’s Algorithm](figures/prime.png)
+![Tracing Prim’s Algorithm](figures/prime.png)
 
-![Figure 16: Tracing Prim’s Algorithm](figures/primf.png)
+![Tracing Prim’s Algorithm](figures/primf.png)
 
-![Figure 17: Tracing Prim’s Algorithm](figures/primg.png)
+![Tracing Prim’s Algorithm](figures/primg.png)
+"""
