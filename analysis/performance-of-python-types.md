@@ -9,7 +9,7 @@ these Python data structures because they are the building blocks we
 will use as we implement other data structures in the remainder of the
 book. In this section we will try to give you some intuitive understanding
 of why the performance is what it is, but you will not fully appreciate
-why this is the case until later chapters where we dive into the details
+why this is the case until later sections where we dive into the details
 of how lists and dictionaries may be implemented.
 
 Lists
@@ -49,7 +49,7 @@ $$O(n)$$. The reason for this lies in how Python chooses to implement
 lists. When an item is taken from the front of the list, in Python’s
 implementation, all the other elements in the list are shifted one
 position closer to the beginning. This may seem silly to you now, but as
-we explore an alternative list implementation in a later chapter, we
+we explore an alternative list implementation in a later section, we
 will see that this inefficiency is a concession that is made in order to
 allow $$O(1)$$ index operations.
 
@@ -132,7 +132,7 @@ below. One important side note on dictionary performance is that the
 efficiencies we provide in the table are for average performance. In
 some rare cases the contains, get item, and set item operations can
 degenerate into $$O(n)$$ performance but we will get into that in a
-later chapter when we talk about the different ways that a dictionary
+later section when we talk about the different ways that a dictionary
 could be implemented.
 
 Operation  | Big-O Efficiency

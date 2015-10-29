@@ -86,4 +86,4 @@ reversed returning the `CHAR_FOR_INT` lookup and returning the `to_string`
 call, the resulting string would be backward! But by delaying the
 concatenation operation until after the recursive call has returned, we
 get the result in the proper order. This should remind you of our
-discussion of stacks back in the previous chapter.
+discussion of stacks back in the previous section.

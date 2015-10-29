@@ -10,7 +10,7 @@ priority. The highest priority items are at the front of the queue and
 the lowest priority items are at the back. Thus when you enqueue an item
 on a priority queue, the new item may move all the way to the front. We
 will see that the priority queue is a useful data structure for some of
-the graph algorithms we will study in the next chapter.
+the graph algorithms we will study in the next section.
 
 You can probably think of a couple of easy ways to implement a priority
 queue using sorting functions and lists. However, inserting into a list

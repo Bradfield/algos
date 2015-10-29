@@ -1,7 +1,7 @@
 Summary of Map ADT Implementations
 ==================================
 
-Over the past few chapters we have looked at several data structures
+Over the past few sections we have looked at several data structures
 that can be used to implement the map abstract data type. A binary
 Search on a list, a hash table, a binary search tree, and a balanced
 binary search tree. To conclude this section, let’s summarize the

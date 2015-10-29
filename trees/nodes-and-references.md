@@ -3,7 +3,7 @@ Nodes and References
 
 Our second method to represent a tree uses nodes and references. In this
 case we will define a class that has attributes for the root value, as
-well as the left and right subtrees. This is the more common representation in practice, so we will continue to use it for the remainder of the chapter.
+well as the left and right subtrees. This is the more common representation in practice, so we will continue to use it for the remainder of the section.
 
 Using nodes and references, we might think of the tree as being
 structured like this:

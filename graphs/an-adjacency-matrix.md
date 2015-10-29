@@ -28,4 +28,4 @@ column for every vertex in the graph, the number of edges required to
 fill the matrix is $$|V|^2$$. A matrix is full when every vertex is
 connected to every other vertex. There are few real problems that
 approach this sort of connectivity. The problems we will look at in this
-chapter all involve graphs that are sparsely connected.
+section all involve graphs that are sparsely connected.

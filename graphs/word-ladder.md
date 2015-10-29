@@ -27,7 +27,7 @@ transformation, or you might need to use a particular word. In this
 section we are interested in figuring out the smallest number of
 transformations needed to turn the starting word into the ending word.
 
-Not surprisingly, since this chapter is on graphs, we can solve this
+Not surprisingly, since this section is on graphs, we can solve this
 problem using a graph algorithm. Here is an outline of where we are
 going:
 
