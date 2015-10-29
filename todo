@@ -11,6 +11,7 @@ delete everything with "figure"
 make all captions sentence case
 pick more consistent section names - currently some are the theme, some are the example problem
 move away from gitbook hosting
+use the word "section" in preference to "chapter"
 
 do full pass through editing for each section:
     add better instructions
@@ -29,3 +30,7 @@ trees
 
 recursion
     maybe add more/better examples
+
+graphs
+    revisit general depth first search to better explain depth first forrests and account for it in the code, for instance using the pancake example
+    better example than Luther Computer Science in strongly-connected-components
