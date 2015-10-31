@@ -5,6 +5,7 @@ node_js:
   - "4.1"
 install:
   - npm install gitbook-cli -g
+  - gitbook install
 script:
   - ./run test
 after_success:
