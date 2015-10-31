@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# unofficial "strict mode": http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+
+BUILD_DIR="/tmp/algo-book-build"
+REPO="github.com/Bradfield/algos.git"
+
+
+function test {
+  python -m unittest discover -p "*_test.py"
+}
+
+
+function publish-from-travis {
+  if [[ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+    build-book
+    publish-book
+  fi
+}
+
+# build book to a temporary direcotry
+function build-book {
+  log-msg "Removing ${BUILD_DIR}"
+  rm -rf $BUILD_DIR
+  mkdir $BUILD_DIR
+  log-msg "Building book"
+  gitbook build . $BUILD_DIR
+}
+
+# publish a built book by commiting and force pushing it to gh-pages
+function publish-book {
+  cd $BUILD_DIR
+  git init
+  git config user.name "Travis CI"
+  git config user.email "travis@travis-ci.org"
+  git add .
+  git commit -m "Deploying to Github Pages"
+  log-msg "Publishing to github pages"
+  git push --force --quiet "https://${GITHUB_TOKEN}@${REPO}" master:gh-pages > /dev/null
+}
+
+# ---
+
+# print a prefixed log message
+function log-msg {
+  echo '-*' "$1"
+}
+
+# ---
+
+# if called with interpreter, run fn that matches first arg
+[[ $BASH_SOURCE = "$0" ]] && {
+  # show help if no sub-command provided
+  [[ $# -eq 0 ]] && { help; exit; }
+  # otherwise invoke the fun
+  eval "$1" "${@:2}"
+}

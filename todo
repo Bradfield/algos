@@ -3,9 +3,7 @@ move all code samples to literate python
 make all captions sentence case
 
 ops
-    move away from gitbook hosting?
-    get auto builds working
-    add CI
+    freeze version of gitbook on travis
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

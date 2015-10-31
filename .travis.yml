@@ -1,4 +1,11 @@
 language: python
 python:
   - "2.7"
-script: python -m unittest discover -p "*_test.py"
+node_js:
+  - "4.1"
+install:
+  - npm install gitbook-cli -g
+script:
+  - ./run test
+after_success:
+  - ./run publish-from-travis
