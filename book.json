@@ -6,7 +6,7 @@
     "image-captions",
     "ungrey",
     "literate-python",
-    "mathjax-beta",
+    "mathjax",
     "prism",
     "-highlight"
   ],

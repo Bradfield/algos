@@ -2,9 +2,6 @@ choose a better name
 move all code samples to literate python
 make all captions sentence case
 
-ops
-    freeze version of gitbook on travis
-
 trees
     use tuples (or named tuples in list-of-lists representation?)
     more compact introduction incorporating intro, examples and definitions

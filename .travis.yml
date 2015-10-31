@@ -4,7 +4,7 @@ python:
 node_js:
   - "4.1"
 install:
-  - npm install gitbook-cli -g
+  - npm install gitbook-cli@0.3.6 -g
   - gitbook install
 script:
   - ./run test
