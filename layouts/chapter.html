@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <meta charset="utf-8">
+</head>
+<body>
+
+{{#each index}}
+<h2>{{ sectionName }}</h2>
+  {{#each collection}}
+  <li><a href="/{{path}}">{{title}}</a></li>
+  {{/each}}
+{{/each}}
+
+<h1>{{title}}</h1>
+
+{{{contents}}}
+</body>
+</html>

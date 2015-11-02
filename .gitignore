@@ -1,7 +1,4 @@
-_book
+_build
 node_modules
-*.epub
-*.mobi
-*.pdf
 *.mdc
 *.pyc

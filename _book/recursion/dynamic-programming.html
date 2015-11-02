@@ -1,0 +1,1546 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Dynamic Programming | Algorithms and Data Structures with Python</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.1">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+        <link rel="stylesheet" href="../website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../searching/searching.html" />
+    
+    
+    <link rel="prev" href="../recursion/tower-of-hanoi.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="6.7" data-basepath=".." data-revision="Mon Nov 02 2015 12:27:07 GMT-0800 (PST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Analysis</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="analysis/introduction.html">
+            
+                
+                    <a href="../analysis/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Introduction to Algorithm Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="analysis/big-o-notation.html">
+            
+                
+                    <a href="../analysis/big-o-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Big-O Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="analysis/an-anagram-detection-example.html">
+            
+                
+                    <a href="../analysis/an-anagram-detection-example.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        An Anagram Detection Example
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="analysis/performance-of-python-types.html">
+            
+                
+                    <a href="../analysis/performance-of-python-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Performance of Python Types
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Stacks</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="stacks/what-is-a-stack.html">
+            
+                
+                    <a href="../stacks/what-is-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        What is a Stack?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="stacks/the-stack-abstract-data-type.html">
+            
+                
+                    <a href="../stacks/the-stack-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        The Stack Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="stacks/implementing-a-stack.html">
+            
+                
+                    <a href="../stacks/implementing-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Implementing a Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="stacks/simple-balanced-parentheses.html">
+            
+                
+                    <a href="../stacks/simple-balanced-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Simple Balanced Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="stacks/balanced-symbols.html">
+            
+                
+                    <a href="../stacks/balanced-symbols.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Balanced Symbols
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="stacks/converting-number-bases.html">
+            
+                
+                    <a href="../stacks/converting-number-bases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Converting Number Bases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="stacks/infix-prefix-and-postfix-expressions.html">
+            
+                
+                    <a href="../stacks/infix-prefix-and-postfix-expressions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Infix, Prefix, Postfix
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Queues</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="queues/what-is-a-queue.html">
+            
+                
+                    <a href="../queues/what-is-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        What is a Queue?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="queues/the-queue-abstract-data-type.html">
+            
+                
+                    <a href="../queues/the-queue-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        The Queue Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="queues/implementing-a-queue.html">
+            
+                
+                    <a href="../queues/implementing-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Implementing a Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="queues/simulating-hot-potato.html">
+            
+                
+                    <a href="../queues/simulating-hot-potato.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Simulating Hot Potato
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Deques</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="deques/what-is-a-deque.html">
+            
+                
+                    <a href="../deques/what-is-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        What is a Deque?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="deques/the-deque-abstract-data-type.html">
+            
+                
+                    <a href="../deques/the-deque-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        The Deque Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="deques/implementing-a-deque.html">
+            
+                
+                    <a href="../deques/implementing-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Implementing a Deque
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="deques/palindrome-checker.html">
+            
+                
+                    <a href="../deques/palindrome-checker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Palindrome Checker
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Lists</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="lists/what-is-a-list.html">
+            
+                
+                    <a href="../lists/what-is-a-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        What is a List?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="lists/the-unordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-unordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        The Unordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="lists/implementing-an-unordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-unordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Implementing an Unordered List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="lists/the-ordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-ordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        The Ordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="lists/implementing-an-ordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-ordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Implementing an Ordered List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Recursion</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="recursion/what-is-recursion.html">
+            
+                
+                    <a href="../recursion/what-is-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        What is Recursion?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="recursion/calculating-the-sum-of-a-list-of-numbers.html">
+            
+                
+                    <a href="../recursion/calculating-the-sum-of-a-list-of-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Calculating the Sum of a List of Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="recursion/the-three-laws-of-recursion.html">
+            
+                
+                    <a href="../recursion/the-three-laws-of-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        The Three Laws of Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="recursion/converting-an-integer-to-a-string.html">
+            
+                
+                    <a href="../recursion/converting-an-integer-to-a-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Converting an Integer to a String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="recursion/stack-frames-implementing-recursion.html">
+            
+                
+                    <a href="../recursion/stack-frames-implementing-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Stack Frames Implementing Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="recursion/tower-of-hanoi.html">
+            
+                
+                    <a href="../recursion/tower-of-hanoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Tower of Hanoi
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.7" data-path="recursion/dynamic-programming.html">
+            
+                
+                    <a href="../recursion/dynamic-programming.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Dynamic Programming
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" >
+            
+            <span><b>7.</b> Searching</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="searching/searching.html">
+            
+                
+                    <a href="../searching/searching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Searching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="searching/the-sequential-search.html">
+            
+                
+                    <a href="../searching/the-sequential-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        The Sequential Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="searching/the-binary-search.html">
+            
+                
+                    <a href="../searching/the-binary-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        The Binary Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="searching/hashing.html">
+            
+                
+                    <a href="../searching/hashing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Hashing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="searching/the-map-abstract-data-type.html">
+            
+                
+                    <a href="../searching/the-map-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        The Map Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" >
+            
+            <span><b>8.</b> Trees and Tree Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="trees/introduction.html">
+            
+                
+                    <a href="../trees/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="trees/examples-of-trees.html">
+            
+                
+                    <a href="../trees/examples-of-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Examples of Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="trees/vocabulary-and-definitions.html">
+            
+                
+                    <a href="../trees/vocabulary-and-definitions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Vocabulary and Definitions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="trees/list-of-lists-representation.html">
+            
+                
+                    <a href="../trees/list-of-lists-representation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        List of Lists Representation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="trees/nodes-and-references.html">
+            
+                
+                    <a href="../trees/nodes-and-references.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        Nodes and References
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="trees/parse-tree.html">
+            
+                
+                    <a href="../trees/parse-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        Parse Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="trees/tree-traversals.html">
+            
+                
+                    <a href="../trees/tree-traversals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Tree Traversals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="trees/priority-queues-with-binary-heaps.html">
+            
+                
+                    <a href="../trees/priority-queues-with-binary-heaps.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        Priority Queues with Binary Heaps
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="trees/binary-heap-implementation.html">
+            
+                
+                    <a href="../trees/binary-heap-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Binary Heap Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="trees/binary-search-trees.html">
+            
+                
+                    <a href="../trees/binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.11" data-path="trees/search-tree-implementation.html">
+            
+                
+                    <a href="../trees/search-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Search Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="trees/search-tree-analysis.html">
+            
+                
+                    <a href="../trees/search-tree-analysis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Search Tree Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="trees/balanced-binary-search-trees.html">
+            
+                
+                    <a href="../trees/balanced-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        Balanced Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14" data-path="trees/avl-tree-implementation.html">
+            
+                
+                    <a href="../trees/avl-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        AVL Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.15" data-path="trees/summary-of-map-adt-implementations.html">
+            
+                
+                    <a href="../trees/summary-of-map-adt-implementations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.15.</b>
+                        
+                        Summary of Map ADT Implementations
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> Graphs and Graph Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="graphs/introduction.html">
+            
+                
+                    <a href="../graphs/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="graphs/the-graph-abstract-data-type.html">
+            
+                
+                    <a href="../graphs/the-graph-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        The Graph Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="graphs/an-adjacency-matrix.html">
+            
+                
+                    <a href="../graphs/an-adjacency-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        An Adjacency Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="graphs/an-adjacency-list.html">
+            
+                
+                    <a href="../graphs/an-adjacency-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        An Adjacency List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="graphs/implementation.html">
+            
+                
+                    <a href="../graphs/implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="graphs/word-ladder.html">
+            
+                
+                    <a href="../graphs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        The Word Ladder Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.7" data-path="graphs/knights-tour.html">
+            
+                
+                    <a href="../graphs/knights-tour.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        The Knight’s Tour Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="graphs/depth-first-search.html">
+            
+                
+                    <a href="../graphs/depth-first-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        General Depth First Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="graphs/topological-sorting.html">
+            
+                
+                    <a href="../graphs/topological-sorting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Topological Sorting
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="graphs/strongly-connected-components.html">
+            
+                
+                    <a href="../graphs/strongly-connected-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Strongly Connected Components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="graphs/dijkstras-algorithm.html">
+            
+                
+                    <a href="../graphs/dijkstras-algorithm.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Shortest Path Problems and Dijkstra’s Algorithm
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="graphs/prims-spanning-tree-algorithm.md.html">
+            
+            <span><b>9.12.</b> Prims Spanning Tree Algorithm</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Algorithms and Data Structures with Python</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="dynamic-programming">Dynamic Programming</h1>
+<p>Many programs in computer science are written to optimize some value;
+for example, find the shortest path between two points, find the line
+that best fits a set of points, or find the smallest set of objects that
+satisfies some criteria. There are many strategies that computer
+scientists use to solve these problems. One of the goals of this book is
+to expose you to several different problem solving strategies. <strong>Dynamic
+programming</strong> is one strategy for these types of optimization problems.</p>
+<p>A classic example of an optimization problem involves making change
+using the fewest coins. Suppose you are a programmer for a vending
+machine manufacturer. Your company wants to streamline effort by giving
+out the fewest possible coins in change for each transaction. Suppose a
+customer puts in a dollar bill and purchases an item for 37 cents. What
+is the smallest number of coins you can use to make change? The answer
+is six coins: two quarters, one dime, and three pennies. How did we
+arrive at the answer of six coins? We start with the largest coin in our
+arsenal (a quarter) and use as many of those as possible, then we go to
+the next lowest coin value and use as many of those as possible. This
+first approach is called a <strong>greedy method</strong> because we try to solve as
+big a piece of the problem as possible right away.</p>
+<p>The greedy method works fine when we are using U.S. coins, but suppose
+that your company decides to deploy its vending machines in Lower
+Elbonia where, in addition to the usual 1, 5, 10, and 25 cent coins they
+also have a 21 cent coin. In this instance our greedy method fails to
+find the optimal solution for 63 cents in change. With the addition of
+the 21 cent coin the greedy method would still find the solution to be
+six coins. However, the optimal answer is three 21 cent pieces.</p>
+<p>Let&#x2019;s look at a method where we could be sure that we would find the
+optimal answer to the problem. Since this section is about recursion,
+you may have guessed that we will use a recursive solution. Let&#x2019;s start
+with identifying the base case. If we are trying to make change for the
+same amount as the value of one of our coins, the answer is easy, one
+coin.</p>
+<p>If the amount does not match we have several options. What we want is
+the minimum of a penny plus the number of coins needed to make change
+for the original amount minus a penny, or a nickel plus the number of
+coins needed to make change for the original amount minus five cents, or
+a dime plus the number of coins needed to make change for the original
+amount minus ten cents, and so on. So the number of coins needed to make
+change for the original amount can be computed according to the
+following:</p>
+<p><script type="math/tex; mode=display">
+\begin{split}   num\_coins =
+min
+\begin{cases}
+1 + num\_coins(original\_amount - 1) \\
+1 + num\_coins(original\_amount - 5) \\
+1 + num\_coins(original\_amount - 10) \\
+1 + num\_coins(original\_amount - 25)
+\end{cases}
+\label{eqn_change}\end{split}
+</script></p>
+<p>The algorithm for doing what we have just described is shown below. First we check our base case;
+that is, we are trying to make change in the exact amount of one of our
+coins. If we do not have a coin equal to the amount of change, we make
+recursive calls for each different coin value less than the amount of
+change we are trying to make. The recursive call also reduces the total amount of
+change we need to make by the value of the coin selected. Notice that on that same line we add 1 to our
+number of coins to account for the fact that we are using a coin. Just
+adding 1 is the same as if we had made a recursive call asking where we
+satisfy the base case condition immediately.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> make_change<span class="token punctuation">(</span>coin_values<span class="token punctuation">,</span> change<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> change <span class="token keyword">in</span> coin_values<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+
+    min_coins <span class="token operator">=</span> change
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">c</span> <span class="token keyword">for</span> <span class="token number">c</span> <span class="token keyword">in</span> coin_values <span class="token keyword">if</span> <span class="token number">c</span> <span class="token operator">&lt;=</span> change<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        num_coins <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> make_change<span class="token punctuation">(</span>coin_values<span class="token punctuation">,</span> change <span class="token operator">-</span> i<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> num_coins <span class="token operator">&lt;</span> min_coins<span class="token punctuation">:</span>
+            min_coins <span class="token operator">=</span> num_coins
+    <span class="token keyword">return</span> min_coins
+
+make_change<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">63</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; ...
+</span></code></pre>
+<p>The trouble with this algorithm is that
+it is extremely inefficient. In fact, it takes 67,716,925 recursive
+calls to find the optimal solution to the 4 coins, 63 cents problem! To
+understand the fatal flaw in our approach consider the diagram below, which illustrates a small fraction of the
+377 function calls needed to find the optimal set of coins to make
+change for 26 cents.</p>
+<p><figure><img src="figures/call-tree.png" alt="Call Tree for the make_change Function"><figcaption>Call Tree for the make_change Function</figcaption></figure></p>
+<p>Each node in the graph corresponds to a call to <code>make_change</code>. The label on
+the node indicates the amount of change for which we are computing the
+number of coins. The label on the arrow indicates the coin that we just
+used. By following the graph we can see the combination of coins that
+got us to any point in the graph. The main problem is that we are
+re-doing too many calculations. For example, the graph shows that the
+algorithm would recalculate the optimal number of coins to make change
+for 15 cents at least three times. Each of these computations to find
+the optimal number of coins for 15 cents itself takes 52 function calls.
+Clearly we are wasting a lot of time and effort recalculating old
+results.</p>
+<p>The key to cutting down on the amount of work we do is to remember some
+of the past results so we can avoid recomputing results we already know.
+A simple solution is to store the results for the minimum number of
+coins in a table when we find them. Then before we compute a new
+minimum, we first check the table to see if a result is already known.
+If there is already a result in the table, we use the value from the
+table rather than recomputing.</p>
+<p>Below is a
+modified algorithm to incorporate our table lookup scheme.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> make_change<span class="token punctuation">(</span>coin_values<span class="token punctuation">,</span> change<span class="token punctuation">,</span> known_results<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> known_results<span class="token punctuation">[</span>change<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> known_results<span class="token punctuation">[</span>change<span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> change <span class="token keyword">in</span> coin_values<span class="token punctuation">:</span>
+        known_results<span class="token punctuation">[</span>change<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+
+    min_coins <span class="token operator">=</span> change
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">c</span> <span class="token keyword">for</span> <span class="token number">c</span> <span class="token keyword">in</span> coin_values <span class="token keyword">if</span> <span class="token number">c</span> <span class="token operator">&lt;=</span> change<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        num_coins <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> make_change<span class="token punctuation">(</span>coin_values<span class="token punctuation">,</span> change <span class="token operator">-</span> i<span class="token punctuation">,</span> known_results<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> num_coins <span class="token operator">&lt;</span> min_coins<span class="token punctuation">:</span>
+            min_coins <span class="token operator">=</span> num_coins
+            known_results<span class="token punctuation">[</span>change<span class="token punctuation">]</span> <span class="token operator">=</span> min_coins
+    <span class="token keyword">return</span> min_coins
+
+make_change<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">63</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>None<span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">64</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; 6
+</span></code></pre>
+<p>Notice that at the beginning of our algorithm we have added a test to see if our table contains
+the minimum number of coins for a certain amount of change. If it does
+not, we compute the minimum recursively and store the computed minimum
+in the table. Using this modified algorithm reduces the number of
+recursive calls we need to make for the four coin, 63 cent problem to
+221 calls!</p>
+<p>Although this modified algorithm is correct,
+it looks and feels like a bit of a hack. Also, if we look at the
+<code>known_results</code> lists we can see that there are some holes in the table.
+In fact the term for what we have done is not dynamic programming but
+rather we have improved the performance of our program by using a
+technique known as &#x201C;memoization,&#x201D; or more commonly called &#x201C;caching.&#x201D;</p>
+<p>A truly dynamic programming algorithm will take a more systematic
+approach to the problem. Our dynamic programming solution is going to
+start with making change for one cent and systematically work its way up
+to the amount of change we require. This guarantees us that at each step
+of the algorithm we already know the minimum number of coins needed to
+make change for any smaller amount.</p>
+<p>Let&#x2019;s look at how we would fill in a table of minimum coins to use in
+making change for 11 cents. This diagram illustrates
+the process:</p>
+<p><figure><img src="figures/change-table.png" alt="Minimum Number of Coins Needed to Make
+Change"><figcaption>Minimum Number of Coins Needed to Make
+Change</figcaption></figure></p>
+<p>We start with one cent. The only solution possible is one
+coin (a penny). The next row shows the minimum for one cent and two
+cents. Again, the only solution is two pennies. The fifth row is where
+things get interesting. Now we have two options to consider, five
+pennies or one nickel. How do we decide which is best? We consult the
+table and see that the number of coins needed to make change for four
+cents is four, plus one more penny to make five, equals five coins. Or
+we can look at zero cents plus one more nickel to make five cents equals
+1 coin. Since the minimum of one and five is one we store 1 in the
+table. Fast forward again to the end of the table and consider 11 cents.
+The diagram below shows the three options that we have to
+consider:</p>
+<ol>
+<li>A penny plus the minimum number of coins to make change for
+<script type="math/tex; ">11-1 = 10</script> cents (1)</li>
+<li>A nickel plus the minimum number of coins to make change for
+<script type="math/tex; ">11 - 5 = 6</script> cents (2)</li>
+<li>A dime plus the minimum number of coins to make change for
+<script type="math/tex; ">11 - 10 = 1</script> cent (1)</li>
+</ol>
+<p>Either option 1 or 3 will give us a total of two coins which is the
+minimum number of coins for 11 cents.</p>
+<p><figure><img src="figures/eleven-cents.png" alt="Three Options to Consider for the Minimum Number of Coins
+for Eleven Cents"><figcaption>Three Options to Consider for the Minimum Number of Coins
+for Eleven Cents</figcaption></figure></p>
+<p>Below is an implementation of a dynamic programming strategy to
+solve our change-making problem. <code>make_change_dp</code> takes three parameters:
+a list of valid coin values, the amount of change we want to make, and a
+list of the minimum number of coins needed to make each value. When the
+function is done <code>min_coins</code> will contain the solution for all values
+from 0 to the value of <code>change</code>.</p>
+<p><strong>Listing 8</strong></p>
+<p>def make_change_dp(coin_values, change, min_coins):
+    for cents in range(change + 1):
+        coin_count = cents
+        for j in [c for c in coin_values if c &lt;= cents]:
+            if min_coins[cents - j] + 1 &lt; coin_count:
+                coin_count = min_coins[cents - j] + 1
+        min_coins[cents] = coin_count
+    return min_coins[change]</p>
+<p>Note that <code>make_change_dp</code> is not a recursive function, even though we
+started with a recursive solution to this problem. It is important to
+realize that just because you can write a recursive solution to a
+problem does not mean it is the best or most efficient solution. The
+bulk of the work in this function is done by the loop that starts on
+line 4. In this loop we consider using all possible coins to make change
+for the amount specified by <code>cents</code>. Like we did for the 11 cent example
+above, we remember the minimum value and store it in our <code>min_coins</code>
+list.</p>
+<p>Although our making change algorithm does a good job of figuring out the
+minimum number of coins, it does not help us make change since we do not
+keep track of the coins we use. We can easily extend <code>make_change_dp</code> to
+keep track of the coins used by simply remembering the last coin we add
+for each entry in the <code>min_coins</code> table. If we know the last coin added,
+we can simply subtract the value of the coin to find a previous entry in
+the table that tells us the last coin we added to make that amount. We
+can keep tracing back through the table until we get to the beginning.</p>
+<p>The code below shows the <code>make_change_dp</code> algorithm
+modified to keep track of the coins used, along with a function
+<code>print_coins</code> that walks backward through the table to print out the
+value of each coin used. This shows the algorithm in action solving the
+problem for our friends in Lower Elbonia. The first two lines of <code>main</code>
+set the amount to be converted and create the list of coins used. The
+next two lines create the lists we need to store the results.
+<code>coins_used</code> is a list of the coins used to make change, and <code>coin_count</code>
+is the minimum number of coins used to make change for the amount
+corresponding to the position in the list.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> make_change_dp<span class="token punctuation">(</span>coin_values<span class="token punctuation">,</span> change<span class="token punctuation">,</span> min_coins<span class="token punctuation">,</span> coins_used<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> cents <span class="token keyword">in</span> range<span class="token punctuation">(</span>change <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        coin_count <span class="token operator">=</span> cents
+        new_coin <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">c</span> <span class="token keyword">for</span> <span class="token number">c</span> <span class="token keyword">in</span> coin_values <span class="token keyword">if</span> <span class="token number">c</span> <span class="token operator">&lt;=</span> cents<span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> min_coins<span class="token punctuation">[</span>cents<span class="token operator">-</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> coin_count<span class="token punctuation">:</span>
+                coin_count <span class="token operator">=</span> min_coins<span class="token punctuation">[</span>cents<span class="token operator">-</span>j<span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span>
+                new_coin <span class="token operator">=</span> j
+        min_coins<span class="token punctuation">[</span>cents<span class="token punctuation">]</span> <span class="token operator">=</span> coin_count
+        coins_used<span class="token punctuation">[</span>cents<span class="token punctuation">]</span> <span class="token operator">=</span> new_coin
+    <span class="token keyword">return</span> min_coins<span class="token punctuation">[</span>change<span class="token punctuation">]</span>
+
+<span class="token keyword">def</span> print_coins<span class="token punctuation">(</span>coins_used<span class="token punctuation">,</span> change<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    coin <span class="token operator">=</span> change
+    <span class="token keyword">while</span> coin <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        this_coin <span class="token operator">=</span> coins_used<span class="token punctuation">[</span>coin<span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>this_coin<span class="token punctuation">)</span>
+        coin <span class="token operator">=</span> coin <span class="token operator">-</span> this_coin
+
+<span class="token keyword">def</span> main<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    amount <span class="token operator">=</span> <span class="token number">63</span>
+    coin_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">]</span>
+    coins_used <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    coin_count <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&apos;Making change for {} requires&apos;</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>make_change_dp<span class="token punctuation">(</span>coin_list<span class="token punctuation">,</span> amount<span class="token punctuation">,</span> coin_count<span class="token punctuation">,</span> coins_used<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&apos;coins&apos;</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&apos;They are:&apos;</span><span class="token punctuation">)</span>
+    print_coins<span class="token punctuation">(</span>coins_used<span class="token punctuation">,</span> amount<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&apos;The used list is as follows:&apos;</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>coins_used<span class="token punctuation">)</span>
+
+main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Executing this code gives us the output:</p>
+<pre><code>Making change for 63 requires
+3 coins
+They are:
+21
+21
+21
+The used list is as follows:
+[1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 10, 1, 1, 1, 1, 5, 1, 1, 1, 1, 10, 21, 1, 1, 1, 25, 1, 1, 1, 1, 5, 10, 1, 1, 1, 10, 1, 1, 1, 1, 5, 10, 21, 1, 1, 10, 21, 1, 1, 1, 25, 1, 10, 1, 1, 5, 10, 1, 1, 1, 10, 1, 10, 21]
+</code></pre><p>Notice that the coins we print out come directly from the <code>coins_used</code>
+array. For the first call we start at array position 63 and print 21.
+Then we take <script type="math/tex; ">63 - 21 = 42</script> and look at the 42nd element of the list.
+Once again we find a 21 stored there. Finally, element 21 of the array
+also contains 21, giving us the three 21 cent pieces.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../recursion/tower-of-hanoi.html" class="navigation navigation-prev " aria-label="Previous page: Tower of Hanoi"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../searching/searching.html" class="navigation navigation-next " aria-label="Next page: Searching"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ungrey/ungrey.js"></script>
+    
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax-beta/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"image-captions":{"caption":"_CAPTION_"},"mathjax":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

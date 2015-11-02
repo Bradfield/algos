@@ -1,0 +1,15 @@
+language: python
+python:
+  - '2.7'
+node_js:
+  - '4.1'
+install:
+  - npm install gitbook-cli@0.3.6 -g
+  - gitbook install
+script:
+  - ./run test
+after_success:
+  - ./run publish-from-travis
+env:
+  global:
+    secure: D2hKH6O0b+u189SquMawMfR+wU+oVS3FY5yhtRdFQ3EpdI5L35G0Fo2sG5Ig0MhVoG7uA0d4fkUj+aab3hzoeBb9u9UpVChGu6dfbqnj/XMWALn8VkpV1WOIqwlu38S719pkTSloCPad12KzFmAcKInSH5VIXekpI7pNJGv793BeD8iFpS7FGD4QHC3DsEPEY7vA76csDWhJbjiBCt6god0vJ48uR0RFtgT28O49DUQNXV77hj1StBTjhanHKqpifoVDD0LbEy3ypszupiq4yCBXDQT7nak87fPdakTuqiVOD5ZivitAgGDb+5EtBLA6UMRXGYsvnIt05FIDPNXK7udL1c9Td2jpSN2MWnywnwTps49Tbhyczp3GCVRoYm96vOGPm1hbQJkZfe9FI6rWz1MKveke2B7Q8oUV1QBT0IsX6XlOLio1K2bWj/yEpLOPzxHIZSRfPTrfWJHHY2eW2jwPZBxIW5/Fag83innYio+lyryFL+6axjHXHDC51zi3bdjW2kbgCLm/lQjkSR2qPA9Nud5heilrMOUVUResyXlzo6Vj+q/ntowasEGFzrzdQA9FKtpAFSOHTfrwfLlAiF4HKQZ6+9C/6/E7LTC5siv+lO1q+svz5XLSWtr8w6JAnRdyRUfCZLsu9u/TtBrSsSzscwoUB+jcrZUTqaT96AM=

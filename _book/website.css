@@ -1,0 +1,66 @@
+figure {
+  text-align: center;
+}
+.glossary-term {
+  color: inherit !important;
+  text-decoration: none !important;
+  border-bottom: 2px rgba(0,0,0,0.2) dotted;
+}
+pre .glossary-term {
+  border-bottom: none !important;
+}
+
+.fa-check {
+  display: none !important;
+}
+
+.book .book-summary {
+  width: 350px;
+}
+
+@media (min-width: 600px) {
+  .book.with-summary .book-body {
+    left: 400px;
+  }
+}
+
+.book-header {
+  display: none;
+}
+
+.body-inner {
+  padding-top: 50px;
+}
+
+@font-face {
+  font-family: 'Whitney';
+  src: url('https://bradfield.github.io/WhitneyHTF-Light.woff') format('woff');
+  font-weight: 300;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Whitney';
+  src: url('https://bradfield.github.io/WhitneyHTF-Medium.woff') format('woff');
+  font-weight: 400;
+  font-variant: normal;
+}
+
+html,
+.book .book-body .page-wrapper .page-inner section.normal {
+  color: #243340 !important;
+  /*font-size: 1em;*/
+  /*line-height: 1.6em;*/
+}
+
+html,
+body,
+.book.font-family-1,
+.book .book-summary {
+  font-family: 'Whitney', helvetica, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: lighter !important;
+  border-bottom: none !important;
+}
