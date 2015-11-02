@@ -1,6 +1,12 @@
 choose a better name
 move all code samples to literate python
 make all captions sentence case
+add correct favicon
+switch font to helvetica
+pick a better monospace font
+fix ungray, which seems to be broken
+move to python/js switchable version
+add files to bookigrone
 
 trees
     use tuples (or named tuples in list-of-lists representation?)
