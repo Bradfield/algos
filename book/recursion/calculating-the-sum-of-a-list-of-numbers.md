@@ -41,10 +41,22 @@ that we can solve without a loop or any special constructs. In fact, we
 can use the following sequence of simplifications to compute a final
 sum.
 
-$$total = \  (1 + (3 + (5 + (7 + 9)))) \\
-total = \  (1 + (3 + (5 + 16))) \\
-total = \  (1 + (3 + 21)) \\
-total = \  (1 + 24) \\
+$$total = \  (1 + (3 + (5 + (7 + 9))))
+$$
+
+$$
+total = \  (1 + (3 + (5 + 16)))
+$$
+
+$$
+total = \  (1 + (3 + 21))
+$$
+
+$$
+total = \  (1 + 24)
+$$
+
+$$
 total = \  25$$
 
 How can we take this idea and turn it into a Python program? First,

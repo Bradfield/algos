@@ -61,9 +61,11 @@ the Fibonacci sequence. We can use this fact to derive a formula for the
 height of an AVL tree given the number of nodes in the tree. Recall that
 for the Fibonacci sequence the $$i_{th}$$ Fibonacci number is given by:
 
-$$F_0 = 0 \\
-F_1 = 1 \\
-F_i = F_{i-1} + F_{i-2}  \text{ for all } i \ge 2$$
+$$F_0 = 0$$
+
+$$F_1 = 1$$
+
+$$F_i = F_{i-1} + F_{i-2}  \text{ for all } i \ge 2$$
 
 An important mathematical result is that as the numbers of the Fibonacci
 sequence get larger and larger the ratio of $$F_i / F_{i-1}$$ becomes
@@ -84,9 +86,11 @@ $$N_h = \frac{\Phi^{h+2}}{\sqrt{5}} - 1$$
 If we rearrange the terms, and take the base 2 log of both sides and
 then solve for $$h$$ we get the following derivation:
 
-$$\log{N_h+1} = (H+2)\log{\Phi} - \frac{1}{2} \log{5} \\
-h = \frac{\log{N_h+1} - 2 \log{\Phi} + \frac{1}{2} \log{5}}{\log{\Phi}} \\
-h = 1.44 \log{N_h}$$
+$$\log{N_h+1} = (H+2)\log{\Phi} - \frac{1}{2} \log{5}$$
+
+$$h = \frac{\log{N_h+1} - 2 \log{\Phi} + \frac{1}{2} \log{5}}{\log{\Phi}}$$
+
+$$h = 1.44 \log{N_h}$$
 
 This derivation shows us that at any time the height of our AVL tree is
 equal to a constant(1.44) times the log of the number of nodes in the

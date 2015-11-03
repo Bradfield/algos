@@ -53,7 +53,10 @@ becomes the sum of the integers from 1 to `n`. We recognized earlier that
 this can be written as
 
 $$
-\sum_{i=1}^{n} i = \frac {n(n+1)}{2} \\
+\sum_{i=1}^{n} i = \frac {n(n+1)}{2}
+$$
+
+$$
                  = \frac {1}{2}n^{2} + \frac {1}{2}n
 $$
 

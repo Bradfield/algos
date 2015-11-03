@@ -46,31 +46,18 @@ the minimum of a penny plus the number of coins needed to make change
 for the original amount minus a penny, or a nickel plus the number of
 coins needed to make change for the original amount minus five cents, or
 a dime plus the number of coins needed to make change for the original
-amount minus ten cents, and so on. So the number of coins needed to make
-change for the original amount can be computed according to the
-following:
+amount minus ten cents, and so on.
 
-$$
-\begin{split}   num\_coins =
-min
-\begin{cases}
-1 + num\_coins(original\_amount - 1) \\
-1 + num\_coins(original\_amount - 5) \\
-1 + num\_coins(original\_amount - 10) \\
-1 + num\_coins(original\_amount - 25)
-\end{cases}
-\label{eqn_change}\end{split}
-$$
-
-The algorithm for doing what we have just described is shown below. First we check our base case;
-that is, we are trying to make change in the exact amount of one of our
-coins. If we do not have a coin equal to the amount of change, we make
-recursive calls for each different coin value less than the amount of
-change we are trying to make. The recursive call also reduces the total amount of
-change we need to make by the value of the coin selected. Notice that on that same line we add 1 to our
-number of coins to account for the fact that we are using a coin. Just
-adding 1 is the same as if we had made a recursive call asking where we
-satisfy the base case condition immediately.
+The algorithm for doing what we have just described is shown below.
+First we check our base case; that is, we are trying to make change in
+the exact amount of one of our coins. If we do not have a coin equal to
+the amount of change, we make recursive calls for each different coin
+value less than the amount of change we are trying to make. The
+recursive call also reduces the total amount of change we need to make
+by the value of the coin selected. Notice that on that same line we add
+1 to our number of coins to account for the fact that we are using a
+coin. Just adding 1 is the same as if we had made a recursive call
+asking where we satisfy the base case condition immediately.
 
 ```python
 def make_change(coin_values, change):

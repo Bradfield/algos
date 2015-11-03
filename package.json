@@ -5,6 +5,7 @@
   "dependencies": {
     "babel-preset-es2015": "^6.0.15",
     "handlebars": "^4.0.4",
+    "katex": "^0.5.1",
     "metalsmith": "^2.1.0",
     "metalsmith-collections": "^0.7.0",
     "metalsmith-drafts": "0.0.1",

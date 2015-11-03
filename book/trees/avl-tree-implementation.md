@@ -172,8 +172,9 @@ pivotal nodes and A, C, E are their subtrees. Let $$h_x$$ denote the
 height of a particular subtree rooted at node $$x$$. By definition we know
 the following:
 
-$$newBal(B) = h_A - h_C \\
-oldBal(B) = h_A - h_D$$
+$$newBal(B) = h_A - h_C$$
+
+$$oldBal(B) = h_A - h_D$$
 
 But we know that the old height of D can also be given by $$1 +
 max(h_C,h_E)$$, that is, the height of D is one more than the maximum
@@ -187,22 +188,26 @@ and then subtract the two equations. The following steps do the
 subtraction and use some algebra to simplify the equation for
 $$newBal(B)$$.
 
-$$newBal(B) - oldBal(B) = h_A - h_C - (h_A - (1 + max(h_C,h_E))) \\
-newBal(B) - oldBal(B) = h_A - h_C - h_A + (1 + max(h_C,h_E)) \\
-newBal(B) - oldBal(B) = h_A  - h_A + 1 + max(h_C,h_E) - h_C  \\
-newBal(B) - oldBal(B) =  1 + max(h_C,h_E) - h_C$$
+$$newBal(B) - oldBal(B) = h_A - h_C - (h_A - (1 + max(h_C,h_E)))$$
+
+$$newBal(B) - oldBal(B) = h_A - h_C - h_A + (1 + max(h_C,h_E))$$
+
+$$newBal(B) - oldBal(B) = h_A  - h_A + 1 + max(h_C,h_E) - h_C $$
+
+$$newBal(B) - oldBal(B) =  1 + max(h_C,h_E) - h_C$$
 
 Next we will move $$oldBal(B)$$ to the right hand side of the equation and
 make use of the fact that $$max(a,b)-c = max(a-c, b-c)$$.
 
-$$newBal(B) = oldBal(B) + 1 + max(h_C - h_C ,h_E - h_C) \\$$
+$$newBal(B) = oldBal(B) + 1 + max(h_C - h_C ,h_E - h_C)$$
 
 But, $$h_E - h_C$$ is the same as $$-oldBal(D)$$. So we can use another
 identity that says $$max(-a,-b) = -min(a,b)$$. So we can finish our
 derivation of $$newBal(B)$$ with the following steps:
 
-$$newBal(B) = oldBal(B) + 1 + max(0 , -oldBal(D)) \\
-newBal(B) = oldBal(B) + 1 - min(0 , oldBal(D)) \\$$
+$$newBal(B) = oldBal(B) + 1 + max(0 , -oldBal(D))$$
+
+$$newBal(B) = oldBal(B) + 1 - min(0 , oldBal(D))$$
 
 Now we have all of the parts in terms that we readily know. If we
 remember that B is `rotation_root` and D is `new_root` then we can see this

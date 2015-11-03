@@ -5,6 +5,8 @@ import markdown from 'metalsmith-markdown'
 import Metalsmith from 'metalsmith'
 import permalinks from 'metalsmith-permalinks'
 
+import { convertToKatex } from './katex-plugin'
+
 const BUILD_DESTINATION = '/Users/ozan/tmp/algos-book-dev-build'
 
 const sections = [
@@ -43,6 +45,7 @@ Metalsmith(__dirname)
 .source('book')
 .destination(BUILD_DESTINATION)
 .use(drafts())
+.use(convertToKatex)
 .use(collections(collectionConfig))
 .use(markdown({ tables: true }))
 .use(permalinks())

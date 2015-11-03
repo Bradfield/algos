@@ -4,7 +4,6 @@ make all captions sentence case
 pick a better monospace font
 
 metalsmith switch
-    mathjax
     captions
     in toc, indicate current page
     in toc, add link to introduction
@@ -13,6 +12,9 @@ metalsmith switch
     literate javascript
     language switcher
     refine styling
+        tables
+        center align katex
+        link colors
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

@@ -124,7 +124,7 @@ ordered_sequential_search(testlist, 13)  # => True
 The table below summarizes these results. Note that
 in the best case we might discover that the item is not in the list by
 looking at only one item. On average, we will know after looking through
-only $$\frac {n}{2}$$ items. However, this technique is still $O(n)$. In
+only $$\frac {n}{2}$$ items. However, this technique is still $$O(n)$$. In
 summary, a sequential search is improved by ordering the list only in
 the case where we do not find the item.
 
