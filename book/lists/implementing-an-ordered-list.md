@@ -1,8 +1,8 @@
 ---
 title: Implementing an Ordered List
 layout: chapter.html
-collection: graphs
-position: 1
+collection: lists
+position: 5
 ---
 
 In order to implement the ordered list, we must remember that the

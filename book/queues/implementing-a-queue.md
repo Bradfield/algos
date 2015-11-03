@@ -1,8 +1,8 @@
 ---
 title: Implementing a Queue in Python
 layout: chapter.html
-collection: graphs
-position: 1
+collection: queues
+position: 3
 ---
 
 Just like with a stack, it is possible to “use a Python list as a queue”. Again, for the purpose of illustrating the narrow set of behaviors that define the queue abstract data type, we define a `Queue` class to expose only the desired the functionality of an internal list.

@@ -1,8 +1,8 @@
 ---
 title: Calculating the Sum of a List of Numbers
 layout: chapter.html
-collection: graphs
-position: 1
+collection: recursion
+position: 2
 ---
 
 We will begin our investigation with a simple problem that you already

@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-# -*- litpy -*-
-"""
 ---
 title: General Depth First Search
 layout: chapter.html
 collection: graphs
-position: 1
+position: 8
 ---
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 
 The knight’s tour is a special case of a depth first search where the
 goal is to create the deepest depth first tree, without any branches.

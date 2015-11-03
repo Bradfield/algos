@@ -1,8 +1,8 @@
 ---
 title: Converting an Integer to a String in Any Base
 layout: chapter.html
-collection: graphs
-position: 1
+collection: recursion
+position: 4
 ---
 
 Suppose you want to convert an integer to a string in some base between

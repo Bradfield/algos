@@ -1,7 +1,7 @@
 ---
 title: What Is a Queue?
 layout: chapter.html
-collection: graphs
+collection: queues
 position: 1
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: The Deque Abstract Data Type
 layout: chapter.html
-collection: graphs
-position: 1
+collection: deques
+position: 2
 ---
 
 The deque abstract data type is defined by the following structure and

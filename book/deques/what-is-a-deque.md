@@ -3,7 +3,7 @@ title: What Is a Deque?
 collection: deques
 position: 1
 layout: chapter.html
-collection: graphs
+collection: deques
 position: 1
 ---
 

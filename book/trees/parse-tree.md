@@ -1,8 +1,8 @@
 ---
 title: Parse Tree
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 6
 ---
 
 With the implementation of our tree data structure complete, we now look

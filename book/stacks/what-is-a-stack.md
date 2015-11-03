@@ -1,7 +1,7 @@
 ---
 title: What is a Stack?
 layout: chapter.html
-collection: graphs
+collection: stacks
 position: 1
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: The Unordered List Abstract Data Type
 layout: chapter.html
-collection: graphs
-position: 1
+collection: lists
+position: 2
 ---
 
 The structure of an unordered list, as described above, is a collection

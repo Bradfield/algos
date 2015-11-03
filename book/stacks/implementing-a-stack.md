@@ -1,8 +1,8 @@
 ---
 title: Implementing a Stack in Python
 layout: chapter.html
-collection: graphs
-position: 1
+collection: stacks
+position: 3
 ---
 
 Now that we have clearly defined the stack as an abstract data type we will turn our attention to using Python to implement the stack. Recall that when we give an abstract data type a physical implementation we refer to the implementation as a data structure.

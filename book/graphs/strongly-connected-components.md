@@ -2,7 +2,7 @@
 title: Strongly Connected Components
 layout: chapter.html
 collection: graphs
-position: 1
+position: 10
 ---
 
 For the remainder of this section we will turn our attention to some

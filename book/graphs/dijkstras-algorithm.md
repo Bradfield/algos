@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-# -*- litpy -*-
-"""
 ---
 title: Shortest Path Problems and Dijkstra’s Algorithm
 layout: chapter.html
 collection: graphs
-position: 1
+position: 10
 ---
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 
 When you surf the web, send an email, or log in to a laboratory computer
 from another location on campus a lot of work is going on behind the

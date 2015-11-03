@@ -1,8 +1,8 @@
 ---
 title: Implementing an Unordered List: Linked Lists
 layout: chapter.html
-collection: graphs
-position: 1
+collection: lists
+position: 3
 ---
 
 In order to implement an unordered list, we will construct what is

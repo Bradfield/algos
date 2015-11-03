@@ -1,8 +1,8 @@
 ---
 title: Simulating Hot Potato
 layout: chapter.html
-collection: graphs
-position: 1
+collection: queues
+position: 4
 ---
 
 One of the typical applications for showing a queue in action is to

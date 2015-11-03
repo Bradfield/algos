@@ -1,8 +1,8 @@
 ---
 title: Summary of Map ADT Implementations
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 14
 ---
 
 Over the past few sections we have looked at several data structures

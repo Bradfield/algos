@@ -1,8 +1,8 @@
 ---
 title: Infix, Prefix and Postfix Expressions
 layout: chapter.html
-collection: graphs
-position: 1
+collection: stacks
+position: 7
 ---
 
 When you write an arithmetic expression such as `B * C`, the form of the

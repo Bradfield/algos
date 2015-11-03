@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
-# -*- litpy -*-
-"""
 ---
 title: Prim’s Spanning Tree Algorithm
 layout: chapter.html
 collection: graphs
-position: 1
+position: 11
+draft: true
 ---
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 
 For our last graph algorithm let’s consider a problem that online game
 designers and Internet radio providers face. The problem is that they

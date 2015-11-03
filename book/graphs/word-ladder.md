@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-# -*- litpy -*-
-"""
 ---
 title: The Word Ladder Problem
 layout: chapter.html
 collection: graphs
-position: 1
+position: 6
 ---
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 
 To begin our study of graph algorithms let’s consider the following
 puzzle called a word ladder. Transform the word “FOOL” into the word

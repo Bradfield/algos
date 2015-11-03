@@ -1,8 +1,8 @@
 ---
 title: Search Tree Analysis
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 11
 ---
 
 With the implementation of a binary search tree now complete, we will do

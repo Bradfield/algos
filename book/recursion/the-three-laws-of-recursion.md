@@ -1,8 +1,8 @@
 ---
 title: The Three Laws of Recursion
 layout: chapter.html
-collection: graphs
-position: 1
+collection: recursion
+position: 3
 ---
 
 Like the robots of Asimov, all recursive algorithms must obey three

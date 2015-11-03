@@ -1,8 +1,8 @@
 ---
-title: Palindrome-Checker
+title: Palindrome Checker
 layout: chapter.html
-collection: graphs
-position: 1
+collection: deques
+position: 4
 ---
 
 An interesting problem that can be easily solved using the deque data

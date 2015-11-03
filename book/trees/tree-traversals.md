@@ -1,8 +1,8 @@
 ---
 title: Tree Traversals
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 7
 ---
 
 Now that we have examined the basic functionality of our tree data

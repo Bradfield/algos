@@ -1,8 +1,8 @@
 ---
 title: Binary Search Trees
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 10
 ---
 
 We have already seen two different ways to get key-value pairs in a

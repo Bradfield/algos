@@ -1,8 +1,8 @@
 ---
 title: Nodes and References
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 5
 ---
 
 Our second method to represent a tree uses nodes and references. In this

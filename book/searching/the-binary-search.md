@@ -1,8 +1,8 @@
 ---
 title: The Binary Search
 layout: chapter.html
-collection: graphs
-position: 1
+collection: searching
+position: 3
 ---
 
 It is possible to take greater advantage of the ordered list if we are

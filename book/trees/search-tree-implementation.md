@@ -1,8 +1,8 @@
 ---
 title: Search Tree Implementation
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 11
 ---
 
 A binary search tree relies on the property that keys that are less than

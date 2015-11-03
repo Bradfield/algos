@@ -1,7 +1,7 @@
 ---
 title: Trees and Tree Algorithms
 layout: chapter.html
-collection: graphs
+collection: trees
 position: 1
 ---
 

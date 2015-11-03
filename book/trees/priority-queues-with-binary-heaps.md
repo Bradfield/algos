@@ -1,8 +1,8 @@
 ---
 title: Priority Queues with Binary Heaps
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 8
 ---
 
 In earlier sections you learned about the first-in first-out data

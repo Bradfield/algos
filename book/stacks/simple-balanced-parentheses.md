@@ -1,8 +1,8 @@
 ---
 title: Simple Balanced Parentheses
 layout: chapter.html
-collection: graphs
-position: 1
+collection: stacks
+position: 4
 ---
 
 We now turn our attention to using stacks to solve real computer science

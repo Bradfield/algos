@@ -1,8 +1,8 @@
 ---
 title: Tower of Hanoi
 layout: chapter.html
-collection: graphs
-position: 1
+collection: recursion
+position: 6
 ---
 
 The Tower of Hanoi puzzle was invented by the French mathematician

@@ -2,7 +2,7 @@
 title: The Graph Abstract Data Type
 layout: chapter.html
 collection: graphs
-position: 1
+position: 2
 ---
 
 The graph abstract data type (ADT) is defined as follows:

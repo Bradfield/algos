@@ -3,18 +3,100 @@
 <head>
   <title>{{title}}</title>
   <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="https://bradfield.github.io/favicon.png" />
+
+  <style>
+  @font-face {
+    font-family: 'Whitney';
+    src: url('https://bradfield.github.io/WhitneyHTF-Light.woff') format('woff');
+    font-weight: 300;
+    font-variant: normal;
+  }
+
+  @font-face {
+    font-family: 'Whitney';
+    src: url('https://bradfield.github.io/WhitneyHTF-Medium.woff') format('woff');
+    font-weight: 400;
+    font-variant: normal;
+  }
+
+  html {
+    background: #F2F2F2;
+    color: #243340;
+    font-family: 'Whitney', helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 1.6em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: lighter;
+    margin: 1.5em 0 1em;
+  }
+
+  blockquote {
+    border-left: 5px solid rgba(36, 51, 64, 0.1);
+    margin-left: 0;
+    padding-left: 15px;
+    margin-bottom: 20px;
+  }
+
+  html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  body {
+    display: flex;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .table-of-contents {
+    flex: 0 1 auto;
+    min-width: 350px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0 20px 40px 30px;
+    white-space: nowrap;
+    width: 350px;
+  }
+
+  .table-of-contents a {
+    display: inherit;
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+  }
+
+  .content-container {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    background: white;
+  }
+  .content {
+    width: 720px;
+    margin: 80px auto;
+  }
+  </style>
 </head>
 <body>
 
-{{#each index}}
-<h2>{{ sectionName }}</h2>
-  {{#each collection}}
-  <li><a href="/{{path}}">{{title}}</a></li>
+<div class='table-of-contents'>
+  {{#each tableOfContents}}
+  <h2>{{ sectionName }}</h2>
+    {{#each collection}}
+    <li><a href="/{{path}}">{{title}}</a></li>
+    {{/each}}
   {{/each}}
-{{/each}}
+</div>
+<div class='content-container'>
+  <div class='content'>
+    <h1>{{title}}</h1>
+    {{{contents}}}
+  </div>
+</div>
 
-<h1>{{title}}</h1>
-
-{{{contents}}}
 </body>
 </html>

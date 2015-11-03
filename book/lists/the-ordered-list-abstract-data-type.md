@@ -1,8 +1,8 @@
 ---
 title: The Ordered List Abstract Data Type
 layout: chapter.html
-collection: graphs
-position: 1
+collection: lists
+position: 4
 ---
 
 We will now consider a type of list known as an ordered list. For

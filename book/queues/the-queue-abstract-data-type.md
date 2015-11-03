@@ -1,8 +1,8 @@
 ---
 title: The Queue Abstract Data Type
 layout: chapter.html
-collection: graphs
-position: 1
+collection: queues
+position: 2
 ---
 
 A queue is structured  as an ordered collection of items which are added

@@ -1,8 +1,8 @@
 ---
 title: Binary Heap Implementation
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 9
 ---
 
 The Structure Property

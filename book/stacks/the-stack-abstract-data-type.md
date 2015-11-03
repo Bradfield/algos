@@ -1,8 +1,8 @@
 ---
 title: The Stack Abstract Data Type
 layout: chapter.html
-collection: graphs
-position: 1
+collection: stacks
+position: 2
 ---
 
 An *abstract data type*, sometimes abbreviated *ADT*, is a logical

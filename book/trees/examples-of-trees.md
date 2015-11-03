@@ -1,8 +1,8 @@
 ---
 title: Examples of Trees
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 2
 ---
 
 Tree data structures have many things in common with their botanical

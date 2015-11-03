@@ -1,8 +1,8 @@
 ---
 title: Balanced Symbols (A General Case)
 layout: chapter.html
-collection: graphs
-position: 1
+collection: stacks
+position: 5
 ---
 
 The balanced parentheses problem shown above is a specific case of a

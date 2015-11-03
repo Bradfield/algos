@@ -1,21 +1,18 @@
 choose a better name
 move all code samples to literate python
 make all captions sentence case
-add correct favicon
-switch font to helvetica
 pick a better monospace font
-add files to bookigrone
 
 metalsmith switch
-    styling
     mathjax
     captions
-    index
+    in toc, indicate current page
+    in toc, add link to introduction
     next/previous
     literate python
     literate javascript
     language switcher
-    permalinks
+    refine styling
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

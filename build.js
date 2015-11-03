@@ -1,13 +1,11 @@
-const collections = require('metalsmith-collections')
-const layouts = require('metalsmith-layouts')
-const markdown = require('metalsmith-markdown')
-const Metalsmith = require('metalsmith')
-const permalinks = require('metalsmith-permalinks')
+import collections from 'metalsmith-collections'
+import drafts from 'metalsmith-drafts'
+import layouts from 'metalsmith-layouts'
+import markdown from 'metalsmith-markdown'
+import Metalsmith from 'metalsmith'
+import permalinks from 'metalsmith-permalinks'
 
 const BUILD_DESTINATION = '/Users/ozan/tmp/algos-book-dev-build'
-
-console.log(`Building to ${BUILD_DESTINATION} ..`)
-
 
 const sections = [
   ['analysis', 'Analysis'],
@@ -31,7 +29,7 @@ const byPosition = (a, b) => a.position - b.position
 
 const generateTableOfContents = (files, metalsmith) => {
   const metadata = metalsmith.metadata()
-  metadata['index'] = sections.map(([label, name]) => {
+  metadata['tableOfContents'] = sections.map(([label, name]) => {
     return {
       sectionName: name,
       collection: (metadata[label] || []).sort(byPosition),
@@ -39,10 +37,12 @@ const generateTableOfContents = (files, metalsmith) => {
   })
 }
 
+console.log(`Building to ${BUILD_DESTINATION} ..`)
 
 Metalsmith(__dirname)
 .source('book')
 .destination(BUILD_DESTINATION)
+.use(drafts())
 .use(collections(collectionConfig))
 .use(markdown({ tables: true }))
 .use(permalinks())

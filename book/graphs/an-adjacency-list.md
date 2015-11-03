@@ -2,7 +2,7 @@
 title: An Adjacency List
 layout: chapter.html
 collection: graphs
-position: 1
+position: 3
 ---
 
 A more space-efficient way to implement a sparsely connected graph is to

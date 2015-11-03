@@ -1,8 +1,8 @@
 ---
 title: Hashing
 layout: chapter.html
-collection: graphs
-position: 1
+collection: searching
+position: 4
 ---
 
 In previous sections we were able to make improvements in our search

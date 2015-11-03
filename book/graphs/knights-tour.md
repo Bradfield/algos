@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-# -*- litpy -*-
-"""
 ---
 title: The Knight’s Tour Problem
 layout: chapter.html
 collection: graphs
-position: 1
+position: 7
 ---
+# -*- coding: utf-8 -*-
+# -*- litpy -*-
+"""
 
 The “[knight’s tour](https://en.wikipedia.org/wiki/Knight%27s_tour)” is
 a classic problem in graph theory, first posed over 1,000 years ago and

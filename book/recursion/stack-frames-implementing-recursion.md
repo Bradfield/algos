@@ -1,8 +1,8 @@
 ---
 title: Stack Frames: Implementing Recursion
 layout: chapter.html
-collection: graphs
-position: 1
+collection: recursion
+position: 5
 ---
 
 Suppose that instead of concatenating the result of the recursive call

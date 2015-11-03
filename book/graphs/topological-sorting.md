@@ -2,7 +2,7 @@
 title: Topological Sorting
 layout: chapter.html
 collection: graphs
-position: 1
+position: 9
 ---
 
 To demonstrate that computer scientists can turn just about anything

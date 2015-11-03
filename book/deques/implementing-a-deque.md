@@ -1,8 +1,8 @@
 ---
 title: Implementing a Deque in Python
 layout: chapter.html
-collection: graphs
-position: 1
+collection: deques
+position: 3
 ---
 
 In practice, the most straightforward way to utilize a deque in Python will be to import `deque` from the `collections` module. For illustration purposes however, below we present a possible implementation of a deque using a Python list as the underlying concrete data type.

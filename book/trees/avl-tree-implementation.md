@@ -1,8 +1,8 @@
 ---
 title: AVL Tree Implementation
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 13
 ---
 
 Now that we have demonstrated that keeping an AVL tree in balance is

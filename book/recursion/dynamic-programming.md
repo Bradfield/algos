@@ -1,8 +1,8 @@
 ---
 title: Dynamic Programming
 layout: chapter.html
-collection: graphs
-position: 1
+collection: recursion
+position: 7
 ---
 
 Many programs in computer science are written to optimize some value;

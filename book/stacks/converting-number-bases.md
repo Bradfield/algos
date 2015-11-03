@@ -1,8 +1,8 @@
 ---
 title: Converting Number Bases
 layout: chapter.html
-collection: graphs
-position: 1
+collection: stacks
+position: 6
 ---
 
 In your study of computer science, you have probably been exposed in one

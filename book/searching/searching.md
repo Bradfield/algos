@@ -1,7 +1,7 @@
 ---
 title: Searching
 layout: chapter.html
-collection: graphs
+collection: searching
 position: 1
 ---
 
@@ -16,6 +16,6 @@ False
 True
 ```
 
-Given the ease of _conducting_ a search in Python, you may wonder what the purpose is of studying search as an algorithms problem. The answer is that the underlying process used to enable a search is important to understand as it arrises elsewhere, such as in data structures designed for fast search, and particular in databases.
+Given the ease of _conducting_ a search in Python, you may wonder what the purpose is of studying search as an algorithms problem. The answer is that the underlying process used to enable a search is important to understand as it arises elsewhere, such as in data structures designed for fast search, and particular in databases.
 
 It turns out that there are many different ways to search for an item in a collection. We focus here on the difference between two such ways—sequential search and binary search.

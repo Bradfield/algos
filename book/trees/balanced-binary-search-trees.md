@@ -1,8 +1,8 @@
 ---
 title: Balanced Binary Search Trees
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 12
 ---
 
 In the previous section we looked at building a binary search tree. As

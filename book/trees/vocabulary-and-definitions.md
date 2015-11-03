@@ -1,8 +1,8 @@
 ---
 title: Vocabulary and Definitions
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 3
 ---
 
 Now that we have looked at examples of trees, we will formally define a

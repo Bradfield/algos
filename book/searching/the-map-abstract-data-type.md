@@ -1,5 +1,9 @@
-Implementing the `Map` Abstract Data Type
------------------------------------------
+---
+title: The Map Abstract Data Type
+layout: chapter.html
+collection: searching
+position: 5
+--
 
 One of the most useful Python collections is the dictionary. Recall that
 a dictionary is an associative data type where you can store key–data

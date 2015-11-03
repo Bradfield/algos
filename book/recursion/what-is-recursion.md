@@ -1,7 +1,7 @@
 ---
 title: What Is Recursion?
 layout: chapter.html
-collection: graphs
+collection: recursion
 position: 1
 ---
 

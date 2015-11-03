@@ -2,7 +2,7 @@
 title: An Adjacency Matrix
 layout: chapter.html
 collection: graphs
-position: 1
+position: 4
 ---
 
 One of the easiest ways to implement a graph is to use a two-dimensional

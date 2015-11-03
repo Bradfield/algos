@@ -2,7 +2,7 @@
 title: Implementation
 layout: chapter.html
 collection: graphs
-position: 1
+position: 5
 ---
 
 Using dictionaries, it is easy to implement the adjacency list in

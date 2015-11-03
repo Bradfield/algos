@@ -1,8 +1,8 @@
 ---
 title: The Sequential Search
 layout: chapter.html
-collection: graphs
-position: 1
+collection: searching
+position: 2
 ---
 
 When data items are stored in a collection such as a list, we say that

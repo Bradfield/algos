@@ -1,7 +1,7 @@
 ---
 title: What is a List?
 layout: chapter.html
-collection: graphs
+collection: lists
 position: 1
 ---
 

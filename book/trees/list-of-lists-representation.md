@@ -1,8 +1,8 @@
 ---
 title: List of Lists Representation
 layout: chapter.html
-collection: graphs
-position: 1
+collection: trees
+position: 4
 ---
 
 One way to represent trees succinctly is as a list of lists. Consider that in a list of lists, each element has one and only one parent (up to the outermost list) so meets our expectation of a tree as a hierarchical structure with no cycles.
