@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{title}}</title>
+  <title><%= title %></title>
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="https://bradfield.github.io/favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
@@ -97,24 +97,37 @@
     padding: 20px;
   }
 
+  a:hover {
+    text-decoration: underline;
+  }
+
   </style>
 </head>
 <body>
 
+
 <div class='table-of-contents'>
-  {{#each tableOfContents}}
-  <h2>{{ sectionName }}</h2>
+  <% for (var i = 0; i < tableOfContents.length; i++) { %>
+    <% var section = tableOfContents[i] %>
+    <h3><%= section.sectionName %></h3>
     <ol class="chapters">
-    {{#each collection}}
-    <li><a href="/{{path}}">{{title}}</a></li>
-    {{/each}}
+    <% for (var j = 0; j < section.collection.length; j++) { %>
+      <% var chapter = section.collection[j] %>
+      <li>
+        <% if (chapter.path === path) { %>
+          <%= chapter.title %>
+        <% } else { %>
+          <a href="/<%= chapter.path %>"><%= chapter.title %></a>
+        <% } %>
+      </li>
+    <% } %>
     </ol>
-  {{/each}}
+  <% } %>
 </div>
 <div class='content-container'>
   <div class='content'>
-    <h1>{{title}}</h1>
-    {{{contents}}}
+    <h1><%= title %></h1>
+    <%- contents %>
   </div>
 </div>
 

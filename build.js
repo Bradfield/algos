@@ -62,7 +62,7 @@ Metalsmith(__dirname)
 .use(markdown({ tables: true }))
 .use(permalinks())
 .use(generateTableOfContents)
-.use(layouts({ engine: 'handlebars' }))
+.use(layouts({ engine: 'ejs' }))
 .build(err => {
   console.log('Built')
   if (err) { throw err }
