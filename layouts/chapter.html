@@ -34,6 +34,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: lighter;
+    line-height: 1.3em;
     margin: 1.5em 0 1em;
   }
 
@@ -60,17 +61,16 @@
 
   .table-of-contents {
     flex: 0 1 auto;
+    font-size: 16px;
     min-width: 350px;
     overflow-x: hidden;
     overflow-y: scroll;
     padding: 0 20px 40px 50px;
-    white-space: nowrap;
     width: 350px;
   }
 
   .table-of-contents a {
     text-decoration: none;
-    text-overflow: ellipsis;
   }
 
   .content-container {
@@ -93,7 +93,7 @@
   }
 
   pre {
-    background: rgb(242, 242, 242, 0.5);
+    background: rgba(242, 242, 242, 0.5);
     padding: 20px;
   }
 
@@ -107,9 +107,11 @@
 
 
 <div class='table-of-contents'>
+  <h1>Practical Algorithms<br>and Data&nbsp;Structures</h2>
+  <a href="/">Introduction</a>
   <% for (var i = 0; i < tableOfContents.length; i++) { %>
     <% var section = tableOfContents[i] %>
-    <h3><%= section.sectionName %></h3>
+    <h2><%= section.sectionName %></h2>
     <ol class="chapters">
     <% for (var j = 0; j < section.collection.length; j++) { %>
       <% var chapter = section.collection[j] %>

@@ -2,15 +2,13 @@ choose a better name
 move all code samples to literate python
 make all captions sentence case
 move away from CDN, just in case
+fix CI
 
 metalsmith switch
     figures
         show captions
         max 100% width
         centered
-    toc
-        add link to introduction
-        reduce text with or fix ellipsis
     next/previous
     literate python
     literate javascript

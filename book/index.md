@@ -1,8 +1,6 @@
 ---
-title: Algorithms and Data Structures with Python
+title: Practical Algorithms and Data Structures
 layout: chapter.html
-collection: graphs
-position: 1
 ---
 
 This book is a practical—and we hope, entertaining—introduction to some
