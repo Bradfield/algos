@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inconsolata:700' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 
   <style>
@@ -73,15 +74,44 @@
     text-decoration: none;
   }
 
-  .content-container {
+  .navigation {
     flex: 1 1 auto;
-    overflow-y: scroll;
     background: white;
+    display: flex;
+    height: 100%;
+  }
+
+  .navigation-left,
+  .navigation-right {
+    color: rgba(36, 51, 64, 0.5);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    font-size: 2em;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    width: 80px;
+  }
+
+  .navigation-left:hover,
+  .navigation-right:hover {
+    color: rgba(36, 51, 64, 0.8);
+    text-decoration: none;
+  }
+
+
+  .content-wrapper {
+    flex: 1 1 auto;
+    overflow: auto;
   }
 
   .content {
+    margin: auto;
+    overflow-y: scroll;
+    padding: 80px 0;
     width: 720px;
-    margin: 80px auto;
   }
 
   ol.chapters {
@@ -118,8 +148,9 @@
 </head>
 <body>
 
+<% var prevItem, nextItem %>
 
-<div class='table-of-contents'>
+<div class="table-of-contents">
   <h1>Practical Algorithms<br>and Data&nbsp;Structures</h2>
   <a href="/">Introduction</a>
   <% for (var i = 0; i < tableOfContents.length; i++) { %>
@@ -130,6 +161,8 @@
       <% var chapter = section.collection[j] %>
       <li>
         <% if (chapter.path === path) { %>
+          <% prevItem = chapter.previous %>
+          <% nextItem = chapter.next %>
           <%= chapter.title %>
         <% } else { %>
           <a href="/<%= chapter.path %>"><%= chapter.title %></a>
@@ -139,11 +172,19 @@
     </ol>
   <% } %>
 </div>
-<div class='content-container'>
-  <div class='content'>
-    <h1><%= title %></h1>
-    <%- contents %>
+<div class="navigation">
+  <% if (prevItem) { %>
+    <a href="/<%= prevItem.path %>" class="navigation-left"><i class="fa fa-angle-left"></i></a>
+  <% } %>
+  <div class="content-wrapper">
+    <div class="content">
+      <h1><%= title %></h1>
+      <%- contents %>
+    </div>
   </div>
+  <% if (nextItem) { %>
+    <a href="/<%= nextItem.path %>" class="navigation-right"><i class="fa fa-angle-right"></i></a>
+  <% } %>
 </div>
 
 </body>

@@ -6,6 +6,9 @@ fix CI
 
 metalsmith switch
     next/previous
+        scrollbar on other side of nav
+        bridge between sections
+        actually correct order :)
     literate python
     literate javascript
     language switcher
