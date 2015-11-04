@@ -6,6 +6,7 @@ import Metalsmith from 'metalsmith'
 import permalinks from 'metalsmith-permalinks'
 
 import { convertToKatex } from './katex-plugin'
+import { highlightCode } from './prism-plugin'
 
 const BUILD_DESTINATION = '/Users/ozan/tmp/algos-book-dev-build'
 
@@ -41,11 +42,22 @@ const generateTableOfContents = (files, metalsmith) => {
 
 console.log(`Building to ${BUILD_DESTINATION} ..`)
 
+
+const debugSingleFile = (targetPath) =>
+  (files) => {
+    for (let path in files) {
+      if (path !== targetPath) delete files[path]
+    }
+  }
+
+
 Metalsmith(__dirname)
 .source('book')
 .destination(BUILD_DESTINATION)
+// .use(debugSingleFile('stacks/implementing-a-stack.md'))
 .use(drafts())
 .use(convertToKatex)
+.use(highlightCode)
 .use(collections(collectionConfig))
 .use(markdown({ tables: true }))
 .use(permalinks())

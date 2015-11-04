@@ -1,10 +1,12 @@
 choose a better name
 move all code samples to literate python
 make all captions sentence case
-pick a better monospace font
 
 metalsmith switch
-    captions
+    figures
+        show captions
+        max 100% width
+        centered
     in toc, indicate current page
     in toc, add link to introduction
     next/previous
@@ -14,7 +16,7 @@ metalsmith switch
     refine styling
         tables
         center align katex
-        link colors
+
 
 trees
     use tuples (or named tuples in list-of-lists representation?)
