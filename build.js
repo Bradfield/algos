@@ -7,6 +7,7 @@ import permalinks from 'metalsmith-permalinks'
 
 import { convertToKatex } from './katex-plugin'
 import { highlightCode } from './prism-plugin'
+import { wrapFigures } from './captions-plugin'
 
 const BUILD_DESTINATION = '/Users/ozan/tmp/algos-book-dev-build'
 
@@ -60,6 +61,7 @@ Metalsmith(__dirname)
 .use(highlightCode)
 .use(collections(collectionConfig))
 .use(markdown({ tables: true }))
+.use(wrapFigures)
 .use(permalinks())
 .use(generateTableOfContents)
 .use(layouts({ engine: 'ejs' }))

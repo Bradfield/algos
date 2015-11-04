@@ -5,10 +5,6 @@ move away from CDN, just in case
 fix CI
 
 metalsmith switch
-    figures
-        show captions
-        max 100% width
-        centered
     next/previous
     literate python
     literate javascript
