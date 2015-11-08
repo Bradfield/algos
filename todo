@@ -15,6 +15,7 @@ metalsmith switch
     refine styling
         tables
         center align katex
+        katex in captions
 
 
 trees
