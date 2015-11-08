@@ -34,14 +34,14 @@ pre .glossary-term {
 
 @font-face {
   font-family: 'Whitney';
-  src: url('https://bradfield.github.io/WhitneyHTF-Light.woff') format('woff');
+  src: url('http://bradfield.institute/WhitneyHTF-Light.woff') format('woff');
   font-weight: 300;
   font-variant: normal;
 }
 
 @font-face {
   font-family: 'Whitney';
-  src: url('https://bradfield.github.io/WhitneyHTF-Medium.woff') format('woff');
+  src: url('http://bradfield.institute/WhitneyHTF-Medium.woff') format('woff');
   font-weight: 400;
   font-variant: normal;
 }
