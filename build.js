@@ -22,12 +22,13 @@ const sections = [
   ['trees', 'Trees'],
   ['graphs', 'Graphs'],
 ]
-const collectionConfig = new Map(
-  sections.map(([label, name]) => [label, {
+const collectionConfig = {}
+sections.forEach(([label, name]) => {
+  collectionConfig[label] = {
     sortBy: 'position',
-    metadata: { name: name },
-  }])
-)
+    metadata: { name: name }
+  }
+})
 
 const byPosition = (a, b) => a.position - b.position
 
@@ -59,8 +60,8 @@ Metalsmith(__dirname)
 .use(drafts())
 .use(convertToKatex)
 .use(highlightCode)
-.use(collections(collectionConfig))
 .use(markdown({ tables: true }))
+.use(collections(collectionConfig))
 .use(wrapFigures)
 .use(permalinks())
 .use(generateTableOfContents)

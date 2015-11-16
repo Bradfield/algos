@@ -1,7 +1,6 @@
 required for parity
     next/previous
         bridge between sections
-        actually correct order :)
     enable literate python
     refine styling
         tables
