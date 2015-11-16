@@ -189,6 +189,9 @@
     <% if (nextItem) { %>
       <a href="/<%= nextItem.path %>"><i class="fa fa-angle-right"></i></a>
     <% } %>
+    <% if (path === '') { %>
+      <a href="/analysis/introduction"><i class="fa fa-angle-right"></i></a>
+    <% } %>
   </div>
 </div>
 

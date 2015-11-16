@@ -23,34 +23,79 @@ const sections = [
   ['graphs', 'Graphs'],
 ]
 const collectionConfig = {}
-sections.forEach(([label, name]) => {
+const nextSection = {}
+const previousSection = {}
+sections.forEach(([label, name], i) => {
   collectionConfig[label] = {
     sortBy: 'position',
     metadata: { name: name }
   }
+  nextSection[label] = sections[i + 1] ? sections[i + 1][0] : null
+  previousSection[label] = sections[i - 1] ? sections[i - 1][0] : null
 })
+
+const INDEX_PATH = 'index.html'
+
+// UGH! fix this ugly hack around the fact that the collections plugin
+// does not link previous/next between sections
+const bridgeLinksBetweenCollections =
+  (files, metalsmith) => {
+    for (let path in files) {
+      // ignore non-html files
+      if (path.search('\.html$') === -1) continue
+
+      const file = files[path]
+      // special case: link introduction to first section
+      if (path === INDEX_PATH) {
+        file.next = metalsmith._metadata.collections[sections[0][0]][0]
+        continue
+      }
+
+      if (file.collection.length === 1) {
+        const collection = file.collection[0]
+        if (file.next === undefined) {
+          const nextCollection = nextSection[collection]
+          if (nextCollection) {
+            file.next = metalsmith._metadata.collections[nextCollection][0]
+          }
+        }
+        if (file.previous === undefined) {
+          const previousCollection = previousSection[collection]
+          if (previousCollection) {
+            const collection = metalsmith._metadata.collections[previousCollection]
+            file.previous = collection[collection.length - 1]
+          } else {
+            // special case: link first chapter of first section back to intro
+            file.previous = files[INDEX_PATH]
+          }
+        }
+      }
+    }
+  }
 
 const byPosition = (a, b) => a.position - b.position
 
-const generateTableOfContents = (files, metalsmith) => {
-  const metadata = metalsmith.metadata()
-  metadata['tableOfContents'] = sections.map(([label, name]) => {
-    return {
-      sectionName: name,
-      collection: (metadata[label] || []).sort(byPosition),
-    }
-  })
-}
+const generateTableOfContents =
+  (files, metalsmith) => {
+    const metadata = metalsmith.metadata()
+    metadata['tableOfContents'] = sections.map(([label, name]) => {
+      return {
+        sectionName: name,
+        collection: (metadata[label] || []).sort(byPosition),
+      }
+    })
+  }
 
 console.log(`Building to ${BUILD_DESTINATION} ..`)
 
 
-const debugSingleFile = (targetPath) =>
-  (files) => {
-    for (let path in files) {
-      if (path !== targetPath) delete files[path]
+const debugSingleFile =
+  (targetPath) =>
+    (files) => {
+      for (let path in files) {
+        if (path !== targetPath) delete files[path]
+      }
     }
-  }
 
 
 Metalsmith(__dirname)
@@ -62,6 +107,7 @@ Metalsmith(__dirname)
 .use(highlightCode)
 .use(markdown({ tables: true }))
 .use(collections(collectionConfig))
+.use(bridgeLinksBetweenCollections)
 .use(wrapFigures)
 .use(permalinks())
 .use(generateTableOfContents)

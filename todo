@@ -1,6 +1,4 @@
 required for parity
-    next/previous
-        bridge between sections
     enable literate python
     refine styling
         tables
