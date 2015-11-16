@@ -1,6 +1,5 @@
 required for parity
     next/previous
-        scrollbar on other side of nav
         bridge between sections
         actually correct order :)
     enable literate python
@@ -9,10 +8,9 @@ required for parity
         center align katex
         katex in captions
         better font choices
-        less padding at top of doc
         better link colors
     fix CI
-    add dev step
+    add dev step, update readme
     add babel-node to packages
     remove layouts dir?
 

@@ -93,24 +93,26 @@
     text-align: center;
     text-decoration: none;
     width: 80px;
+    z-index: 100;
   }
 
-  .navigation-left:hover,
-  .navigation-right:hover {
+  .navigation-left a:hover,
+  .navigation-right a:hover {
     color: rgba(36, 51, 64, 0.8);
     text-decoration: none;
   }
 
-
   .content-wrapper {
     flex: 1 1 auto;
+    margin-left: -80px;
+    margin-right: -80px;
     overflow: auto;
   }
 
   .content {
     margin: auto;
     overflow-y: scroll;
-    padding: 80px 0;
+    padding: 20px 0 60px;
     width: 720px;
   }
 
@@ -173,18 +175,22 @@
   <% } %>
 </div>
 <div class="navigation">
-  <% if (prevItem) { %>
-    <a href="/<%= prevItem.path %>" class="navigation-left"><i class="fa fa-angle-left"></i></a>
-  <% } %>
+  <div class="navigation-left">
+    <% if (prevItem) { %>
+      <a href="/<%= prevItem.path %>"><i class="fa fa-angle-left"></i></a>
+    <% } %>
+  </div>
   <div class="content-wrapper">
     <div class="content">
       <h1><%= title %></h1>
       <%- contents %>
     </div>
   </div>
-  <% if (nextItem) { %>
-    <a href="/<%= nextItem.path %>" class="navigation-right"><i class="fa fa-angle-right"></i></a>
-  <% } %>
+  <div class="navigation-right">
+    <% if (nextItem) { %>
+      <a href="/<%= nextItem.path %>"><i class="fa fa-angle-right"></i></a>
+    <% } %>
+  </div>
 </div>
 
 </body>
