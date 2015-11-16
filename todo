@@ -1,22 +1,28 @@
-choose a better name
-move all code samples to literate python
-make all captions sentence case
-move away from CDN, just in case
-fix CI
-
-metalsmith switch
+required for parity
     next/previous
         scrollbar on other side of nav
         bridge between sections
         actually correct order :)
-    literate python
-    literate javascript
-    language switcher
+    enable literate python
     refine styling
         tables
         center align katex
         katex in captions
+        better font choices
+        less padding at top of doc
+        better link colors
+    fix CI
+    add dev step
+    add babel-node to packages
+    remove layouts dir?
 
+
+literate javascript
+language switcher
+choose a better name
+move all code samples to literate python
+make all captions sentence case
+move away from CDN, just in case
 
 trees
     use tuples (or named tuples in list-of-lists representation?)

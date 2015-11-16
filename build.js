@@ -9,7 +9,7 @@ import { convertToKatex } from './katex-plugin'
 import { highlightCode } from './prism-plugin'
 import { wrapFigures } from './captions-plugin'
 
-const BUILD_DESTINATION = '/Users/ozan/tmp/algos-book-dev-build'
+const BUILD_DESTINATION = process.env.BUILD_DESTINATION || '/tmp/algos-book-dev-build'
 
 const sections = [
   ['analysis', 'Analysis'],
