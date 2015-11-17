@@ -1,15 +1,7 @@
 required for parity
-    refine styling
-        tables
-        center align katex
-        katex in captions
-        better font choices
-        better link colors
-    fix CI
-        remove unneeded files from build step
     add dev step, update readme
+        remove unwanted files
     add babel-node to packages
-    remove layouts dir?
 
 
 language switcher

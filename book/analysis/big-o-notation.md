@@ -15,8 +15,8 @@ as the number of steps required to solve the problem.
 In our summation algorithms shown earlier, a good basic unit of
 computation  might be to count the number of assignment statements
 performed to compute the sum. In the function `sum_of_n`, the number of
-assignment statements is 1 (`the\_sum = 0`) plus the value of *n* (the
-number of times we perform `the\_sum=the\_sum+i`). We can denote this by
+assignment statements is 1 (`the_sum = 0`) plus the value of *n* (the
+number of times we perform `the_sum=the_sum+i`). We can denote this by
 a function, call it T, where $$T(n)=1 + n$$. The parameter *n* is often
 referred to as the “size of the problem,” and we can read this as “T(n)
 is the time it takes to solve a problem of size n, namely 1 + n steps.”

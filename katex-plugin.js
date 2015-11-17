@@ -7,7 +7,9 @@ export const convertToKatex = files => {
     if (path.search('\.md$') !== -1) {
       const file = files[path]
       const replaced =
-        file.contents.toString('utf8').replace(/\$\$([^\$]+)\$\$/g, katexReplace)
+        file.contents.toString('utf8')
+          .replace(/\n\$\$([^\$]+)\$\$\n/g, '<div class="katex-block">$$$ $1 $$$</div>')
+          .replace(/\$\$([^\$]+)\$\$/g, katexReplace)
       file.contents = new Buffer(replaced, 'utf8')
     }
   }
