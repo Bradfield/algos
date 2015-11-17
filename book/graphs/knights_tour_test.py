@@ -1,10 +1,6 @@
-import imp
-import os
 import unittest
 
-dirname = os.path.dirname(os.path.realpath(__file__))
-source_file = os.path.join(dirname, 'knights-tour.md')
-knights_tour = imp.load_source('knights_tour', source_file)
+from knights_tour import find_solution_for, warnsdorffs_heuristic
 
 
 class TestCorrectness(unittest.TestCase):
@@ -19,17 +15,16 @@ class TestCorrectness(unittest.TestCase):
 
     def test_small_boards_have_no_solution(self):
         for board_size in range(1, 5):
-            self.assertFalse(knights_tour.find_solution_for(board_size))
+            self.assertFalse(find_solution_for(board_size))
 
     def test_size_five_board_no_heurisitc(self):
         board_size = 5
-        tour = knights_tour.find_solution_for(board_size)
+        tour = find_solution_for(board_size)
         self.assert_valid_tour(board_size, tour)
 
     def test_size_eight_board_with_warnsdorff(self):
         board_size = 8
-        tour = knights_tour.find_solution_for(
-            board_size, knights_tour.warnsdorffs_heuristic)
+        tour = find_solution_for(board_size, warnsdorffs_heuristic)
         self.assert_valid_tour(board_size, tour)
 
 

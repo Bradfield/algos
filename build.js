@@ -6,6 +6,7 @@ import Metalsmith from 'metalsmith'
 import permalinks from 'metalsmith-permalinks'
 
 import { convertToKatex } from './katex-plugin'
+import { incorporateLiteratePython } from './litpy-plugin'
 import { highlightCode } from './prism-plugin'
 import { wrapFigures } from './captions-plugin'
 
@@ -97,18 +98,28 @@ const debugSingleFile =
       }
     }
 
+const removeNonPublicFiles =
+  files => {
+    for (let path in files) {
+      if (path.search('\.pyc$') !== -1 || path.search('\.py$') !== -1) {
+        delete files[path]
+      }
+    }
+  }
 
 Metalsmith(__dirname)
 .source('book')
 .destination(BUILD_DESTINATION)
-// .use(debugSingleFile('stacks/implementing-a-stack.md'))
+// .use(debugSingleFile('graphs/knights-tour.md'))
 .use(drafts())
+.use(incorporateLiteratePython)
 .use(convertToKatex)
 .use(highlightCode)
 .use(markdown({ tables: true }))
 .use(collections(collectionConfig))
 .use(bridgeLinksBetweenCollections)
 .use(wrapFigures)
+.use(removeNonPublicFiles)
 .use(permalinks())
 .use(generateTableOfContents)
 .use(layouts({ engine: 'ejs' }))

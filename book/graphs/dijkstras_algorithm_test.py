@@ -1,13 +1,6 @@
-import imp
-import os
 import unittest
 
-dirname = os.path.dirname(os.path.realpath(__file__))
-source_file = os.path.join(dirname, 'dijkstras-algorithm.md')
-dijkstras_algorithm = imp.load_source('dijkstras_algorithm', source_file)
-
-example_graph = dijkstras_algorithm.example_graph
-calculate_distances = dijkstras_algorithm.calculate_distances
+from dijkstras_algorithm import example_graph, calculate_distances
 
 
 CORRECT_DISTANCES = {

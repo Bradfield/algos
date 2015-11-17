@@ -1,12 +1,6 @@
-import imp
-import os
 import unittest
 
-dirname = os.path.dirname(os.path.realpath(__file__))
-source_file = os.path.join(dirname, 'depth-first-search.md')
-depth_first_search = imp.load_source('depth_first_search', source_file)
-
-traversal_times = depth_first_search.traversal_times
+from depth_first_search import traversal_times
 
 expected_traversal_times = {
     'A': {

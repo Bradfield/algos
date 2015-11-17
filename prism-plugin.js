@@ -1,7 +1,7 @@
 import prism from 'prismjs'
 
 
-const pythonCode = /```python\n([\s\S]+?)```/gm
+const pythonCode = /```python\n([\s\S]*?)```/g
 
 const pythonGrammar = {
   'triple-quoted-string': {
@@ -30,7 +30,8 @@ const pythonGrammar = {
 
 
 const highlight = (match, group) => `
-  <pre><code class="language-python">${prism.highlight(group, pythonGrammar)}</code></pre>`
+  <pre><code class="language-python">${prism.highlight(group, pythonGrammar)}</code></pre>
+`
 
 
 export const highlightCode = files => {

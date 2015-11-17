@@ -6,6 +6,7 @@
     "babel-preset-es2015": "^6.0.15",
     "ejs": "^2.3.4",
     "katex": "^0.5.1",
+    "lodash": "^3.10.1",
     "metalsmith": "^2.1.0",
     "metalsmith-collections": "^0.7.0",
     "metalsmith-drafts": "0.0.1",

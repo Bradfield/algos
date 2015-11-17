@@ -1,5 +1,4 @@
 required for parity
-    enable literate python
     refine styling
         tables
         center align katex
@@ -7,17 +6,18 @@ required for parity
         better font choices
         better link colors
     fix CI
+        remove unneeded files from build step
     add dev step, update readme
     add babel-node to packages
     remove layouts dir?
 
 
-literate javascript
 language switcher
 choose a better name
 move all code samples to literate python
 make all captions sentence case
 move away from CDN, just in case
+literate javascript
 
 trees
     use tuples (or named tuples in list-of-lists representation?)
