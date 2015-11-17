@@ -1,11 +1,4 @@
-required for parity
-    add dev step, update readme
-        remove unwanted files
-    add babel-node to packages
-
-
 language switcher
-choose a better name
 move all code samples to literate python
 make all captions sentence case
 move away from CDN, just in case

@@ -98,11 +98,21 @@ const debugSingleFile =
       }
     }
 
+const EXCLUSION_FILE_PATTERNS = [
+  '\.pyc$',
+  '\.py$',
+  '\.DS_STORE',
+  '\.txt',
+]
+
 const removeNonPublicFiles =
   files => {
     for (let path in files) {
-      if (path.search('\.pyc$') !== -1 || path.search('\.py$') !== -1) {
-        delete files[path]
+      for (let i in EXCLUSION_FILE_PATTERNS) {
+        if (path.search(EXCLUSION_FILE_PATTERNS[i]) !== -1) {
+          delete files[path]
+          continue
+        }
       }
     }
   }
