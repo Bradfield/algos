@@ -27,7 +27,7 @@ function build-book {
   rm -rf $BUILD_DIR
   mkdir $BUILD_DIR
   log-msg "Building book"
-  gitbook build . $BUILD_DIR
+  BUILD_DESTINATION=$BUILD_DIR babel-node build.js
 }
 
 # publish a built book by commiting and force pushing it to gh-pages

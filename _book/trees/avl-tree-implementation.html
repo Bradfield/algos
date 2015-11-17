@@ -1,0 +1,1526 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>AVL Tree Implementation | Algorithms and Data Structures with Python</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.1">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+        <link rel="stylesheet" href="../website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../trees/summary-of-map-adt-implementations.html" />
+    
+    
+    <link rel="prev" href="../trees/balanced-binary-search-trees.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="8.14" data-basepath=".." data-revision="Mon Nov 02 2015 12:27:07 GMT-0800 (PST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Analysis</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="analysis/introduction.html">
+            
+                
+                    <a href="../analysis/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Introduction to Algorithm Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="analysis/big-o-notation.html">
+            
+                
+                    <a href="../analysis/big-o-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Big-O Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="analysis/an-anagram-detection-example.html">
+            
+                
+                    <a href="../analysis/an-anagram-detection-example.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        An Anagram Detection Example
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="analysis/performance-of-python-types.html">
+            
+                
+                    <a href="../analysis/performance-of-python-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Performance of Python Types
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Stacks</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="stacks/what-is-a-stack.html">
+            
+                
+                    <a href="../stacks/what-is-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        What is a Stack?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="stacks/the-stack-abstract-data-type.html">
+            
+                
+                    <a href="../stacks/the-stack-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        The Stack Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="stacks/implementing-a-stack.html">
+            
+                
+                    <a href="../stacks/implementing-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Implementing a Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="stacks/simple-balanced-parentheses.html">
+            
+                
+                    <a href="../stacks/simple-balanced-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Simple Balanced Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="stacks/balanced-symbols.html">
+            
+                
+                    <a href="../stacks/balanced-symbols.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Balanced Symbols
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="stacks/converting-number-bases.html">
+            
+                
+                    <a href="../stacks/converting-number-bases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Converting Number Bases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="stacks/infix-prefix-and-postfix-expressions.html">
+            
+                
+                    <a href="../stacks/infix-prefix-and-postfix-expressions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Infix, Prefix, Postfix
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Queues</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="queues/what-is-a-queue.html">
+            
+                
+                    <a href="../queues/what-is-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        What is a Queue?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="queues/the-queue-abstract-data-type.html">
+            
+                
+                    <a href="../queues/the-queue-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        The Queue Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="queues/implementing-a-queue.html">
+            
+                
+                    <a href="../queues/implementing-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Implementing a Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="queues/simulating-hot-potato.html">
+            
+                
+                    <a href="../queues/simulating-hot-potato.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Simulating Hot Potato
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Deques</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="deques/what-is-a-deque.html">
+            
+                
+                    <a href="../deques/what-is-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        What is a Deque?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="deques/the-deque-abstract-data-type.html">
+            
+                
+                    <a href="../deques/the-deque-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        The Deque Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="deques/implementing-a-deque.html">
+            
+                
+                    <a href="../deques/implementing-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Implementing a Deque
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="deques/palindrome-checker.html">
+            
+                
+                    <a href="../deques/palindrome-checker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Palindrome Checker
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Lists</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="lists/what-is-a-list.html">
+            
+                
+                    <a href="../lists/what-is-a-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        What is a List?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="lists/the-unordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-unordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        The Unordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="lists/implementing-an-unordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-unordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Implementing an Unordered List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="lists/the-ordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-ordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        The Ordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="lists/implementing-an-ordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-ordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Implementing an Ordered List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Recursion</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="recursion/what-is-recursion.html">
+            
+                
+                    <a href="../recursion/what-is-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        What is Recursion?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="recursion/calculating-the-sum-of-a-list-of-numbers.html">
+            
+                
+                    <a href="../recursion/calculating-the-sum-of-a-list-of-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Calculating the Sum of a List of Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="recursion/the-three-laws-of-recursion.html">
+            
+                
+                    <a href="../recursion/the-three-laws-of-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        The Three Laws of Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="recursion/converting-an-integer-to-a-string.html">
+            
+                
+                    <a href="../recursion/converting-an-integer-to-a-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Converting an Integer to a String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="recursion/stack-frames-implementing-recursion.html">
+            
+                
+                    <a href="../recursion/stack-frames-implementing-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Stack Frames Implementing Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="recursion/tower-of-hanoi.html">
+            
+                
+                    <a href="../recursion/tower-of-hanoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Tower of Hanoi
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="recursion/dynamic-programming.html">
+            
+                
+                    <a href="../recursion/dynamic-programming.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Dynamic Programming
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" >
+            
+            <span><b>7.</b> Searching</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="searching/searching.html">
+            
+                
+                    <a href="../searching/searching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Searching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="searching/the-sequential-search.html">
+            
+                
+                    <a href="../searching/the-sequential-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        The Sequential Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="searching/the-binary-search.html">
+            
+                
+                    <a href="../searching/the-binary-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        The Binary Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="searching/hashing.html">
+            
+                
+                    <a href="../searching/hashing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Hashing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="searching/the-map-abstract-data-type.html">
+            
+                
+                    <a href="../searching/the-map-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        The Map Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" >
+            
+            <span><b>8.</b> Trees and Tree Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="trees/introduction.html">
+            
+                
+                    <a href="../trees/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="trees/examples-of-trees.html">
+            
+                
+                    <a href="../trees/examples-of-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Examples of Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="trees/vocabulary-and-definitions.html">
+            
+                
+                    <a href="../trees/vocabulary-and-definitions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Vocabulary and Definitions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="trees/list-of-lists-representation.html">
+            
+                
+                    <a href="../trees/list-of-lists-representation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        List of Lists Representation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="trees/nodes-and-references.html">
+            
+                
+                    <a href="../trees/nodes-and-references.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        Nodes and References
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="trees/parse-tree.html">
+            
+                
+                    <a href="../trees/parse-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        Parse Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="trees/tree-traversals.html">
+            
+                
+                    <a href="../trees/tree-traversals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Tree Traversals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="trees/priority-queues-with-binary-heaps.html">
+            
+                
+                    <a href="../trees/priority-queues-with-binary-heaps.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        Priority Queues with Binary Heaps
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="trees/binary-heap-implementation.html">
+            
+                
+                    <a href="../trees/binary-heap-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Binary Heap Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="trees/binary-search-trees.html">
+            
+                
+                    <a href="../trees/binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.11" data-path="trees/search-tree-implementation.html">
+            
+                
+                    <a href="../trees/search-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Search Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="trees/search-tree-analysis.html">
+            
+                
+                    <a href="../trees/search-tree-analysis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Search Tree Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="trees/balanced-binary-search-trees.html">
+            
+                
+                    <a href="../trees/balanced-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        Balanced Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="8.14" data-path="trees/avl-tree-implementation.html">
+            
+                
+                    <a href="../trees/avl-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        AVL Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.15" data-path="trees/summary-of-map-adt-implementations.html">
+            
+                
+                    <a href="../trees/summary-of-map-adt-implementations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.15.</b>
+                        
+                        Summary of Map ADT Implementations
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> Graphs and Graph Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="graphs/introduction.html">
+            
+                
+                    <a href="../graphs/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="graphs/the-graph-abstract-data-type.html">
+            
+                
+                    <a href="../graphs/the-graph-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        The Graph Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="graphs/an-adjacency-matrix.html">
+            
+                
+                    <a href="../graphs/an-adjacency-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        An Adjacency Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="graphs/an-adjacency-list.html">
+            
+                
+                    <a href="../graphs/an-adjacency-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        An Adjacency List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="graphs/implementation.html">
+            
+                
+                    <a href="../graphs/implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="graphs/word-ladder.html">
+            
+                
+                    <a href="../graphs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        The Word Ladder Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.7" data-path="graphs/knights-tour.html">
+            
+                
+                    <a href="../graphs/knights-tour.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        The Knight’s Tour Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="graphs/depth-first-search.html">
+            
+                
+                    <a href="../graphs/depth-first-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        General Depth First Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="graphs/topological-sorting.html">
+            
+                
+                    <a href="../graphs/topological-sorting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Topological Sorting
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="graphs/strongly-connected-components.html">
+            
+                
+                    <a href="../graphs/strongly-connected-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Strongly Connected Components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="graphs/dijkstras-algorithm.html">
+            
+                
+                    <a href="../graphs/dijkstras-algorithm.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Shortest Path Problems and Dijkstra’s Algorithm
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="graphs/prims-spanning-tree-algorithm.md.html">
+            
+            <span><b>9.12.</b> Prims Spanning Tree Algorithm</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Algorithms and Data Structures with Python</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="avl-tree-implementation">AVL Tree Implementation</h1>
+<p>Now that we have demonstrated that keeping an AVL tree in balance is
+going to be a big performance improvement, let us look at how we will
+augment the procedure to insert a new key into the tree. Since all new
+keys are inserted into the tree as leaf nodes and we know that the
+balance factor for a new leaf is zero, there are no new requirements for
+the node that was just inserted. But once the new leaf is added we must
+update the balance factor of its parent. How this new leaf affects the
+parent&#x2019;s balance factor depends on whether the leaf node is a left child
+or a right child. If the new node is a right child the balance factor of
+the parent will be reduced by one. If the new node is a left child then
+the balance factor of the parent will be increased by one. This relation
+can be applied recursively to the grandparent of the new node, and
+possibly to every ancestor all the way up to the root of the tree. Since
+this is a recursive procedure let us examine the two base cases for
+updating balance factors:</p>
+<ul>
+<li>The recursive call has reached the root of the tree.</li>
+<li>The balance factor of the parent has been adjusted to zero. You
+should convince yourself that once a subtree has a balance factor of
+zero, then the balance of its ancestor nodes does not change.</li>
+</ul>
+<p>We will implement the AVL tree as a subclass of <code>BinarySearchTree</code>. To
+begin, we will override the <code>_put</code> method and write a new
+<code>update_balance</code> helper method. These methods are shown in below. You will notice that the definition for
+<code>_put</code> is exactly the same as in simple binary search trees except for
+the additions of the calls to <code>update_balance</code>.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> _put<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> key <span class="token operator">&lt;</span> node<span class="token punctuation">.</span>key<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>has_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            node<span class="token punctuation">.</span>left <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>update_balance<span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>has_right_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            node<span class="token punctuation">.</span>right <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span>val<span class="token punctuation">,</span>parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>update_balance<span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> update_balance<span class="token punctuation">(</span>self<span class="token punctuation">,</span>node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">&gt;</span> <span class="token number">1</span> <span class="token operator">or</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">&lt;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>rebalance<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token keyword">if</span> node<span class="token punctuation">.</span>parent <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword">elif</span> node<span class="token punctuation">.</span>is_rich_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>balance_factor <span class="token operator">-</span><span class="token operator">=</span> <span class="token number">1</span>
+
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>balance_factor <span class="token operator">!</span><span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>update_balance<span class="token punctuation">(</span>node<span class="token punctuation">.</span>parent<span class="token punctuation">)</span>
+</code></pre>
+<p>The new <code>update_balance</code> method is where most of the work is done. This
+implements the recursive procedure we just described. The
+<code>update_balance</code> method first checks to see if the current node is out of
+balance enough to require rebalancing. If that is the case
+then the rebalancing is done and no further updating to parents is
+required. If the current node does not require rebalancing then the
+balance factor of the parent is adjusted. If the balance factor of the
+parent is non-zero then the algorithm continues to work its way up the
+tree toward the root by recursively calling <code>update_balance</code> on the
+parent.</p>
+<p>When a rebalancing of the tree is necessary, how do we do it? Efficient
+rebalancing is the key to making the AVL Tree work well without
+sacrificing performance. In order to bring an AVL Tree back into balance
+we will perform one or more <strong>rotations</strong> on the tree.</p>
+<p>To understand what a rotation is let us look at a very simple example.
+Consider the tree in the left half of the illustration below.
+This tree is out of balance with a balance factor of -2. To bring this
+tree into balance we will use a left rotation around the subtree rooted
+at node A.</p>
+<p><figure><img src="figures/simple-unbalanced.png" alt="Transforming an Unbalanced Tree Using a Left Rotation"><figcaption>Transforming an Unbalanced Tree Using a Left Rotation</figcaption></figure></p>
+<p>To perform a left rotation we essentially do the following:</p>
+<ul>
+<li>Promote the right child (B) to be the root of the subtree.</li>
+<li>Move the old root (A) to be the left child of the new root.</li>
+<li>If new root (B) already had a left child then make it the right
+child of the new left child (A). Note: Since the new root (B) was
+the right child of A the right child of A is guaranteed to be empty
+at this point. This allows us to add a new node as the right child
+without any further consideration.</li>
+</ul>
+<p>While this procedure is fairly easy in concept, the details of the code
+are a bit tricky since we need to move things around in just the right
+order so that all properties of a Binary Search Tree are preserved.
+Furthermore we need to make sure to update all of the parent pointers
+appropriately.</p>
+<p>Let&#x2019;s look at a slightly more complicated tree to illustrate the right
+rotation. The left side of the illustration below shows a tree
+that is left-heavy and with a balance factor of 2 at the root. To
+perform a right rotation we essentially do the following:</p>
+<ul>
+<li>Promote the left child (C) to be the root of the subtree.</li>
+<li>Move the old root (E) to be the right child of the new root.</li>
+<li>If the new root(C) already had a right child (D) then make it the
+left child of the new right child (E). Note: Since the new root (C)
+was the left child of E, the left child of E is guaranteed to be
+empty at this point. This allows us to add a new node as the left
+child without any further consideration.</li>
+</ul>
+<p><figure><img src="figures/rotate-right.png" alt="Transforming an Unbalanced Tree Using a Right Rotation"><figcaption>Transforming an Unbalanced Tree Using a Right Rotation</figcaption></figure></p>
+<p>Now that you have seen the rotations and have the basic idea of how a
+rotation works let us look at the code below for both the left rotations. First we create a temporary variable to keep
+track of the new root of the subtree. As we said before the new root is
+the right child of the previous root. Now that a reference to the right
+child has been stored in this temporary variable we replace the right
+child of the old root with the left child of the new.</p>
+<p>The next step is to adjust the parent pointers of the two nodes. If
+<code>new_root</code> has a left child then the new parent of the left child becomes
+the old root. The parent of the new root is set to the parent of the old
+root. If the old root was the root of the entire tree then we must set
+the root of the tree to point to this new root. Otherwise, if the old
+root is a left child then we change the parent of the left child to
+point to the new root; otherwise we change the parent of the right child
+to point to the new root. Finally we set the parent of
+the old root to be the new root. This is a lot of complicated
+bookkeeping, so we encourage you to trace through this function while
+looking at the diagram above. The <code>rotate_right</code> method
+is symmetrical to <code>rotate_left</code> so we will leave it to you to implement the
+code for <code>rotate_right</code>.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> rotate_left<span class="token punctuation">(</span>self<span class="token punctuation">,</span> rotation_root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    new_root <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>right
+    rotation_root<span class="token punctuation">.</span>right <span class="token operator">=</span> new_root<span class="token punctuation">.</span>left
+    <span class="token keyword">if</span> new_root<span class="token punctuation">.</span>left <span class="token operator">!</span><span class="token operator">=</span> None<span class="token punctuation">:</span>
+        new_root<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> rotation_root
+    new_root<span class="token punctuation">.</span>parent <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>parent
+    <span class="token keyword">if</span> rotation_root<span class="token punctuation">.</span>is_root<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> new_root
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> rotation_root<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> new_root
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> new_root
+    new_root<span class="token punctuation">.</span>left <span class="token operator">=</span> rotation_root
+    rotation_root<span class="token punctuation">.</span>parent <span class="token operator">=</span> new_root
+    rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> min<span class="token punctuation">(</span>new_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    new_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> new_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> max<span class="token punctuation">(</span>rotation_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The last two lines require some explanation. In these lines we
+update the balance factors of the old and the new root. Since all the
+other moves are moving entire subtrees around the balance factors of all
+other nodes are unaffected by the rotation. But how can we update the
+balance factors without completely recalculating the heights of the new
+subtrees? The following derivation should convince you that these lines
+are correct.</p>
+<p><figure><img src="figures/balance-factor-derivation.png" alt="A Left Rotation"><figcaption>A Left Rotation</figcaption></figure></p>
+<p>Above we see a left rotation. B and D are the
+pivotal nodes and A, C, E are their subtrees. Let <script type="math/tex; ">h_x</script> denote the
+height of a particular subtree rooted at node <script type="math/tex; ">x</script>. By definition we know
+the following:</p>
+<p><script type="math/tex; ">newBal(B) = h_A - h_C \\
+oldBal(B) = h_A - h_D</script></p>
+<p>But we know that the old height of D can also be given by <script type="math/tex; ">1 +
+max(h_C,h_E)</script>, that is, the height of D is one more than the maximum
+height of its two children. Remember that <script type="math/tex; ">h_c</script> and <script type="math/tex; ">h_E</script> hav not
+changed. So, let us substitute that in to the second equation, which
+gives us</p>
+<p><script type="math/tex; ">oldBal(B) = h_A - (1 + max(h_C,h_E))</script></p>
+<p>and then subtract the two equations. The following steps do the
+subtraction and use some algebra to simplify the equation for
+<script type="math/tex; ">newBal(B)</script>.</p>
+<p><script type="math/tex; ">newBal(B) - oldBal(B) = h_A - h_C - (h_A - (1 + max(h_C,h_E))) \\
+newBal(B) - oldBal(B) = h_A - h_C - h_A + (1 + max(h_C,h_E)) \\
+newBal(B) - oldBal(B) = h_A  - h_A + 1 + max(h_C,h_E) - h_C  \\
+newBal(B) - oldBal(B) =  1 + max(h_C,h_E) - h_C</script></p>
+<p>Next we will move <script type="math/tex; ">oldBal(B)</script> to the right hand side of the equation and
+make use of the fact that <script type="math/tex; ">max(a,b)-c = max(a-c, b-c)</script>.</p>
+<p><script type="math/tex; ">newBal(B) = oldBal(B) + 1 + max(h_C - h_C ,h_E - h_C) \\</script></p>
+<p>But, <script type="math/tex; ">h_E - h_C</script> is the same as <script type="math/tex; ">-oldBal(D)</script>. So we can use another
+identity that says <script type="math/tex; ">max(-a,-b) = -min(a,b)</script>. So we can finish our
+derivation of <script type="math/tex; ">newBal(B)</script> with the following steps:</p>
+<p><script type="math/tex; ">newBal(B) = oldBal(B) + 1 + max(0 , -oldBal(D)) \\
+newBal(B) = oldBal(B) + 1 - min(0 , oldBal(D)) \\</script></p>
+<p>Now we have all of the parts in terms that we readily know. If we
+remember that B is <code>rotation_root</code> and D is <code>new_root</code> then we can see this
+corresponds exactly to the statement on the penulitmate line, or:</p>
+<pre><code class="lang-python">rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> min<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>new_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">)</span>
+</code></pre>
+<p>A similar derivation gives us the equation for the updated node D, as
+well as the balance factors after a right rotation. We leave these as
+exercises for you.</p>
+<p>Now you might think that we are done. We know how to do our left and
+right rotations, and we know when we should do a left or right rotation,
+but take a look at the diagram below. Since node A has a
+balance factor of -2 we should do a left rotation. But, what happens
+when we do the left rotation around A?</p>
+<p><figure><img src="figures/hard-unbalanced.png" alt="An Unbalanced Tree that is More Difficult to Balance"><figcaption>An Unbalanced Tree that is More Difficult to Balance</figcaption></figure></p>
+<p>The diagram below shows us that after the left rotation we
+are now out of balance the other way. If we do a right rotation to
+correct the situation we are right back where we started.</p>
+<p><figure><img src="figures/bad-rotatation.png" alt="After a Left Rotation the Tree is Out of Balance in the Other Direction"><figcaption>After a Left Rotation the Tree is Out of Balance in the Other Direction</figcaption></figure></p>
+<p>To correct this problem we must use the following set of rules:</p>
+<ul>
+<li>If a subtree needs a left rotation to bring it into balance, first
+check the balance factor of the right child. If the right child is
+left heavy then do a right rotation on right child, followed by the
+original left rotation.</li>
+<li>If a subtree needs a right rotation to bring it into balance, first
+check the balance factor of the left child. If the left child is
+right heavy then do a left rotation on the left child, followed by
+the original right rotation.</li>
+</ul>
+<p>The diagram below shows how these rules solve the dilemma
+we encountered above. Starting with a right rotation around
+node C puts the tree in a position where the left rotation around A
+brings the entire subtree back into balance.</p>
+<p><figure><img src="figures/rotate-left-right.png" alt="A Right Rotation Followed by a Left Rotation"><figcaption>A Right Rotation Followed by a Left Rotation</figcaption></figure></p>
+<p>The code that implements these rules can be found in our <code>rebalance</code>
+method, which is shown below. Rule number
+1 from above is implemented by the <code>if</code> statement starting on line 2.
+Rule number 2 is implemented by the <code>elif</code> statement starting on line 8.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> rebalance<span class="token punctuation">(</span>self<span class="token punctuation">,</span>node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>balance_factor <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>rotate_right<span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>rotate_left<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>rotate_left<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>balance_factor <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>rotate_left<span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>rotate_right<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>rotate_right<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+</code></pre>
+<p>By keeping the tree in balance at all times, we can ensure that the
+<code>get</code> method will run in order <script type="math/tex; ">O(log_2(n))</script> time. But the question is
+at what cost to our <code>put</code> method? Let us break this down into the
+operations performed by <code>put</code>. Since a new node is inserted as a leaf,
+updating the balance factors of all the parents will require a maximum
+of <script type="math/tex; ">log_2(n)</script> operations, one for each level of the tree. If a subtree
+is found to be out of balance a maximum of two rotations are required to
+bring the tree back into balance. But, each of the rotations works in
+<script type="math/tex; ">O(1)</script> time, so even our <code>put</code> operation remains <script type="math/tex; ">O(log_2(n))</script>.</p>
+<p>At this point we have implemented a functional AVL-Tree, unless you need
+the ability to delete a node. We leave the deletion of the node and
+subsequent updating and rebalancing as an exercise for you.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../trees/balanced-binary-search-trees.html" class="navigation navigation-prev " aria-label="Previous page: Balanced Binary Search Trees"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../trees/summary-of-map-adt-implementations.html" class="navigation navigation-next " aria-label="Next page: Summary of Map ADT Implementations"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ungrey/ungrey.js"></script>
+    
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax-beta/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"image-captions":{"caption":"_CAPTION_"},"mathjax":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

@@ -1,0 +1,1525 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>The Knight’s Tour Problem | Algorithms and Data Structures with Python</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.1">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+        <link rel="stylesheet" href="../website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../graphs/depth-first-search.html" />
+    
+    
+    <link rel="prev" href="../graphs/word-ladder.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="9.7" data-basepath=".." data-revision="Mon Nov 02 2015 12:27:07 GMT-0800 (PST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Analysis</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="analysis/introduction.html">
+            
+                
+                    <a href="../analysis/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Introduction to Algorithm Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="analysis/big-o-notation.html">
+            
+                
+                    <a href="../analysis/big-o-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Big-O Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="analysis/an-anagram-detection-example.html">
+            
+                
+                    <a href="../analysis/an-anagram-detection-example.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        An Anagram Detection Example
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="analysis/performance-of-python-types.html">
+            
+                
+                    <a href="../analysis/performance-of-python-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Performance of Python Types
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Stacks</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="stacks/what-is-a-stack.html">
+            
+                
+                    <a href="../stacks/what-is-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        What is a Stack?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="stacks/the-stack-abstract-data-type.html">
+            
+                
+                    <a href="../stacks/the-stack-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        The Stack Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="stacks/implementing-a-stack.html">
+            
+                
+                    <a href="../stacks/implementing-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Implementing a Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="stacks/simple-balanced-parentheses.html">
+            
+                
+                    <a href="../stacks/simple-balanced-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Simple Balanced Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="stacks/balanced-symbols.html">
+            
+                
+                    <a href="../stacks/balanced-symbols.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Balanced Symbols
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="stacks/converting-number-bases.html">
+            
+                
+                    <a href="../stacks/converting-number-bases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Converting Number Bases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="stacks/infix-prefix-and-postfix-expressions.html">
+            
+                
+                    <a href="../stacks/infix-prefix-and-postfix-expressions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Infix, Prefix, Postfix
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Queues</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="queues/what-is-a-queue.html">
+            
+                
+                    <a href="../queues/what-is-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        What is a Queue?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="queues/the-queue-abstract-data-type.html">
+            
+                
+                    <a href="../queues/the-queue-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        The Queue Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="queues/implementing-a-queue.html">
+            
+                
+                    <a href="../queues/implementing-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Implementing a Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="queues/simulating-hot-potato.html">
+            
+                
+                    <a href="../queues/simulating-hot-potato.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Simulating Hot Potato
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Deques</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="deques/what-is-a-deque.html">
+            
+                
+                    <a href="../deques/what-is-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        What is a Deque?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="deques/the-deque-abstract-data-type.html">
+            
+                
+                    <a href="../deques/the-deque-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        The Deque Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="deques/implementing-a-deque.html">
+            
+                
+                    <a href="../deques/implementing-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Implementing a Deque
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="deques/palindrome-checker.html">
+            
+                
+                    <a href="../deques/palindrome-checker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Palindrome Checker
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Lists</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="lists/what-is-a-list.html">
+            
+                
+                    <a href="../lists/what-is-a-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        What is a List?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="lists/the-unordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-unordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        The Unordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="lists/implementing-an-unordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-unordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Implementing an Unordered List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="lists/the-ordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-ordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        The Ordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="lists/implementing-an-ordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-ordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Implementing an Ordered List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Recursion</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="recursion/what-is-recursion.html">
+            
+                
+                    <a href="../recursion/what-is-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        What is Recursion?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="recursion/calculating-the-sum-of-a-list-of-numbers.html">
+            
+                
+                    <a href="../recursion/calculating-the-sum-of-a-list-of-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Calculating the Sum of a List of Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="recursion/the-three-laws-of-recursion.html">
+            
+                
+                    <a href="../recursion/the-three-laws-of-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        The Three Laws of Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="recursion/converting-an-integer-to-a-string.html">
+            
+                
+                    <a href="../recursion/converting-an-integer-to-a-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Converting an Integer to a String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="recursion/stack-frames-implementing-recursion.html">
+            
+                
+                    <a href="../recursion/stack-frames-implementing-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Stack Frames Implementing Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="recursion/tower-of-hanoi.html">
+            
+                
+                    <a href="../recursion/tower-of-hanoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Tower of Hanoi
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="recursion/dynamic-programming.html">
+            
+                
+                    <a href="../recursion/dynamic-programming.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Dynamic Programming
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" >
+            
+            <span><b>7.</b> Searching</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="searching/searching.html">
+            
+                
+                    <a href="../searching/searching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Searching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="searching/the-sequential-search.html">
+            
+                
+                    <a href="../searching/the-sequential-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        The Sequential Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="searching/the-binary-search.html">
+            
+                
+                    <a href="../searching/the-binary-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        The Binary Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="searching/hashing.html">
+            
+                
+                    <a href="../searching/hashing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Hashing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="searching/the-map-abstract-data-type.html">
+            
+                
+                    <a href="../searching/the-map-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        The Map Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" >
+            
+            <span><b>8.</b> Trees and Tree Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="trees/introduction.html">
+            
+                
+                    <a href="../trees/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="trees/examples-of-trees.html">
+            
+                
+                    <a href="../trees/examples-of-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Examples of Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="trees/vocabulary-and-definitions.html">
+            
+                
+                    <a href="../trees/vocabulary-and-definitions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Vocabulary and Definitions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="trees/list-of-lists-representation.html">
+            
+                
+                    <a href="../trees/list-of-lists-representation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        List of Lists Representation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="trees/nodes-and-references.html">
+            
+                
+                    <a href="../trees/nodes-and-references.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        Nodes and References
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="trees/parse-tree.html">
+            
+                
+                    <a href="../trees/parse-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        Parse Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="trees/tree-traversals.html">
+            
+                
+                    <a href="../trees/tree-traversals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Tree Traversals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="trees/priority-queues-with-binary-heaps.html">
+            
+                
+                    <a href="../trees/priority-queues-with-binary-heaps.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        Priority Queues with Binary Heaps
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="trees/binary-heap-implementation.html">
+            
+                
+                    <a href="../trees/binary-heap-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Binary Heap Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="trees/binary-search-trees.html">
+            
+                
+                    <a href="../trees/binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.11" data-path="trees/search-tree-implementation.html">
+            
+                
+                    <a href="../trees/search-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Search Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="trees/search-tree-analysis.html">
+            
+                
+                    <a href="../trees/search-tree-analysis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Search Tree Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="trees/balanced-binary-search-trees.html">
+            
+                
+                    <a href="../trees/balanced-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        Balanced Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14" data-path="trees/avl-tree-implementation.html">
+            
+                
+                    <a href="../trees/avl-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        AVL Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.15" data-path="trees/summary-of-map-adt-implementations.html">
+            
+                
+                    <a href="../trees/summary-of-map-adt-implementations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.15.</b>
+                        
+                        Summary of Map ADT Implementations
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> Graphs and Graph Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="graphs/introduction.html">
+            
+                
+                    <a href="../graphs/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="graphs/the-graph-abstract-data-type.html">
+            
+                
+                    <a href="../graphs/the-graph-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        The Graph Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="graphs/an-adjacency-matrix.html">
+            
+                
+                    <a href="../graphs/an-adjacency-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        An Adjacency Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="graphs/an-adjacency-list.html">
+            
+                
+                    <a href="../graphs/an-adjacency-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        An Adjacency List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="graphs/implementation.html">
+            
+                
+                    <a href="../graphs/implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="graphs/word-ladder.html">
+            
+                
+                    <a href="../graphs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        The Word Ladder Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="9.7" data-path="graphs/knights-tour.html">
+            
+                
+                    <a href="../graphs/knights-tour.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        The Knight’s Tour Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="graphs/depth-first-search.html">
+            
+                
+                    <a href="../graphs/depth-first-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        General Depth First Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="graphs/topological-sorting.html">
+            
+                
+                    <a href="../graphs/topological-sorting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Topological Sorting
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="graphs/strongly-connected-components.html">
+            
+                
+                    <a href="../graphs/strongly-connected-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Strongly Connected Components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="graphs/dijkstras-algorithm.html">
+            
+                
+                    <a href="../graphs/dijkstras-algorithm.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Shortest Path Problems and Dijkstra’s Algorithm
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="graphs/prims-spanning-tree-algorithm.md.html">
+            
+            <span><b>9.12.</b> Prims Spanning Tree Algorithm</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Algorithms and Data Structures with Python</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="-coding-utf-8">-<em>- coding: utf-8 -</em>-</h1>
+<h1 id="-litpy">-<em>- litpy -</em>-</h1>
+<p>&quot;&quot;&quot;</p>
+<h1 id="the-knight%E2%80%99s-tour-problem">The Knight&#x2019;s Tour Problem</h1>
+<p>The &#x201C;<a href="https://en.wikipedia.org/wiki/Knight%27s_tour" target="_blank">knight&#x2019;s tour</a>&#x201D; is
+a classic problem in graph theory, first posed over 1,000 years ago and
+pondered by legendary mathematicians including Leonhard Euler before
+finally being solved in 1823. We will use the knight&#x2019;s tour problem to
+illustrate a second common graph algorithm called depth first search.</p>
+<p>The knight&#x2019;s tour puzzle is played on a chess board with a single chess
+piece, the knight. The object of the puzzle is to find a sequence of
+moves that allow the knight to visit every square on the board exactly
+once, like so:</p>
+<p><figure><img src="figures/knights-tour.gif" alt="One possible knight&#x2019;s tour"><figcaption>One possible knight&#x2019;s tour</figcaption></figure></p>
+<p>One such sequence is called a &#x201C;tour.&#x201D; The upper bound on the
+number of possible legal tours for an eight-by-eight chessboard is known
+to be <script type="math/tex; ">1.305 \times 10^{35}</script>; however, there are even more possible
+dead ends. Clearly this is a problem that requires some real brains,
+some real computing power, or both.</p>
+<p>Once again we will solve the problem using two main steps:</p>
+<ul>
+<li>Represent the legal moves of a knight on a chessboard as a graph.</li>
+<li>Use a graph algorithm to find a path where every vertex on the graph
+is visited exactly once.</li>
+</ul>
+<h2 id="building-the-knight%E2%80%99s-tour-graph">Building the Knight&#x2019;s Tour Graph</h2>
+<p>To represent the knight&#x2019;s tour problem as a graph we will use the
+following two ideas: Each square on the chessboard can be represented as
+a node in the graph. Each legal move by the knight can be represented as
+an edge in the graph.</p>
+<p>We will use a Python dictionary to hold our graph, with the keys being
+tuples of coordinates representing the squares of the board, and the
+values being sets representing the valid squares to which a knight can
+move from that square.</p>
+<p>To build the full graph for an n-by-n board we can use the Python
+function shown below. The <code>build_graph</code> function makes one pass
+over the entire board. At each square on the board the
+<code>build_graph</code> function calls a helper generator, <code>legal_moves_from</code>, to
+generate a list of legal moves for that position on the board. All legal
+moves are then made into undirected edges of the graph by adding the
+vertices appropriately to one anothers sets of legal moves.
+&quot;&quot;&quot;</p>
+<p>from collections import defaultdict</p>
+<p>def add_edge(graph, vertex_a, vertex_b):
+    graph[vertex_a].add(vertex_b)
+    graph[vertex_b].add(vertex_a)</p>
+<p>def build_graph(board_size):
+    graph = defaultdict(set)
+    for row in range(board_size):
+        for col in range(board_size):
+            for to_row, to_col in legal_moves_from(row, col, board_size):
+                add_edge(graph, (row, col), (to_row, to_col))
+    return graph</p>
+<p>&quot;&quot;&quot;
+The <code>legal_moves_from</code> generator below takes the position of the knight
+on the board and yields any of the eight possible moves that are still
+on the board.
+&quot;&quot;&quot;</p>
+<p>MOVE_OFFSETS = (
+              (-1, -2), ( 1, -2),
+    (-2, -1),                     ( 2, -1),
+    (-2,  1),                     ( 2,  1),
+              (-1,  2), ( 1,  2),
+)</p>
+<p>def legal_moves_from(row, col, board_size):
+    for row_offset, col_offset in MOVE_OFFSETS:
+        move_row, move_col = row + row_offset, col + col_offset
+        if 0 &lt;= move_row &lt; board_size and 0 &lt;= move_col &lt; board_size:
+            yield move_row, move_col</p>
+<p>&quot;&quot;&quot;
+The illustration below shows the complete graph of possible
+moves on an eight-by-eight board. There are exactly 336 edges in the
+graph. Notice that the vertices corresponding to the edges of the board
+have fewer connections (legal moves) than the vertices in the middle of
+the board. Once again we can see how sparse the graph is. If the graph
+was fully connected there would be 4,096 edges. Since there are only 336
+edges, the adjacency matrix would be only 8.2 percent full.</p>
+<p><figure><img src="figures/knights-tour-legal-moves.png" alt="All Legal Moves for a Knight on an 8x8 Chessboard"><figcaption>All Legal Moves for a Knight on an 8x8 Chessboard</figcaption></figure></p>
+<h2 id="implementing-knight%E2%80%99s-tour">Implementing Knight&#x2019;s Tour</h2>
+<p>The search algorithm we will use to solve the knight&#x2019;s tour problem is
+called <strong>depth first search</strong> (<strong>DFS</strong>). Whereas the breadth first
+search algorithm discussed in the previous section builds a search tree
+one level at a time, a depth first search creates a search tree by
+exploring one branch of the tree as deeply as possible.</p>
+<p>The depth first exploration of the graph is exactly what we need in
+order to find a path that has exactly 63 edges. We will see that when
+the depth first search algorithm finds a dead end (a place in the graph
+where there are no more moves possible) it backs up the tree to the next
+deepest vertex that allows it to make a legal move.</p>
+<p>The <code>find_solution_for</code> function takes just two arguments: a <code>board_size</code>
+argument and a heuristic function, which you should ignore for now but
+to which we will return.</p>
+<p>It then constructs a graph using the <code>build_graph</code> function described
+above, and for each vertex in the graph attempts to traverse depth first
+by way of the <code>traverse</code> function.</p>
+<p>The <code>traverse</code> function is a little more interesting. It accepts a path,
+as a list as a list of coordinates, as well as the vertex currently
+being considered. If the traversal has proceeded deep enough that we
+know that every square has been visited once, then we return the full
+path traversed.</p>
+<p>Otherwise, we use our graph to look up the legal moves from the current
+vertex, and exclude the vertices that we know have already been visited,
+to determine the vertices that are <code>yet_to_visit</code>. At this point we
+recursively call traverse with each of the vertices to visit, along with
+the path to reach that vertex including the current vertex. If any of
+the recursive calls return a path, then that path is the return value of
+the outer call, otherwise we return None.
+&quot;&quot;&quot;</p>
+<p>def first_true(sequence):
+    for item in sequence:
+        if item:
+            return item
+    return None</p>
+<p>def find_solution_for(board_size, heuristic=lambda graph: None):
+    graph = build_graph(board_size)
+    total_squares = board_size * board_size</p>
+<pre><code>def traverse(path, current_vertex):
+    if len(path) + 1 == total_squares:
+        # including the current square, we&apos;ve visited every square,
+        # so return the path as a solution
+        return path + [current_vertex]
+
+    yet_to_visit = graph[current_vertex] - set(path)
+    if not yet_to_visit:
+        # no unvisited neighbors, so dead end
+        return False
+
+    # try all valid paths from here
+    next_vertices = sorted(yet_to_visit, heuristic(graph))
+    return first_true(traverse(path + [current_vertex], vertex)
+                      for vertex in next_vertices)
+
+# try to find a solution from any square on the board
+return first_true(traverse([], starting_vertex)
+                  for starting_vertex in graph)
+</code></pre><h1 id="find-solution-for-5-1-3-0-1-2-0-4-1-2-2">find_solution_for(5)  # =&gt; [(1, 3), (0, 1), (2, 0), (4, 1), (2, 2), ... ]</h1>
+<p>&quot;&quot;&quot;
+Let&#x2019;s look at a simple example of an equivalent of this <code>traverse</code>
+function in action.</p>
+<p><figure><img src="figures/ktdfsa.png" alt="Start with vertex A"><figcaption>Start with vertex A</figcaption></figure></p>
+<p><figure><img src="figures/ktdfsb.png" alt="Explore B"><figcaption>Explore B</figcaption></figure></p>
+<p><figure><img src="figures/ktdfsc.png" alt="Vertex C is a dead end"><figcaption>Vertex C is a dead end</figcaption></figure></p>
+<p><figure><img src="figures/ktdfsd.png" alt="Backtrack to B"><figcaption>Backtrack to B</figcaption></figure></p>
+<p><figure><img src="figures/ktdfse.png" alt="Explore D"><figcaption>Explore D</figcaption></figure></p>
+<p><figure><img src="figures/ktdfsf.png" alt="Explore E"><figcaption>Explore E</figcaption></figure></p>
+<p><figure><img src="figures/ktdfsg.png" alt="Explore F"><figcaption>Explore F</figcaption></figure></p>
+<p><figure><img src="figures/ktdfsh.png" alt="Finish"><figcaption>Finish</figcaption></figure></p>
+<p>It is remarkable that our choice of data structure and
+algorithm has allowed us to straightforwardly solve a problem that
+remained impervious to thoughtful mathematical investigation for
+centuries.</p>
+<p>With some modification, the algorithm can also be used to discover
+one of a number of &#x201C;closed&#x201D; (circular) tours, which can therefore be
+started at any square of the board:</p>
+<p><figure><img src="figures/knights-tour-closed.png" alt="A Closed Tour"><figcaption>A Closed Tour</figcaption></figure></p>
+<h2 id="knight%E2%80%99s-tour-analysis">Knight&#x2019;s Tour Analysis</h2>
+<p>There is one last interesting topic regarding the knight&#x2019;s tour problem,
+then we will move on to the general version of the depth first search.
+The topic is performance. In particular, our algorithm is very sensitive
+to the method you use to select the next vertex to visit. For example,
+on a five-by-five board you can produce a path in about 1.5 seconds on a
+reasonably fast computer. But what happens if you try an eight-by-eight
+board? In this case, depending on the speed of your computer, you may
+have to wait up to a half hour to get the results! The reason for this
+is that the knight&#x2019;s tour problem as we have implemented it so far is an
+exponential algorithm of size <script type="math/tex; ">O(k^N)</script>, where N is the number of squares
+on the chess board, and k is a small constant.
+The diagram below can help us visualize why this is so.</p>
+<p><figure><img src="figures/8-array-tree.png" alt="A Search Tree for the Knight&#x2019;s Tour"><figcaption>A Search Tree for the Knight&#x2019;s Tour</figcaption></figure></p>
+<p>The root of the tree represents the starting point of the search. From
+there the algorithm generates and checks each of the possible moves the
+knight can make. As we have noted before the number of moves possible
+depends on the position of the knight on the board. In the corners there
+are only two legal moves, on the squares adjacent to the corners there
+are three and in the middle of the board there are eight. The diagram
+below shows the number of moves possible for each position on a board.
+At the next level of the tree there are once again between 2 and 8
+possible next moves from the position we are currently exploring. The
+number of possible positions to examine corresponds to the number of
+nodes in the search tree.</p>
+<p><figure><img src="figures/move-count.png" alt="Number of Possible Moves for Each Square"><figcaption>Number of Possible Moves for Each Square</figcaption></figure></p>
+<p>We have already seen that the number of nodes in a binary tree of height
+N is <script type="math/tex; ">2^{N+1}-1</script>. For a tree with nodes that may have up to eight
+children instead of two the number of nodes is much larger. Because the
+branching factor of each node is variable, we could estimate the number
+of nodes using an average branching factor. The important thing to note
+is that this algorithm is exponential: <script type="math/tex; ">k^{N+1}-1</script>, where <script type="math/tex; ">k</script> is the
+average branching factor for the board. Let&#x2019;s look at how rapidly this
+grows! For a board that is 5x5 the tree will be 25 levels deep, or N =
+24 counting the first level as level 0. The average branching factor is
+<script type="math/tex; ">k = 3.8</script> So the number of nodes in the search tree is <script type="math/tex; ">3.8^{25}-1</script> or
+<script type="math/tex; ">3.12 \times 10^{14}</script>. For a 6x6 board, <script type="math/tex; ">k = 4.4</script>, there are <script type="math/tex; ">1.5
+\times 10^{23}</script> nodes, and for a regular 8x8 chess board, <script type="math/tex; ">k = 5.25</script>,
+there are <script type="math/tex; ">1.3 \times 10^{46}</script>. Of course, since there are multiple
+solutions to the problem we won&#x2019;t have to explore every single node, but
+the fractional part of the nodes we do have to explore is just a
+constant multiplier which does not change the exponential nature of the
+problem. We will leave it as an exercise for you to see if you can
+express <script type="math/tex; ">k</script> as a function of the board size.</p>
+<p>Luckily there is a way to speed up the eight-by-eight case so that it
+runs in under one second. In the code sample below we show the code that
+speeds up the <code>traverse</code>. This function, called <code>warnsdorffs_heuristic</code>
+when passed as the heuristic function to <code>find_solution_for</code> above will
+cause the <code>next_vertices</code> to be sorted prioritizing those who which have
+the <em>fewest</em> subsequent legal moves.</p>
+<p>This may seem counterintutitive; why not select the node that has the
+<em>most</em> available moves? The problem with using the vertex with the most
+available moves as your next vertex on the path is that it tends to have
+the knight visit the middle squares early on in the tour. When this
+happens it is easy for the knight to get stranded on one side of the
+board where it cannot reach unvisited squares on the other side of the
+board. On the other hand, visiting the squares with the fewest available
+moves first pushes the knight to visit the squares around the edges of
+the board first. This ensures that the knight will visit the hard-to-
+reach corners early and can use the middle squares to hop across the
+board only when necessary. Utilizing this kind of knowledge to speed up
+an algorithm is called a heuristic. Humans use heuristics every day to
+help make decisions, heuristic searches are often used in the field of
+artificial intelligence. This particular heuristic is called
+Warnsdorff&#x2019;s heuristic, named after H. C. Warnsdorff who published his
+idea in 1823, becoming the first person to describe a procedure to
+complete the knight&#x2019;s tour.
+&quot;&quot;&quot;</p>
+<p>def warnsdorffs_heuristic(graph):
+    &quot;&quot;&quot;
+    Given a graph, return a comparator function that prioritizes nodes
+    with the fewest subsequent moves
+    &quot;&quot;&quot;
+    def comparator(a, b):
+        return len(graph[a]) - len(graph[b])</p>
+<pre><code>return comparator
+</code></pre><h1 id="find-solution-for-8-warnsdorffs-heuristic">find_solution_for(8, warnsdorffs_heuristic)</h1>
+<h1 id="-7-3-6-1-4-0-2-1-0-0-1-2">=&gt; [(7, 3), (6, 1), (4, 0), (2, 1), (0, 0), (1, 2), ... ]</h1>
+<p>&quot;&quot;&quot;
+For fun, here is a very large (<script type="math/tex; ">130 \times 130</script>) open knight&#x2019;s
+tour created using Warnsdorff&#x2019;s heuristic:</p>
+<p><figure><img src="figures/knights-tour-130.png" alt="130x130 Open Tour"><figcaption>130x130 Open Tour</figcaption></figure>
+&quot;&quot;&quot;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../graphs/word-ladder.html" class="navigation navigation-prev " aria-label="Previous page: The Word Ladder Problem"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../graphs/depth-first-search.html" class="navigation navigation-next " aria-label="Next page: General Depth First Search"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ungrey/ungrey.js"></script>
+    
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax-beta/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"image-captions":{"caption":"_CAPTION_"},"mathjax":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

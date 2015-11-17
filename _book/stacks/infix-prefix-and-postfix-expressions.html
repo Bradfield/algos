@@ -1,0 +1,1680 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Infix, Prefix, Postfix | Algorithms and Data Structures with Python</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.1">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+        <link rel="stylesheet" href="../website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../queues/what-is-a-queue.html" />
+    
+    
+    <link rel="prev" href="../stacks/converting-number-bases.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2.7" data-basepath=".." data-revision="Mon Nov 02 2015 12:27:07 GMT-0800 (PST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Analysis</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="analysis/introduction.html">
+            
+                
+                    <a href="../analysis/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Introduction to Algorithm Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="analysis/big-o-notation.html">
+            
+                
+                    <a href="../analysis/big-o-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Big-O Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="analysis/an-anagram-detection-example.html">
+            
+                
+                    <a href="../analysis/an-anagram-detection-example.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        An Anagram Detection Example
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="analysis/performance-of-python-types.html">
+            
+                
+                    <a href="../analysis/performance-of-python-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Performance of Python Types
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Stacks</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="stacks/what-is-a-stack.html">
+            
+                
+                    <a href="../stacks/what-is-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        What is a Stack?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="stacks/the-stack-abstract-data-type.html">
+            
+                
+                    <a href="../stacks/the-stack-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        The Stack Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="stacks/implementing-a-stack.html">
+            
+                
+                    <a href="../stacks/implementing-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Implementing a Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="stacks/simple-balanced-parentheses.html">
+            
+                
+                    <a href="../stacks/simple-balanced-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Simple Balanced Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="stacks/balanced-symbols.html">
+            
+                
+                    <a href="../stacks/balanced-symbols.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Balanced Symbols
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="stacks/converting-number-bases.html">
+            
+                
+                    <a href="../stacks/converting-number-bases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Converting Number Bases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.7" data-path="stacks/infix-prefix-and-postfix-expressions.html">
+            
+                
+                    <a href="../stacks/infix-prefix-and-postfix-expressions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Infix, Prefix, Postfix
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Queues</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="queues/what-is-a-queue.html">
+            
+                
+                    <a href="../queues/what-is-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        What is a Queue?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="queues/the-queue-abstract-data-type.html">
+            
+                
+                    <a href="../queues/the-queue-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        The Queue Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="queues/implementing-a-queue.html">
+            
+                
+                    <a href="../queues/implementing-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Implementing a Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="queues/simulating-hot-potato.html">
+            
+                
+                    <a href="../queues/simulating-hot-potato.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Simulating Hot Potato
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Deques</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="deques/what-is-a-deque.html">
+            
+                
+                    <a href="../deques/what-is-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        What is a Deque?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="deques/the-deque-abstract-data-type.html">
+            
+                
+                    <a href="../deques/the-deque-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        The Deque Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="deques/implementing-a-deque.html">
+            
+                
+                    <a href="../deques/implementing-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Implementing a Deque
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="deques/palindrome-checker.html">
+            
+                
+                    <a href="../deques/palindrome-checker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Palindrome Checker
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Lists</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="lists/what-is-a-list.html">
+            
+                
+                    <a href="../lists/what-is-a-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        What is a List?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="lists/the-unordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-unordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        The Unordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="lists/implementing-an-unordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-unordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Implementing an Unordered List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="lists/the-ordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-ordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        The Ordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="lists/implementing-an-ordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-ordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Implementing an Ordered List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Recursion</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="recursion/what-is-recursion.html">
+            
+                
+                    <a href="../recursion/what-is-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        What is Recursion?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="recursion/calculating-the-sum-of-a-list-of-numbers.html">
+            
+                
+                    <a href="../recursion/calculating-the-sum-of-a-list-of-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Calculating the Sum of a List of Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="recursion/the-three-laws-of-recursion.html">
+            
+                
+                    <a href="../recursion/the-three-laws-of-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        The Three Laws of Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="recursion/converting-an-integer-to-a-string.html">
+            
+                
+                    <a href="../recursion/converting-an-integer-to-a-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Converting an Integer to a String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="recursion/stack-frames-implementing-recursion.html">
+            
+                
+                    <a href="../recursion/stack-frames-implementing-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Stack Frames Implementing Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="recursion/tower-of-hanoi.html">
+            
+                
+                    <a href="../recursion/tower-of-hanoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Tower of Hanoi
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="recursion/dynamic-programming.html">
+            
+                
+                    <a href="../recursion/dynamic-programming.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Dynamic Programming
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" >
+            
+            <span><b>7.</b> Searching</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="searching/searching.html">
+            
+                
+                    <a href="../searching/searching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Searching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="searching/the-sequential-search.html">
+            
+                
+                    <a href="../searching/the-sequential-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        The Sequential Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="searching/the-binary-search.html">
+            
+                
+                    <a href="../searching/the-binary-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        The Binary Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="searching/hashing.html">
+            
+                
+                    <a href="../searching/hashing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Hashing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="searching/the-map-abstract-data-type.html">
+            
+                
+                    <a href="../searching/the-map-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        The Map Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" >
+            
+            <span><b>8.</b> Trees and Tree Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="trees/introduction.html">
+            
+                
+                    <a href="../trees/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="trees/examples-of-trees.html">
+            
+                
+                    <a href="../trees/examples-of-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Examples of Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="trees/vocabulary-and-definitions.html">
+            
+                
+                    <a href="../trees/vocabulary-and-definitions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Vocabulary and Definitions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="trees/list-of-lists-representation.html">
+            
+                
+                    <a href="../trees/list-of-lists-representation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        List of Lists Representation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="trees/nodes-and-references.html">
+            
+                
+                    <a href="../trees/nodes-and-references.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        Nodes and References
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="trees/parse-tree.html">
+            
+                
+                    <a href="../trees/parse-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        Parse Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="trees/tree-traversals.html">
+            
+                
+                    <a href="../trees/tree-traversals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Tree Traversals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="trees/priority-queues-with-binary-heaps.html">
+            
+                
+                    <a href="../trees/priority-queues-with-binary-heaps.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        Priority Queues with Binary Heaps
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="trees/binary-heap-implementation.html">
+            
+                
+                    <a href="../trees/binary-heap-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Binary Heap Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="trees/binary-search-trees.html">
+            
+                
+                    <a href="../trees/binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.11" data-path="trees/search-tree-implementation.html">
+            
+                
+                    <a href="../trees/search-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Search Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="trees/search-tree-analysis.html">
+            
+                
+                    <a href="../trees/search-tree-analysis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Search Tree Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="trees/balanced-binary-search-trees.html">
+            
+                
+                    <a href="../trees/balanced-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        Balanced Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14" data-path="trees/avl-tree-implementation.html">
+            
+                
+                    <a href="../trees/avl-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        AVL Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.15" data-path="trees/summary-of-map-adt-implementations.html">
+            
+                
+                    <a href="../trees/summary-of-map-adt-implementations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.15.</b>
+                        
+                        Summary of Map ADT Implementations
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> Graphs and Graph Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="graphs/introduction.html">
+            
+                
+                    <a href="../graphs/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="graphs/the-graph-abstract-data-type.html">
+            
+                
+                    <a href="../graphs/the-graph-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        The Graph Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="graphs/an-adjacency-matrix.html">
+            
+                
+                    <a href="../graphs/an-adjacency-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        An Adjacency Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="graphs/an-adjacency-list.html">
+            
+                
+                    <a href="../graphs/an-adjacency-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        An Adjacency List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="graphs/implementation.html">
+            
+                
+                    <a href="../graphs/implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="graphs/word-ladder.html">
+            
+                
+                    <a href="../graphs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        The Word Ladder Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.7" data-path="graphs/knights-tour.html">
+            
+                
+                    <a href="../graphs/knights-tour.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        The Knight’s Tour Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="graphs/depth-first-search.html">
+            
+                
+                    <a href="../graphs/depth-first-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        General Depth First Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="graphs/topological-sorting.html">
+            
+                
+                    <a href="../graphs/topological-sorting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Topological Sorting
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="graphs/strongly-connected-components.html">
+            
+                
+                    <a href="../graphs/strongly-connected-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Strongly Connected Components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="graphs/dijkstras-algorithm.html">
+            
+                
+                    <a href="../graphs/dijkstras-algorithm.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Shortest Path Problems and Dijkstra’s Algorithm
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="graphs/prims-spanning-tree-algorithm.md.html">
+            
+            <span><b>9.12.</b> Prims Spanning Tree Algorithm</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Algorithms and Data Structures with Python</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</h1>
+<p>When you write an arithmetic expression such as <code>B * C</code>, the form of the
+expression provides you with information so that you can interpret it
+correctly. In this case we know that the variable <code>B</code> is being multiplied
+by the variable <code>C</code> since the multiplication operator <code>*</code> appears between
+them in the expression. This type of notation is referred to as
+<em>infix</em> since the operator is <em>in between</em> the two operands that it is
+working on.</p>
+<p>Consider another infix example, <code>A + B * C</code>. The operators + and * still
+appear between the operands, but there is a problem. Which operands do
+they work on? Does the <code>+</code> work on <code>A</code> and <code>B</code> or does the <code>*</code> take <code>B</code> and <code>C</code>?
+The expression seems ambiguous.</p>
+<p>In fact, you have been reading and writing these types of expressions
+for a long time and they do not cause you any problem. The reason for
+this is that you know something about the operators <code>+</code> and <code>*</code>. Each
+operator has a <em>precedence</em> level. Operators of higher precedence are
+used before operators of lower precedence. The only thing that can
+change that order is the presence of parentheses. The precedence order
+for arithmetic operators places multiplication and division above
+addition and subtraction. If two operators of equal precedence appear,
+then a left-to-right ordering or associativity is used.</p>
+<p>Let&#x2019;s interpret the troublesome expression <code>A + B * C</code> using operator
+precedence. <code>B</code> and <code>C</code> are multiplied first, and <code>A</code> is then added to that
+result. <code>(A + B) * C</code> would force the addition of <code>A</code> and <code>B</code> to be done
+first before the multiplication. In expression <code>A + B + C</code>, by precedence
+(via associativity), the leftmost <code>+</code> would be done first.</p>
+<p>Although all this may be obvious to you, remember that computers need to
+know exactly what operators to perform and in what order. One way to
+write an expression that guarantees there will be no confusion with
+respect to the order of operations is to create what is called a <em>fully
+parenthesized</em> expression. This type of expression uses one pair of
+parentheses for each operator. The parentheses dictate the order of
+operations; there is no ambiguity. There is also no need to remember any
+precedence rules.</p>
+<p>The expression <code>A + B * C + D</code> can be rewritten as <code>((A + (B * C)) + D)</code>
+to show that the multiplication happens first, followed by the leftmost
+addition. <code>A + B + C + D</code> can be written as <code>(((A + B) + C) + D)</code> since the
+addition operations associate from left to right.</p>
+<p>There are two other very important expression formats that may not seem
+obvious to you at first. Consider the infix expression <code>A + B</code>. What would
+happen if we moved the operator before the two operands? The resulting
+expression would be <code>+ A B</code>. Likewise, we could move the operator to the
+end. We would get <code>A B +</code>. These look a bit strange.</p>
+<p>These changes to the position of the operator with respect to the
+operands create two new expression formats, <em>prefix</em> and <em>postfix</em>.
+Prefix expression notation requires that all operators precede the two
+operands that they work on. Postfix, on the other hand, requires that
+its operators come after the corresponding operands. A few more examples
+should help to make this a bit clearer:</p>
+<table>
+<thead>
+<tr>
+<th>Infix expression</th>
+<th>Prefix expression</th>
+<th>Postfix expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A + B</code></td>
+<td><code>+ A B</code></td>
+<td><code>A B +</code></td>
+</tr>
+<tr>
+<td><code>A + B * C</code></td>
+<td><code>+ A * B C</code></td>
+<td><code>A B C * +</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>A + B * C</code> would be written as <code>+ A * B C</code> in prefix. The multiplication
+operator comes immediately before the operands <code>B</code> and <code>C</code>, denoting that <code>*</code>
+has precedence over <code>+</code>. The addition operator then appears before the <code>A</code>
+and the result of the multiplication.</p>
+<p>In postfix, the expression would be <code>A B C * +</code>. Again, the order of
+operations is preserved since the <code>*</code> appears immediately after the <code>B</code> and
+the <code>C</code>, denoting that <code>*</code> has precedence, with <code>+</code> coming after. Although
+the operators moved and now appear either before or after their
+respective operands, the order of the operands stayed exactly the same
+relative to one another.</p>
+<p>Now consider the infix expression <code>(A + B) * C</code>. Recall that in this
+case, infix requires the parentheses to force the performance of the
+addition before the multiplication. However, when <code>A + B</code> was written in
+prefix, the addition operator was simply moved before the operands, <code>+ A
+B</code>. The result of this operation becomes the first operand for the
+multiplication. The multiplication operator is moved in front of the
+entire expression, giving us <code>* + A B C</code>. Likewise, in postfix <code>A B +</code>
+forces the addition to happen first. The multiplication can be done to
+that result and the remaining operand <code>C</code>. The proper postfix expression
+is then <code>A B + C *</code>.</p>
+<p>Consider these three expressions again. Something very important has happened.
+Where did the parentheses go? Why don&#x2019;t we need them in prefix and
+postfix? The answer is that the operators are no longer ambiguous with
+respect to the operands that they work on. Only infix notation requires
+the additional symbols. The order of operations within prefix and
+postfix expressions is completely determined by the position of the
+operator and nothing else. In many ways, this makes infix the least
+desirable notation to use.</p>
+<table>
+<thead>
+<tr>
+<th>Infix expression</th>
+<th>Prefix expression</th>
+<th>Postfix expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(A + B) * C</code></td>
+<td><code>* + A B C</code></td>
+<td><code>A B + C *</code></td>
+</tr>
+</tbody>
+</table>
+<p>The table below shows some additional examples of infix
+expressions and the equivalent prefix and postfix expressions. Be sure
+that you understand how they are equivalent in terms of the order of the
+operations being performed.</p>
+<table>
+<thead>
+<tr>
+<th>Infix expression</th>
+<th>Prefix expression</th>
+<th>Postfix expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A + B * C + D</code></td>
+<td><code>+ + A * B C D</code></td>
+<td><code>A B C * + D +</code></td>
+</tr>
+<tr>
+<td><code>(A + B) * (C + D)</code></td>
+<td><code>* + A B + C D</code></td>
+<td><code>A B + C D + *</code></td>
+</tr>
+<tr>
+<td><code>A * B + C * D</code></td>
+<td><code>+ * A B * C D</code></td>
+<td><code>A B * C D * +</code></td>
+</tr>
+<tr>
+<td><code>A + B + C + D</code></td>
+<td><code>+ + + A B C D</code></td>
+<td><code>A B + C + D +</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="conversion-of-infix-expressions-to-prefix-and-postfix">Conversion of Infix Expressions to Prefix and Postfix</h2>
+<p>So far, we have used ad hoc methods to convert between infix expressions
+and the equivalent prefix and postfix expression notations. As you might
+expect, there are algorithmic ways to perform the conversion that allow
+any expression of any complexity to be correctly transformed.</p>
+<p>The first technique that we will consider uses the notion of a fully
+parenthesized expression that was discussed earlier. Recall that <code>A + B * C</code> can be written as <code>(A + (B * C))</code> to show explicitly that the
+multiplication has precedence over the addition. On closer observation,
+however, you can see that each parenthesis pair also denotes the
+beginning and the end of an operand pair with the corresponding operator
+in the middle.</p>
+<p>Look at the right parenthesis in the subexpression <code>(B * C)</code> above. If we
+were to move the multiplication symbol to that position and remove the
+matching left parenthesis, giving us <code>B C *</code>, we would in effect have
+converted the subexpression to postfix notation. If the addition
+operator were also moved to its corresponding right parenthesis position
+and the matching left parenthesis were removed, the complete postfix
+expression would result.</p>
+<p><figure><img src="figures/move-right.png" alt="Moving Operators to the Right for Postfix Notation"><figcaption>Moving Operators to the Right for Postfix Notation</figcaption></figure></p>
+<p>If we do the same thing but instead of moving the symbol to the position
+of the right parenthesis, we move it to the left, we get prefix notation
+(below). The position of the parenthesis pair is actually a clue to the
+final position of the enclosed operator.</p>
+<p><figure><img src="figures/move-left.png" alt="Moving Operators to the Left for Prefix Notation"><figcaption>Moving Operators to the Left for Prefix Notation</figcaption></figure></p>
+<p>So in order to convert an expression, no matter how complex, to either
+prefix or postfix notation, fully parenthesize the expression using the
+order of operations. Then move the enclosed operator to the position of
+either the left or the right parenthesis depending on whether you want
+prefix or postfix notation.</p>
+<p>Here is a more complex expression: <code>A + B) * C - (D - E) * (F + G)</code>:</p>
+<p><figure><img src="figures/complex-move.png" alt="Converting a Complex Expression to Prefix and Postfix Notations"><figcaption>Converting a Complex Expression to Prefix and Postfix Notations</figcaption></figure></p>
+<h2 id="general-infix-to-postfix-conversion">General Infix-to-Postfix Conversion</h2>
+<p>We need to develop an algorithm to convert any infix expression to a
+postfix expression. To do this we will look closer at the conversion
+process.</p>
+<p>Consider once again the expression <code>A + B * C</code>. As shown above, <code>A B C * +</code> is the postfix equivalent. We have already noted that the operands <code>A</code>,
+<code>B</code>, and <code>C</code> stay in their relative positions. It is only the operators that
+change position. Let&#x2019;s look again at the operators in the infix
+expression. The first operator that appears from left to right is <code>+</code>.
+However, in the postfix expression, <code>+</code> is at the end since the next
+operator, <code>*</code>, has precedence over addition. The order of the operators
+in the original expression is reversed in the resulting postfix
+expression.</p>
+<p>As we process the expression, the operators have to be saved somewhere
+since their corresponding right operands are not seen yet. Also, the
+order of these saved operators may need to be reversed due to their
+precedence. This is the case with the addition and the multiplication in
+this example. Since the addition operator comes before the
+multiplication operator and has lower precedence, it needs to appear
+after the multiplication operator is used. Because of this reversal of
+order, it makes sense to consider using a stack to keep the operators
+until they are needed.</p>
+<p>What about <code>(A + B) * C</code>? Recall that <code>A B + C *</code> is the postfix
+equivalent. Again, processing this infix expression from left to right,
+we see <code>+</code> first. In this case, when we see <code>*</code>, <code>+</code> has already been placed
+in the result expression because it has precedence over <code>*</code> by virtue of
+the parentheses. We can now start to see how the conversion algorithm
+will work. When we see a left parenthesis, we will save it to denote
+that another operator of high precedence will be coming. That operator
+will need to wait until the corresponding right parenthesis appears to
+denote its position (recall the fully parenthesized technique). When
+that right parenthesis does appear, the operator can be popped from the
+stack.</p>
+<p>As we scan the infix expression from left to right, we will use a stack
+to keep the operators. This will provide the reversal that we noted in
+the first example. The top of the stack will always be the most recently
+saved operator. Whenever we read a new operator, we will need to
+consider how that operator compares in precedence with the operators, if
+any, already on the stack.</p>
+<p>Assume the infix expression is a string of tokens delimited by spaces.
+The operator tokens are <code>*</code>, <code>/</code>, <code>+</code>, and <code>-</code>, along with the left and right
+parentheses, <code>(</code> and <code>)</code>. The operand tokens are the single-character
+identifiers <code>A</code>, <code>B</code>, <code>C</code>, and so on. The following steps will produce a
+string of tokens in postfix order.</p>
+<ol>
+<li>Create an empty stack called <code>operation_stack</code> for keeping operators. Create
+an empty list for output.</li>
+<li>Convert the input infix string to a list by using the string method
+<code>split</code>.</li>
+<li><p>Scan the token list from left to right.</p>
+<ul>
+<li>If the token is an operand, append it to the end of the
+output list.</li>
+<li>If the token is a left parenthesis, push it on the <code>operation_stack</code>.</li>
+<li>If the token is a right parenthesis, pop the <code>operation_stack</code> until the
+corresponding left parenthesis is removed. Append each operator
+to the end of the output list.</li>
+<li>If the token is an operator, <code>*</code>, <code>/</code>, <code>+</code>, or <code>-</code>, push it on the
+<code>operation_stack</code>. However, first remove any operators already on the
+<code>operation_stack</code> that have higher or equal precedence and append them
+to the output list.</li>
+</ul>
+</li>
+<li><p>When the input expression has been completely processed, check the
+<code>operation_stack</code>. Any operators still on the stack can be removed and
+appended to the end of the output list.</p>
+</li>
+</ol>
+<p>Below we show the conversion algorithm working on
+the expression <code>A * B + C * D</code>. Note that the first <code>*</code> operator is
+removed upon seeing the <code>+</code> operator. Also, <code>+</code> stays on the stack when the
+second <code>*</code> occurs, since multiplication has precedence over addition. At
+the end of the infix expression the stack is popped twice, removing both
+operators and placing + as the last operator in the postfix expression.</p>
+<p><figure><img src="figures/into-postfix.png" alt="Converting `A * B + C * D` to Postfix Notation"><figcaption>Converting `A * B + C * D` to Postfix Notation</figcaption></figure></p>
+<p>In order to code the algorithm in Python, we will use a dictionary
+called <code>precedence</code> to hold the precedence values for the operators. This
+dictionary will map each operator to an integer that can be compared
+against the precedence levels of other operators (we have arbitrarily
+used the integers 3, 2, and 1). The left parenthesis will receive the
+lowest value possible. This way any operator that is compared against it
+will have higher precedence and will be placed on top of it.</p>
+<pre><code class="lang-python">
+PRECEDENCE <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string">&apos;*&apos;</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;/&apos;</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;+&apos;</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;-&apos;</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;(&apos;</span><span class="token punctuation">:</span> <span class="token number">1</span>
+ <span class="token punctuation">}</span>
+CHARACTERS <span class="token operator">=</span> <span class="token string">&apos;ABCDEFGHIJKLMNOPQRSTUVWXYZ&apos;</span>
+DIGITS <span class="token operator">=</span> <span class="token string">&apos;0123456789&apos;</span>
+LEFT_PAREN <span class="token operator">=</span> <span class="token string">&apos;(&apos;</span>
+RIGHT_PAREN <span class="token operator">=</span> <span class="token string">&apos;)&apos;</span>
+
+<span class="token keyword">def</span> infix_to_postfix<span class="token punctuation">(</span>infix_expression<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    operation_stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    postfix <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    tokens <span class="token operator">=</span> infix_expression<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> token <span class="token keyword">in</span> tokens<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> token <span class="token keyword">in</span> CHARACTERS <span class="token operator">or</span> token <span class="token keyword">in</span> DIGITS<span class="token punctuation">:</span>
+            postfix<span class="token punctuation">.</span>append<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> token <span class="token operator">==</span> LEFT_PAREN<span class="token punctuation">:</span>
+            operation_stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> token <span class="token operator">==</span> RIGHT_PAREN<span class="token punctuation">:</span>
+            top_token <span class="token operator">=</span> operation_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">while</span> top_token <span class="token operator">!</span><span class="token operator">=</span> LEFT_PAREN<span class="token punctuation">:</span>
+                postfix<span class="token punctuation">.</span>append<span class="token punctuation">(</span>top_token<span class="token punctuation">)</span>
+                top_token <span class="token operator">=</span> operation_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">while</span> operation_stack <span class="token operator">and</span> \
+               <span class="token punctuation">(</span>PRECEDENCE<span class="token punctuation">[</span>operation_stack<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&gt;=</span> PRECEDENCE<span class="token punctuation">[</span>token<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                  postfix<span class="token punctuation">.</span>append<span class="token punctuation">(</span>operation_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            operation_stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+
+    <span class="token keyword">while</span> operation_stack<span class="token punctuation">:</span>
+        postfix<span class="token punctuation">.</span>append<span class="token punctuation">(</span>operation_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">&apos; &apos;</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>postfix<span class="token punctuation">)</span>
+
+infix_to_postfix<span class="token punctuation">(</span><span class="token string">&apos;A * B + C * D&apos;</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; &apos;A B * C D * +&apos;
+</span>infix_to_postfix<span class="token punctuation">(</span><span class="token string">&apos;( A + B ) * C - ( D - E ) * ( F + G )&apos;</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; &apos;A B + C * D E - F G + * -&apos;
+</span>infix_top_postfix<span class="token punctuation">(</span><span class="token string">&apos;( A + B ) * ( C + D )&apos;</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; &apos;A B + C D + *&apos;
+</span>infix_top_postfix<span class="token punctuation">(</span><span class="token string">&apos;( A + B ) * C&apos;</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; &apos;A B + C *&apos;
+</span>infix_top_postfix<span class="token punctuation">(</span><span class="token string">&apos;A + B * C&apos;</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; &apos;A B C * +&apos;
+</span></code></pre>
+<h2 id="postfix-evaluation">Postfix Evaluation</h2>
+<p>As a final stack example, we will consider the evaluation of an
+expression that is already in postfix notation. In this case, a stack is
+again the data structure of choice. However, as you scan the postfix
+expression, it is the operands that must wait, not the operators as in
+the conversion algorithm above. Another way to think about the solution
+is that whenever an operator is seen on the input, the two most recent
+operands will be used in the evaluation.</p>
+<p>To see this in more detail, consider the postfix expression <code>4 5 6 * +</code>.
+As you scan the expression from left to right, you first encounter the
+operands 4 and 5. At this point, you are still unsure what to do with
+them until you see the next symbol. Placing each on the stack ensures
+that they are available if an operator comes next.</p>
+<p>In this case, the next symbol is another operand. So, as before, push it
+and check the next symbol. Now we see an operator, <code>*</code>. This means that
+the two most recent operands need to be used in a multiplication
+operation. By popping the stack twice, we can get the proper operands
+and then perform the multiplication (in this case getting the result
+30).</p>
+<p>We can now handle this result by placing it back on the stack so that it
+can be used as an operand for the later operators in the expression.
+When the final operator is processed, there will be only one value left
+on the stack. Pop and return it as the result of the expression.
+Below we show the stack contents as this entire example expression is being processed.</p>
+<p><figure><img src="figures/evaluate-postfix-1.png" alt="Stack Contents During Evaluation"><figcaption>Stack Contents During Evaluation</figcaption></figure></p>
+<p>Below we show a slightly more complex example,
+<code>7 8 + 3 2 + /</code>. There are two things to note in this example. First, the
+stack size grows, shrinks, and then grows again as the subexpressions
+are evaluated. Second, the division operation needs to be handled
+carefully. Recall that the operands in the postfix expression are in
+their original order since postfix changes only the placement of
+operators. When the operands for the division are popped from the stack,
+they are reversed. Since division is <em>not</em> a commutative operator, in
+other words <script type="math/tex; ">15/5</script> is not the same as <script type="math/tex; ">5/15</script>, we must be sure that the
+order of the operands is not switched.</p>
+<p><figure><img src="figures/evaluate-postfix-2.png" alt="A More Complex Example of Evaluation"><figcaption>A More Complex Example of Evaluation</figcaption></figure></p>
+<p>Assume the postfix expression is a string of tokens delimited by spaces.
+The operators are <code>*</code>, <code>/</code>, <code>+</code>, and <code>-</code> and the operands are assumed to be
+single-digit integer values. The output will be an integer result.</p>
+<ol>
+<li>Create an empty stack called <code>operand_stack</code>.</li>
+<li>Convert the string to a list by using the string method <code>split</code>.</li>
+<li><p>Scan the token list from left to right.</p>
+<ul>
+<li>If the token is an operand, convert it from a string to an
+integer and push the value onto the <code>operand_stack</code>.</li>
+<li>If the token is an operator, <code>*</code>, <code>/</code>, <code>+</code>, or <code>-</code>, it will need
+two operands. Pop the <code>operand_stack</code> twice. The first pop is the
+second operand and the second pop is the first operand. Perform
+the arithmetic operation. Push the result back on the
+<code>operand_stack</code>.</li>
+</ul>
+</li>
+<li><p>When the input expression has been completely processed, the result
+is on the stack. Pop the <code>operand_stack</code> and return the value.</p>
+</li>
+</ol>
+<p>The complete function for the evaluation of postfix expressions is shown below. To assist with the arithmetic, we importer the handy <code>operator</code> module from the Python standard library to specificy functions that will take two arguments and return the result of the proper arithmetic operation.</p>
+<pre><code class="lang-python"><span class="token keyword">import</span> operator
+
+OPERATION <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">&apos;*&apos;</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>mul<span class="token punctuation">,</span>
+    <span class="token string">&apos;/&apos;</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>div<span class="token punctuation">,</span>
+    <span class="token string">&apos;-&apos;</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>sub<span class="token punctuation">,</span>
+    <span class="token string">&apos;+&apos;</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span><span class="token number">add</span>
+ <span class="token punctuation">}</span>
+DIGITS <span class="token operator">=</span> <span class="token string">&apos;0123456789&apos;</span>
+
+<span class="token keyword">def</span> evaluate_postfix<span class="token punctuation">(</span>postfix_expression<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    operand_stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">for</span> token <span class="token keyword">in</span> postfix_expression<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> token <span class="token keyword">in</span> DIGITS<span class="token punctuation">:</span>
+            operand_stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>int<span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token number">b</span> <span class="token operator">=</span> operand_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token number">a</span> <span class="token operator">=</span> operand_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            result <span class="token operator">=</span> OPERATION<span class="token punctuation">[</span>token<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">a</span><span class="token punctuation">,</span> <span class="token number">b</span><span class="token punctuation">)</span>
+            operand_stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> operand_stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+evaluate_postfix<span class="token punctuation">(</span><span class="token string">&apos;7 8 + 3 2 + /&apos;</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># =&gt; 3.0
+</span></code></pre>
+<p>It is important to note that in both the postfix conversion and the
+postfix evaluation programs we assumed that there were no errors in the
+input expression. Using these programs as a starting point, you can
+easily see how error detection and reporting can be included. We leave
+this as an exercise.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../stacks/converting-number-bases.html" class="navigation navigation-prev " aria-label="Previous page: Converting Number Bases"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../queues/what-is-a-queue.html" class="navigation navigation-next " aria-label="Next page: What is a Queue?"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ungrey/ungrey.js"></script>
+    
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax-beta/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"image-captions":{"caption":"_CAPTION_"},"mathjax":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

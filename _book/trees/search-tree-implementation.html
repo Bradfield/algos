@@ -1,0 +1,1710 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Search Tree Implementation | Algorithms and Data Structures with Python</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.1">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+        <link rel="stylesheet" href="../website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../trees/search-tree-analysis.html" />
+    
+    
+    <link rel="prev" href="../trees/binary-search-trees.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="8.11" data-basepath=".." data-revision="Mon Nov 02 2015 12:27:07 GMT-0800 (PST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Analysis</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="analysis/introduction.html">
+            
+                
+                    <a href="../analysis/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Introduction to Algorithm Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="analysis/big-o-notation.html">
+            
+                
+                    <a href="../analysis/big-o-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Big-O Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="analysis/an-anagram-detection-example.html">
+            
+                
+                    <a href="../analysis/an-anagram-detection-example.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        An Anagram Detection Example
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="analysis/performance-of-python-types.html">
+            
+                
+                    <a href="../analysis/performance-of-python-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Performance of Python Types
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Stacks</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="stacks/what-is-a-stack.html">
+            
+                
+                    <a href="../stacks/what-is-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        What is a Stack?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="stacks/the-stack-abstract-data-type.html">
+            
+                
+                    <a href="../stacks/the-stack-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        The Stack Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="stacks/implementing-a-stack.html">
+            
+                
+                    <a href="../stacks/implementing-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Implementing a Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="stacks/simple-balanced-parentheses.html">
+            
+                
+                    <a href="../stacks/simple-balanced-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Simple Balanced Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="stacks/balanced-symbols.html">
+            
+                
+                    <a href="../stacks/balanced-symbols.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Balanced Symbols
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="stacks/converting-number-bases.html">
+            
+                
+                    <a href="../stacks/converting-number-bases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Converting Number Bases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="stacks/infix-prefix-and-postfix-expressions.html">
+            
+                
+                    <a href="../stacks/infix-prefix-and-postfix-expressions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Infix, Prefix, Postfix
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Queues</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="queues/what-is-a-queue.html">
+            
+                
+                    <a href="../queues/what-is-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        What is a Queue?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="queues/the-queue-abstract-data-type.html">
+            
+                
+                    <a href="../queues/the-queue-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        The Queue Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="queues/implementing-a-queue.html">
+            
+                
+                    <a href="../queues/implementing-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Implementing a Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="queues/simulating-hot-potato.html">
+            
+                
+                    <a href="../queues/simulating-hot-potato.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Simulating Hot Potato
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Deques</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="deques/what-is-a-deque.html">
+            
+                
+                    <a href="../deques/what-is-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        What is a Deque?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="deques/the-deque-abstract-data-type.html">
+            
+                
+                    <a href="../deques/the-deque-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        The Deque Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="deques/implementing-a-deque.html">
+            
+                
+                    <a href="../deques/implementing-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Implementing a Deque
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="deques/palindrome-checker.html">
+            
+                
+                    <a href="../deques/palindrome-checker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Palindrome Checker
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Lists</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="lists/what-is-a-list.html">
+            
+                
+                    <a href="../lists/what-is-a-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        What is a List?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="lists/the-unordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-unordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        The Unordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="lists/implementing-an-unordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-unordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Implementing an Unordered List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="lists/the-ordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-ordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        The Ordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="lists/implementing-an-ordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-ordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Implementing an Ordered List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Recursion</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="recursion/what-is-recursion.html">
+            
+                
+                    <a href="../recursion/what-is-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        What is Recursion?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="recursion/calculating-the-sum-of-a-list-of-numbers.html">
+            
+                
+                    <a href="../recursion/calculating-the-sum-of-a-list-of-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Calculating the Sum of a List of Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="recursion/the-three-laws-of-recursion.html">
+            
+                
+                    <a href="../recursion/the-three-laws-of-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        The Three Laws of Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="recursion/converting-an-integer-to-a-string.html">
+            
+                
+                    <a href="../recursion/converting-an-integer-to-a-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Converting an Integer to a String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="recursion/stack-frames-implementing-recursion.html">
+            
+                
+                    <a href="../recursion/stack-frames-implementing-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Stack Frames Implementing Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="recursion/tower-of-hanoi.html">
+            
+                
+                    <a href="../recursion/tower-of-hanoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Tower of Hanoi
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="recursion/dynamic-programming.html">
+            
+                
+                    <a href="../recursion/dynamic-programming.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Dynamic Programming
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" >
+            
+            <span><b>7.</b> Searching</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="searching/searching.html">
+            
+                
+                    <a href="../searching/searching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Searching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="searching/the-sequential-search.html">
+            
+                
+                    <a href="../searching/the-sequential-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        The Sequential Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="searching/the-binary-search.html">
+            
+                
+                    <a href="../searching/the-binary-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        The Binary Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="searching/hashing.html">
+            
+                
+                    <a href="../searching/hashing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Hashing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="searching/the-map-abstract-data-type.html">
+            
+                
+                    <a href="../searching/the-map-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        The Map Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" >
+            
+            <span><b>8.</b> Trees and Tree Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="trees/introduction.html">
+            
+                
+                    <a href="../trees/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="trees/examples-of-trees.html">
+            
+                
+                    <a href="../trees/examples-of-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Examples of Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="trees/vocabulary-and-definitions.html">
+            
+                
+                    <a href="../trees/vocabulary-and-definitions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Vocabulary and Definitions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="trees/list-of-lists-representation.html">
+            
+                
+                    <a href="../trees/list-of-lists-representation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        List of Lists Representation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="trees/nodes-and-references.html">
+            
+                
+                    <a href="../trees/nodes-and-references.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        Nodes and References
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="trees/parse-tree.html">
+            
+                
+                    <a href="../trees/parse-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        Parse Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="trees/tree-traversals.html">
+            
+                
+                    <a href="../trees/tree-traversals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Tree Traversals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="trees/priority-queues-with-binary-heaps.html">
+            
+                
+                    <a href="../trees/priority-queues-with-binary-heaps.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        Priority Queues with Binary Heaps
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="trees/binary-heap-implementation.html">
+            
+                
+                    <a href="../trees/binary-heap-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Binary Heap Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="trees/binary-search-trees.html">
+            
+                
+                    <a href="../trees/binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="8.11" data-path="trees/search-tree-implementation.html">
+            
+                
+                    <a href="../trees/search-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Search Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="trees/search-tree-analysis.html">
+            
+                
+                    <a href="../trees/search-tree-analysis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Search Tree Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="trees/balanced-binary-search-trees.html">
+            
+                
+                    <a href="../trees/balanced-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        Balanced Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14" data-path="trees/avl-tree-implementation.html">
+            
+                
+                    <a href="../trees/avl-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        AVL Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.15" data-path="trees/summary-of-map-adt-implementations.html">
+            
+                
+                    <a href="../trees/summary-of-map-adt-implementations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.15.</b>
+                        
+                        Summary of Map ADT Implementations
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> Graphs and Graph Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="graphs/introduction.html">
+            
+                
+                    <a href="../graphs/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="graphs/the-graph-abstract-data-type.html">
+            
+                
+                    <a href="../graphs/the-graph-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        The Graph Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="graphs/an-adjacency-matrix.html">
+            
+                
+                    <a href="../graphs/an-adjacency-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        An Adjacency Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="graphs/an-adjacency-list.html">
+            
+                
+                    <a href="../graphs/an-adjacency-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        An Adjacency List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="graphs/implementation.html">
+            
+                
+                    <a href="../graphs/implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="graphs/word-ladder.html">
+            
+                
+                    <a href="../graphs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        The Word Ladder Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.7" data-path="graphs/knights-tour.html">
+            
+                
+                    <a href="../graphs/knights-tour.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        The Knight’s Tour Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="graphs/depth-first-search.html">
+            
+                
+                    <a href="../graphs/depth-first-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        General Depth First Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="graphs/topological-sorting.html">
+            
+                
+                    <a href="../graphs/topological-sorting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Topological Sorting
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="graphs/strongly-connected-components.html">
+            
+                
+                    <a href="../graphs/strongly-connected-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Strongly Connected Components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="graphs/dijkstras-algorithm.html">
+            
+                
+                    <a href="../graphs/dijkstras-algorithm.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Shortest Path Problems and Dijkstra’s Algorithm
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="graphs/prims-spanning-tree-algorithm.md.html">
+            
+            <span><b>9.12.</b> Prims Spanning Tree Algorithm</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Algorithms and Data Structures with Python</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="search-tree-implementation">Search Tree Implementation</h1>
+<p>A binary search tree relies on the property that keys that are less than
+the parent are found in the left subtree, and keys that are greater than
+the parent are found in the right subtree. We will call this the <strong>bst
+property</strong>. As we implement the Map interface as described above, the
+bst property will guide our implementation.
+The diagram below illustrates this property of a binary
+search tree, showing the keys without any associated values. Notice that
+the property holds for each parent and child. All of the keys in the
+left subtree are less than the key in the root. All of the keys in the
+right subtree are greater than the root.</p>
+<p><figure><img src="figures/simple-binary-search-tree.png" alt="A Simple Binary Search Tree"><figcaption>A Simple Binary Search Tree</figcaption></figure></p>
+<p>Now that you know what a binary search tree is, we will look at how a
+binary search tree is constructed. The search tree above represents the nodes that exist after we
+have inserted the following keys in the order shown:
+<script type="math/tex; ">70, 31, 93, 94, 14, 23, 73</script>. Since 70 was the first key inserted into the
+tree, it is the root. Next, 31 is less than 70, so it becomes the left
+child of 70. Next, 93 is greater than 70, so it becomes the right child
+of 70. Now we have two levels of the tree filled, so the next key is
+going to be the left or right child of either 31 or 93. Since 94 is
+greater than 70 and 93, it becomes the right child of 93. Similarly 14
+is less than 70 and 31, so it becomes the left child of 31. 23 is also
+less than 31, so it must be in the left subtree of 31. However, it is
+greater than 14, so it becomes the right child of 14.</p>
+<p>To implement the binary search tree, we will use the nodes and
+references approach similar to the one we used to implement the linked
+list, and the expression tree. However, because we must be able create
+and work with a binary search tree that is empty, our implementation
+will use two classes. The first class we will call <code>BinarySearchTree</code>,
+and the second class we will call <code>TreeNode</code>. The <code>BinarySearchTree</code>
+class has a reference to the <code>TreeNode</code> that is the root of the binary
+search tree. In most cases the external methods defined in the outer
+class simply check to see if the tree is empty. If there are nodes in
+the tree, the request is just passed on to a private method defined in
+the <code>BinarySearchTree</code> class that takes the root as a parameter. In the
+case where the tree is empty or we want to delete the key at the root of
+the tree, we must take special action. The code for the
+<code>BinarySearchTree</code> class constructor along with a few other
+miscellaneous functions is shown below.</p>
+<pre><code class="lang-python"><span class="token keyword">class</span> BinarySearchTree<span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> __init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> None
+        self<span class="token punctuation">.</span>size <span class="token operator">=</span> <span class="token number">0</span>
+
+    <span class="token keyword">def</span> __len__<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>size
+
+    <span class="token keyword">def</span> __iter__<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>root<span class="token punctuation">.</span>__iter__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The <code>TreeNode</code> class provides many helper functions that make the work
+done in the <code>BinarySearchTree</code> class methods much easier. The
+constructor for a <code>TreeNode</code>, along with these helper functions, is
+shown below. As you can see, many
+of these helper functions help to classify a node according to its own
+position as a child, (left or right) and the kind of children the node
+has. The <code>TreeNode</code> class will also explicitly keep track of the parent
+as an attribute of each node. You will see why this is important when we
+discuss the implementation for the <code>del</code> operator.</p>
+<p>Another interesting aspect of the implementation of <code>TreeNode</code> below is that we use Python&#x2019;s optional parameters.
+Optional parameters make it easy for us to create a <code>TreeNode</code> under
+several different circumstances. Sometimes we will want to construct a
+new <code>TreeNode</code> that already has both a <code>parent</code> and a <code>child</code>. With an
+existing parent and child, we can pass parent and child as parameters.
+At other times we will just create a <code>TreeNode</code> with the key value pair,
+and we will not pass any parameters for <code>parent</code> or <code>child</code>. In this
+case, the default values of the optional parameters are used.</p>
+<pre><code class="lang-python"><span class="token keyword">class</span> TreeNode<span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> __init__<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> left<span class="token operator">=</span>None<span class="token punctuation">,</span> right<span class="token operator">=</span>None<span class="token punctuation">,</span> parent<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> val
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> left
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> right
+        self<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent
+
+    <span class="token keyword">def</span> is_left_child<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>parent <span class="token operator">and</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> self
+
+    <span class="token keyword">def</span> is_right_child<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>parent <span class="token operator">and</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">==</span> self
+
+    <span class="token keyword">def</span> is_leaf<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">not</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>right <span class="token operator">or</span> self<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> has_any_children<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>right <span class="token operator">or</span> self<span class="token punctuation">.</span>left
+
+    <span class="token keyword">def</span> has_both_children<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>right <span class="token operator">and</span> self<span class="token punctuation">.</span>left
+
+    <span class="token keyword">def</span> replace_node_data<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> val
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> left
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> right
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> self
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> self
+</code></pre>
+<p>Now that we have the <code>BinarySearchTree</code> shell and the <code>TreeNode</code> it is
+time to write the <code>put</code> method that will allow us to build our binary
+search tree. The <code>put</code> method is a method of the <code>BinarySearchTree</code>
+class. This method will check to see if the tree already has a root. If
+there is not a root then <code>put</code> will create a new <code>TreeNode</code> and install
+it as the root of the tree. If a root node is already in place then
+<code>put</code> calls the private, recursive, helper function <code>_put</code> to search the
+tree according to the following algorithm:</p>
+<ul>
+<li>Starting at the root of the tree, search the binary tree comparing
+the new key to the key in the current node. If the new key is less
+than the current node, search the left subtree. If the new key is
+greater than the current node, search the right subtree.</li>
+<li>When there is no left (or right) child to search, we have found the
+position in the tree where the new node should be installed.</li>
+<li>To add a node to the tree, create a new <code>TreeNode</code> object and insert
+the object at the point discovered in the previous step.</li>
+</ul>
+<p>The code below shows the Python code for inserting a new
+node in the tree. The <code>_put</code> function is written recursively following
+the steps outlined above. Notice that when a new child is inserted into
+the tree, the <code>node</code> is passed to the new tree as the parent.</p>
+<p>One important problem with our implementation of insert is that
+duplicate keys are not handled properly. As our tree is implemented a
+duplicate key will create a new node with the same key value in the
+right subtree of the node having the original key. The result of this is
+that the node with the new key will never be found during a search. A
+better way to handle the insertion of a duplicate key is for the value
+associated with the new key to replace the old value. We leave fixing
+this bug as an exercise for you.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> put<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>root<span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>size <span class="token operator">=</span> self<span class="token punctuation">.</span>size <span class="token operator">+</span> <span class="token number">1</span>
+
+<span class="token keyword">def</span> _put<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> key <span class="token operator">&lt;</span> node<span class="token punctuation">.</span>key<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+           self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+           node<span class="token punctuation">.</span>left <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+           self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+           node<span class="token punctuation">.</span>right <span class="token operator">=</span> TreeNode<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+</code></pre>
+<p>With the <code>put</code> method defined, we can easily overload the <code>[]</code> operator
+for assignment by having the <code>__setitem__</code> method call (see below) the put method.
+This allows us to write
+Python statements like <code>my_zip_tree[&apos;Plymouth&apos;] = 55446</code>, just like a
+Python dictionary.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> __setitem__<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">)</span>
+</code></pre>
+<p>The diagram below illustrates the process for inserting a new
+node into a binary search tree. The lightly shaded nodes indicate the
+nodes that were visited during the insertion process.</p>
+<p><figure><img src="figures/binary-search-tree-put.png" alt="Inserting a Node with Key = 19"><figcaption>Inserting a Node with Key = 19</figcaption></figure></p>
+<p>Once the tree is constructed, the next task is to implement the
+retrieval of a value for a given key. The <code>get</code> method is even easier
+than the <code>put</code> method because it simply searches the tree recursively
+until it gets to a non-matching leaf node or finds a matching key. When
+a matching key is found, the value stored in the val of the node is
+returned.</p>
+<p>The code below shows the code for <code>get</code>, <code>_get</code> and
+<code>__getitem__</code>. The search code in the <code>_get</code> method uses the same logic
+for choosing the left or right child as the <code>_put</code> method. Notice that
+the <code>_get</code> method returns a <code>TreeNode</code> to <code>get</code>, this allows <code>_get</code> to
+be used as a flexible helper method for other <code>BinarySearchTree</code> methods
+that may need to make use of other data from the <code>TreeNode</code> besides the
+val.</p>
+<p>By implementing the <code>__getitem__</code> method we can write a Python statement
+that looks just like we are accessing a dictionary, when in fact we are
+using a binary search tree, for example <code>z = my_zip_tree[&apos;Fargo&apos;]</code>. As you
+can see, all the <code>__getitem__</code> method does is call <code>get</code>.</p>
+<pre><code class="lang-python">  <span class="token keyword">def</span> get<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      <span class="token keyword">if</span> self<span class="token punctuation">.</span>root<span class="token punctuation">:</span>
+          result <span class="token operator">=</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+          <span class="token keyword">return</span> result <span class="token operator">and</span> result<span class="token punctuation">.</span>val <span class="token operator">or</span> None
+      <span class="token keyword">return</span> None
+
+  <span class="token keyword">def</span> _get<span class="token punctuation">(</span>self<span class="token punctuation">,</span>key<span class="token punctuation">,</span>node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      <span class="token keyword">if</span> <span class="token operator">not</span> node<span class="token punctuation">:</span>
+          <span class="token keyword">return</span> None
+      <span class="token keyword">if</span> node<span class="token punctuation">.</span>key <span class="token operator">==</span> key<span class="token punctuation">:</span>
+          <span class="token keyword">return</span> node
+      <span class="token keyword">if</span> key <span class="token operator">&lt;</span> node<span class="token punctuation">.</span>key<span class="token punctuation">:</span>
+          <span class="token keyword">return</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+      <span class="token keyword">return</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> __getitem__<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      <span class="token keyword">return</span> self<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+</code></pre>
+<p>Using <code>get</code>, we can implement the <code>in</code> operation by writing a
+<code>__contains__</code> method for the <code>BinarySearchTree</code>. The <code>__contains__</code>
+method will simply call <code>get</code> and return <code>True</code> if <code>get</code> returns a
+value, or <code>False</code> if it returns <code>None</code>. The code for <code>__contains__</code> is
+shown below.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> __contains__<span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> bool<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Recall that <code>__contains__</code> overloads the <code>in</code> operator and allows us to
+write statements such as:</p>
+<pre><code class="lang-python"><span class="token keyword">if</span> <span class="token string">&apos;Northfield&apos;</span> <span class="token keyword">in</span> my_zip_tree<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&apos;oom ya ya&apos;</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Finally, we turn our attention to the most challenging method in the
+binary search tree, the deletion of a key (see below). The first task is to find the node to
+delete by searching the tree. If the tree has more than one node we
+search using the <code>_get</code> method to find the <code>TreeNode</code> that needs to be
+removed. If the tree only has a single node, that means we are removing
+the root of the tree, but we still must check to make sure the key of
+the root matches the key that is to be deleted. In either case if the
+key is not found the <code>del</code> operator raises an error.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> delete<span class="token punctuation">(</span>self<span class="token punctuation">,</span>key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>size <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        node_to_remove <span class="token operator">=</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span>self<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> node_to_remove<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>node_to_remove<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>size <span class="token operator">=</span> self<span class="token punctuation">.</span>size<span class="token number">-1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> KeyError<span class="token punctuation">(</span><span class="token string">&apos;Error, key not in tree&apos;</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> self<span class="token punctuation">.</span>size <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">and</span> self<span class="token punctuation">.</span>root<span class="token punctuation">.</span>key <span class="token operator">==</span> key<span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> None
+        self<span class="token punctuation">.</span>size <span class="token operator">=</span> self<span class="token punctuation">.</span>size <span class="token operator">-</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> KeyError<span class="token punctuation">(</span><span class="token string">&apos;Error, key not in tree&apos;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> __delitem__<span class="token punctuation">(</span>self<span class="token punctuation">,</span>key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+</code></pre>
+<p>Once we&#x2019;ve found the node containing the key we want to delete, there
+are three cases that we must consider:</p>
+<ol>
+<li>The node to be deleted has no children</li>
+<li>The node to be deleted has only one child</li>
+<li>The node to be deleted has two children</li>
+</ol>
+<p>The first case is straightforward. If
+the current node has no children all we need to do is delete the node
+and remove the reference to this node in the parent. The code for this
+case is shown below.</p>
+<pre><code class="lang-python">    <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_leaf<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node <span class="token operator">==</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> None
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+</code></pre>
+<p><figure><img src="figures/binary-search-tree-delete-1.png" alt="Deleting Node 16, a Node without Children"><figcaption>Deleting Node 16, a Node without Children</figcaption></figure></p>
+<p>The second case is only slightly more complicated (see below). If a node
+has only a single child, then we can simply promote the child to take
+the place of its parent. The code for this case is shown in the next
+code sample. As you look at this code you will see that there are six
+cases to consider. Since the cases are symmetric with respect to either
+having a left or right child we will just discuss the case where the
+current node has a left child. The decision proceeds as follows:</p>
+<ol>
+<li>If the current node is a left child then we only need to update the
+parent reference of the left child to point to the parent of the
+current node, and then update the left child reference of the parent
+to point to the current node&#x2019;s left child.</li>
+<li>If the current node is a right child then we only need to update the
+parent reference of the right child to point to the parent of the
+current node, and then update the right child reference of the
+parent to point to the current node&#x2019;s right child.</li>
+<li>If the current node has no parent, it must be the root. In this case
+we will just replace the <code>key</code>, <code>val</code>, <code>left</code>, and
+<code>right</code> data by calling the <code>replace_node_data</code> method on
+the root.</li>
+</ol>
+<pre><code class="lang-python">    <span class="token keyword">else</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># this node has one child
+</span>       <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+          <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+              node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+              node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> node<span class="token punctuation">.</span>left
+          <span class="token keyword">elif</span> node<span class="token punctuation">.</span>is_right_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+              node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+              node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> node<span class="token punctuation">.</span>left
+          <span class="token keyword">else</span><span class="token punctuation">:</span>
+              node<span class="token punctuation">.</span>replace_node_data<span class="token punctuation">(</span>
+                  node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>key<span class="token punctuation">,</span>
+                  node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>val<span class="token punctuation">,</span>
+                  node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>left<span class="token punctuation">,</span>
+                  node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>right
+              <span class="token punctuation">)</span>
+       <span class="token keyword">else</span><span class="token punctuation">:</span>
+          <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+              node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+              node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> node<span class="token punctuation">.</span>right
+          <span class="token keyword">elif</span> node<span class="token punctuation">.</span>is_right_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+              node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+              node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> node<span class="token punctuation">.</span>right
+          <span class="token keyword">else</span><span class="token punctuation">:</span>
+              node<span class="token punctuation">.</span>replace_node_data<span class="token punctuation">(</span>
+                  node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>key<span class="token punctuation">,</span>
+                  node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>val<span class="token punctuation">,</span>
+                  node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>left<span class="token punctuation">,</span>
+                  node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>right
+              <span class="token punctuation">)</span>
+</code></pre>
+<p><figure><img src="figures/binary-search-tree-delete-2.png" alt="Deleting Node 25, a Node That Has a Single Child"><figcaption>Deleting Node 25, a Node That Has a Single Child</figcaption></figure></p>
+<p>The third case is the most difficult case to handle (see below). If a node has two children, then it is
+unlikely that we can simply promote one of them to take the node&#x2019;s
+place. We can, however, search the tree for a node that can be used to
+replace the one scheduled for deletion. What we need is a node that will
+preserve the binary search tree relationships for both of the existing
+left and right subtrees. The node that will do this is the node that has
+the next-largest key in the tree. We call this node the <strong>successor</strong>,
+and we will look at a way to find the successor shortly. The successor
+is guaranteed to have no more than one child, so we know how to remove
+it using the two cases for deletion that we have already implemented.
+Once the successor has been removed, we simply put it in the tree in
+place of the node to be deleted.</p>
+<p><figure><img src="figures/binary-search-tree-delete-3.png" alt="Deleting Node 5, a Node with Two Children"><figcaption>Deleting Node 5, a Node with Two Children</figcaption></figure></p>
+<p>The code to handle the third case is shown below. Notice
+that we make use of the helper methods <code>find_successor</code> and <code>find_min</code> to
+find the successor. To remove the successor, we make use of the method
+<code>splice_out</code>. The reason we use <code>splice_out</code> is that it goes directly to
+the node we want to splice out and makes the right changes. We could
+call <code>delete</code> recursively, but then we would waste time re-searching for
+the key node.</p>
+<pre><code class="lang-python">    <span class="token keyword">elif</span> node<span class="token punctuation">.</span>has_both_children<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">#interior
+</span>        successor <span class="token operator">=</span> node<span class="token punctuation">.</span>find_successor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        successor<span class="token punctuation">.</span>splice_out<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        node<span class="token punctuation">.</span>key <span class="token operator">=</span> successor<span class="token punctuation">.</span>key
+        node<span class="token punctuation">.</span>val <span class="token operator">=</span> successor<span class="token punctuation">.</span>val
+</code></pre>
+<p>The code to find the successor is shown below and as you can see is a method of the
+<code>TreeNode</code> class. This code makes use of the same properties of binary
+search trees that cause an inorder traversal to print out the nodes in
+the tree from smallest to largest. There are three cases to consider
+when looking for the successor:</p>
+<ol>
+<li>If the node has a right child, then the successor is the smallest
+key in the right subtree.</li>
+<li>If the node has no right child and is the left child of its parent,
+then the parent is the successor.</li>
+<li>If the node is the right child of its parent, and itself has no
+right child, then the successor to this node is the successor of its
+parent, excluding this node.</li>
+</ol>
+<p>The first condition is the only one that matters for us when deleting a
+node from a binary search tree. However, the <code>find_successor</code> method has
+other uses that we will explore in the exercises at the end of this
+section.</p>
+<p>The <code>find_min</code> method is called to find the minimum key in a subtree. You
+should convince yourself that the minimum valued key in any binary
+search tree is the leftmost child of the tree. Therefore the <code>find_min</code>
+method simply follows the <code>left</code> references in each node of the
+subtree until it reaches a node that does not have a left child.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> find_successor<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    succ <span class="token operator">=</span> None
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+        succ <span class="token operator">=</span> self<span class="token punctuation">.</span>right<span class="token punctuation">.</span>find_min<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                succ <span class="token operator">=</span> self<span class="token punctuation">.</span>parent
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+                succ <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>find_successor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> self
+    <span class="token keyword">return</span> succ
+
+<span class="token keyword">def</span> find_min<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    current <span class="token operator">=</span> self
+    <span class="token keyword">while</span> current<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+        current <span class="token operator">=</span> current<span class="token punctuation">.</span>left
+    <span class="token keyword">return</span> current
+
+<span class="token keyword">def</span> splice_out<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_leaf<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> None
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+    <span class="token keyword">elif</span> self<span class="token punctuation">.</span>has_any_children<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> self<span class="token punctuation">.</span>left
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> self<span class="token punctuation">.</span>left
+            self<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> self<span class="token punctuation">.</span>parent
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> self<span class="token punctuation">.</span>right
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> self<span class="token punctuation">.</span>right
+            self<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> self<span class="token punctuation">.</span>parent
+</code></pre>
+<p>We need to look at one last interface method for the binary search tree.
+Suppose that we would like to simply iterate over all the keys in the
+tree in order. You already know how to traverse a
+binary tree in order, using the <code>inorder</code> traversal algorithm. However,
+writing an iterator requires a bit more work, since an iterator should
+return only one node each time the iterator is called.</p>
+<p>Python provides us with a very powerful function to use when creating an
+iterator. The function is called <code>yield</code>. <code>yield</code> is similar to <code>return</code>
+in that it returns a value to the caller. However, <code>yield</code> also takes
+the additional step of freezing the state of the function so that the
+next time the function is called it continues executing from the exact
+point it left off earlier. Functions that create objects that can be
+iterated are called generator functions.</p>
+<p>The code for an <code>inorder</code> iterator of a binary tree is shown below. Look at this code carefully; at first glance you might think
+that the code is not recursive. However, remember that <code>__iter__</code>
+overrides the <code>for x in</code> operation for iteration, so it really is
+recursive! Because it is recursive over <code>TreeNode</code> instances the
+<code>__iter__</code> method is defined in the <code>TreeNode</code> class.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> __iter__<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> elem <span class="token keyword">in</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+                <span class="token keyword">yield</span> elem
+        <span class="token keyword">yield</span> self<span class="token punctuation">.</span>key
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> elem <span class="token keyword">in</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+                <span class="token keyword">yield</span> elem
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../trees/binary-search-trees.html" class="navigation navigation-prev " aria-label="Previous page: Binary Search Trees"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../trees/search-tree-analysis.html" class="navigation navigation-next " aria-label="Next page: Search Tree Analysis"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ungrey/ungrey.js"></script>
+    
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax-beta/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"image-captions":{"caption":"_CAPTION_"},"mathjax":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

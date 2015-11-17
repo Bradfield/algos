@@ -1,0 +1,1535 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Implementing an Unordered List | Algorithms and Data Structures with Python</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.4.1">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-image-captions/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+    
+        <link rel="stylesheet" href="../website.css">
+    
+
+        
+    
+    
+    <link rel="next" href="../lists/the-ordered-list-abstract-data-type.html" />
+    
+    
+    <link rel="prev" href="../lists/the-unordered-list-abstract-data-type.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="5.3" data-basepath=".." data-revision="Mon Nov 02 2015 12:27:07 GMT-0800 (PST)">
+    
+
+<div class="book-summary">
+    <div class="book-search" role="search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Analysis</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="analysis/introduction.html">
+            
+                
+                    <a href="../analysis/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Introduction to Algorithm Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="analysis/big-o-notation.html">
+            
+                
+                    <a href="../analysis/big-o-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Big-O Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="analysis/an-anagram-detection-example.html">
+            
+                
+                    <a href="../analysis/an-anagram-detection-example.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        An Anagram Detection Example
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="analysis/performance-of-python-types.html">
+            
+                
+                    <a href="../analysis/performance-of-python-types.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Performance of Python Types
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> Stacks</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="stacks/what-is-a-stack.html">
+            
+                
+                    <a href="../stacks/what-is-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        What is a Stack?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="stacks/the-stack-abstract-data-type.html">
+            
+                
+                    <a href="../stacks/the-stack-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        The Stack Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="stacks/implementing-a-stack.html">
+            
+                
+                    <a href="../stacks/implementing-a-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Implementing a Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="stacks/simple-balanced-parentheses.html">
+            
+                
+                    <a href="../stacks/simple-balanced-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Simple Balanced Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="stacks/balanced-symbols.html">
+            
+                
+                    <a href="../stacks/balanced-symbols.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Balanced Symbols
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="stacks/converting-number-bases.html">
+            
+                
+                    <a href="../stacks/converting-number-bases.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Converting Number Bases
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="stacks/infix-prefix-and-postfix-expressions.html">
+            
+                
+                    <a href="../stacks/infix-prefix-and-postfix-expressions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Infix, Prefix, Postfix
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Queues</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="queues/what-is-a-queue.html">
+            
+                
+                    <a href="../queues/what-is-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        What is a Queue?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="queues/the-queue-abstract-data-type.html">
+            
+                
+                    <a href="../queues/the-queue-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        The Queue Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="queues/implementing-a-queue.html">
+            
+                
+                    <a href="../queues/implementing-a-queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Implementing a Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="queues/simulating-hot-potato.html">
+            
+                
+                    <a href="../queues/simulating-hot-potato.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Simulating Hot Potato
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Deques</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="deques/what-is-a-deque.html">
+            
+                
+                    <a href="../deques/what-is-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        What is a Deque?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="deques/the-deque-abstract-data-type.html">
+            
+                
+                    <a href="../deques/the-deque-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        The Deque Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="deques/implementing-a-deque.html">
+            
+                
+                    <a href="../deques/implementing-a-deque.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Implementing a Deque
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="deques/palindrome-checker.html">
+            
+                
+                    <a href="../deques/palindrome-checker.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Palindrome Checker
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Lists</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="lists/what-is-a-list.html">
+            
+                
+                    <a href="../lists/what-is-a-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        What is a List?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="lists/the-unordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-unordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        The Unordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="5.3" data-path="lists/implementing-an-unordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-unordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Implementing an Unordered List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="lists/the-ordered-list-abstract-data-type.html">
+            
+                
+                    <a href="../lists/the-ordered-list-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        The Ordered List Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="lists/implementing-an-ordered-list.html">
+            
+                
+                    <a href="../lists/implementing-an-ordered-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Implementing an Ordered List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Recursion</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="recursion/what-is-recursion.html">
+            
+                
+                    <a href="../recursion/what-is-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        What is Recursion?
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="recursion/calculating-the-sum-of-a-list-of-numbers.html">
+            
+                
+                    <a href="../recursion/calculating-the-sum-of-a-list-of-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Calculating the Sum of a List of Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="recursion/the-three-laws-of-recursion.html">
+            
+                
+                    <a href="../recursion/the-three-laws-of-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        The Three Laws of Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="recursion/converting-an-integer-to-a-string.html">
+            
+                
+                    <a href="../recursion/converting-an-integer-to-a-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Converting an Integer to a String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="recursion/stack-frames-implementing-recursion.html">
+            
+                
+                    <a href="../recursion/stack-frames-implementing-recursion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Stack Frames Implementing Recursion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="recursion/tower-of-hanoi.html">
+            
+                
+                    <a href="../recursion/tower-of-hanoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Tower of Hanoi
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="recursion/dynamic-programming.html">
+            
+                
+                    <a href="../recursion/dynamic-programming.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Dynamic Programming
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" >
+            
+            <span><b>7.</b> Searching</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="searching/searching.html">
+            
+                
+                    <a href="../searching/searching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Searching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="searching/the-sequential-search.html">
+            
+                
+                    <a href="../searching/the-sequential-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        The Sequential Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="searching/the-binary-search.html">
+            
+                
+                    <a href="../searching/the-binary-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        The Binary Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="searching/hashing.html">
+            
+                
+                    <a href="../searching/hashing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Hashing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="searching/the-map-abstract-data-type.html">
+            
+                
+                    <a href="../searching/the-map-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        The Map Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" >
+            
+            <span><b>8.</b> Trees and Tree Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="trees/introduction.html">
+            
+                
+                    <a href="../trees/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="trees/examples-of-trees.html">
+            
+                
+                    <a href="../trees/examples-of-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Examples of Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="trees/vocabulary-and-definitions.html">
+            
+                
+                    <a href="../trees/vocabulary-and-definitions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Vocabulary and Definitions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="trees/list-of-lists-representation.html">
+            
+                
+                    <a href="../trees/list-of-lists-representation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        List of Lists Representation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="trees/nodes-and-references.html">
+            
+                
+                    <a href="../trees/nodes-and-references.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        Nodes and References
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="trees/parse-tree.html">
+            
+                
+                    <a href="../trees/parse-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        Parse Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="trees/tree-traversals.html">
+            
+                
+                    <a href="../trees/tree-traversals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Tree Traversals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="trees/priority-queues-with-binary-heaps.html">
+            
+                
+                    <a href="../trees/priority-queues-with-binary-heaps.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        Priority Queues with Binary Heaps
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="trees/binary-heap-implementation.html">
+            
+                
+                    <a href="../trees/binary-heap-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Binary Heap Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="trees/binary-search-trees.html">
+            
+                
+                    <a href="../trees/binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.11" data-path="trees/search-tree-implementation.html">
+            
+                
+                    <a href="../trees/search-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Search Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="trees/search-tree-analysis.html">
+            
+                
+                    <a href="../trees/search-tree-analysis.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Search Tree Analysis
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="trees/balanced-binary-search-trees.html">
+            
+                
+                    <a href="../trees/balanced-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        Balanced Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14" data-path="trees/avl-tree-implementation.html">
+            
+                
+                    <a href="../trees/avl-tree-implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        AVL Tree Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.15" data-path="trees/summary-of-map-adt-implementations.html">
+            
+                
+                    <a href="../trees/summary-of-map-adt-implementations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.15.</b>
+                        
+                        Summary of Map ADT Implementations
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" >
+            
+            <span><b>9.</b> Graphs and Graph Algorithms</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="graphs/introduction.html">
+            
+                
+                    <a href="../graphs/introduction.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="graphs/the-graph-abstract-data-type.html">
+            
+                
+                    <a href="../graphs/the-graph-abstract-data-type.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        The Graph Abstract Data Type
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="graphs/an-adjacency-matrix.html">
+            
+                
+                    <a href="../graphs/an-adjacency-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        An Adjacency Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="graphs/an-adjacency-list.html">
+            
+                
+                    <a href="../graphs/an-adjacency-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        An Adjacency List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="graphs/implementation.html">
+            
+                
+                    <a href="../graphs/implementation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Implementation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="graphs/word-ladder.html">
+            
+                
+                    <a href="../graphs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        The Word Ladder Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.7" data-path="graphs/knights-tour.html">
+            
+                
+                    <a href="../graphs/knights-tour.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        The Knight’s Tour Problem
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="graphs/depth-first-search.html">
+            
+                
+                    <a href="../graphs/depth-first-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        General Depth First Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="graphs/topological-sorting.html">
+            
+                
+                    <a href="../graphs/topological-sorting.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Topological Sorting
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="graphs/strongly-connected-components.html">
+            
+                
+                    <a href="../graphs/strongly-connected-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Strongly Connected Components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="graphs/dijkstras-algorithm.html">
+            
+                
+                    <a href="../graphs/dijkstras-algorithm.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Shortest Path Problems and Dijkstra’s Algorithm
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="graphs/prims-spanning-tree-algorithm.md.html">
+            
+            <span><b>9.12.</b> Prims Spanning Tree Algorithm</span>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Algorithms and Data Structures with Python</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="implementing-an-unordered-list-linked-lists">Implementing an Unordered List: Linked Lists</h1>
+<p>In order to implement an unordered list, we will construct what is
+commonly known as a <strong>linked list</strong>. Recall that we need to be sure that
+we can maintain the relative positioning of the items. However, there is
+no requirement that we maintain that positioning in contiguous memory.
+For example, consider the collection of items shown below. It appears that these values have been
+placed randomly.</p>
+<p><figure><img src="figures/random-items.png" alt="Items Not Constrained in Their Physical
+Placement"><figcaption>Items Not Constrained in Their Physical
+Placement</figcaption></figure></p>
+<p>If we can maintain some explicit information in each
+item, namely the location of the next item, then the relative position of each item
+can be expressed by simply following the link from one item to the next:</p>
+<p><figure><img src="figures/explicit-links.png" alt="Relative Positions Maintained by Explicit
+Links."><figcaption>Relative Positions Maintained by Explicit
+Links.</figcaption></figure></p>
+<p>It is important to note that the location of the first item of the list
+must be explicitly specified. Once we know where the first item is, the
+first item can tell us where the second is, and so on. The external
+reference is often referred to as the <strong>head</strong> of the list. Similarly,
+the last item needs to know that there is no next item.</p>
+<h2 id="the-node-class">The <code>Node</code> Class</h2>
+<p>The basic building block for the linked list implementation is the
+<strong>node</strong>. Each node object must hold at least two pieces of information.
+First, the node must contain the list item itself. We will call this the
+<strong>data field</strong> of the node. In addition, each node must hold a reference
+to the next node. Here we provide one simple Python
+implementation:</p>
+<pre><code class="lang-python"><span class="token keyword">class</span> Node<span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> __init__<span class="token punctuation">(</span>self<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>value <span class="token operator">=</span> value
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+</code></pre>
+<p>To construct a node, you need to supply the initial data
+value for the node. Evaluating the assignment statement below will yield
+a node object containing the value passed:</p>
+<pre><code>&gt;&gt;&gt; temp = Node(93)
+&gt;&gt;&gt; temp.value
+93
+</code></pre><p>The special Python reference value <code>None</code> will play an important role in
+the <code>Node</code> class and later in the linked list itself. A reference to
+<code>None</code> will denote the fact that there is no next node. Note in the
+constructor that a node is initially created with <code>next</code> set to <code>None</code>.
+Since this is sometimes referred to as &#x201C;grounding the node,&#x201D; we will use
+the standard ground symbol to denote a reference that is referring to
+<code>None</code>. It is always a good idea to explicitly assign <code>None</code> to your
+initial next reference values.</p>
+<p><figure><img src="figures/node.png" alt="A Typical Representation for a Node"><figcaption>A Typical Representation for a Node</figcaption></figure></p>
+<h2 id="the-unordered-list-class">The <code>Unordered List</code> Class</h2>
+<p>As we suggested above, the unordered list will be built from a
+collection of nodes, each linked to the next by explicit references. As
+long as we know where to find the first node (containing the first
+item), each item after that can be found by successively following the
+next links. With this in mind, the <code>UnorderedList</code> class must maintain a
+reference to the first node. Below we show the
+constructor. Note that each list object will maintain a single reference
+to the head of the list.</p>
+<pre><code class="lang-python"><span class="token keyword">class</span> UnorderedList<span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> __init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>head <span class="token operator">=</span> None
+</code></pre>
+<p>Initially when we construct a list, there are no items. The assignment
+statement</p>
+<pre><code>&gt;&gt;&gt; mylist = UnorderedList()
+</code></pre><p>creates this linked list representation:</p>
+<p><figure><img src="figures/empty-list.png" alt="An Empty List"><figcaption>An Empty List</figcaption></figure></p>
+<p>As we discussed in the <code>Node</code>
+class, the special reference <code>None</code> will again be used to state that the
+head of the list does not refer to anything. Eventually, the example
+list given earlier will be represented by this linked list:</p>
+<p><figure><img src="figures/linked-list.png" alt="A Linked List of Integers"><figcaption>A Linked List of Integers</figcaption></figure></p>
+<p>The head of the list refers to the
+first node which contains the first item of the list. In turn, that node
+holds a reference to the next node (the next item) and so on. It is important to note that the list class itself does not contain any node
+objects. Instead it contains a single reference to only the first node
+in the linked structure.</p>
+<p>The <code>is_empty</code> method, shown below, simply
+checks to see if the head of the list is a reference to <code>None</code>. The
+result of the boolean expression <code>self.head is None</code> will only be true if
+there are no nodes in the linked list. Since a new list is empty, the
+constructor and the check for empty must be consistent with one another.
+This shows the advantage to using the reference <code>None</code> to denote the
+&#x201C;end&#x201D; of the linked structure. In Python, <code>None</code> can be compared to any
+reference. Two references are equal if they both refer to the same
+object. We will use this often in our remaining methods.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> is_empty<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">.</span>head <span class="token keyword">is</span> None
+</code></pre>
+<p>So, how do we get items into our list? We need to implement the <code>add</code>
+method. However, before we can do that, we need to address the important
+question of where in the linked list to place the new item. Since this
+list is unordered, the specific location of the new item with respect to
+the other items already in the list is not important. The new item can
+go anywhere. With that in mind, it makes sense to place the new item in
+the easiest location possible.</p>
+<p>Recall that the linked list structure provides us with only one entry
+point, the head of the list. All of the other nodes can only be reached
+by accessing the first node and then following <code>next</code> links. This means
+that the easiest place to add the new node is right at the head, or
+beginning, of the list. In other words, we will make the new item the
+first item of the list and the existing items will need to be linked to
+this new first item so that they follow.</p>
+<p>The linked list shown above was built by
+calling the <code>add</code> method a number of times.</p>
+<pre><code>&gt;&gt;&gt; mylist.add(31)
+&gt;&gt;&gt; mylist.add(77)
+&gt;&gt;&gt; mylist.add(17)
+&gt;&gt;&gt; mylist.add(93)
+&gt;&gt;&gt; mylist.add(26)
+&gt;&gt;&gt; mylist.add(54)
+</code></pre><p>Note that since 31 is the first item added to the list, it will
+eventually be the last node on the linked list as every other item is
+added ahead of it. Also, since 54 is the last item added, it will become
+the data value in the first node of the linked list.</p>
+<p>The <code>add</code> method is shown below. Each item of
+the list must reside in a node object. We create a new node within the method and
+places the item as its value. Then we complete the process by linking
+the new node into the existing structure.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> <span class="token number">add</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    temp <span class="token operator">=</span> Node<span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+    temp<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+    self<span class="token punctuation">.</span>head <span class="token operator">=</span> temp
+</code></pre>
+<p>This requires two steps as
+shown below. Step 1 (line 3) changes the
+<code>next</code> reference of the new node to refer to the old first node of the
+list. Now that the rest of the list has been properly attached to the
+new node, we can modify the head of the list to refer to the new node.</p>
+<p><figure><img src="figures/add-to-head.png" alt="Adding a New Node is a Two-Step
+Process"><figcaption>Adding a New Node is a Two-Step
+Process</figcaption></figure></p>
+<p>The order of the two steps described above is very important. What
+happens if the order of the steps is reversed? If the
+modification of the head of the list happens first, the result can be
+seen below. Since the head was the only
+external reference to the list nodes, all of the original nodes are lost
+and can no longer be accessed.</p>
+<p><figure><img src="figures/wrong-order.png" alt="Result of Reversing the Order of the Two
+Steps"><figcaption>Result of Reversing the Order of the Two
+Steps</figcaption></figure></p>
+<p>The next methods that we will implement&#x2013;<code>size</code>, <code>search</code>, and
+<code>remove</code>&#x2013;are all based on a technique known as <strong>linked list
+traversal</strong>. Traversal refers to the process of systematically visiting
+each node. To do this we use an external reference that starts at the
+first node in the list. As we visit each node, we move the reference to
+the next node by &#x201C;traversing&#x201D; the next reference.</p>
+<p>To implement the <code>size</code> method, we need to traverse the linked list and
+keep a count of the number of nodes that occurred.
+Below we provide the Python code for counting the
+number of nodes in the list. The external reference is called <code>current</code>
+and is initialized to the head of the list in line 2. At the start of
+the process we have not seen any nodes so the count is set to $0$. Lines
+4&#x2013;6 actually implement the traversal. As long as the current reference
+has not seen the end of the list (<code>None</code>), we move current along to the
+next node via the assignment statement in line 6. Every time current moves
+to a new node, we add $1$ to <code>count</code>. Finally, <code>count</code> gets returned
+after the iteration stops.</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> size<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    current <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+    count <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">while</span> current <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+        count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token number">1</span>
+        current <span class="token operator">=</span> current<span class="token punctuation">.</span>next
+
+    <span class="token keyword">return</span> count
+</code></pre>
+<p>Searching for a value in a linked list implementation of an unordered
+list also uses the traversal technique. As we visit each node in the
+linked list we will ask whether the data stored there matches the item
+we are looking for. In this case, however, we may not have to traverse
+all the way to the end of the list. In fact, if we do get to the end of
+the list, that means that the item we are looking for must not be
+present. Also, if we do find the item, there is no need to continue.</p>
+<p>Here is a possible implementation of <code>search</code>:</p>
+<pre><code class="lang-python"><span class="token keyword">def</span> search<span class="token punctuation">(</span>self<span class="token punctuation">,</span>item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    current <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+
+    <span class="token keyword">while</span> current <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> current<span class="token punctuation">.</span>value <span class="token operator">==</span> item<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+        current <span class="token operator">=</span> current<span class="token punctuation">.</span>next
+
+    <span class="token keyword">return</span> <span class="token boolean">False</span>
+</code></pre>
+<p>The <code>remove</code> method requires two logical steps. First, we need to
+traverse the list looking for the item we want to remove. Once we find
+the item (recall that we assume it is present), we must remove it. The
+first step is very similar to <code>search</code>. Starting with an external
+reference set to the head of the list, we traverse the links until we
+discover the item we are looking for. Since we assume that item is
+present, we know that the iteration will stop before <code>current</code> gets to
+<code>None</code>.</p>
+<p>Once we have found the node to be removed, how do we remove it? One
+possibility would be to replace the value of the item with some marker
+that suggests that the item is no longer present. The problem with this
+approach is the number of nodes will no longer match the number of
+items. It would be much better to remove the item by removing the entire
+node.</p>
+<p>In order to remove the node containing the item, we need to modify the
+link in the previous node so that it refers to the node that comes after
+<code>current</code>. Unfortunately, there is no way to go backward in the linked
+list. Since <code>current</code> refers to the node ahead of the node where we
+would like to make the change, it is too late to make the necessary
+modification.</p>
+<p>The solution to this dilemma is to use two external references as we
+traverse down the linked list. <code>current</code> will behave just as it did
+before, marking the current location of the traverse. The new reference,
+which we will call <code>previous</code>, will always travel one node behind
+<code>current</code>. That way, when <code>current</code> stops at the node to be removed,
+<code>previous</code> will be referring to the proper place in the linked list for
+the modification.</p>
+<p>Here is an implementation of a complete <code>remove</code> method:</p>
+<pre><code class="lang-python">
+<span class="token keyword">def</span> remove<span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    current <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+    previous <span class="token operator">=</span> None
+
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> current<span class="token punctuation">.</span>value <span class="token operator">==</span> item<span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+        previous<span class="token punctuation">,</span> current <span class="token operator">=</span> current<span class="token punctuation">,</span> current<span class="token punctuation">.</span>next
+
+    <span class="token keyword">if</span> previous <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>head <span class="token operator">=</span> current<span class="token punctuation">.</span>next
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        previous<span class="token punctuation">.</span>next <span class="token operator">=</span> current<span class="token punctuation">.</span>next
+</code></pre>
+<p>First we assign current and previous to the head of the list and <code>None</code> respectively. Then, on each iteration of our while loop, we break if <code>current</code> represents the node we wish to remove, and if not we update <code>previous</code> and <code>current</code> to <code>current</code> and <code>current.next</code> respectively. Again, the order of these two statements is crucial. <code>previous</code>
+must first be moved one node ahead to the location of <code>current</code>. At that
+point, <code>current</code> can be moved.</p>
+<p>Here we illustrate the movement of <code>previous</code> and <code>current</code> as they progress down the list looking for the node containing the value 17:</p>
+<p><figure><img src="figures/previous-current.png" alt="`previous` and `current` Move Down the
+List"><figcaption>`previous` and `current` Move Down the
+List</figcaption></figure></p>
+<p>Once the searching step of the <code>remove</code> has been completed, we need to
+remove the node from the linked list. If <code>previous</code> is <code>None</code>, we know that <code>current</code> is in fact the head of the list, so we remove that node by updating the head of the list to the subsequent node, thereby losing the reference to the original head node:</p>
+<p><figure><img src="figures/remove-head.png" alt="Removing the First Node from the List"><figcaption>Removing the First Node from the List</figcaption></figure></p>
+<p>In all other cases, we know that both <code>previous</code> and <code>current</code> are nodes in the list, so we can remove <code>current</code> by setting the <code>next</code> attribute of <code>previous</code> to the node <em>after</em> current in the list:</p>
+<p><figure><img src="figures/remove-from-middle.png" alt="Removing an Item from the Middle of the
+List"><figcaption>Removing an Item from the Middle of the
+List</figcaption></figure></p>
+<p>The remaining methods <code>append</code>, <code>insert</code>, <code>index</code>, and <code>pop</code> are left as
+exercises. Remember that each of these must take into account whether
+the change is taking place at the head of the list or someplace else.
+Also, <code>insert</code>, <code>index</code>, and <code>pop</code> require that we name the positions of
+the list. We will assume that position names are integers starting with
+0.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../lists/the-unordered-list-abstract-data-type.html" class="navigation navigation-prev " aria-label="Previous page: The Unordered List Abstract Data Type"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../lists/the-ordered-list-abstract-data-type.html" class="navigation navigation-next " aria-label="Next page: The Ordered List Abstract Data Type"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ungrey/ungrey.js"></script>
+    
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.5-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax-beta/plugin.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"image-captions":{"caption":"_CAPTION_"},"mathjax":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

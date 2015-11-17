@@ -1,0 +1,29 @@
+{
+  "name": "algos-book",
+  "version": "1.0.0",
+  "description": "Algorithms and data structures book",
+  "dependencies": {
+    "babel-cli": "^6.1.18",
+    "babel-preset-es2015": "^6.0.15",
+    "ejs": "^2.3.4",
+    "katex": "^0.5.1",
+    "lodash": "^3.10.1",
+    "metalsmith": "^2.1.0",
+    "metalsmith-collections": "^0.7.0",
+    "metalsmith-drafts": "0.0.1",
+    "metalsmith-layouts": "^1.4.2",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-permalinks": "^0.4.0",
+    "prismjs": "^1.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bradfield/algos.git"
+  },
+  "author": "Ozan Onay <ozan.onay@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Bradfield/algos/issues"
+  },
+  "homepage": "https://github.com/Bradfield/algos#readme"
+}
