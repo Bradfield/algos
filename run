@@ -50,6 +50,14 @@ function log-msg {
 
 # ---
 
+# add executables for local node modules to path
+function realpath {
+  python -c 'import os,sys; print os.path.realpath(sys.argv[1])' "$1"
+}
+PATH=$(realpath "$(dirname "$BASH_SOURCE")")/node_modules/.bin:$PATH
+
+# ---
+
 # if called with interpreter, run fn that matches first arg
 [[ $BASH_SOURCE = "$0" ]] && {
   # show help if no sub-command provided
