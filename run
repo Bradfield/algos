@@ -16,8 +16,7 @@ function test {
 
 function publish-from-travis {
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
-    build-book
-    publish-book
+    build-book && publish-book
   fi
 }
 
