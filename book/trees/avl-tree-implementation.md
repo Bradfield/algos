@@ -83,7 +83,7 @@ This tree is out of balance with a balance factor of -2. To bring this
 tree into balance we will use a left rotation around the subtree rooted
 at node A.
 
-![Transforming an Unbalanced Tree Using a Left Rotation](figures/simple-unbalanced.png)
+![Transforming an unbalanced tree using a left rotation](figures/simple-unbalanced.png)
 
 To perform a left rotation we essentially do the following:
 
@@ -114,7 +114,7 @@ perform a right rotation we essentially do the following:
     empty at this point. This allows us to add a new node as the left
     child without any further consideration.
 
-![Transforming an Unbalanced Tree Using a Right Rotation](figures/rotate-right.png)
+![Transforming an unbalanced tree using a right rotation](figures/rotate-right.png)
 
 Now that you have seen the rotations and have the basic idea of how a
 rotation works let us look at the code below for both the left rotations. First we create a temporary variable to keep
@@ -165,7 +165,7 @@ balance factors without completely recalculating the heights of the new
 subtrees? The following derivation should convince you that these lines
 are correct.
 
-![A Left Rotation](figures/balance-factor-derivation.png)
+![A left rotation](figures/balance-factor-derivation.png)
 
 Above we see a left rotation. B and D are the
 pivotal nodes and A, C, E are their subtrees. Let $$h_x$$ denote the
@@ -227,13 +227,13 @@ but take a look at the diagram below. Since node A has a
 balance factor of -2 we should do a left rotation. But, what happens
 when we do the left rotation around A?
 
-![An Unbalanced Tree that is More Difficult to Balance](figures/hard-unbalanced.png)
+![An unbalanced tree that is more difficult to balance](figures/hard-unbalanced.png)
 
 The diagram below shows us that after the left rotation we
 are now out of balance the other way. If we do a right rotation to
 correct the situation we are right back where we started.
 
-![After a Left Rotation the Tree is Out of Balance in the Other Direction](figures/bad-rotatation.png)
+![After a left rotation, the tree is out of balance in the other direction](figures/bad-rotatation.png)
 
 To correct this problem we must use the following set of rules:
 
@@ -251,7 +251,7 @@ we encountered above. Starting with a right rotation around
 node C puts the tree in a position where the left rotation around A
 brings the entire subtree back into balance.
 
-![A Right Rotation Followed by a Left Rotation](figures/rotate-left-right.png)
+![A right rotation followed by a left rotation](figures/rotate-left-right.png)
 
 The code that implements these rules can be found in our `rebalance`
 method, which is shown below. Rule number

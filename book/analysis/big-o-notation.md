@@ -1,5 +1,5 @@
 ---
-title: Big-O Notation
+title: Big O Notation
 collection: analysis
 position: 2
 layout: chapter.html
@@ -37,7 +37,7 @@ In other words, as the problem gets larger, some portion of the $$T(n)$$
 function tends to overpower the rest. This dominant term is what, in the
 end, is used for comparison. The *order of magnitude* function
 describes the part of $$T(n)$$ that increases the fastest as the value of
-*n* increases. Order of magnitude is often called *Big-O* notation
+*n* increases. Order of magnitude is often called *big O* notation
 (for “order”) and written as $$O(f(n))$$. It provides a useful
 approximation to the actual number of steps in the computation. The
 function $$f(n)$$ provides a simple representation of the dominant part of
@@ -97,7 +97,7 @@ hard to tell which is dominant. However, as `n` grows, there is a
 definite relationship and it is easy to see how they compare with one
 another.
 
-![Plot of Common Big-O Functions](figures/big-o-plot.png)
+![Plot of common big O functions](figures/big-o-plot.png)
 
 As a final example, suppose that we have the fragment of Python code
 shown below. Although this program does
@@ -131,9 +131,9 @@ be dominant and therefore this fragment of code is $$O(n^{2})$$. Note that
 all of the other terms as well as the coefficient on the dominant term
 can be ignored as *n* grows larger.
 
-![Comparing T(n) with Common Big-O Functions](figures/big-o-plot-2.png)
+![Comparing T(n) with common big O functions](figures/big-o-plot-2.png)
 
-This diagram shows a few of the common Big-O
+This diagram shows a few of the common big O
 functions as they compare with the $$T(n)$$ function discussed above. Note
 that $$T(n)$$ is initially larger than the cubic function. However, as n
 grows, the cubic function quickly overtakes $$T(n)$$. It is easy to see

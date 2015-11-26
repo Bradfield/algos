@@ -51,7 +51,7 @@ performed is illustrated below. Notice that the
 numbers we want to remember are in the remainder boxes along the right
 side of the diagram.
 
-![Converting an Integer to a String in Base 10](figures/to-string-base-10.png)
+![Converting an integer to a string in base 10](figures/to-string-base-10.png)
 
 
 Below is a Python implementation of this algorithm for any base between 2 and 16.
@@ -81,8 +81,8 @@ The diagram below shows that we get the results we are
 looking for, but it looks like the digits are in the wrong order.
 
 
-![Converting the Number 10 to its Base 2 String
-Representation](figures/to-string-base-2.png)
+![Converting the number 10 to its base 2 string
+representation](figures/to-string-base-2.png)
 
 The
 algorithm works correctly because we make the recursive call first, then we add the string representation of the remainder. If we

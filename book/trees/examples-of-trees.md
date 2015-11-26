@@ -24,8 +24,8 @@ of the layer above) is the Phylum, then the Class, and so on. However,
 no matter how deep we go in the classification tree, all the organisms
 are still animals.
 
-![Taxonomy of Some Common Animals Shown as a
-Tree](figures/biology.png)
+![Taxonomy of some common animals shown as a
+tree](figures/biology.png)
 
 Notice that you can start at the top of the tree and follow a path made
 of circles and arrows all the way to the bottom. At each level of the
@@ -55,8 +55,8 @@ Another example of a tree structure that you probably use every day is a
 file system. In a file system, directories, or folders, are structured
 as a tree:
 
-![A Small Part of the Unix File System
-Hierarchy](figures/directory.png)
+![A small part of the unix file system
+hierarchy](figures/directory.png)
 
 The file system tree has much in common with the biological
 classification tree. You can follow a path from the root to any
@@ -92,8 +92,8 @@ a simple web page written using HTML.
 Here in the tree that corresponds to each of the HTML tags used to
 create the page.
 
-![A Tree Corresponding to the Markup Elements of a Web
-Page](figures/htmltree.png)
+![A tree corresponding to the markup elements of a web
+page](figures/htmltree.png)
 
 The HTML source code and the tree accompanying the source illustrate
 another hierarchy. Notice that each level of the tree corresponds to a

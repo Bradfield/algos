@@ -41,7 +41,7 @@ in the sequence. As shown below, we again see
 the reversal property that signals that a stack is likely to be the
 appropriate data structure for solving the problem.
 
-![Decimal-to-Binary Conversion](figures/decimal-to-binary.png)
+![Decimal-to-binary conversion](figures/decimal-to-binary.png)
 
 The Python code below implements the
 Divide by 2 algorithm. The function `divide_by_two` takes an argument that

@@ -12,15 +12,15 @@ no requirement that we maintain that positioning in contiguous memory.
 For example, consider the collection of items shown below. It appears that these values have been
 placed randomly.
 
-![Items Not Constrained in Their Physical
-Placement](figures/random-items.png)
+![Items not constrained in their physical
+placement](figures/random-items.png)
 
 If we can maintain some explicit information in each
 item, namely the location of the next item, then the relative position of each item
 can be expressed by simply following the link from one item to the next:
 
-![Relative Positions Maintained by Explicit
-Links.](figures/explicit-links.png)
+![Relative positions maintained by explicit
+links](figures/explicit-links.png)
 
 It is important to note that the location of the first item of the list
 must be explicitly specified. Once we know where the first item is, the
@@ -64,7 +64,7 @@ the standard ground symbol to denote a reference that is referring to
 `None`. It is always a good idea to explicitly assign `None` to your
 initial next reference values.
 
-![A Typical Representation for a Node](figures/node.png)
+![A typical representation for a node](figures/node.png)
 
 The `Unordered List` Class
 --------------------------
@@ -94,14 +94,14 @@ statement
 
 creates this linked list representation:
 
-![An Empty List](figures/empty-list.png)
+![An empty list](figures/empty-list.png)
 
 As we discussed in the `Node`
 class, the special reference `None` will again be used to state that the
 head of the list does not refer to anything. Eventually, the example
 list given earlier will be represented by this linked list:
 
-![A Linked List of Integers](figures/linked-list.png)
+![A linked list of integers](figures/linked-list.png)
 
 The head of the list refers to the
 first node which contains the first item of the list. In turn, that node
@@ -176,8 +176,8 @@ shown below. Step 1 (line 3) changes the
 list. Now that the rest of the list has been properly attached to the
 new node, we can modify the head of the list to refer to the new node.
 
-![Adding a New Node is a Two-Step
-Process](figures/add-to-head.png)
+![Adding a new node is a two-step
+process](figures/add-to-head.png)
 
 The order of the two steps described above is very important. What
 happens if the order of the steps is reversed? If the
@@ -186,8 +186,8 @@ seen below. Since the head was the only
 external reference to the list nodes, all of the original nodes are lost
 and can no longer be accessed.
 
-![Result of Reversing the Order of the Two
-Steps](figures/wrong-order.png)
+![Result of reversing the order of the two
+steps](figures/wrong-order.png)
 
 The next methods that we will implement–`size`, `search`, and
 `remove`–are all based on a technique known as **linked list
@@ -297,18 +297,18 @@ point, `current` can be moved.
 
 Here we illustrate the movement of `previous` and `current` as they progress down the list looking for the node containing the value 17:
 
-![`previous` and `current` Move Down the
-List](figures/previous-current.png)
+!["previous" and "current" move down the
+list](figures/previous-current.png)
 
 Once the searching step of the `remove` has been completed, we need to
 remove the node from the linked list. If `previous` is `None`, we know that `current` is in fact the head of the list, so we remove that node by updating the head of the list to the subsequent node, thereby losing the reference to the original head node:
 
-![Removing the First Node from the List](figures/remove-head.png)
+![Removing the first node from the list](figures/remove-head.png)
 
 In all other cases, we know that both `previous` and `current` are nodes in the list, so we can remove `current` by setting the `next` attribute of `previous` to the node _after_ current in the list:
 
-![Removing an Item from the Middle of the
-List](figures/remove-from-middle.png)
+![Removing an item from the middle of the
+list](figures/remove-from-middle.png)
 
 The remaining methods `append`, `insert`, `index`, and `pop` are left as
 exercises. Remember that each of these must take into account whether

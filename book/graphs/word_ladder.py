@@ -44,7 +44,7 @@ small graph of some words that solve the FOOL to SAGE word ladder
 problem. Notice that the graph is an undirected graph and that the edges
 are unweighted.
 
-![A Small Word Ladder Graph](figures/word-graph.png)
+![A small word ladder graph](figures/word-graph.png)
 
 We could use several different approaches to create the graph we need to
 solve this problem. Let’s start with the assumption that we have a list
@@ -69,8 +69,8 @@ would match “pop\_.” Every time we find a matching bucket, we put our
 word in that bucket. Once we have all the words in the appropriate
 buckets we know that all the words in the bucket must be connected.
 
-![Word Buckets for Words That are Different by One
-Letter](figures/word-buckets.png)
+![Word buckets for words that are different by one
+letter](figures/word-buckets.png)
 
 In Python, we can implement the scheme we have just described by using a
 dictionary. The labels on the buckets we have just described are the
@@ -131,7 +131,7 @@ constructed by the `build_graph` function has exactly 53,286 edges, so
 the matrix would have only 0.20% of the cells filled! That is a very
 sparse matrix indeed.
 
-Implementing Breadth First Search
+Implementing breadth first search
 ---
 
 With the graph constructed we can now turn our attention to the
@@ -213,7 +213,7 @@ Each of these nodes are added to the queue of new nodes to expand.
 The illustration below shows the state of the in-progress tree along
 with the queue after this step.
 
-![The First Step in the Breadth First Search](figures/bfs-1.png)
+![The first step in the breadth first search](figures/bfs-1.png)
 
 In the next step `traverse` removes the next node (pool) from the front
 of the queue and repeats the process for all of its adjacent nodes.
@@ -222,7 +222,7 @@ already been visited. This implies that there is a shorter path to cool.
 The only new node added to the queue while examining pool is poll. The
 new state of the tree and queue is shown below.
 
-![The Second Step in the Breadth First Search](figures/bfs-2.png)
+![The second step in the breadth first search](figures/bfs-2.png)
 
 The next vertex on the queue is foil. The only new node that foil can
 add to the tree is fail. As `traverse` continues to process the queue,
@@ -230,14 +230,14 @@ neither of the next two nodes add anything new to the queue or the tree.
 The illustration below shows the tree and the queue after expanding
 all the vertices on the second level of the tree.
 
-![Breadth First Search Tree After Completing One Level](figures/bfs-3.png)
+![Breadth first search tree after completing one level](figures/bfs-3.png)
 
 You should continue to work through the algorithm on your own so that
 you are comfortable with how it works. The illustration below shows the
 final breadth first search tree after all the vertices have been
 expanded.
 
-![Final Breadth First Search Tree](figures/bfs-done.png)
+![Final breadth first search tree](figures/bfs-done.png)
 
 Breadth First Search Analysis
 ---

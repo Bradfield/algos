@@ -24,7 +24,7 @@ find it or split the list in half, therefore eliminating another large
 part of our possible search space. The diagram below shows
 how this algorithm can quickly find the value 54.
 
-![Binary Search of an Ordered List of Integers](figures/binary-search.png)
+![Binary search of an ordered list of integers](figures/binary-search.png)
 
 This algorithm is
 a great example of a divide and conquer strategy. Divide and conquer

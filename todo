@@ -1,6 +1,5 @@
 language switcher
 move all code samples to literate python
-make all captions sentence case
 move away from CDN, just in case
 literate javascript
 

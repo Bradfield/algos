@@ -29,7 +29,7 @@ a list with each element initialized to the special Python value `None`.
 The illustration below shows a hash table of size $$m=11$$. In
 other words, there are *m* slots in the table, named 0 through 10.
 
-![Hash Table with 11 Empty Slots](figures/hash-table.png)
+![Hash table with 11 empty slots](figures/hash-table.png)
 
 The mapping between an item and the slot where that item belongs in the
 hash table is called the **hash function**. The hash function will take
@@ -58,7 +58,7 @@ occupied. This is referred to as the **load factor**, and is commonly
 denoted by $$\lambda = \frac {numberofitems}{tablesize}$$. For this
 example, $$\lambda = \frac {6}{11}$$.
 
-![Hash Table with Six Items](figures/hash-table-2.png)
+![Hash table with six items](figures/hash-table-2.png)
 
 Now when we want to search for an item, we simply use the hash function
 to compute the slot name for the item and then check the hash table to
@@ -150,7 +150,7 @@ values.
 We can then take these three ordinal values, add them up, and use the
 remainder method to get a hash value.
 
-![Hashing a String Using Ordinal Values](figures/string-hash.png)
+![Hashing a string using ordinal values](figures/string-hash.png)
 
 Below is a a function called `hash` that takes a string and a table size and
 returns the hash value in the range from 0 to `tablesize - 1`.
@@ -212,7 +212,7 @@ the next open position. The final value of 20 hashes to slot 9. Since
 slot 9 is full, we begin to do linear probing. We visit slots 10, 0, 1,
 and 2, and finally find an empty slot at position 3.
 
-![Collision Resolution with Linear Probing](figures/linear-probing-1.png)
+![Collision resolution with linear probing](figures/linear-probing-1.png)
 
 Once we have built a hash table using open addressing and linear
 probing, it is essential that we utilize the same methods to search for
@@ -232,7 +232,7 @@ other items that are being inserted, as we saw when we tried to add the
 item 20 above. A cluster of values hashing to 0 had to be skipped to
 finally find an open position. This cluster is shown below.
 
-![A Cluster of Items for Slot 0](figures/clustering.png)
+![A cluster of items for slot 0](figures/clustering.png)
 
 One way to deal with clustering is to extend the linear probing
 technique so that instead of looking sequentially for the next open
@@ -242,7 +242,7 @@ occurs. The illustration below shows the items when collision resolution
 is done with a “plus 3” probe. This means that once a collision occurs,
 we will look at every third slot until we find one that is empty.
 
-![Collision Resolution Using “Plus 3”](figures/linear-probing-2.png)
+![Collision resolution using “plus 3”](figures/linear-probing-2.png)
 
 The general name for this process of looking for another slot after a
 collision is **rehashing**. With simple linear probing, the rehash
@@ -264,7 +264,7 @@ consisting of successive perfect squares.
 The illustration below shows our example values after they are
 placed using this technique.
 
-![Collision Resolution with Quadratic Probing](figures/quadratic.png)
+![Collision resolution with quadratic probing](figures/quadratic.png)
 
 An alternative method for handling the collision problem is to allow
 each slot to hold a reference to a collection (or chain) of items.
@@ -275,7 +275,7 @@ location, the difficulty of searching for the item in the collection
 increases. The illustration below shows the items as they are
 added to a hash table that uses chaining to resolve collisions.
 
-![Collision Resolution with Chaining](figures/chaining.png)
+![Collision resolution with chaining](figures/chaining.png)
 
 When we want to search for an item, we use the hash function to generate
 the slot where it should reside. Since each slot holds a collection, we

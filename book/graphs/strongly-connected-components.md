@@ -21,8 +21,8 @@ Science home page. Of course, this graph could be huge, so we have
 limited it to web sites that are no more than 10 links away from the CS
 home page.
 
-![The Graph Produced by Links from the Luther Computer
-Science Home Page](figures/cshome.png)
+![The graph produced by links from the luther computer
+science home page](figures/cshome.png)
 
 If you study the graph above you might make some interesting
 observations. First you might notice that many of the other web sites on
@@ -42,15 +42,15 @@ The illustration below shows a simple graph with three strongly
 connected components. The strongly connected components are identified
 by the different shaded areas.
 
-![A Directed Graph with Three Strongly Connected
-Components](figures/scc1.png)
+![A directed graph with three strongly connected
+components](figures/scc1.png)
 
 Once the strongly connected components have been identified we can show
 a simplified view of the graph by combining all the vertices in one
 strongly connected component into a single larger vertex. The simplified
 version of the graph above is shown below.
 
-![The Reduced Graph](figures/scc2.png)
+![The reduced graph](figures/scc2.png)
 
 Once again we will see that we can create a very powerful and efficient
 algorithm by making use of a depth first search. Before we tackle the
@@ -61,9 +61,9 @@ node A to node B in the original graph then $$G^T$$ will contain and
 edge from node B to node A. The diagrams below show a simple graph and
 its transposition.
 
-![A Graph G](figures/transpose1.png)
+![A graph G](figures/transpose1.png)
 
-![The Transpose of G](figures/transpose2.png)
+![The transpose of G](figures/transpose2.png)
 
 Notice that the graphs above have the same two strongly connected
 components.
@@ -95,4 +95,4 @@ trees produced in step 3 of the strongly connected component algorithm.
 You will notice that we do not provide you with the Python code for the
 SCC algorithm, we leave writing this program as an exercise.
 
-![Strongly Connected Components](figures/sccforest.png)
+![Strongly connected components](figures/sccforest.png)

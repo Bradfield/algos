@@ -137,14 +137,14 @@ operator were also moved to its corresponding right parenthesis position
 and the matching left parenthesis were removed, the complete postfix
 expression would result.
 
-![Moving Operators to the Right for Postfix Notation](figures/move-right.png)
+![Moving operators to the right for postfix notation](figures/move-right.png)
 
 If we do the same thing but instead of moving the symbol to the position
 of the right parenthesis, we move it to the left, we get prefix notation
 (below). The position of the parenthesis pair is actually a clue to the
 final position of the enclosed operator.
 
-![Moving Operators to the Left for Prefix Notation](figures/move-left.png)
+![Moving operators to the left for prefix notation](figures/move-left.png)
 
 So in order to convert an expression, no matter how complex, to either
 prefix or postfix notation, fully parenthesize the expression using the
@@ -154,7 +154,7 @@ prefix or postfix notation.
 
 Here is a more complex expression: `A + B) * C - (D - E) * (F + G)`:
 
-![Converting a Complex Expression to Prefix and Postfix Notations](figures/complex-move.png)
+![Converting a complex expression to prefix and postfix notations](figures/complex-move.png)
 
 General Infix-to-Postfix Conversion
 -----------------------------------
@@ -234,7 +234,7 @@ second `*` occurs, since multiplication has precedence over addition. At
 the end of the infix expression the stack is popped twice, removing both
 operators and placing + as the last operator in the postfix expression.
 
-![Converting `A * B + C * D` to Postfix Notation](figures/into-postfix.png)
+![Converting `A * B + C * D` to postfix notation](figures/into-postfix.png)
 
 In order to code the algorithm in Python, we will use a dictionary
 called `precedence` to hold the precedence values for the operators. This
@@ -320,7 +320,7 @@ When the final operator is processed, there will be only one value left
 on the stack. Pop and return it as the result of the expression.
 Below we show the stack contents as this entire example expression is being processed.
 
-![Stack Contents During Evaluation](figures/evaluate-postfix-1.png)
+![Stack contents during evaluation](figures/evaluate-postfix-1.png)
 
 Below we show a slightly more complex example,
 `7 8 + 3 2 + /`. There are two things to note in this example. First, the
@@ -333,7 +333,7 @@ they are reversed. Since division is *not* a commutative operator, in
 other words $$15/5$$ is not the same as $$5/15$$, we must be sure that the
 order of the operands is not switched.
 
-![A More Complex Example of Evaluation](figures/evaluate-postfix-2.png)
+![A more complex example of evaluation](figures/evaluate-postfix-2.png)
 
 Assume the postfix expression is a string of tokens delimited by spaces.
 The operators are `*`, `/`, `+`, and `-` and the operands are assumed to be
@@ -353,7 +353,7 @@ single-digit integer values. The output will be an integer result.
 4.  When the input expression has been completely processed, the result
     is on the stack. Pop the `operand_stack` and return the value.
 
-The complete function for the evaluation of postfix expressions is shown below. To assist with the arithmetic, we importer the handy `operator` module from the Python standard library to specificy functions that will take two arguments and return the result of the proper arithmetic operation.
+The complete function for the evaluation of postfix expressions is shown below. To assist with the arithmetic, we importer the handy `operator` module from the Python standard library to specify functions that will take two arguments and return the result of the proper arithmetic operation.
 
 ```python
 import operator

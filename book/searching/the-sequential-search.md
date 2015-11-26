@@ -19,7 +19,7 @@ the underlying sequential ordering until we either find what we are
 looking for or run out of items. If we run out of items, we have
 discovered that the item we were searching for was not present.
 
-![Sequential Search of a List of Integers](figures/sequential-search.png)
+![Sequential search of a list of integers](figures/sequential-search.png)
 
 The Python implementation for this algorithm is shown below. The function needs the list and
 the item we are looking for and returns a boolean value as to whether it
@@ -94,7 +94,7 @@ we know something extra. Not only is 54 not the item we are looking for,
 but no other elements beyond 54 can work either since the list is
 sorted.
 
-![Sequential Search of an Ordered List of Integers](figures/sequential-search-2.png)
+![Sequential search of an ordered list of integers](figures/sequential-search-2.png)
 
 In this case, the algorithm does not have to continue looking
 through all of the items to report that the item was not found. It can

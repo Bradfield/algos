@@ -57,7 +57,7 @@ Closing symbols match opening symbols in the reverse order of their
 appearance; they match from the inside out. This is a clue that stacks
 can be used to solve the problem.
 
-![Matching Parentheses](figures/simple-parity-check.png)
+![Matching parentheses](figures/simple-parity-check.png)
 
 Once you agree that a stack is the appropriate data structure for
 keeping the parentheses, the statement of the algorithm is

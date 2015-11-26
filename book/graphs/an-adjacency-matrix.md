@@ -15,7 +15,7 @@ illustrates the adjacency matrix for the example graph we presented
 earlier. A value in a cell represents the weight of the edge from vertex
 $$v$$ to vertex $$w$$.
 
-![An Adjacency Matrix Representation for a Graph](figures/adjacency-matrix.png)
+![An adjacency matrix representation for a graph](figures/adjacency-matrix.png)
 
 The advantage of the adjacency matrix is that it is simple, and for
 small graphs it is easy to see which nodes are connected to other nodes.

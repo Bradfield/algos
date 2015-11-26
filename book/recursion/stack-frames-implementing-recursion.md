@@ -35,8 +35,8 @@ to `to_string` the stack would look the diagram below.
 Notice that now we can simply pop the characters off the stack and
 concatenate them into the final result, `'1010'`.
 
-![Strings Placed on the Stack During
-Conversion](figures/recursion-stack.png)
+![Strings placed on the stack during
+conversion](figures/recursion-stack.png)
 
 The previous example gives us some insight into how Python implements a
 recursive function call. When a function is called in Python, a **stack
@@ -45,8 +45,8 @@ the function returns, the return value is left on top of the stack for
 the calling function to access. The diagram below
 illustrates the call stack after the return statement.
 
-![Call Stack Generated from
-`to_string(10, 2)`](figures/new-call-stack.png)
+![Call stack generated from
+to_string(10, 2)](figures/new-call-stack.png)
 
 Notice that the call to `to_string(2 // 2, 2)` leaves a return value of `'1'`
 on the stack. This return value is then used in place of the function

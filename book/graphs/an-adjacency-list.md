@@ -14,7 +14,7 @@ dictionary rather than a list as our master collection, where the dictionary key
 vertices, and the values are the weights. The diagram below shows an
 adjacency list representation of the example graph we have been discussing.
 
-![An Adjacency List Representation of a Graph](figures/adjacency-list.png)
+![An adjacency list representation of a graph](figures/adjacency-list.png)
 
 The advantage of the adjacency list implementation is that it allows us
 to compactly represent a sparse graph. The adjacency list also allows us

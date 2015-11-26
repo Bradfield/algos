@@ -11,7 +11,7 @@ characteristic. The ordered list of integers given above (17, 26, 31,
 54, 77, and 93) can be represented by a linked structure as shown below. Again, the node and link structure
 is ideal for representing the relative positioning of the items.
 
-![An Ordered Linked List](figures/ordered-list.png)
+![An ordered linked list](figures/ordered-list.png)
 
 To implement the `OrderedList` class, we will use the same technique as
 seen previously with unordered lists. Once again, an empty list will be
@@ -51,8 +51,8 @@ necessary. Once the value in the node becomes greater than the item we
 are searching for, the search can stop and return `False`. There is no
 way the item could exist further out in the linked list.
 
-![Searching an Ordered Linked
-List](figures/ordered-list-search.png)
+![Searching an ordered linked
+list](figures/ordered-list-search.png)
 
 Below we provide an adaptation of the `search` method from our `UnorderedList` class to take advantage of this optimization.
 
@@ -87,8 +87,8 @@ becomes `None`) or the value of the current node becomes greater than
 the item we wish to add. In our example, seeing the value 54 causes us
 to stop.
 
-![Adding an Item to an Ordered Linked
-List](figures/ordered-list-insert.png)
+![Adding an item to an ordered linked
+list](figures/ordered-list-insert.png)
 
 As we saw with unordered lists, it is necessary to have an additional
 reference, again called `previous`, since `current` will not provide

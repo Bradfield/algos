@@ -19,7 +19,7 @@ The exception to this is the bottom level of the tree, which we fill in
 from left to right. This diagram shows an example of a
 complete binary tree:
 
-![A Complete Binary Tree](figures/complete-binary-tree.png)
+![A complete binary tree](figures/complete-binary-tree.png)
 
 Another interesting property of a complete tree is that we can represent
 it using a single list. We do not need to use nodes and references or
@@ -47,7 +47,7 @@ is smaller than or equal to the key in $$x$$.
 The diagram below also illustrates a complete binary tree
 that has the heap order property.
 
-![A Complete Binary Tree, along with its List Representation](figures/heap-order.png)
+![A complete binary tree, along with its list representation](figures/heap-order.png)
 
 Heap Operations
 ---------------
@@ -79,7 +79,7 @@ we can swap the item with its parent. The diagram below shows
 the series of swaps needed to percolate the newly added item up to its
 proper position in the tree.
 
-![Percolate the New Node up to Its Proper Position](figures/percolate-up.png)
+![Percolate the new node up to its proper position](figures/percolate-up.png)
 
 Notice that when we percolate an item up, we are restoring the heap
 property between the newly added item and the parent. We are also
@@ -129,7 +129,7 @@ node down the tree to its proper position.
 The diagram shows the series of swaps needed to move
 the new root node to its proper position in the heap.
 
-![Percolating the Root Node down the Tree](figures/percolate-down.png)
+![Percolating the root node down the tree](figures/percolate-down.png)
 
 In order to maintain the heap order property, all we need to do is swap
 the root with its smallest child less than the root. After the initial
@@ -196,7 +196,7 @@ def build_heap(self, alist):
         i = i - 1
 ```
 
-![Building a Heap from the List [9, 6, 5, 2, 3]](figures/build-heap.png)
+![Building a heap from the list [9, 6, 5, 2, 3]](figures/build-heap.png)
 
 Above we see the swaps that the `build_heap`
 method makes as it moves the nodes in an initial tree of `[9, 6, 5, 2,

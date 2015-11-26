@@ -15,13 +15,13 @@ The diagram below shows the hierarchical structure of a
 simple sentence. Representing a sentence as a tree structure allows us
 to work with the individual parts of the sentence by using subtrees.
 
-![A Parse Tree for a Simple Sentence](figures/parse-tree-sentence.png)
+![A parse tree for a simple sentence](figures/parse-tree-sentence.png)
 
 We can also represent a mathematical expression such as
 $$((7 + 3) * (5 - 2))$$ as a parse tree, as shown in
 above.
 
-![Parse Tree for (7+3) * (5-2)](figures/parse-tree-math-expression.png)
+![Parse tree for (7+3) * (5-2)](figures/parse-tree-math-expression.png)
 
 We have already looked at fully
 parenthesized expressions, so what do we know about this expression? We
@@ -38,7 +38,7 @@ an entire subtree with one node once we have evaluated the expressions
 in the children. Applying this replacement procedure gives us the
 simplified tree shown below.
 
-![A Simplified Parse Tree for (7+3) * (5-2)](figures/parse-tree-math-simplified.png)
+![A simplified parse tree for (7+3) * (5-2)](figures/parse-tree-math-simplified.png)
 
 In the rest of this section we are going to examine parse trees in more
 detail. In particular we will look at
@@ -94,7 +94,7 @@ of the parse tree, as each new token is processed.
 
 ![ ](figures/buildExp7.png)
 
-![Tracing Parse Tree Construction](figures/buildExp8.png)
+![Tracing parse tree construction](figures/buildExp8.png)
 
 Using the above, let’s walk through the example
 step by step:
