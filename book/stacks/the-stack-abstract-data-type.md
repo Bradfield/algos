@@ -28,8 +28,8 @@ interacts with it. The user can remain focused on the problem-solving
 process.
 
 The stack abstract data type is an ordered collection of items where
-items are added to and removed from the end called the “top.” Stacks are
-ordered LIFO. The interface for a stack is:
+items are added to and removed from the end called the “top.” The
+interface for a stack is:
 
 -   `Stack()` creates a new stack that is empty
 -   `push(item)` adds the given item to the top of the stack and returns nothing
