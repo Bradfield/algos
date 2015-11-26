@@ -206,7 +206,7 @@
           <% nextItem = chapter.next %>
           <%= chapter.title %>
         <% } else { %>
-          <a href="/algos/<%= chapter.path %>"><%= chapter.title %></a>
+          <a href="<%= process.env.SITE_ROOT %><%= chapter.path %>"><%= chapter.title %></a>
         <% } %>
       </li>
     <% } %>
@@ -216,7 +216,7 @@
 <div class="navigation">
   <div class="navigation-left">
     <% if (prevItem) { %>
-      <a href="/algos/<%= prevItem.path %>"><i class="fa fa-angle-left"></i></a>
+      <a href="<%= process.env.SITE_ROOT %><%= prevItem.path %>"><i class="fa fa-angle-left"></i></a>
     <% } %>
   </div>
   <div class="content-wrapper">
@@ -227,10 +227,10 @@
   </div>
   <div class="navigation-right">
     <% if (nextItem) { %>
-      <a href="/algos/<%= nextItem.path %>"><i class="fa fa-angle-right"></i></a>
+      <a href="<%= process.env.SITE_ROOT %><%= nextItem.path %>"><i class="fa fa-angle-right"></i></a>
     <% } %>
     <% if (path === '') { %>
-      <a href="/algos/analysis/introduction"><i class="fa fa-angle-right"></i></a>
+      <a href="<%= process.env.SITE_ROOT %>analysis/introduction"><i class="fa fa-angle-right"></i></a>
     <% } %>
   </div>
 </div>

@@ -10,6 +10,8 @@ import { incorporateLiteratePython } from './litpy-plugin'
 import { highlightCode } from './prism-plugin'
 import { wrapFigures } from './captions-plugin'
 
+process.env.SITE_ROOT = process.env.SITE_ROOT || '/'
+
 const BUILD_DESTINATION = process.env.BUILD_DESTINATION || '/tmp/algos-book-dev-build'
 
 const sections = [
