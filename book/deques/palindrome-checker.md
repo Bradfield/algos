@@ -27,21 +27,4 @@ items, we will eventually either run out of characters or be left with a
 deque of size 1 depending on whether the length of the original string
 was even or odd. In either case, the string must be a palindrome. A complete implementation for this strategy may look like:
 
-```python
-from collections import deque
-
-def is_palindrome(characters):
-    character_deque = deque(characters)
-
-    while len(character_deque) > 1:
-        first = character_deque.popleft()
-        last = character_deque.pop()
-        if first != last:
-            return False
-
-    return True
-
-is_palindrome('lsdkjfskf')   # => False
-is_palindrome('radar')   # => True
-```
-
+<!-- litpy deques/palindromes.py -->
