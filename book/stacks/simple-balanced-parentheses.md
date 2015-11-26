@@ -72,25 +72,7 @@ not balanced properly. At the end of the string, when all symbols have
 been processed, the stack should be empty. The Python code to implement
 this algorithm may look like this:
 
-```python
-OPENING = '('
-
-def is_balanced(parentheses):
-    stack = []
-    for paren in parentheses:
-        if paren == OPENING:
-            stack.append(paren)
-        else:
-            try:
-                stack.pop()
-            except IndexError:  # too many closing parens
-                return False
-    return len(stack) == 0  # false if too many opening parens
-
-is_balanced('((()))')  # => True
-is_balanced('(()')  # => False
-is_balanced('())')  # => False
-```
+<!-- litpy stacks/balanced_parentheses.py -->
 
 This function, `is_balanced`, returns a boolean result as to whether the
 string of parentheses is balanced. If the current symbol is `(`, then it
