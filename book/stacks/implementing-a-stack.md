@@ -35,27 +35,7 @@ Such an abstraction is also illustrative of the distinction between
 concrete data structures and abstract data types, so we provide a
 possible implementation of a stack class here:
 
-```python
-class Stack(object):
-
-     def __init__(self):
-         self.__items = []
-
-     def is_empty(self):
-         return bool(self.__items)
-
-     def push(self, item):
-         self.__items.append(item)
-
-     def pop(self):
-         return self.__items.pop()
-
-     def peek(self):
-         return self.__items[-1]
-
-     def size(self):
-         return len(self.__items)
-```
+<!-- litpy stacks/stack_right.py -->
 
 It is important to note that we could have chosen to implement the stack
 using a list where the top is at the beginning instead of at the end. In
@@ -63,26 +43,7 @@ this case, instead of using `pop` and `append` as above, instead we
 would pop from and insert into position 0 in the. Here is a possible
 implementation of that approach:
 
-```python
-class Stack:
-    def __init__(self):
-        self.__items = []
-
-    def is_empty(self):
-        return bool(self.__items)
-
-    def push(self, item):
-        self.__items.insert(0, item)
-
-    def pop(self):
-        return self.__items.pop(0)
-
-    def peek(self):
-        return self.__items[0]
-
-    def size(self):
-        return len(self.__items)
-```
+<!-- litpy stacks/stack_left.py -->
 
 This ability to change the physical implementation of an abstract data
 type while maintaining the logical characteristics is an example of
