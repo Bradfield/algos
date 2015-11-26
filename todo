@@ -1,14 +1,19 @@
 language switcher
-move all code samples to literate python
 move away from CDN, just in case
 literate javascript
 
 trees
+    move code samples to literate python, add tests
     use tuples (or named tuples in list-of-lists representation?)
     more compact introduction incorporating intro, examples and definitions
 
 recursion
     maybe add more/better examples
+    move make change DB problem to literate python add tests
+
+searching
+    move to litpy
+    add tests
 
 graphs
     revisit general depth first search to better explain depth first forrests and account for it in the code, for instance using the pancake example

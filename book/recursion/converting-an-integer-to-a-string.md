@@ -56,17 +56,7 @@ side of the diagram.
 
 Below is a Python implementation of this algorithm for any base between 2 and 16.
 
-```python
-CHAR_FOR_INT = '0123456789ABCDEF'
-
-def to_string(n, base):
-    if n < base:
-        return CHAR_FOR_INT[n]
-
-    return to_string(n // base, base) + CHAR_FOR_INT[n % base]
-
-to_string(1453, 16)  # => 5AD
-```
+<!-- litpy recursion/base_conversion.py -->
 
 Notice that we check for the base case where `n` is less than
 the base we are converting to. When we detect the base case, we stop
