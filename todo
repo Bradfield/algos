@@ -4,6 +4,9 @@ make all captions sentence case
 move away from CDN, just in case
 literate javascript
 
+stacks
+    fix katex formatting in convert-number-bases.md
+
 trees
     use tuples (or named tuples in list-of-lists representation?)
     more compact introduction incorporating intro, examples and definitions

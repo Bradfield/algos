@@ -37,42 +37,22 @@ have a remainder of 0. It will have the digit 0 in the ones place. An
 odd value will have a remainder of 1 and will have the digit 1 in the
 ones place. We think about building our binary number as a sequence of
 digits; the first remainder we compute will actually be the last digit
-in the sequence. As shown below, we again see
-the reversal property that signals that a stack is likely to be the
-appropriate data structure for solving the problem.
+in the sequence. As shown below, we again see the reversal property that
+signals that a stack is likely to be the appropriate data structure for
+solving the problem.
 
 ![Decimal-to-Binary Conversion](figures/decimal-to-binary.png)
 
-The Python code below implements the
-Divide by 2 algorithm. The function `divide_by_two` takes an argument that
-is a decimal number and repeatedly divides it by 2. Line 7 uses the
-built-in modulo operator, %, to extract the remainder and line 8 then
-pushes it on the stack. After the division process reaches 0, a binary
-string is constructed in lines 11-13. Line 11 creates an empty string.
-The binary digits are popped from the stack one at a time and appended
-to the right-hand end of the string. The binary string is then returned.
+The Python code below implements the Divide by 2 algorithm. The function
+`convert_to_binary` takes an argument that is a decimal number and
+repeatedly divides it by 2. Line 7 uses the built-in modulo operator, %,
+to extract the remainder and line 8 then pushes it on the stack. After
+the division process reaches 0, a binary string is constructed in lines
+11-13. Line 11 creates an empty string. The binary digits are popped
+from the stack one at a time and appended to the right-hand end of the
+string. The binary string is then returned.
 
-```python
-def divide_by_two(decimal_number):
-    remainder_stack = []
-
-    while decimal_number > 0:
-        remainder = decimal_number % 2
-        remainder_stack.push(remainder)
-        decimal_number = decimal_number // 2
-
-    binary_digits = []
-    while remainder_stack:
-        # we could just reverse and join `remainder_stack` of course,
-        # as it is simply a Python list, but popping off into another
-        # list helps demonstrate that the only behavior we need from
-        # `remainder_stack` is stack-like
-        binary_digits.append(str(remainder_stack.pop()))
-
-    return ''.join(binary_digits)
-
-divide_by_two(42)  # => '101010'
-```
+<!-- litpy stacks/binary_conversion.py -->
 
 The algorithm for binary conversion can easily be extended to perform
 the conversion for any base. In computer science it is common to use a
@@ -88,49 +68,30 @@ and
 
 $$14\times16^{1} + 9\times16^{0}$$
 
-The function `divide_by_two` can be modified to accept not only a decimal
-value but also a base for the intended conversion. The “Divide by 2”
-idea is simply replaced with a more general “Divide by base.” A new
-function called `base_converter`, shown below, takes a decimal number and any
-base between 2 and 16 as parameters. The remainders are still pushed
-onto the stack until the value being converted becomes 0. The same
-left-to-right string construction technique can be used with one slight
-change. Base 2 through base 10 numbers need a maximum of 10 digits, so
-the typical digit characters 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9 work fine.
-The problem comes when we go beyond base 10. We can no longer simply use
-the remainders, as they are themselves represented as two-digit decimal
-numbers. Instead we need to create a set of digits that can be used to
-represent those remainders beyond 9.
+The function `convert_to_binary` can be modified to accept not only a
+decimal value but also a base for the intended conversion. The “Divide
+by 2” idea is simply replaced with a more general “Divide by base.” A
+new function called `convert_to_base`, shown below, takes a decimal
+number and any base between 2 and 16 as parameters. The remainders are
+still pushed onto the stack until the value being converted becomes 0.
+The same left-to-right string construction technique can be used with
+one slight change. Base 2 through base 10 numbers need a maximum of 10
+digits, so the typical digit characters 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9
+work fine. The problem comes when we go beyond base 10. We can no longer
+simply use the remainders, as they are themselves represented as two-
+digit decimal numbers. Instead we need to create a set of digits that
+can be used to represent those remainders beyond 9.
 
-```python
-DIGITS = '0123456789ABCDEF'
-
-def base_converter(decimal_number, base):
-    remainder_stack = []
-
-    while decimal_number > 0:
-        remainder = decimal_number % base
-        remainder_stack.push(remainder)
-        decimal_number = decimal_number // base
-
-    new_digits = []
-    while remainder_stack:
-        new_digits.append(DIGITS[remainder_stack.pop()])
-
-    return ''.join(new_digits)
-
-base_converter(25, 2)  # => '11001'
-base_converter(25, 16)  # => '19'
-```
+<!-- litpy stacks/base_conversion.py -->
 
 A solution to this problem is to extend the digit set to include some
 alphabet characters. For example, hexadecimal uses the ten decimal
 digits along with the first six alphabet characters for the 16 digits.
-To implement this, a digit string is created that stores the digits in their
-corresponding positions. 0 is at position 0, 1 is at position 1, A is at
-position 10, B is at position 11, and so on. When a remainder is removed
-from the stack, it can be used to index into the digit string and the
-correct resulting digit can be appended to the answer. For example, if
-the remainder 13 is removed from the stack, the digit D is appended to
-the resulting string.
+To implement this, a digit string is created that stores the digits in
+their corresponding positions. 0 is at position 0, 1 is at position 1, A
+is at position 10, B is at position 11, and so on. When a remainder is
+removed from the stack, it can be used to index into the digit string
+and the correct resulting digit can be appended to the answer. For
+example, if the remainder 13 is removed from the stack, the digit D is
+appended to the resulting string.
 
