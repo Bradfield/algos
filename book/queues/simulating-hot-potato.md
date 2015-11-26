@@ -48,24 +48,7 @@ until only one name remains (the size of the queue is 1).
 
 A possible implementation of this simulation is:
 
-```python
-from collections import deque
-
-def hot_potato(names, num):
-    queue = deque()
-    for name in names:
-        queue.appendleft(name)
-
-    while len(queue) > 1:
-        for _ in range(num):
-            queue.appendleft(queue.pop())
-
-        queue.pop()
-
-    return queue.pop()
-
-hot_potato(('Bill', 'David', 'Susan', 'Jane', 'Kent', 'Brad'), 7)  # => 'Susan'
-```
+<!-- litpy queues/hot_potato.py -->
 
 Note that in this example the value of the counting constant is greater
 than the number of names in the list. This is not a problem since the
