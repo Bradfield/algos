@@ -126,16 +126,16 @@ is set to 1. Since vertex A has two adjacent vertices (B, D) each of
 those need to be visited as well. We’ll make the arbitrary decision that
 we will visit the adjacent vertices in alphabetical order.
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-a.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-a.png)
 
 Vertex B is visited next (see below), so its color is set to gray and
 its discovery time is set to 2. Vertex B is also adjacent to two other
 nodes (C, D) so we will follow the alphabetical order and visit node C
 next.
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-b.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-b.png)
 
 Visiting vertex C (see below) brings us to the end of one branch of the
 tree. After adding the node to `visited` and setting its discovery time
@@ -143,29 +143,29 @@ to 3, the algorithm also determines that there are no adjacent vertices
 to C.
 
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-c.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-c.png)
 
 This means that we are done exploring node C and so we can color the
 vertex black, and set the finish time to 4. You can see the state of our
 search at this point below.
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-d.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-d.png)
 
 Since vertex C was the end of one branch we now return to vertex B and
 continue exploring the nodes adjacent to B. The only additional vertex
 to explore from B is D, so we can now visit D (below) and continue our
 search from vertex D.
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-e.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-e.png)
 
 
 Vertex D quickly leads us to vertex E:
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-f.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-f.png)
 
 Vertex E has two adjacent vertices, B and F. Normally we would explore
 these adjacent vertices alphabetically, but since B has already been
@@ -173,28 +173,28 @@ visited the algorithm recognizes that it should not visit B since doing
 so would put the algorithm in a loop! So exploration continues with the
 next vertex in the list, namely F.
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-g.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-g.png)
 
 Vertex F has only one adjacent vertex, C, but since C has been visited
 there is nothing else to explore, and the algorithm has reached the end
 of another branch. From here on, you will see that the algorithm works
 its way back to the first node, setting finish times.
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-h.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-h.png)
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-i.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-i.png)
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-j.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-j.png)
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-k.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-k.png)
 
-![Constructing the Depth First Search
-Tree](figures/depth-first-search-l.png)
+![Constructing the depth first search
+tree](figures/depth-first-search-l.png)
 
 The starting and finishing times for each node display a property called
 the **parenthesis property**. This property means that all the children

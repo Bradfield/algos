@@ -15,7 +15,7 @@ turn them over and let them cook until they are golden brown on the
 bottom. Before you eat your pancakes you are going to want to heat up
 some syrup. Here is this process as a graph:
 
-![The Steps for Making Pancakes](figures/pancakes.png)
+![The steps for making pancakes](figures/pancakes.png)
 
 The difficult thing about making pancakes is knowing what to do first.
 As you can see above you might start by heating the griddle or by adding

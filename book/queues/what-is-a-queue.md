@@ -25,7 +25,7 @@ are very restrictive in that they have only one way in and only one way
 out. There is no jumping in the middle and no leaving before you have
 waited the necessary amount of time to get to the front.
 
-![A Queue of Python Data Objects](figures/basic-queue.png)
+![A queue of Python data objects](figures/basic-queue.png)
 
 Queues are a very prevalent model for data flow in real life. Consider
 an office with 30 computers networked with a single printer. When

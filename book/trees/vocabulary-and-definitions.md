@@ -107,4 +107,4 @@ nodes, since each of the triangles representing a subtree must have a
 root. It may have many more nodes than that, but we do not know unless
 we look deeper into the tree.
 
-![A recursive Definition of a tree](figures/tree-definition-recursive.png)
+![A recursive definition of a tree](figures/tree-definition-recursive.png)

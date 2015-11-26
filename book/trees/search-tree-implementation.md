@@ -16,7 +16,7 @@ the property holds for each parent and child. All of the keys in the
 left subtree are less than the key in the root. All of the keys in the
 right subtree are greater than the root.
 
-![A Simple Binary Search Tree](figures/simple-binary-search-tree.png)
+![A simple binary search tree](figures/simple-binary-search-tree.png)
 
 Now that you know what a binary search tree is, we will look at how a
 binary search tree is constructed. The search tree above represents the nodes that exist after we

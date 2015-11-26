@@ -93,7 +93,7 @@ the board. Once again we can see how sparse the graph is. If the graph
 was fully connected there would be 4,096 edges. Since there are only 336
 edges, the adjacency matrix would be only 8.2 percent full.
 
-![All Legal Moves for a Knight on an 8x8 Chessboard](figures/knights-tour-legal-moves.png)
+![All legal moves for a knight on an 8x8 chessboard](figures/knights-tour-legal-moves.png)
 
 Implementing Knight’s Tour
 ---
@@ -197,7 +197,7 @@ With some modification, the algorithm can also be used to discover
 one of a number of “closed” (circular) tours, which can therefore be
 started at any square of the board:
 
-![A Closed Tour](figures/knights-tour-closed.png)
+![A closed tour](figures/knights-tour-closed.png)
 
 
 Knight’s Tour Analysis
@@ -216,7 +216,7 @@ exponential algorithm of size $$O(k^N)$$, where N is the number of squares
 on the chess board, and k is a small constant.
 The diagram below can help us visualize why this is so.
 
-![A Search Tree for the Knight’s Tour](figures/8-array-tree.png)
+![A search tree for the knight’s tour](figures/8-array-tree.png)
 
 The root of the tree represents the starting point of the search. From
 there the algorithm generates and checks each of the possible moves the
@@ -230,7 +230,7 @@ possible next moves from the position we are currently exploring. The
 number of possible positions to examine corresponds to the number of
 nodes in the search tree.
 
-![Number of Possible Moves for Each Square](figures/move-count.png)
+![Number of possible moves for each square](figures/move-count.png)
 
 We have already seen that the number of nodes in a binary tree of height
 N is $$2^{N+1}-1$$. For a tree with nodes that may have up to eight
@@ -295,5 +295,5 @@ def warnsdorffs_heuristic(graph):
 For fun, here is a very large ($$130 \times 130$$) open knight’s
 tour created using Warnsdorff’s heuristic:
 
-![130x130 Open Tour](figures/knights-tour-130.png)
+![130x130 open tour](figures/knights-tour-130.png)
 """

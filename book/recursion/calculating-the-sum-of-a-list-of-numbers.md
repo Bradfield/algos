@@ -95,8 +95,8 @@ this series of calls as a series of simplifications. Each time we make a
 recursive call we are solving a smaller problem, until we reach the
 point where the problem cannot get any smaller.
 
-![Series of Recursive Calls Adding a List of
-Numbers](figures/sum-list-in.png)
+![Series of recursive calls adding a list of
+numbers](figures/sum-list-in.png)
 
 When we reach the point where the problem is as simple as it can get, we
 begin to piece together the solutions of each of the small problems
@@ -105,5 +105,5 @@ shows the additions that are performed as `sum_of` works its way
 backward through the series of calls. When `sum_of` returns from the
 topmost problem, we have the solution to the whole problem.
 
-![Series of Recursive Returns from Adding a List of
-Numbers](figures/sum-list-out.png)
+![Series of recursive returns from adding a list of
+numbers](figures/sum-list-out.png)

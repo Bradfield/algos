@@ -14,7 +14,7 @@ At a certain point in the game, the action is stopped and the child who
 has the item (the potato) is removed from the circle. Play continues
 until only one child is left.
 
-![A Six Person Game of Hot Potato](figures/hot-potato.png)
+![A six person game of hot potato](figures/hot-potato.png)
 
 This game is a modern-day equivalent of the famous Josephus problem.
 Based on a legend about the famous first-century historian Flavius
@@ -44,7 +44,7 @@ others have been at the front before it will be her turn again. After
 permanently and another cycle will begin. This process will continue
 until only one name remains (the size of the queue is 1).
 
-![A Queue Implementation of Hot Potato](figures/name-queue.png)
+![A queue implementation of hot potato](figures/name-queue.png)
 
 A possible implementation of this simulation is:
 

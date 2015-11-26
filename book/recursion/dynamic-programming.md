@@ -81,7 +81,7 @@ understand the fatal flaw in our approach consider the diagram below, which illu
 377 function calls needed to find the optimal set of coins to make
 change for 26 cents.
 
-![Call Tree for the make_change Function](figures/call-tree.png)
+![Call tree for the make_change function](figures/call-tree.png)
 
 Each node in the graph corresponds to a call to `make_change`. The label on
 the node indicates the amount of change for which we are computing the
@@ -152,8 +152,8 @@ Let’s look at how we would fill in a table of minimum coins to use in
 making change for 11 cents. This diagram illustrates
 the process:
 
-![Minimum Number of Coins Needed to Make
-Change](figures/change-table.png)
+![Minimum number of coins needed to make
+change](figures/change-table.png)
 
 We start with one cent. The only solution possible is one
 coin (a penny). The next row shows the minimum for one cent and two
@@ -178,8 +178,8 @@ consider:
 Either option 1 or 3 will give us a total of two coins which is the
 minimum number of coins for 11 cents.
 
-![Three Options to Consider for the Minimum Number of Coins
-for Eleven Cents](figures/eleven-cents.png)
+![Three options to consider for the minimum number of coins
+for eleven cents](figures/eleven-cents.png)
 
 Below is an implementation of a dynamic programming strategy to
 solve our change-making problem. `make_change_dp` takes three parameters:

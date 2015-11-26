@@ -34,7 +34,7 @@ outside this range we will need to have a procedure to bring the tree
 back into balance. The illustration below shows an example of an
 unbalanced, right-heavy tree and the balance factors of each node.
 
-![An Unbalanced Right-Heavy Tree with Balance Factors](figures/unbalanced.png)
+![An unbalanced right-heavy tree with balance factors](figures/unbalanced.png)
 
 Before we proceed any further let’s look at the result of enforcing this
 new balance factor requirement. Our claim is that by ensuring that a
@@ -46,7 +46,7 @@ we consider trees of heights 0, 1, 2, and 3,
 The diagram below illustrates the most unbalanced
 left-heavy tree possible under the new rules.
 
-![Worst-Case Left-Heavy AVL Trees](figures/worst-case-AVL.png)
+![Worst-case left-heavy AVL trees](figures/worst-case-AVL.png)
 
 Looking at the total number of nodes in the tree we see that for a tree
 of height 0 there is 1 node, for a tree of height 1 there is $$1+1

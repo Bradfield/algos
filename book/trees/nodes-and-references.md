@@ -12,7 +12,7 @@ well as the left and right subtrees. This is the more common representation in p
 Using nodes and references, we might think of the tree as being
 structured like this:
 
-![A Simple Tree Using a Nodes and References Approach](figures/treerecs.png)
+![A simple tree using a nodes and references approach](figures/treerecs.png)
 
 We will start out with a simple class definition for the nodes and
 references approach as shown below. The

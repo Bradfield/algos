@@ -47,12 +47,12 @@ The only book whose cover is visible is the one on top. To access others
 in the stack, we need to remove the ones that are sitting on top of
 them.
 
-![A Stack of Books](figures/bookstack2.png)
+![A stack of books](figures/bookstack2.png)
 
 Here is another stack, this one contains a number of primitive Python
 data objects:
 
-![A Stack of Primitive Python Objects](figures/primitive.png)
+![A Stack of primitive Python objects](figures/primitive.png)
 
 One of the most useful ideas related to stacks comes from the simple
 observation that the order of insertion is the reverse of the order of
@@ -65,7 +65,7 @@ as they can be used to reverse the order of items.
 Below we show the Python data object stack as it was created and then
 again as items are removed. Note the order of the objects.
 
-![The Reversal Property of Stacks](figures/simple-reversal.png)
+![The reversal property of stacks](figures/simple-reversal.png)
 
 Considering this reversal property, you can perhaps think of examples of
 stacks that occur as you use your computer. For example, every web
