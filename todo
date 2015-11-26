@@ -11,6 +11,10 @@ recursion
     maybe add more/better examples
     move make change DB problem to literate python add tests
 
+searching
+    move to litpy
+    add tests
+
 graphs
     revisit general depth first search to better explain depth first forrests and account for it in the code, for instance using the pancake example
     better example than Luther Computer Science in strongly-connected-components
