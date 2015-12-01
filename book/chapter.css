@@ -172,3 +172,19 @@ table tr:last-child td {
   text-align: center;
   margin-bottom: 10px;
 }
+
+.graph-node {
+  fill: #243340;
+}
+
+.graph-node text {
+  color: #243340;
+  font-family: Inconsolata, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+}
+
+.graph-edge {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
