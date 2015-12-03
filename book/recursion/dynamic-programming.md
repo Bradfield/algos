@@ -5,29 +5,32 @@ collection: recursion
 position: 7
 ---
 
-Dynamic programming is a powerful technique for solving a certain class of
-problems, typically in a more efficient manner than the corresponding recursive
-strategy. Specifically, when a problem consists of “overlapping subproblems”
-a recursive strategy may lead to redundant computation whereas the corresponding
-dynamic programming strategy may avoid such waste by addressing and solving the
-subproblems one at a time in a manner without overlap.
+Dynamic programming is a powerful technique for solving a certain class
+of problems, typically in a more efficient manner than the corresponding
+recursive strategy. Specifically, when a problem consists of
+“overlapping subproblems” a recursive strategy may lead to redundant
+computation whereas the corresponding dynamic programming strategy may
+avoid such waste by addressing and solving the subproblems one at a time
+in a manner without overlap.
 
-This idea is difficult to understand in the abstract, so let’s consider a
-couple of examples.
+This idea is difficult to understand in the abstract, so let’s consider
+a couple of examples.
 
-Firstly, let’s write a function to return the nth Fibonacci number, being the
-nth number in the sequence constructed by starting with $$0, 1$$ and calculating
-subsequent numbers as the sum of the previous two numbers, like so:
+Firstly, let’s write a function to return the nth Fibonacci number,
+being the nth number in the sequence constructed by starting with $$0,
+1$$ and calculating subsequent numbers as the sum of the previous two
+numbers, like so:
 
 $$0, 1, 1, 2, 3, 5, 8, 13, 21 ...$$
 
-The Fibonacci sequence may be familiar enough to you that you are able to take a
-“top down” approach, namely that you can identify the recursive relationship
-simply by considering the definition of the Fibonacci sequence. In other words,
-a “top down” approach considers the statement “calculating subsequent numbers as
-the sum of the previous two numbers” and recognizes the relationship
-$$f(n) = f(n-1) + f(n-2)$$. With 0 and 1 as our base cases, this leads to a
-straightforward implementation:
+The Fibonacci sequence may be familiar enough to you that you are able
+to take a “top down” approach, namely that you can identify the
+recursive relationship simply by considering the definition of the
+Fibonacci sequence. In other words, a “top down” approach considers the
+statement “calculating subsequent numbers as the sum of the previous two
+numbers” and recognizes the relationship $$f(n) = f(n-1) + f(n-2)$$.
+With 0 and 1 as our base cases, this leads to a straightforward
+implementation:
 
 ```python
 def fib(n):
@@ -63,7 +66,7 @@ drawTree('#fib-5-call-tree', {
               children: [
                 { name: 'fib(1)' },
                 { name: 'fib(0)' }
-              ]        
+              ]
             },
             { name: 'fib(1)' }
           ]
@@ -73,7 +76,7 @@ drawTree('#fib-5-call-tree', {
           children: [
             { name: 'fib(1)' },
             { name: 'fib(0)' }
-          ]        
+          ]
         },
       ]
     },
@@ -85,7 +88,7 @@ drawTree('#fib-5-call-tree', {
           children: [
             { name: 'fib(1)' },
             { name: 'fib(0)' }
-          ]        
+          ]
         },
         { name: 'fib(1)' }
       ]
@@ -94,24 +97,26 @@ drawTree('#fib-5-call-tree', {
 })
 </script>
 
-We can see that the entirety of the `fib(3)` subtree is duplicated below the
-`fib(4)` subtree, and the `fib(2)` subtree occurs three times. As `n` increases,
-the size of the redundant call subtrees increases dramatically, whereas
-the number of unique calls grows only linearly. Ideally we would do only the
-calculations required, giving us $$0(n)$$ running time.
+We can see that the entirety of the `fib(3)` subtree is duplicated below
+the `fib(4)` subtree, and the `fib(2)` subtree occurs three times. As
+`n` increases, the size of the redundant call subtrees increases
+dramatically, whereas the number of unique calls grows only linearly.
+Ideally we would do only the calculations required, giving us $$0(n)$$
+running time.
 
-This is a good time to consider that the “top down” approach of recursive
-problem solving has a counterpart, the unsurprising “bottom up” approach of
-dynamic programming.
+This is a good time to consider that the “top down” approach of
+recursive problem solving has a counterpart, the unsurprising “bottom
+up” approach of dynamic programming.
 
-Applying dynamic programming to this problem, we ask ourselves “starting with
-0 and 1, how do we build up an answer to $$f(n)$$?” If `n` were 0 or 1, we could
-answer immediately. If it were 2 however, we would need to add 0 and 1 to
-determine the answer to be 1. If n were 3, we would now need to add the answer
-to $$f(2)$$ that we just determined to the 1 that we previously determined,
-giving a total of 2. Doing this again, we obtain 3, 5, 8 etc until we have
-reached the answer for our `n`. At any point in time we only need to retain
-a memory of the previous to calculations, and we never do the same sum twice.
+Applying dynamic programming to this problem, we ask ourselves “starting
+with 0 and 1, how do we build up an answer to $$f(n)$$?” If `n` were 0
+or 1, we could answer immediately. If it were 2 however, we would need
+to add 0 and 1 to determine the answer to be 1. If n were 3, we would
+now need to add the answer to $$f(2)$$ that we just determined to the 1
+that we previously determined, giving a total of 2. Doing this again, we
+obtain 3, 5, 8 etc until we have reached the answer for our `n`. At any
+point in time we only need to retain a memory of the previous to
+calculations, and we never do the same sum twice.
 
 A straightforward implementation falls out of this strategy:
 
@@ -123,6 +128,356 @@ def fib(n):
     return a
 ```
 
-With this implementation we sacrifice some of the elegance and readability of
-our recursive solution, but gain a much better $$O(n)$$ running time and
-$$O(1)$$ space cost.
+With this implementation we sacrifice some of the elegance and
+readability of our recursive solution, but gain a much better $$O(n)$$
+running time and $$O(1)$$ space cost.
+
+Let’s now consider a problem where both the recursive and dynamic
+programming approaches are a little less obvious.
+
+Given a lattice of height `H` and width `W`, how many unique shortest
+paths exist from the top left corner to bottom right corner? For
+instance, consider the lattice of height and width 2:
+
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge" d="M50 50 H100" />
+  <path class="graph-edge" d="M100 50 H150" />
+  <path class="graph-edge" d="M50 100 H100" />
+  <path class="graph-edge" d="M100 100 H150" />
+  <path class="graph-edge" d="M50 150 H100" />
+  <path class="graph-edge" d="M100 150 H150" />
+  <path class="graph-edge" d="M50 50 V100" />
+  <path class="graph-edge" d="M50 100 V150" />
+  <path class="graph-edge" d="M100 50 V100" />
+  <path class="graph-edge" d="M100 100 V150" />
+  <path class="graph-edge" d="M150 50 V100" />
+  <path class="graph-edge" d="M150 100 V150" />
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+
+We can see that the shortest path from top left to bottom right will
+be of length 4, and that there are 6 unique paths of length 4:
+
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<br/>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 150 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="50" cy="150" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+
+Exploring this problem, we realize that any shortest path must always
+progress down and to the right—any path that progresses up or left
+at any point has no chance of being “shortest”. Exploring further,
+we note that by grouping those paths that start with a right step
+(shown on the top line above) and those that start with a down step
+(shown on the bottom line below), we can break this traversal problem
+into subproblems.
+
+Specifically, the total number of paths along a $$H \times W$$ lattice
+is the sum of those along a $$(H - 1) \times W$$ lattice and a
+$$H \times (W - 1)$$ lattice. Continuing with our $$2 \times 2$$ example,
+the paths starting with a right step leading to the $$1 \times 2$$
+subproblem with these three solutions:
+
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+<svg height=200 width=200 version="1.1">
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="150" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="150" r="5" />
+</svg>
+
+Looking closely, we see this as a repetition of the right hand portion
+of our first three solutions to the $$2 \times 2$$ problem.
+
+Similarly, the paths starting downward on our $$2 \times 2$$ problem
+lead to the $$2 \times 1$$ subproblem with the following three
+solutions:
+
+ <svg height=150 width=200 version="1.1">
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+</svg>
+<svg height=150 width=200 version="1.1">
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+</svg>
+<svg height=150 width=200 version="1.1">
+  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+  <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+  <circle class="graph-node" cx="50" cy="50" r="5" />
+  <circle class="graph-node" cx="50" cy="100" r="5" />
+  <circle class="graph-node" cx="100" cy="50" r="5" />
+  <circle class="graph-node" cx="100" cy="100" r="5" />
+  <circle class="graph-node" cx="150" cy="50" r="5" />
+  <circle class="graph-node" cx="150" cy="100" r="5" />
+</svg>
+
+This time by looking closely we see that this is a repetition of the
+bottom portion of our final three solutions to the $$2 \times 2$$
+problem.
+
+We can say then with some confidence that the total number of paths
+along a $$H \times W$$ lattice is the sum of those along a $$(H - 1) \times W$$
+lattice and a $$H \times (W - 1)$$ lattice. Thus by taking a top down
+approach exploring the recursive nature of the problem, we’ve identified
+a recursive relationship: `f(h, w) = f(h, w - 1) + f(w, h - 1)`.
+
+Before we can write a recursive solution to the problem, we must also
+recognize the base case, namely that when the `h` or `w` of our subproblem
+is `0`, we are dealing with a straight line, so the number of paths
+is simply `1`.
+
+Putting our base case and general case together, we obtain a
+straightforward recursive solution:
+
+<!-- litpy recursion/lattice_traversal_recursive.py -->
+
+Unfortunately, we find ourselves with another $$O(2^n)$$ solution due
+to redundant calls in our overlapping subproblems. For instance,
+calculating `f(3, 2)` involves calculating `f(2, 2)` and `f(3, 1)`,
+but then in calculating `f(2, 3)` we redundantly call `f(2, 2)` once
+more. Consider the call tree of `num_paths(2, 2)` to convince yourself
+that the running time is $$O(2^n)$$:
+
+<svg id="lattice-2-2-call-tree" />
+
+<script>
+drawTree('#lattice-2-2-call-tree', {
+  name: 'num_paths(2, 2)',
+  children: [
+    {
+      name: 'num_paths(2, 1)',
+      children: [
+        { name: 'num_paths(2, 0)' },
+        {
+          name: 'num_paths(1, 1)',
+          children: [
+            { name: 'num_paths(1, 0)' },
+            { name: 'num_paths(0, 1)' }
+          ]
+        },
+      ]
+    },
+    {
+      name: 'num_paths(1, 2)',
+      children: [
+        {
+          name: 'num_paths(1, 1)',
+          children: [
+            { name: 'num_paths(1, 0)' },
+            { name: 'num_paths(0, 1)' }
+          ]
+        },
+        { name: 'num_paths(0, 2)' }
+      ]
+    },
+  ]
+})
+</script>

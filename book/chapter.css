@@ -175,6 +175,7 @@ table tr:last-child td {
 
 .graph-node {
   fill: #243340;
+  stroke-width: 0px;
 }
 
 .graph-node text {
@@ -187,4 +188,13 @@ table tr:last-child td {
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
+}
+
+.graph-edge-emphasized {
+  stroke: #243340;
+  stroke-width: 4px;
+}
+
+.graph-edge-deemphasized {
+  stroke: #eee;
 }
