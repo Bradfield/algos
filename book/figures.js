@@ -1,6 +1,13 @@
 
+function isLeftNode (node) {
+  return node.parent && node.parent.children && node.parent.children[0] == node
+}
+
+function isLeaf (node) {
+  return !node.children
+}
+
 // TODO: this code could be less crappy overall
-// TODO: text for leftmost children should be justfied left
 
 function drawTree (target, root) {
   var height = 270
@@ -12,7 +19,7 @@ function drawTree (target, root) {
   var tree = d3.layout.tree().size([height, width])
 
   var diagonal = d3.svg.diagonal()
-   .projection(function (d) { return [d.x * 2, d.y] })
+   .projection(function (d) { return [d.x * 2.5, d.y] })
 
   var svg = d3.select(target)
    .attr('width', width)
@@ -34,13 +41,23 @@ function drawTree (target, root) {
   var nodeEnter = node.enter().append('g')
     .attr('class', 'graph-node')
     .attr('transform', function(d) {
-      return 'translate(' + d.x * 2 + ',' + d.y + ')'
+      return 'translate(' + d.x * 2.5 + ',' + d.y + ')'
     })
 
   nodeEnter.append('circle').attr('r', 5)
 
   nodeEnter.append('text')
-    .attr('x', function(d) { return 13 })
+    .attr('x', function(d) {
+      if (isLeaf(d)) return 0
+      return isLeftNode(d) ? -10 : 10
+    })
+    .attr('y', function(d) {
+      return isLeaf(d) ? 20 : 0
+    })
+    .attr('text-anchor', function(d) {
+      if (isLeftNode(d)) return 'end'
+      return isLeaf(d) ? 'middle' : 'start'
+    })
     .text(function(d) { return d.name })
 
   // Declare the link

@@ -449,7 +449,8 @@ straightforward recursive solution:
 
 <!-- litpy recursion/lattice_traversal_recursive.py -->
 
-Unfortunately, we find ourselves with another $$O(2^n)$$ solution due
+Unfortunately, we find ourselves with another $$O(2^n)$$ solution
+(where $$n = max(H, W)$$) due
 to redundant calls in our overlapping subproblems. For instance,
 calculating `f(3, 2)` involves calculating `f(2, 2)` and `f(3, 1)`,
 but then in calculating `f(2, 3)` we redundantly call `f(2, 2)` once
@@ -494,3 +495,62 @@ drawTree('#lattice-2-2-call-tree', {
 })
 </script>
 
+Once again this should be a signal to us that we may be able to find
+a faster solution by going bottom up, computing and storing the answer
+to subproblems before we address the core problem.
+
+In this case, we can use a list of lists to store our computed values
+as we proceed. For a $$H \times W$$ lattice, we can use a $$(H + 1) \times (W + 1)$$
+list of lists, with each entry representing the number of paths that
+one may take to arrive at that vertex. We may initialize the values to
+1, as we know that there is only one way to arrive at a vertex on the
+top or left edges. Then, iterating through each entry of each row, we
+can determine the number of paths to that vertex by adding the number
+of paths to the vertexes directly above and to the left. Finally, we
+access the value computed in the last entry of the last row of our memo,
+which represents the number of paths to traverse the entire lattice.
+
+For instance, this is the memo that we will generate in the process of
+computing `f(2, 2)` using this strategy:
+
+```python
+[
+    [1, 1, 1],
+    [1, 2, 3],
+    [1, 3, 6]
+]
+```
+
+Again we arrive at our answer 6.
+
+This is what the memo looks like for `f(10, 10)`:
+
+```python
+[
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66],
+    [1, 4, 10, 20, 35, 56, 84, 120, 165, 220, 286],
+    [1, 5, 15, 35, 70, 126, 210, 330, 495, 715, 1001],
+    [1, 6, 21, 56, 126, 252, 462, 792, 1287, 2002, 3003],
+    [1, 7, 28, 84, 210, 462, 924, 1716, 3003, 5005, 8008],
+    [1, 8, 36, 120, 330, 792, 1716, 3432, 6435, 11440, 19448],
+    [1, 9, 45, 165, 495, 1287, 3003, 6435, 12870, 24310, 43758],
+    [1, 10, 55, 220, 715, 2002, 5005, 11440, 24310, 48620, 92378],
+    [1, 11, 66, 286, 1001, 3003, 8008, 19448, 43758, 92378, 184756]
+]
+```
+
+
+Below is a possible implementation of the dynamic programming strategy
+we have discussed.
+
+<!-- litpy recursion/lattice_traversal_dp.py -->
+
+Both the time and space cost for this implementation are $$O(H \times W)$$,
+compared to $$2^{max(H, W)}$$ previously, making a big difference as $$H$$
+and $$W$$ increase.
+
+If space is of particular concern, the space cost could be decreased to
+$$O(W)$$ by retaining a memo of the prior row only. This is left as an
+exercise for the reader.
