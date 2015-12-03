@@ -49,7 +49,9 @@ and you may recognize that each of those redundant calls trigger trees of
 further entirely redundant calls. This can be seen more clearly by drawing out
 the call tree for `fib(5)`, as we do below:
 
-<svg id="fib-5-call-tree" />
+<figure>
+  <svg id="fib-5-call-tree" />
+</figure>
 
 <script>
 drawTree('#fib-5-call-tree', {
@@ -139,172 +141,176 @@ Given a lattice of height `H` and width `W`, how many unique shortest
 paths exist from the top left corner to bottom right corner? For
 instance, consider the lattice of height and width 2:
 
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge" d="M50 50 H100" />
-  <path class="graph-edge" d="M100 50 H150" />
-  <path class="graph-edge" d="M50 100 H100" />
-  <path class="graph-edge" d="M100 100 H150" />
-  <path class="graph-edge" d="M50 150 H100" />
-  <path class="graph-edge" d="M100 150 H150" />
-  <path class="graph-edge" d="M50 50 V100" />
-  <path class="graph-edge" d="M50 100 V150" />
-  <path class="graph-edge" d="M100 50 V100" />
-  <path class="graph-edge" d="M100 100 V150" />
-  <path class="graph-edge" d="M150 50 V100" />
-  <path class="graph-edge" d="M150 100 V150" />
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
+<figure>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge" d="M50 50 H100" />
+    <path class="graph-edge" d="M100 50 H150" />
+    <path class="graph-edge" d="M50 100 H100" />
+    <path class="graph-edge" d="M100 100 H150" />
+    <path class="graph-edge" d="M50 150 H100" />
+    <path class="graph-edge" d="M100 150 H150" />
+    <path class="graph-edge" d="M50 50 V100" />
+    <path class="graph-edge" d="M50 100 V150" />
+    <path class="graph-edge" d="M100 50 V100" />
+    <path class="graph-edge" d="M100 100 V150" />
+    <path class="graph-edge" d="M150 50 V100" />
+    <path class="graph-edge" d="M150 100 V150" />
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+</figure>
 
 We can see that the shortest path from top left to bottom right will
 be of length 4, and that there are 6 unique paths of length 4:
 
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<br/>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 150 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="50" cy="150" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
+<figure>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <br/>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+</figure>
 
 Exploring this problem, we realize that any shortest path must always
 progress down and to the right—any path that progresses up or left
@@ -320,51 +326,53 @@ $$H \times (W - 1)$$ lattice. Continuing with our $$2 \times 2$$ example,
 the paths starting with a right step leading to the $$1 \times 2$$
 subproblem with these three solutions:
 
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
-<svg height=200 width=200 version="1.1">
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="150" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="150" r="5" />
-</svg>
+<figure>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+</figure>
 
 Looking closely, we see this as a repetition of the right hand portion
 of our first three solutions to the $$2 \times 2$$ problem.
@@ -373,51 +381,53 @@ Similarly, the paths starting downward on our $$2 \times 2$$ problem
 lead to the $$2 \times 1$$ subproblem with the following three
 solutions:
 
- <svg height=150 width=200 version="1.1">
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-</svg>
-<svg height=150 width=200 version="1.1">
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-</svg>
-<svg height=150 width=200 version="1.1">
-  <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
-  <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
-  <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
-  <circle class="graph-node" cx="50" cy="50" r="5" />
-  <circle class="graph-node" cx="50" cy="100" r="5" />
-  <circle class="graph-node" cx="100" cy="50" r="5" />
-  <circle class="graph-node" cx="100" cy="100" r="5" />
-  <circle class="graph-node" cx="150" cy="50" r="5" />
-  <circle class="graph-node" cx="150" cy="100" r="5" />
-</svg>
+<figure>
+   <svg height=150 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+  </svg>
+  <svg height=150 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+  </svg>
+  <svg height=150 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+  </svg>
+</figure>
 
 This time by looking closely we see that this is a repetition of the
 bottom portion of our final three solutions to the $$2 \times 2$$
@@ -446,7 +456,9 @@ but then in calculating `f(2, 3)` we redundantly call `f(2, 2)` once
 more. Consider the call tree of `num_paths(2, 2)` to convince yourself
 that the running time is $$O(2^n)$$:
 
-<svg id="lattice-2-2-call-tree" />
+<figure>
+  <svg id="lattice-2-2-call-tree" />
+</figure>
 
 <script>
 drawTree('#lattice-2-2-call-tree', {
@@ -481,3 +493,4 @@ drawTree('#lattice-2-2-call-tree', {
   ]
 })
 </script>
+
