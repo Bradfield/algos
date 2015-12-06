@@ -16,9 +16,9 @@ in a manner without overlap.
 This idea is difficult to understand in the abstract, so let’s consider
 a couple of examples.
 
-Firstly, let’s write a function to return the nth Fibonacci number: the nth number in the sequence constructed by starting with $$0,
-1$$ and calculating subsequent numbers as the sum of the previous two
-numbers, like so:
+Firstly, let’s write a function to return the nth Fibonacci number: the nth
+number in the sequence constructed by starting with $$0, 1$$ and calculating
+subsequent numbers as the sum of the previous two numbers, like so:
 
 $$0, 1, 1, 2, 3, 5, 8, 13, 21 ...$$
 
@@ -29,8 +29,8 @@ Fibonacci sequence. In other words, a “top down” approach considers the
 statement “calculating subsequent numbers as the sum of the previous two
 numbers” and recognizes the relationship $$f(n) = f(n-1) + f(n-2)$$.
 
-With 0 and 1 as our base cases, this leads to a straightforward
-implementation:
+With 0 and 1 as our base cases, this leads to an implementation in code that
+looks very much like the mathematical definition of the sequence:
 
 ```python
 def fib(n):
@@ -123,7 +123,7 @@ obtain 3, 5, 8, etc., until we have reached the answer for our `n`.
 At any point in time we only need to retain a memory of the previous two
 calculations, and we never obtain the same sum twice.
 
-A straightforward implementation falls out of this strategy:
+An implementation of this strategy might look like:
 
 ```python
 def fib(n):
@@ -138,7 +138,7 @@ readability of our recursive solution, but gain a much better $$O(n)$$
 running time and $$O(1)$$ space cost.
 
 Let’s now consider a problem where both the recursive and dynamic
-programming approaches are a little less obvious.
+programming approaches require a little more work to discover.
 
 Given a lattice of height `H` and width `W`, how many unique shortest
 paths exist from the top left corner to bottom right corner?
@@ -328,7 +328,7 @@ Specifically, the total number of paths along a $$H \times W$$ lattice
 is the sum of those along a $$(H - 1) \times W$$ lattice and a
 $$H \times (W - 1)$$ lattice.
 
-Continuing with our $$2 \times 2$$ example, the paths starting with a right step leading to the $$1 \times 2$$ subproblem with these three solutions:
+Continuing with our $$2 \times 2$$ example, the paths starting with a right step lead to the $$1 \times 2$$ subproblem with these three solutions:
 
 <figure>
   <svg height=200 width=200 version="1.1">
@@ -448,8 +448,8 @@ recognize the base case: when the `h` or `w` of our subproblem
 is `0`, we are dealing with a straight line, so the number of paths
 is simply `1`.
 
-Putting our base case and general case together, we obtain a
-straightforward recursive solution:
+Putting our base case and general case together, we obtain a succinct recursive
+solution:
 
 <!-- litpy recursion/lattice_traversal_recursive.py -->
 
@@ -546,7 +546,6 @@ This is what the memo looks like for `f(10, 10)`:
     [1, 11, 66, 286, 1001, 3003, 8008, 19448, 43758, 92378, 184756]
 ]
 ```
-
 
 Below is a possible implementation of the dynamic programming strategy
 we have discussed.
