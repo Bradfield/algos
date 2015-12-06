@@ -13,10 +13,10 @@ them in the expression. This type of notation is referred to as
 *infix* since the operator is *in between* the two operands that it is
 working on.
 
-Consider another infix example, `A + B * C`. The operators + and \* still
-appear between the operands, but there is a problem. Which operands do
-they work on? Does the `+` work on `A` and `B` or does the `*` take `B` and `C`?
-The expression seems ambiguous.
+Consider another infix example, `A + B * C`. The operators + and \*
+still appear between the operands, but there is a problem. Which
+operands do they work on? Does the `+` work on `A` and `B` or does the
+`*` take `B` and `C`? The expression seems ambiguous.
 
 In fact, you have been reading and writing these types of expressions
 for a long time and they do not cause you any problem. The reason for
@@ -66,10 +66,10 @@ Infix expression  |  Prefix expression  | Postfix expression
 `A + B` | `+ A B` | `A B +`
 `A + B * C` | `+ A * B C` | `A B C * +`
 
-`A + B * C` would be written as `+ A * B C` in prefix. The multiplication
-operator comes immediately before the operands `B` and `C`, denoting that `*`
-has precedence over `+`. The addition operator then appears before the `A`
-and the result of the multiplication.
+`A + B * C` would be written as `+ A * B C` in prefix. The
+multiplication operator comes immediately before the operands `B` and
+`C`, denoting that `*` has precedence over `+`. The addition operator
+then appears before the `A` and the result of the multiplication.
 
 In postfix, the expression would be `A B C * +`. Again, the order of
 operations is preserved since the `*` appears immediately after the `B` and
@@ -89,12 +89,12 @@ forces the addition to happen first. The multiplication can be done to
 that result and the remaining operand `C`. The proper postfix expression
 is then `A B + C *`.
 
-Consider these three expressions again. Something very important has happened.
-Where did the parentheses go? Why don’t we need them in prefix and
-postfix? The answer is that the operators are no longer ambiguous with
-respect to the operands that they work on. Only infix notation requires
-the additional symbols. The order of operations within prefix and
-postfix expressions is completely determined by the position of the
+Consider these three expressions again. Something very important has
+happened. Where did the parentheses go? Why don’t we need them in prefix
+and postfix? The answer is that the operators are no longer ambiguous
+with respect to the operands that they work on. Only infix notation
+requires the additional symbols. The order of operations within prefix
+and postfix expressions is completely determined by the position of the
 operator and nothing else. In many ways, this makes infix the least
 desirable notation to use.
 
@@ -123,7 +123,8 @@ expect, there are algorithmic ways to perform the conversion that allow
 any expression of any complexity to be correctly transformed.
 
 The first technique that we will consider uses the notion of a fully
-parenthesized expression that was discussed earlier. Recall that `A + B * C` can be written as `(A + (B * C))` to show explicitly that the
+parenthesized expression that was discussed earlier. Recall that `A + B * C`
+can be written as `(A + (B * C))` to show explicitly that the
 multiplication has precedence over the addition. On closer observation,
 however, you can see that each parenthesis pair also denotes the
 beginning and the end of an operand pair with the corresponding operator
@@ -152,7 +153,7 @@ order of operations. Then move the enclosed operator to the position of
 either the left or the right parenthesis depending on whether you want
 prefix or postfix notation.
 
-Here is a more complex expression: `A + B) * C - (D - E) * (F + G)`:
+Here is a more complex expression: `(A + B) * C - (D - E) * (F + G)`:
 
 ![Converting a complex expression to prefix and postfix notations](figures/complex-move.png)
 
@@ -163,14 +164,15 @@ We need to develop an algorithm to convert any infix expression to a
 postfix expression. To do this we will look closer at the conversion
 process.
 
-Consider once again the expression `A + B * C`. As shown above, `A B C * +` is the postfix equivalent. We have already noted that the operands `A`,
-`B`, and `C` stay in their relative positions. It is only the operators that
-change position. Let’s look again at the operators in the infix
-expression. The first operator that appears from left to right is `+`.
-However, in the postfix expression, `+` is at the end since the next
-operator, `*`, has precedence over addition. The order of the operators
-in the original expression is reversed in the resulting postfix
-expression.
+Consider once again the expression `A + B * C`. As shown above, `A B C *
++` is the postfix equivalent. We have already noted that the operands
+`A`, `B`, and `C` stay in their relative positions. It is only the
+operators that change position. Let’s look again at the operators in the
+infix expression. The first operator that appears from left to right is
+`+`. However, in the postfix expression, `+` is at the end since the
+next operator, `*`, has precedence over addition. The order of the
+operators in the original expression is reversed in the resulting
+postfix expression.
 
 As we process the expression, the operators have to be saved somewhere
 since their corresponding right operands are not seen yet. Also, the
@@ -244,51 +246,7 @@ used the integers 3, 2, and 1). The left parenthesis will receive the
 lowest value possible. This way any operator that is compared against it
 will have higher precedence and will be placed on top of it.
 
-```python
-
-PRECEDENCE = {
-  '*': 3,
-  '/': 3,
-  '+': 2,
-  '-': 2,
-  '(': 1
- }
-CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-DIGITS = '0123456789'
-LEFT_PAREN = '('
-RIGHT_PAREN = ')'
-
-def infix_to_postfix(infix_expression):
-    operation_stack = []
-    postfix = []
-    tokens = infix_expression.split()
-
-    for token in tokens:
-        if token in CHARACTERS or token in DIGITS:
-            postfix.append(token)
-        elif token == LEFT_PAREN:
-            operation_stack.append(token)
-        elif token == RIGHT_PAREN:
-            top_token = operation_stack.pop()
-            while top_token != LEFT_PAREN:
-                postfix.append(top_token)
-                top_token = operation_stack.pop()
-        else:
-            while operation_stack and \
-               (PRECEDENCE[operation_stack[-1]] >= PRECEDENCE[token]):
-                  postfix.append(operation_stack.pop())
-            operation_stack.append(token)
-
-    while operation_stack:
-        postfix.append(operation_stack.pop())
-    return ' '.join(postfix)
-
-infix_to_postfix('A * B + C * D')  # => 'A B * C D * +'
-infix_to_postfix('( A + B ) * C - ( D - E ) * ( F + G )')  # => 'A B + C * D E - F G + * -'
-infix_top_postfix('( A + B ) * ( C + D )')  # => 'A B + C D + *'
-infix_top_postfix('( A + B ) * C')  # => 'A B + C *'
-infix_top_postfix('A + B * C')  # => 'A B C * +'
-```
+<!-- litpy stacks/postfix_conversion.py -->
 
 Postfix Evaluation
 ------------------
@@ -353,34 +311,14 @@ single-digit integer values. The output will be an integer result.
 4.  When the input expression has been completely processed, the result
     is on the stack. Pop the `operand_stack` and return the value.
 
-The complete function for the evaluation of postfix expressions is shown below. To assist with the arithmetic, we importer the handy `operator` module from the Python standard library to specify functions that will take two arguments and return the result of the proper arithmetic operation.
+The complete function for the evaluation of postfix expressions is shown
+below. To assist with the arithmetic, we importer the handy `operator`
+module from the Python standard library to specify functions that will
+take two arguments and return the result of the proper arithmetic
+operation.
 
-```python
-import operator
+<!-- litpy stacks/postfix_evaluation.py -->
 
-OPERATION = {
-    '*': operator.mul,
-    '/': operator.div,
-    '-': operator.sub,
-    '+': operator.add
- }
-DIGITS = '0123456789'
-
-def evaluate_postfix(postfix_expression):
-    operand_stack = []
-
-    for token in postfix_expression.split():
-        if token in DIGITS:
-            operand_stack.append(int(token))
-        else:
-            b = operand_stack.pop()
-            a = operand_stack.pop()
-            result = OPERATION[token](a, b)
-            operand_stack.append(result)
-    return operand_stack.pop()
-
-evaluate_postfix('7 8 + 3 2 + /')  # => 3.0
-```
 It is important to note that in both the postfix conversion and the
 postfix evaluation programs we assumed that there were no errors in the
 input expression. Using these programs as a starting point, you can

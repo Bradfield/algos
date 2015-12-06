@@ -2,6 +2,9 @@ language switcher
 move away from CDN, just in case
 literate javascript
 
+stacks
+    fix katex formatting in convert-number-bases.md
+
 trees
     move code samples to literate python, add tests
     use tuples (or named tuples in list-of-lists representation?)

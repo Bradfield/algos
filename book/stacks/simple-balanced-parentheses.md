@@ -51,11 +51,11 @@ The challenge then is to write an algorithm that will read a string of
 parentheses from left to right and decide whether the symbols are
 balanced. To solve this problem we need to make an important
 observation. As you process symbols from left to right, the most recent
-opening parenthesis must match the next closing symbol. Also, the first opening symbol
-processed may have to wait until the very last symbol for its match.
-Closing symbols match opening symbols in the reverse order of their
-appearance; they match from the inside out. This is a clue that stacks
-can be used to solve the problem.
+opening parenthesis must match the next closing symbol. Also, the first
+opening symbol processed may have to wait until the very last symbol for
+its match. Closing symbols match opening symbols in the reverse order of
+their appearance; they match from the inside out. This is a clue that
+stacks can be used to solve the problem.
 
 ![Matching parentheses](figures/simple-parity-check.png)
 
@@ -72,27 +72,12 @@ not balanced properly. At the end of the string, when all symbols have
 been processed, the stack should be empty. The Python code to implement
 this algorithm may look like this:
 
-```python
-OPENING = '('
+<!-- litpy stacks/balanced_parentheses.py -->
 
-def is_balanced(parentheses):
-    stack = []
-    for paren in parentheses:
-        if paren == OPENING:
-            stack.append(paren)
-        else:
-            try:
-                stack.pop()
-            except IndexError:  # too many closing parens
-                return False
-    return len(stack) == 0  # false if too many opening parens
-
-is_balanced('((()))')  # => True
-is_balanced('(()')  # => False
-is_balanced('())')  # => False
-```
-
-This function, `is_balanced`, returns a boolean result as to whether the string of parentheses is
-balanced. If the
-current symbol is `(`, then it is pushed on the stack. If it is `)` we attempt to pop from the stack. If the stack is empty at that point, we know that the parenthesis string is inbalanced with too many closing parens. Finally, as long as the expression is balanced and the stack has been completely cleaned off, the string
-represents a correctly balanced sequence of parentheses.
+This function, `is_balanced`, returns a boolean result as to whether the
+string of parentheses is balanced. If the current symbol is `(`, then it
+is pushed on the stack. If it is `)` we attempt to pop from the stack.
+If the stack is empty at that point, we know that the parenthesis string
+is imbalanced with too many closing parens. Finally, as long as the
+expression is balanced and the stack has been completely cleaned off,
+the string represents a correctly balanced sequence of parentheses.
