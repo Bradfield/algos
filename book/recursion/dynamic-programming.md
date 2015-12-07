@@ -505,7 +505,19 @@ Once again this should be a signal to us that we may be able to find
 a faster solution by going bottom up, computing and storing the answer
 to subproblems before we address the core problem.
 
-In this case, we can use a list of lists to store our computed values
+After some exploration of the problem, you may come to recognize that in order
+to calculate the number of unique paths to any point on the lattice, we must
+solve the subproblems of the number of paths to each of the points to the left
+and above the point in question. In turn, those subproblems can be solved if
+we first answer the subproblems of the number of paths to each of the points
+to the left and above _those_ points. The logical conclusion is that if we
+start with the top leftmost point (which we can say can be reached in only 1
+way) we can then iterate through every point of the lattice, row by row, and
+calculate the paths to that point as the sum of the paths to the points above
+and to the left, which by the nature of our iteration we have already calculated
+precisely one time.
+
+We can use a list of lists to store our computed values
 as we proceed. For a $$H \times W$$ lattice, we can use a $$(H + 1) \times (W + 1)$$
 list of lists, with each entry representing the number of paths that
 one may take to arrive at that vertex. We may initialize the values to
