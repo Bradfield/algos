@@ -1,4 +1,6 @@
-import _ from 'lodash'
+'use strict'
+
+const _ = require('lodash')
 
 const litpyMarker = /<!-- litpy (.+) -->/g
 
@@ -8,9 +10,9 @@ const removePragmas =
 
 const invert =
   content =>
-    '```python\n'
-    + content.replace(/^"""\n([\s\S]+?)\n^"""/gm, '```\n$1\n```python')
-    + '\n```'
+    '```python\n' +
+    content.replace(/^"""\n([\s\S]+?)\n^"""/gm, '```\n$1\n```python') +
+    '\n```'
 
 const removeEmptyCodeBlocks =
   content =>
@@ -32,7 +34,7 @@ const replacer =
         stripNewlinesInCodeBlocks
       )(files[group].contents.toString('utf8'))
 
-export const incorporateLiteratePython = files => {
+const incorporateLiteratePython = files => {
   for (let path in files) {
     if (path.search('\.md$') !== -1) {
       const file = files[path]
@@ -41,3 +43,5 @@ export const incorporateLiteratePython = files => {
     }
   }
 }
+
+module.exports = { incorporateLiteratePython }
