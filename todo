@@ -12,11 +12,6 @@ trees
     use tuples (or named tuples in list-of-lists representation?)
     is there a regex to allow for multi-digit numbers in the parse tree example?
 
-
-recursion
-    maybe add more/better examples
-    move make change DB problem to literate python add tests
-
 searching
     move to litpy
     add tests

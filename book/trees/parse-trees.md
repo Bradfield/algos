@@ -1,5 +1,5 @@
 ---
-title: Parse Tree
+title: Parse Trees
 layout: chapter.html
 collection: trees
 position: 6
