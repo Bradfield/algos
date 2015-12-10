@@ -1,13 +1,13 @@
 ---
-title: What is a tree?
+title: What is a Tree?
 layout: chapter.html
 collection: trees
 position: 1
 ---
 
-The tree is a very commonly encountered Abstract Data Type that allows us to represent hierarchical relationships with no cycles (we will see what “cycles” are momentarily).
+The tree is a very commonly encountered data shape that allows us to represent hierarchical relationships.
 
-It turns out that _many_ of the structures we encounter when writing software are hierarchical and without cycles. For instance, every file and directory within a file system is “inside” one and only one parent directory, up to the root directory. In an HTML document, every tag is inside one and only one parent tag, up to the root (`html`) tag.
+It turns out that _many_ of the structures we encounter when writing software are hierarchical. For instance, every file and directory within a file system is “inside” one and only one parent directory, up to the root directory. In an HTML document, every tag is inside one and only one parent tag, up to the root (`html`) tag.
 
 It also turns out that that we can use trees to implement useful data structures like maps, and to do fast searches. We will cover some of the many use cases for trees in this section, as well as exploring algorithms to traverse through trees.
 
@@ -15,13 +15,15 @@ Examples of trees
 ---
 
 Tree data structures have many things in common with their botanical
-cousins. Both have a root, branches, and leaves. One diference is that
+cousins. Both have a root, branches, and leaves. One difference is that
 we find it more intuitive to consider the root of a tree data structure
 to be at the “top”, for instance that the root of a file system is
 “above” its subdirectories.
 
 Before we begin our study of tree data structures, let’s look at a few
-common examples. Our first example of a tree is a classification tree
+common examples.
+
+Our first example of a tree is a classification tree
 from biology. The illustration below shows an example of the
 biological classification of some animals. From this simple example, we
 can learn about several properties of trees. The first property this
@@ -74,7 +76,7 @@ the files in it). Another important property of trees, derived from
 their hierarchical nature, is that you can move entire sections of a
 tree (called a **subtree**) to a different position in the tree without
 affecting the lower levels of the hierarchy. For example, we could take
-the entire subtree staring with /etc/, detach etc/ from the root and
+the entire subtree starting with /etc/, detach etc/ from the root and
 reattach it under usr/. This would change the unique pathname to httpd
 from /etc/httpd to /usr/etc/httpd, but would not affect the contents or
 any children of the httpd directory.
@@ -120,77 +122,72 @@ tree and its components.
 
 ### Node
 
-A node is a fundamental part of a tree. It can have a name, which we
-    call the “key.” A node may also have additional information. We call
-    this additional information the “payload.” While the payload
-    information is not central to many tree algorithms, it is often
-    critical in applications that make use of trees.
+A node is a fundamental part of a tree. It can have a unique name, which we
+sometimes call the “key.” A node may also have additional information, which we
+refer to in this book as the “payload.” While the payload information is not
+central to many tree algorithms, it is often critical in applications that make
+use of trees.
 
 ### Edge
 
-An edge is another fundamental part of a tree. An edge connects two
-    nodes to show that there is a relationship between them. Every node
-    (except the root) is connected by exactly one incoming edge from
-    another node. Each node may have several outgoing edges.
+An edge is another fundamental part of a tree. An edge connects two nodes to
+show that there is a relationship between them. Every node other than the root
+is connected by exactly one incoming edge from another node. Each node may have
+several outgoing edges.
 
 ### Root
 
-The root of the tree is the only node in the tree that has no
-    incoming edges. In a file system, `/` is the root of the tree. In an HTML document, the `<html>` tag is the root of the tree.
+The root of the tree is the only node in the tree that has no incoming edges. In
+a file system, `/` is the root of the tree. In an HTML document, the `<html>`
+tag is the root of the tree.
 
 ### Path
 
 A path is an ordered list of nodes that are connected by edges. For
-    example, $$Mammal \rightarrow Carnivora \rightarrow Felidae \rightarrow Felis \rightarrow Domestica$$ is a path.
+example, $$Mammal \rightarrow Carnivora \rightarrow Felidae \rightarrow Felis \rightarrow Domestica$$ is a path.
 
 ### Children
 
-The set of nodes $$c$$ that have incoming edges from the same node to
-    are said to be the children of that node. in our file system
-    example, nodes log/, spool/, and yp/ are the
-    children of node var/.
+The set of nodes $$c$$ that have incoming edges from the same node to are said
+to be the children of that node. in our file system example, nodes log/, spool/,
+and yp/ are the children of node var/.
 
 ### Parent
 
-A node is the parent of all the nodes it connects to with
-    outgoing edges. In our file system example the node var/ is
-    the parent of nodes log/, spool/, and yp/.
+A node is the parent of all the nodes to which it connects with outgoing edges.
+In our file system example the node var/ is the parent of nodes log/, spool/,
+and yp/.
 
 ### Sibling
 
-Nodes in the tree that are children of the same parent are said to
-    be siblings. The nodes etc/ and usr/ are siblings in the
-    file system tree.
+Nodes in the tree that are children of the same parent are said to be siblings.
+The nodes etc/ and usr/ are siblings in the file system tree.
 
 ### Subtree
 
-A subtree is a set of nodes and edges comprised of a parent and all
-    the descendants of that parent.
+A subtree is a set of nodes and edges comprised of a parent and all the
+descendants of that parent.
 
 ### Leaf Node
 
-A leaf node is a node that has no children. For example, Human and
-    Chimpanzee are leaf nodes in our animal taxonomy example.
+A leaf node is a node that has no children. For example, Human and Chimpanzee
+are leaf nodes in our animal taxonomy example.
 
 ### Level
 
-The level of a node $$n$$ is the number of edges on the path from the
-    root node to $$n$$. For example, the level of the Felis node in
-    our animal taxonomy example is five. By definition, the level of
-    the root node is zero.
+The level of a node $$n$$ is the number of edges on the path from the root node
+to $$n$$. For example, the level of the Felis node in our animal taxonomy
+example is five. By definition, the level of the root node is zero.
 
 ### Height
 
-The height of a tree is equal to the maximum level of any node in
-    the tree. The height of the tree in our file system example
-    is two.
+The height of a tree is equal to the maximum level of any node in the tree. The
+height of the tree in our file system example is two.
 
-With the basic vocabulary now defined, we can move on to a formal
-definition of a tree. In fact, we will provide two definitions of a
-tree. One definition involves nodes and edges. The second definition,
-which will prove to be very useful, is a recursive definition.
+With the basic vocabulary now defined, we can move on to two formal definitions
+of a tree: one involving nodes and edges, and the other a recursive definition.
 
-*Definition One:* A tree consists of a set of nodes and a set of edges
+*Definition one:* A tree consists of a set of nodes and a set of edges
 that connect pairs of nodes. A tree has the following properties:
 
 -   One node of the tree is designated as the root node.
@@ -200,21 +197,20 @@ that connect pairs of nodes. A tree has the following properties:
 -   If each node in the tree has a maximum of two children, we say that
     the tree is a **binary tree**.
 
-The diagram below illustrates a tree that fits
-definition one. The arrowheads on the edges indicate the direction of
-the connection.
+The diagram below illustrates a tree that fits definition one. The arrowheads on
+the edges indicate the direction of the connection.
 
-![A Tree Consisting of a Set of Nodes and
-Edges](figures/tree-definition.png)
+![A Tree consisting of a set of nodes and
+edges](figures/tree-definition.png)
 
-*Definition Two:* A tree is either empty or consists of a root and zero
+*Definition two:* A tree is either empty or consists of a root and zero
 or more subtrees, each of which is also a tree. The root of each subtree
 is connected to the root of the parent tree by an edge.
-The diagram below illustrates this recursive
-definition of a tree. Using the recursive definition of a tree, we know
-that the tree below has at least four
-nodes, since each of the triangles representing a subtree must have a
-root. It may have many more nodes than that, but we do not know unless
-we look deeper into the tree.
+
+The diagram below illustrates this recursive definition of a tree. Using the
+recursive definition of a tree, we know that the tree below has at least four
+nodes, since each of the triangles representing a subtree must have a root. It
+may have many more nodes than that, but we do not know unless we look deeper
+into the tree.
 
 ![A recursive definition of a tree](figures/tree-definition-recursive.png)
