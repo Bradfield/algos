@@ -29,7 +29,7 @@ function dev {
   ( cd $BUILD_DIR && http-server -p 8000 ) &
   ( sleep 0.5 && open -a "Google Chrome" http://localhost:8000 ) &
   log-msg 'Watching for changes'
-  wach ./run build-book
+  wach './run build-book && rld chrome'
   wait
 }
 
