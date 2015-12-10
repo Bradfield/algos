@@ -3,6 +3,7 @@ move away from CDN, just in case
 literate javascript
 be consistent with use of "chapter" vs "section"
 move trees throughout to d3, for consistency
+remove captions that don't really add anything
 
 stacks
     fix katex formatting in convert-number-bases.md
