@@ -2,6 +2,7 @@ language switcher
 move away from CDN, just in case
 literate javascript
 be consistent with use of "chapter" vs "section"
+move trees throughout to d3, for consistency
 
 stacks
     fix katex formatting in convert-number-bases.md
@@ -9,7 +10,8 @@ stacks
 trees
     move code samples to literate python, add tests
     use tuples (or named tuples in list-of-lists representation?)
-    more compact introduction incorporating intro, examples and definitions
+    is there a regex to allow for multi-digit numbers in the parse tree example?
+
 
 recursion
     maybe add more/better examples
