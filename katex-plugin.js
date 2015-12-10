@@ -1,8 +1,10 @@
-import katex from 'katex'
+'use strict'
+
+const katex = require('katex')
 
 const katexReplace = (match, group) => katex.renderToString(group)
 
-export const convertToKatex = files => {
+const convertToKatex = files => {
   for (let path in files) {
     if (path.search('\.md$') !== -1) {
       const file = files[path]
@@ -14,3 +16,5 @@ export const convertToKatex = files => {
     }
   }
 }
+
+module.exports = { convertToKatex }

@@ -1,19 +1,20 @@
-import prism from 'prismjs'
+'use strict'
 
+const prism = require('prismjs')
 
 const pythonCode = /```python\n([\s\S]*?)```/g
 
 const pythonGrammar = {
   'triple-quoted-string': {
     pattern: /"""[\s\S]+?"""|'''[\s\S]+?'''/,
-    alias: "string",
+    alias: 'string',
   },
   comment: {
     pattern: /(^|[^\\])#.*/,
     lookbehind: !0,
   },
   string: /("|')(?:\\?.)*?\1/,
-  "function": {
+  'function': {
     pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_][a-zA-Z0-9_]*(?=\()/g,
     lookbehind: !0,
   },
@@ -28,13 +29,11 @@ const pythonGrammar = {
   punctuation: /[{}[\];(),.:]/,
 }
 
-
 const highlight = (match, group) => `
   <pre><code class="language-python">${prism.highlight(group, pythonGrammar)}</code></pre>
 `
 
-
-export const highlightCode = files => {
+const highlightCode = files => {
   for (let path in files) {
     if (path.search('\.md$') !== -1) {
       const file = files[path]
@@ -43,3 +42,5 @@ export const highlightCode = files => {
     }
   }
 }
+
+module.exports = { highlightCode }

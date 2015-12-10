@@ -1,3 +1,4 @@
+'use strict'
 
 const imgTag = /<img .*? alt="([\s\S]*?)".*?>/g
 
@@ -7,7 +8,7 @@ const figureWithCaption = (match, group) => `
     <figcaption>${group}</figcaption>
   </figure>`
 
-export const wrapFigures = files => {
+const wrapFigures = files => {
   for (let path in files) {
     if (path.search('\.html$') !== -1) {
       const file = files[path]
@@ -16,3 +17,5 @@ export const wrapFigures = files => {
     }
   }
 }
+
+module.exports = { wrapFigures }

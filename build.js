@@ -1,14 +1,16 @@
-import collections from 'metalsmith-collections'
-import drafts from 'metalsmith-drafts'
-import layouts from 'metalsmith-layouts'
-import markdown from 'metalsmith-markdown'
-import Metalsmith from 'metalsmith'
-import permalinks from 'metalsmith-permalinks'
+'use strict'
 
-import { convertToKatex } from './katex-plugin'
-import { incorporateLiteratePython } from './litpy-plugin'
-import { highlightCode } from './prism-plugin'
-import { wrapFigures } from './captions-plugin'
+const collections = require('metalsmith-collections')
+const drafts = require('metalsmith-drafts')
+const layouts = require('metalsmith-layouts')
+const markdown = require('metalsmith-markdown')
+const Metalsmith = require('metalsmith')
+const permalinks = require('metalsmith-permalinks')
+
+const { convertToKatex } = require('./katex-plugin')
+const { incorporateLiteratePython } = require('./litpy-plugin')
+const { highlightCode } = require('./prism-plugin')
+const { wrapFigures } = require('./captions-plugin')
 
 process.env.SITE_ROOT = process.env.SITE_ROOT || '/'
 
@@ -31,7 +33,7 @@ const previousSection = {}
 sections.forEach(([label, name], i) => {
   collectionConfig[label] = {
     sortBy: 'position',
-    metadata: { name: name }
+    metadata: { name: name },
   }
   nextSection[label] = sections[i + 1] ? sections[i + 1][0] : null
   previousSection[label] = sections[i - 1] ? sections[i - 1][0] : null
@@ -91,14 +93,13 @@ const generateTableOfContents =
 
 console.log(`Building to ${BUILD_DESTINATION} ..`)
 
-
-const debugSingleFile =
-  (targetPath) =>
-    (files) => {
-      for (let path in files) {
-        if (path !== targetPath) delete files[path]
-      }
-    }
+// const debugSingleFile =
+//   (targetPath) =>
+//     (files) => {
+//       for (let path in files) {
+//         if (path !== targetPath) delete files[path]
+//       }
+//     }
 
 const EXCLUSION_FILE_PATTERNS = [
   '\.pyc$',
