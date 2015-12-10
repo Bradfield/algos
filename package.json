@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/Bradfield/algos/issues"
   },
-  "homepage": "https://github.com/Bradfield/algos#readme"
+  "homepage": "https://github.com/Bradfield/algos#readme",
+  "devDependencies": {
+    "http-server": "^0.8.5"
+  }
 }

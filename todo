@@ -1,6 +1,7 @@
 language switcher
 move away from CDN, just in case
 literate javascript
+speed up dev build - would make dev much easier
 
 stacks
     fix katex formatting in convert-number-bases.md
