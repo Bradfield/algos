@@ -14,14 +14,11 @@ measure a program's quality.
 Let's set aside aspects of a program that are specific to language or
 implementation and instead focus on the underlying _algorithm_. Doing this
 limits the number of factors we have to consider and enables us to make bold
-statements like "Tesla's algorithm is better than Edison's algorithm because
-because it uses computing resources more efficiently."
+statements like “Tesla's algorithm is better than Edison's algorithm because
+it uses computing resources more efficiently.”
 
 Typically, the two “computing resources” that we care about are *space* and
-*time*. We usually replace "space" with "memory" because humans are
-narcissistic and like comparing computers to their brains.
-
-Depending on the situation, we may be willing to sacrifice one resource
+*time*. Depending on the situation, we may be willing to sacrifice one resource
 if it means getting more of the other; for instance, we might be fine with a
 program running longer as long as it doesn't exceed a certain amount of space.
 Or maybe we're comfortable using more memory so the program can run faster.
@@ -97,7 +94,7 @@ Sum is 500000500000, required  0.1646299 seconds
 Not only does the pattern still hold, but there appears to be a correlation
 between the _size_ of the input and the _time_ needed to process that input.
 Every time we increase `n` by some factor, the run time increases by the same
-factor. Nasty; I certainly don't have time to wait around for the sum of the
+factor. I certainly don't have time to wait around for the sum of the
 first 100,000,000,000,000,000 integers (220 days).
 
 Good thing there's another way to solve this problem, and here it is, in
@@ -143,7 +140,7 @@ programming language, we would likely get different results. It could take
 much longer to perform `arithmetic_sum` if the computer were older.
 
 The benchmark technique computes the _actual_ time to execute, but this isn't
-really a useful measurement; this "time" is dependent on a list of sources,
+really a useful measurement; this “time” is dependent on a list of sources,
 including the programming language, compiler, OS, machine, and time of day.
 
 We need a more abstract way to characterize these algorithms with respect to
