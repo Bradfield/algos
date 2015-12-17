@@ -369,14 +369,14 @@ def rebalance(self,node):
             self.rotate_right(node)
 ```
 By keeping the tree in balance at all times, we can ensure that the
-`get` method will run in order $$O(log_2(n))$$ time. But the question is
+`get` method will run in order $$O(\log_2{n})$$ time. But the question is
 at what cost to our `put` method? Let us break this down into the
 operations performed by `put`. Since a new node is inserted as a leaf,
 updating the balance factors of all the parents will require a maximum
-of $$log_2(n)$$ operations, one for each level of the tree. If a subtree
+of $$\log_2{n}$$ operations, one for each level of the tree. If a subtree
 is found to be out of balance a maximum of two rotations are required to
 bring the tree back into balance. But, each of the rotations works in
-$$O(1)$$ time, so even our `put` operation remains $$O(log_2(n))$$.
+$$O(1)$$ time, so even our `put` operation remains $$O(\log_2{n})$$.
 
 At this point we have implemented a functional AVL-Tree, unless you need
 the ability to delete a node. We leave the deletion of the node and
@@ -391,7 +391,7 @@ map ADT.
 
 operation |  Sorted List | Hash Table  | Binary Search Tree | AVL Tree
 --- | --- | --- | --- | ---
-`put` | $$O(n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
-`get` | $$O(log2n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
-`in`  | $$O(log2n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
-`del` | $$O(n)$$)   | $$O(1)$$   | $$O(n)$$   | $$O(log2n)$$
+`put` | $$O(n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
+`get` | $$O(\log_2{n})$$    | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
+`in`  | $$O(\log_2{n})$$    | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
+`del` | $$O(n)$$   | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
