@@ -4,13 +4,19 @@ literate javascript
 be consistent with use of "chapter" vs "section"
 move trees throughout to d3, for consistency
 remove captions that don't really add anything
+add contributors section
+add link to bradfield
+add analytics tracker
+fix rendering on smaller devices
 
 stacks
     fix katex formatting in convert-number-bases.md
 
 trees
-    move code samples to literate python, add tests
-    use tuples (or named tuples in list-of-lists representation?)
+    fix bheaps code - seems to fail some tests
+    BST code could be tightened up, tests added
+    BST prose needs editing in light of litpy changes
+    AVL prose needs edeting in light of code changes
     is there a regex to allow for multi-digit numbers in the parse tree example?
 
 searching
