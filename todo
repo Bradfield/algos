@@ -13,7 +13,6 @@ stacks
     fix katex formatting in convert-number-bases.md
 
 trees
-    fix bheaps code - seems to fail some tests
     is there a regex to allow for multi-digit numbers in the parse tree example?
     is it a simple fix to allow BST to properly handle duplicate keys?
 

@@ -13,7 +13,10 @@ that simple integer division can be used in later methods.
 class BinaryHeap(object):
     def __init__(self):
         self.items = [0]
-        self.current_size = 0
+
+    def __len__(self):
+        return len(self.items) - 1
+
     """
 The next method we will implement is `insert`. The easiest, and most
 efficient, way to add an item to a list is to simply append the item to
@@ -43,7 +46,8 @@ node by using simple integer division. The parent of the current node
 can be computed by dividing the index of the current node by 2.
 """
 
-    def percolate_up(self, i):
+    def percolate_up(self):
+        i = len(self)
         while i // 2 > 0:
             if self.items[i] < self.items[i // 2]:
                 self.items[i // 2], self.items[i] = \
@@ -58,8 +62,7 @@ is really done by `percolate_up`. Once a new item is appended to the tree,
 
     def insert(self, k):
         self.items.append(k)
-        self.current_size = self.current_size + 1
-        self.percolate_up(self.current_size)
+        self.percolate_up()
     """
 With the `insert` method properly defined, we can now look at the
 `delete_min` method. Since the heap property requires that the root of the
@@ -86,14 +89,14 @@ the tree is found in the `percolate_down` and `min_child` methods below.
 
 """
     def percolate_down(self, i):
-        while (i * 2) <= self.current_size:
+        while i * 2 <= len(self):
             mc = self.min_child(i)
             if self.items[i] > self.items[mc]:
                 self.items[i], self.items[mc] = self.items[mc], self.items[i]
             i = mc
 
     def min_child(self, i):
-        if i * 2 + 1 > self.current_size:
+        if i * 2 + 1 > len(self):
             return i * 2
 
         if self.items[i * 2] < self.items[i * 2 + 1]:
@@ -107,8 +110,7 @@ this case `percolate_down`.
 """
     def delete_min(self):
         return_value = self.items[1]
-        self.items[1] = self.items[self.current_size]
-        self.current_size = self.current_size - 1
+        self.items[1] = self.items[len(self)]
         self.items.pop()
         self.percolate_down(1)
         return return_value
@@ -129,10 +131,8 @@ The code below shows the code to build the entire heap.
 """
     def build_heap(self, alist):
         i = len(alist) // 2
-        self.current_size = len(alist)
         self.items = [0] + alist
         while i > 0:
-            print self.items
             self.percolate_down(i)
             i = i - 1
 """

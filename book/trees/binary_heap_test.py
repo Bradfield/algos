@@ -17,4 +17,7 @@ class TestCorrectness(unittest.TestCase):
         for case in cases:
             bheap = BinaryHeap()
             bheap.build_heap(case)
-            self.assertEqual(bheap.items[1:], sorted(case))
+            retrieved = []
+            while len(bheap) > 0:
+                retrieved.append(bheap.delete_min())
+            self.assertEqual(retrieved, sorted(case))
