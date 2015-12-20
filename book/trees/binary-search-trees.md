@@ -5,17 +5,13 @@ collection: trees
 position: 10
 ---
 
-We have already seen two different ways to get key-value pairs in a
-collection. Recall that these collections implement the **map** abstract
-data type. The two implementations of a map ADT we discussed were binary
-search on a list and hash tables. In this section we will study **binary
-search trees** as yet another way to map from a key to a value. In this
-case we are not interested in the exact placement of items in the tree,
-but we are interested in using the binary tree structure to provide for
-efficient searching.
+So far we have seen two different ways to implement the **map** abstract
+data type—binary search on a list, and hash tables. In this section we
+will consider the binary tree, which is the basis of another common
+implementation of maps focused on efficient searching.
 
 Before we look at the implementation, let’s review the interface
-provided by the map ADT. You will notice that this interface is very
+provided by the map ADT. Notice that this interface is very
 similar to the Python dictionary.
 
 -   `Map()` Create a new, empty map.
@@ -35,20 +31,20 @@ Implementation
 
 A binary search tree relies on the property that keys that are less than
 the parent are found in the left subtree, and keys that are greater than
-the parent are found in the right subtree. We will call this the **bst
-property**. As we implement the Map interface as described above, the
-bst property will guide our implementation.
-The diagram below illustrates this property of a binary
-search tree, showing the keys without any associated values. Notice that
-the property holds for each parent and child. All of the keys in the
-left subtree are less than the key in the root. All of the keys in the
-right subtree are greater than the root.
+the parent are found in the right subtree. We will call this the **BST
+property**. As we implement the `Map` interface as described above, the
+BST property will guide our implementation. The diagram below
+illustrates this property of a binary search tree, showing the keys
+without any associated values. Notice that the property holds for each
+parent and child. All of the keys in the left subtree are less than the
+key in the root; all of the keys in the right subtree are greater than
+the root.
 
 ![A simple binary search tree](figures/simple-binary-search-tree.png)
 
 Now that you know what a binary search tree is, we will look at how a
 binary search tree is constructed. The search tree above represents the nodes that exist after we
-have inserted the following keys in the order shown:
+have inserted the following keys in the order:
 $$70, 31, 93, 94, 14, 23, 73$$. Since 70 was the first key inserted into the
 tree, it is the root. Next, 31 is less than 70, so it becomes the left
 child of 70. Next, 93 is greater than 70, so it becomes the right child
@@ -60,20 +56,15 @@ less than 31, so it must be in the left subtree of 31. However, it is
 greater than 14, so it becomes the right child of 14.
 
 To implement the binary search tree, we will use the nodes and
-references approach similar to the one we used to implement the linked
-list, and the expression tree. However, because we must be able to create
-and work with a binary search tree that is empty, our implementation
-will use two classes. The first class we will call `BinarySearchTree`,
-and the second class we will call `TreeNode`. The `BinarySearchTree`
-class has a reference to the `TreeNode` that is the root of the binary
-search tree. In most cases the external methods defined in the outer
-class simply check to see if the tree is empty. If there are nodes in
-the tree, the request is just passed on to a private method defined in
-the `BinarySearchTree` class that takes the root as a parameter. In the
-case where the tree is empty or we want to delete the key at the root of
-the tree, we must take special action. The code for the
-`BinarySearchTree` class constructor along with a few other
-miscellaneous functions is shown below.
+references approach. While it would be possible in Python to implement
+the tree using `dict`s as we have elsewhere in this chapter, doing so
+presupposes that we have the very associative structure that we are
+implementing!
+
+Our implementation will use two classes: `TreeNode` to house the lower
+level logic to construct and manipulate the tree itself, and
+`BinarySearchTree` to hold a reference to the root node and provide a
+map-like interface to the user.
 
 <!-- litpy trees/binary_search_tree.py -->
 
@@ -93,7 +84,7 @@ What is the height of a binary tree likely to be? The answer to this
 question depends on how the keys are added to the tree. If the keys are
 added in a random order, the height of the tree is going to be around
 $$\log_2{n}$$ where $$n$$ is the number of nodes in the tree. This is
-because if the keys are randomly distributed, about half of them will be
+because if the keys are randomly distributed, around half of them will be
 less than the root and half will be greater than the root. Remember that
 in a binary tree there is one node at the root, two nodes in the next
 level, and four at the next. The number of nodes at any particular level
@@ -102,7 +93,7 @@ in a perfectly balanced binary tree is $$2^{h+1}-1$$, where $$h$$ represents
 the height of the tree.
 
 A perfectly balanced tree has the same number of nodes in the left
-subtree as the right subtree. In a balanced binary tree, the worst-case
+subtree as it does in the right subtree. In a balanced binary tree, the worst-case
 performance of `put` is $$O(\log_2{n})$$, where $$n$$ is the number of nodes
 in the tree. Notice that this is the inverse relationship to the
 calculation in the previous paragraph. So $$\log_2{n}$$ gives us the
@@ -119,7 +110,7 @@ case the performance of the `put` method is $$O(n)$$.
 
 Now that you understand that the performance of the `put` method is
 limited by the height of the tree, you can probably guess that other
-methods, `get, in,` and `del`, are limited as well. Since `get` searches
+methods, `get`, `in`, and `del`, are limited as well. Since `get` searches
 the tree to find the key, in the worst case the tree is searched all the
 way to the bottom and no key is found. At first glance `del` might seem
 more complicated, since it may need to search for the successor before

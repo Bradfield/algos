@@ -6,44 +6,27 @@
 The `TreeNode` class provides many helper functions that make the work
 done in the `BinarySearchTree` class methods much easier. The
 constructor for a `TreeNode`, along with these helper functions, is
-shown below. As you can see, many
-of these helper functions help to classify a node according to its own
-position as a child, (left or right) and the kind of children the node
-has. The `TreeNode` class will also explicitly keep track of the parent
-as an attribute of each node. You will see why this is important when we
-discuss the implementation for the `del` operator.
+shown below. As you can see, many of these helper functions help to
+classify a node according to its own position as a child, (left or
+right) and the kind of children the node has. The `TreeNode` class will
+also explicitly keep track of the parent as an attribute of each node.
+You will see why this is important when we discuss the implementation
+for the `del` operator.
 
-Another interesting aspect of the implementation of `TreeNode` below is
-that we use Python’s optional parameters. Optional parameters make it
-easy for us to create a `TreeNode` under several different
-circumstances. Sometimes we will want to construct a new `TreeNode` that
-already has both a `parent` and a `child`. With an existing parent and
-child, we can pass parent and child as parameters. At other times we
-will just create a `TreeNode` with the key value pair, and we will not
-pass any parameters for `parent` or `child`. In this case, the default
-values of the optional parameters are used.
+One of the more interesting methods of `TreeNode` provides an interface
+to simply iterate over all the keys in the tree in order. You already
+know how to traverse a binary tree in order, using the `inorder`
+traversal algorithm. However, because we want our iterator to operate
+lazily, in this case we use the `yield` keyword to define our `__iter__`
+method as a Python generator. Pay close attention to the `__iter__`
+implementation as at first glance you might think that the code is
+not recursive: in fact, because `__iter__` overrides the `for x
+in` operation for iteration, it really is recursive!
 
-We need to look at one last interface method for the binary search tree.
-Suppose that we would like to simply iterate over all the keys in the
-tree in order. You already know how to traverse a
-binary tree in order, using the `inorder` traversal algorithm. However,
-writing an iterator requires a bit more work, since an iterator should
-return only one node each time the iterator is called.
-
-Python provides us with a very powerful function to use when creating an
-iterator. The function is called `yield`. `yield` is similar to `return`
-in that it returns a value to the caller. However, `yield` also takes
-the additional step of freezing the state of the function so that the
-next time the function is called it continues executing from the exact
-point it left off earlier. Functions that create objects that can be
-iterated are called generator functions.
-
-The code for an `inorder` iterator of a binary tree is shown below. Look
-at this code carefully; at first glance you might think that the code is
-not recursive. However, remember that `__iter__` overrides the `for x
-in` operation for iteration, so it really is recursive! Because it is
-recursive over `TreeNode` instances the `__iter__` method is defined in
-the `TreeNode` class.
+Our full implementation of `TreeNode` is provided below. It includes
+three further methods `find_successor`, `find_min` and `splice_out`
+which you can ignore for now as we will return to them later when
+discussing deletion.
 
 """
 
@@ -86,23 +69,71 @@ class TreeNode(object):
             self.right.parent = self
 
     def __iter__(self):
-        if self:
-            if self.left:
-                for elem in self.left:
-                    yield elem
-            yield self.key
-            if self.right:
-                for elem in self.right:
-                    yield elem
+        if self is None:
+            return
+
+        if self.left:
+            # `in` calls `__iter__` so is recursive
+            for elem in self.left:
+                yield elem
+
+        yield self.key
+
+        if self.right:
+            # recurse again
+            for elem in self.right:
+                yield elem
+
+    def find_successor(self):
+        if self.right:
+            return self.right.find_min()
+
+        if self.parent is None:
+            return None
+
+        if self.is_left_child():
+            return self.parent
+
+        self.parent.right = None
+        successor = self.parent.find_successor()
+        self.parent.right = self
+        return successor
+
+    def find_min(self):
+        current = self
+        while current.left:
+            current = current.left
+        return current
+
+    def splice_out(self):
+        if self.is_leaf():
+            if self.is_left_child():
+                self.parent.left = None
+            else:
+                self.parent.right = None
+
+        else:
+            promoted_node = self.left or self.right
+
+            if self.is_left_child():
+                self.parent.left = promoted_node
+            else:
+                self.parent.right = promoted_node
+            promoted_node.parent = self.parent
+
     """
-Now that we have the `BinarySearchTree` shell and the `TreeNode` it is
-time to write the `put` method that will allow us to build our binary
-search tree. The `put` method is a method of the `BinarySearchTree`
-class. This method will check to see if the tree already has a root. If
-there is not a root then `put` will create a new `TreeNode` and install
-it as the root of the tree. If a root node is already in place then
-`put` calls the private, recursive, helper function `_put` to search the
-tree according to the following algorithm:
+Now that we have our `TreeNode` class we can begin to write
+`BinarySearchTree` itself. Recall that the core functionality of this
+class will be to enable `put`ing to and `get`ing from the tree, so we
+begin our implementation with the `put` functionality.
+
+In order to enable the `tree[1] = 'foo'` style assignment interface for
+our `BinarySearchTree` instances, we override the `__setitem__` magic
+method. In this method we first check to see if the tree already has a
+root. If there is not a root then we create a new `TreeNode` and set it
+as the root of the tree. If a root node is already in place then `put`
+calls the private, recursive, helper function `_put` to search the tree
+according to the following algorithm:
 
 -   Starting at the root of the tree, search the binary tree comparing
     the new key to the key in the current node. If the new key is less
@@ -143,7 +174,7 @@ class BinarySearchTree(object):
     def __iter__(self):
         return self.root.__iter__()
 
-    def put(self, key, val):
+    def __setitem__(self, key, val):
         if self.root:
             self._put(key, val, self.root)
         else:
@@ -163,15 +194,6 @@ class BinarySearchTree(object):
                 node.right = self.TreeNodeClass(key, val, parent=node)
 
     """
-With the `put` method defined, we can easily overload the `[]`
-operator for assignment by having the `__setitem__` method call (see
-below) the put method. This allows us to write Python statements like
-`my_zip_tree['Plymouth'] = 55446`, just like a Python dictionary.
-"""
-
-    def __setitem__(self, key, val):
-        self.put(key, val)
-    """
 
 The diagram below illustrates the process for inserting a new
 node into a binary search tree. The lightly shaded nodes indicate the
@@ -180,27 +202,27 @@ nodes that were visited during the insertion process.
 ![Inserting a node with key = 19](figures/binary-search-tree-put.png)
 
 Once the tree is constructed, the next task is to implement the
-retrieval of a value for a given key. The `get` method is even easier
-than the `put` method because it simply searches the tree recursively
-until it gets to a non-matching leaf node or finds a matching key. When
+retrieval of a value for a given key. The `get` functionality is even easier
+than the `put` functionality because we simply search the tree recursively
+until we get to a non-matching leaf node or find a matching key. When
 a matching key is found, the value stored in the val of the node is
 returned.
 
-The code below shows the code for `get`, `_get` and
-`__getitem__`. The search code in the `_get` method uses the same logic
+Again, inorder to enable a `tree[1]` retrieval interface, we overload
+one of Python’s magic methods—in this case `__getitem__`. Just like with
+`__setitem__`, the primary purpose of this method is to handle presence
+and absence of a root node, and delegates the core `get` functionality
+to `_get`.
+
+The search code in the `_get` method uses the same logic
 for choosing the left or right child as the `_put` method. Notice that
-the `_get` method returns a `TreeNode` to `get`, this allows `_get` to
+the `_get` method returns a `TreeNode` to `__getitem__`, this allows `_get` to
 be used as a flexible helper method for other `BinarySearchTree` methods
 that may need to make use of other data from the `TreeNode` besides the
 val.
 
-By implementing the `__getitem__` method we can write a Python statement
-that looks just like we are accessing a dictionary, when in fact we are
-using a binary search tree, for example `z = my_zip_tree['Fargo']`. As you
-can see, all the `__getitem__` method does is call `get`.
-
 """
-    def get(self, key):
+    def __getitem__(self, key):
         if self.root:
             result = self._get(key, self.root)
             if result:
@@ -216,12 +238,10 @@ can see, all the `__getitem__` method does is call `get`.
             return self._get(key, node.left)
         return self._get(key, node.right)
 
-    def __getitem__(self, key):
-        return self.get(key)
     """
-Using `get`, we can implement the `in` operation by writing a
+Using `_get`, we can implement the `in` operation by writing a
 `__contains__` method for the `BinarySearchTree`. The `__contains__`
-method will simply call `get` and return `True` if `get` returns a
+method will simply call `_get` and return `True` if `_get` returns a
 value, or `False` if it returns `None`. The code for `__contains__` is
 shown below.
 
@@ -230,16 +250,8 @@ shown below.
         return bool(self._get(key, self.root))
     """
 
-Recall that `__contains__` overloads the `in` operator and allows us to
-write statements such as:
-
-```python
-if 'Northfield' in my_zip_tree:
-    print('oom ya ya')
-```
-
 Finally, we turn our attention to the most challenging method in the
-binary search tree, the deletion of a key (see below). The first task is
+binary search tree: the deletion of a key. The first task is
 to find the node to delete by searching the tree. If the tree has more
 than one node we search using the `_get` method to find the `TreeNode`
 that needs to be removed. If the tree only has a single node, that means
@@ -254,17 +266,16 @@ either case if the key is not found the `del` operator raises an error.
             if node_to_remove:
                 self.remove(node_to_remove)
                 self.size = self.size - 1
-                return node_to_remove
+                return
         elif self.size == 1 and self.root.key == key:
-            node_to_remove = self.root
             self.root = None
             self.size = self.size - 1
-            return node_to_remove
+            return
 
         raise KeyError('Error, key not in tree')
 
     def __delitem__(self, key):
-        node = self.delete(key)
+        self.delete(key)
         """
 
 Once we’ve found the node containing the key we want to delete, there
@@ -280,14 +291,15 @@ and remove the reference to this node in the parent. The code for this
 case is shown below.
 
 """
-        if node.is_leaf():
+    def remove(self, node):
+        if node.is_leaf() and node.parent is not None:
             if node == node.parent.left:
                 node.parent.left = None
             else:
                 node.parent.right = None
             """
-![Deleting Node 16, a Node without
-Children](figures/binary-search-tree-delete-1.png)
+![Deleting Node 16, a node without
+children](figures/binary-search-tree-delete-1.png)
 
 The second case is only slightly more complicated (see below). If a node
 has only a single child, then we can simply promote the child to take
@@ -314,34 +326,22 @@ Code for this decision process may look like:
 """
 
         elif node.has_one_child():
-            if node.left:
-                if node.is_left_child():
-                    node.left.parent = node.parent
-                    node.parent.left = node.left
-                elif node.is_right_child():
-                    node.left.parent = node.parent
-                    node.parent.right = node.left
-                else:
-                    node.replace_node_data(
-                        node.left.key,
-                        node.left.val,
-                        node.left.left,
-                        node.left.right
-                    )
+            promoted_node = node.left or node.right
+
+            if node.is_left_child():
+                promoted_node.parent = node.parent
+                node.parent.left = promoted_node
+            elif node.is_right_child():
+                promoted_node.parent = node.parent
+                node.parent.right = promoted_node
             else:
-                if node.is_left_child():
-                    node.right.parent = node.parent
-                    node.parent.left = node.right
-                elif node.is_right_child():
-                    node.right.parent = node.parent
-                    node.parent.right = node.right
-                else:
-                    node.replace_node_data(
-                        node.right.key,
-                        node.right.val,
-                        node.right.left,
-                        node.right.right
-                    )
+                node.replace_node_data(
+                    promoted_node.key,
+                    promoted_node.val,
+                    promoted_node.left,
+                    promoted_node.right
+                )
+
             """
 ![Deleting node 25, a node that has a single
 child](figures/binary-search-tree-delete-2.png)
@@ -373,9 +373,10 @@ the key node.
 """
         else:  # has both children
             successor = node.find_successor()
-            successor.splice_out()
-            node.key = successor.key
-            node.val = successor.val
+            if successor:
+                successor.splice_out()
+                node.key = successor.key
+                node.val = successor.val
     """
 
 The code to find the successor is shown below and as you can see is a
@@ -404,42 +405,3 @@ method simply follows the `left` references in each node of the
 subtree until it reaches a node that does not have a left child.
 
 """
-    def find_successor(self):
-        succ = None
-        if self.right:
-            succ = self.right.find_min()
-        else:
-            if self.parent:
-                if self.is_left_child():
-                    succ = self.parent
-                else:
-                    self.parent.right = None
-                    succ = self.parent.find_successor()
-                    self.parent.right = self
-        return succ
-
-    def find_min(self):
-        current = self
-        while current.left:
-            current = current.left
-        return current
-
-    def splice_out(self):
-        if self.is_leaf():
-            if self.is_left_child():
-                self.parent.left = None
-            else:
-                self.parent.right = None
-        elif self.has_any_children():
-            if self.left:
-                if self.is_left_child():
-                    self.parent.left = self.left
-                else:
-                    self.parent.right = self.left
-                self.left.parent = self.parent
-            else:
-                if self.is_left_child():
-                    self.parent.left = self.right
-                else:
-                    self.parent.right = self.right
-                self.right.parent = self.parent

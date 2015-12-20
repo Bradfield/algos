@@ -15,11 +15,14 @@ pairs = (
 
 class TestCorrectness(unittest.TestCase):
 
+    def add_all_pairs(self, tree):
+        for key, value in pairs:
+            tree[key] = value
+
     def test_put_and_get(self):
         for TreeClass in (AVLTree, BinarySearchTree):
             tree = TreeClass()
-            for key, value in pairs:
-                tree[key] = value
+            self.add_all_pairs(tree)
             for key, value in pairs:
                 self.assertEqual(tree[key], value)
 
@@ -28,16 +31,23 @@ class TestCorrectness(unittest.TestCase):
             tree = TreeClass()
             tree[1] = 2
             self.assertEqual(tree[1], 2)
-            tree.delete(1)
+            del tree[1]
             with self.assertRaises(KeyError):
                 tree[1]
 
     def test_iteration(self):
         for TreeClass in (AVLTree, BinarySearchTree):
             tree = TreeClass()
-            for key, value in pairs:
-                tree[key] = value
+            self.add_all_pairs(tree)
             self.assertEqual(
                 [item for item in tree],
                 [k for k, v in sorted(pairs)]
             )
+
+    def test_length(self):
+        for TreeClass in (AVLTree, BinarySearchTree):
+            tree = TreeClass()
+            self.add_all_pairs(tree)
+            self.assertEqual(len(pairs), len(tree))
+            del tree[1]
+            self.assertEqual(len(pairs) - 1, len(tree))
