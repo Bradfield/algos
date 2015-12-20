@@ -3,7 +3,7 @@
 """
 We will implement the AVL tree as a subclass of `BinarySearchTree`.
 To begin, we will override the `_put` method and write a new
-`update_balance` helper method. These methods are shown in below. You
+`update_balance` helper method. These methods are shown below. You
 will notice that the definition for `_put` is exactly the same as in
 simple binary search trees except for the additions of the calls to
 `update_balance`.
@@ -125,9 +125,7 @@ point to the new root; otherwise we change the parent of the right child
 to point to the new root. Finally we set the parent of
 the old root to be the new root. This is a lot of complicated
 bookkeeping, so we encourage you to trace through this function while
-looking at the diagram above. The `rotate_right` method
-is symmetrical to `rotate_left` so we will leave it to you to implement the
-code for `rotate_right`.
+looking at the diagram above.
 
 """
     def rotate_left(self, rotation_root):
@@ -169,6 +167,7 @@ code for `rotate_right`.
             rotation_root.balance_factor + 1 - min(new_root.balance_factor, 0)
         new_root.balance_factor = \
             new_root.balance_factor + 1 + max(rotation_root.balance_factor, 0)
+
     """
 
 The last two lines require some explanation. In these lines we
