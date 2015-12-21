@@ -1,5 +1,5 @@
 ---
-title: Shortest Path Problems and Dijkstra’s Algorithm
+title: Shortest Path with Dijkstra’s Algorithm
 layout: chapter.html
 collection: graphs
 position: 10

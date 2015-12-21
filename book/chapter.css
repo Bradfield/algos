@@ -59,13 +59,12 @@ a:hover {
 }
 
 .table-of-contents {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   font-size: 16px;
-  min-width: 350px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0 20px 40px 50px;
-  width: 350px;
+  width: 300px;
 }
 
 .navigation {

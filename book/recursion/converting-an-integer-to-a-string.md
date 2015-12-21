@@ -1,5 +1,5 @@
 ---
-title: Converting an Integer to a String in Any Base
+title: Converting an Integer to Any Base
 layout: chapter.html
 collection: recursion
 position: 4
