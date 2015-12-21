@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inconsolata:700' type='text/css'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="<%= process.env.SITE_ROOT %>chapter.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
@@ -15,7 +14,7 @@
 </head>
 <body>
 
-<% var prevItem, nextItem %>
+<% var nextItem %>
 
 <div class="table-of-contents">
   <h1>Practical Algorithms<br>and Data&nbsp;Structures</h2>
@@ -28,7 +27,6 @@
       <% var chapter = section.collection[j] %>
       <li>
         <% if (chapter.path === path) { %>
-          <% prevItem = chapter.previous %>
           <% nextItem = chapter.next %>
           <%= chapter.title %>
         <% } else { %>
@@ -39,25 +37,26 @@
     </ol>
   <% } %>
 </div>
-<div class="navigation">
-  <div class="navigation-left">
-    <% if (prevItem) { %>
-      <a href="<%= process.env.SITE_ROOT %><%= prevItem.path %>"><i class="fa fa-angle-left"></i></a>
-    <% } %>
-  </div>
-  <div class="content-wrapper">
-    <div class="content">
-      <h1><%= title %></h1>
-      <%- contents %>
+
+<div class="content-wrapper">
+  <div class="content">
+    <h1><%= title %></h1>
+    <%- contents %>
+
+    <div class="navigation">
+      <% if (nextItem) { %>
+        Next:
+        <a href="<%= process.env.SITE_ROOT %><%= nextItem.path %>">
+          <%= nextItem.title %>
+        </a>
+      <% } %>
+      <% if (path === '') { %>
+        Next:
+        <a href="<%= process.env.SITE_ROOT %>analysis/introduction">
+          Introduction to Algorithm Analysis
+        </a>
+      <% } %>
     </div>
-  </div>
-  <div class="navigation-right">
-    <% if (nextItem) { %>
-      <a href="<%= process.env.SITE_ROOT %><%= nextItem.path %>"><i class="fa fa-angle-right"></i></a>
-    <% } %>
-    <% if (path === '') { %>
-      <a href="<%= process.env.SITE_ROOT %>analysis/introduction"><i class="fa fa-angle-right"></i></a>
-    <% } %>
   </div>
 </div>
 
