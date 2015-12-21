@@ -3,6 +3,7 @@
 <head>
   <title><%= title %></title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="http://bradfield.institute/favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
@@ -19,25 +20,31 @@
 <div class="container">
 
   <div class="table-of-contents">
-    <h1>Practical Algorithms<br>and Data&nbsp;Structures</h2>
+    <h1>Practical Algorithms and Data&nbsp;Structures</h2>
     <a href="/">Introduction</a>
-    <% for (var i = 0; i < tableOfContents.length; i++) { %>
-      <% var section = tableOfContents[i] %>
-      <h2><%= section.sectionName %></h2>
-      <ol class="chapters">
-      <% for (var j = 0; j < section.collection.length; j++) { %>
-        <% var chapter = section.collection[j] %>
-        <li>
-          <% if (chapter.path === path) { %>
-            <% nextItem = chapter.next %>
-            <%= chapter.title %>
-          <% } else { %>
-            <a href="<%= process.env.SITE_ROOT %><%= chapter.path %>"><%= chapter.title %></a>
+
+    <div class="chapters">
+      <% for (var i = 0; i < tableOfContents.length; i++) { %>
+        <% var chapter = tableOfContents[i] %>
+        <div class="chapter">
+          <h2><%= chapter.sectionName %></h2>
+          <ol>
+          <% for (var j = 0; j < chapter.collection.length; j++) { %>
+            <% var section = chapter.collection[j] %>
+            <li>
+              <% if (section.path === path) { %>
+                <% nextItem = section.next %>
+                <%= section.title %>
+              <% } else { %>
+                <a href="<%= process.env.SITE_ROOT %><%= section.path %>"><%= section.title %></a>
+              <% } %>
+            </li>
           <% } %>
-        </li>
+          </ol>
+        </div>
       <% } %>
-      </ol>
-    <% } %>
+    </div>
+
   </div>
 
   <div class="page">

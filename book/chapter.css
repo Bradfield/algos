@@ -30,12 +30,22 @@ body {
   width: 350px;
 }
 
+.chapters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chapter {
+  flex: 1 1 auto;
+  min-width: 320px;
+}
+
 .page {
   flex: auto;
   background: white;
   height: 100%;
-  padding: 0 40px 120px;
   overflow: auto;
+  padding: 0 40px 120px;
 }
 
 .content {
@@ -44,9 +54,23 @@ body {
 }
 
 .navigation {
-  margin-top: 80px;
+  margin: 60px 0;
   font-style: italic;
   text-align: right;
+}
+
+@media (max-width: 1190px) {
+  .container {
+    flex-direction: column-reverse;
+    overflow: scroll;
+  }
+  .table-of-contents {
+    width: 100%;
+  }
+  .page {
+    height: initial;
+    overflow: visible;
+  }
 }
 
 
@@ -104,7 +128,7 @@ a:hover {
   color: #30a7fc;
 }
 
-ol.chapters {
+.chapter ol {
   padding: 0;
 }
 
