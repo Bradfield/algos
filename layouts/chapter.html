@@ -16,49 +16,53 @@
 
 <% var nextItem %>
 
-<div class="table-of-contents">
-  <h1>Practical Algorithms<br>and Data&nbsp;Structures</h2>
-  <a href="/">Introduction</a>
-  <% for (var i = 0; i < tableOfContents.length; i++) { %>
-    <% var section = tableOfContents[i] %>
-    <h2><%= section.sectionName %></h2>
-    <ol class="chapters">
-    <% for (var j = 0; j < section.collection.length; j++) { %>
-      <% var chapter = section.collection[j] %>
-      <li>
-        <% if (chapter.path === path) { %>
-          <% nextItem = chapter.next %>
-          <%= chapter.title %>
-        <% } else { %>
-          <a href="<%= process.env.SITE_ROOT %><%= chapter.path %>"><%= chapter.title %></a>
-        <% } %>
-      </li>
+<div class="container">
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms<br>and Data&nbsp;Structures</h2>
+    <a href="/">Introduction</a>
+    <% for (var i = 0; i < tableOfContents.length; i++) { %>
+      <% var section = tableOfContents[i] %>
+      <h2><%= section.sectionName %></h2>
+      <ol class="chapters">
+      <% for (var j = 0; j < section.collection.length; j++) { %>
+        <% var chapter = section.collection[j] %>
+        <li>
+          <% if (chapter.path === path) { %>
+            <% nextItem = chapter.next %>
+            <%= chapter.title %>
+          <% } else { %>
+            <a href="<%= process.env.SITE_ROOT %><%= chapter.path %>"><%= chapter.title %></a>
+          <% } %>
+        </li>
+      <% } %>
+      </ol>
     <% } %>
-    </ol>
-  <% } %>
-</div>
+  </div>
 
-<div class="content-wrapper">
-  <div class="content">
-    <h1><%= title %></h1>
-    <%- contents %>
+  <div class="page">
+    <div class="content">
+      <h1><%= title %></h1>
+      <%- contents %>
 
-    <div class="navigation">
-      <% if (nextItem) { %>
-        Next:
-        <a href="<%= process.env.SITE_ROOT %><%= nextItem.path %>">
-          <%= nextItem.title %>
-        </a>
-      <% } %>
-      <% if (path === '') { %>
-        Next:
-        <a href="<%= process.env.SITE_ROOT %>analysis/introduction">
-          Introduction to Algorithm Analysis
-        </a>
-      <% } %>
+      <div class="navigation">
+        <% if (nextItem) { %>
+          Next:
+          <a href="<%= process.env.SITE_ROOT %><%= nextItem.path %>">
+            <%= nextItem.title %>
+          </a>
+        <% } %>
+        <% if (path === '') { %>
+          Next:
+          <a href="<%= process.env.SITE_ROOT %>analysis/introduction">
+            Introduction to Algorithm Analysis
+          </a>
+        <% } %>
+      </div>
     </div>
   </div>
-</div>
+
+</div><!-- .container -->
 
 </body>
 </html>

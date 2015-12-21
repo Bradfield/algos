@@ -1,3 +1,57 @@
+/* layout */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.table-of-contents {
+  flex: 0 0 auto;
+  font-size: 16px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0 20px 30px 40px;
+  width: 350px;
+}
+
+.page {
+  flex: auto;
+  background: white;
+  height: 100%;
+  padding: 0 40px 120px;
+  overflow: auto;
+}
+
+.content {
+  margin: auto;
+  max-width: 720px;
+}
+
+.navigation {
+  margin-top: 80px;
+  font-style: italic;
+  text-align: right;
+}
+
+
+/* type + color */
+
 @font-face {
   font-family: 'Whitney';
   src: url('http://bradfield.institute/WhitneyHTF-Light.woff') format('woff');
@@ -26,6 +80,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1.5em 0 1em;
 }
 
+.table-of-contents h1 {
+  margin-top: 1em;
+}
+
 blockquote {
   border-left: 5px solid rgba(36, 51, 64, 0.1);
   margin-left: 0;
@@ -33,60 +91,17 @@ blockquote {
   margin-bottom: 20px;
 }
 
-html {
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-body {
-  display: flex;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
 a {
   color: #07c;
   text-decoration: none;
 }
+
 a:visited {
   color: #0c65a5;
 }
+
 a:hover {
   color: #30a7fc;
-}
-
-.table-of-contents {
-  flex: 0 0 auto;
-  font-size: 16px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  padding: 0 20px 40px 50px;
-  width: 300px;
-}
-
-.content-wrapper {
-  flex: 1 1 auto;
-  background: white;
-  box-sizing: border-box;
-  display: flex;
-  height: 100%;
-  min-width: 720px;
-  padding: 0 40px 120px;
-  overflow: auto;
-}
-
-.content {
-  margin: auto;
-  width: 720px;
-}
-
-.navigation {
-  margin-top: 80px;
-  font-style: italic;
-  text-align: right;
 }
 
 ol.chapters {
