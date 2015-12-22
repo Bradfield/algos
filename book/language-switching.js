@@ -1,6 +1,4 @@
-// TODO:
-// retain latest in stack-like structure
-// litjs
+// TODO: litjs
 
 const languageName = {
   javascript: 'JavaScript',
@@ -35,25 +33,32 @@ const switchLanguageTo = (language) => {
 }
 
 // When the user changes the prefered language, reflect the change
-const handleSwitchLanguage = (event) =>
-  switchLanguageTo(event.target.value)
+const handleSwitchLanguage = (event) => {
+  const language = event.target.value
+  window.localStorage.setItem('preferredLanguage', language)
+  switchLanguageTo(language)
+}
 
 // Populate the language switcher <select> element and bind change callback
 window.addEventListener('load', () => {
   const switcher = document.getElementById('language-switcher')
   const languages = getUniqueLanguages()
+  const preferredLanguage = window.localStorage.getItem('preferredLanguage')
 
   languages.forEach(language => {
     const element = document.createElement('option')
     element.setAttribute('value', language)
     element.innerHTML = languageName[language] || language
     switcher.appendChild(element)
+    if (language === preferredLanguage) {
+      element.setAttribute('selected', true)
+    }
   })
 
   if (languages.length > 0) {
     switcher.style.visibility = 'visible'
     getContentForAllLanguages().forEach(node => node.style.visibility = 'visible')
     switcher.addEventListener('change', handleSwitchLanguage)
-    switchLanguageTo(languages[0])
+    switchLanguageTo(preferredLanguage || languages[0])
   }
 })
