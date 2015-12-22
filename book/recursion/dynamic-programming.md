@@ -157,6 +157,7 @@ const fib = (n) => {
   }
   return a
 }
+```
 </div>
 
 With this implementation, we sacrifice some of the elegance and
@@ -477,7 +478,17 @@ is simply `1`.
 Putting our base case and general case together, we obtain a succinct recursive
 solution:
 
+<div data-language="python">
 <!-- litpy recursion/lattice_traversal_recursive.py -->
+</div>
+<div data-language="javascript">
+```javascript
+const numPaths = (height, width) => {
+  if (height === 0 || width === 0) return 1
+  return numPaths(height, width - 1) + numPaths(height - 1, width)
+}
+```
+</div>
 
 Unfortunately, we find ourselves with another $$O(2^n)$$ solution
 (where $$n = max(H, W)$$) due
@@ -486,7 +497,7 @@ calculating `f(3, 2)` involves calculating `f(2, 2)` and `f(3, 1)`,
 but then in calculating `f(2, 3)` we redundantly call `f(2, 2)` once
 more.
 
-Consider the call tree of `num_paths(2, 2)` to convince yourself
+Consider the call tree of <span data-language="python">`num_paths(2, 2)`</span><span data-language="javascript">`numPaths(2, 2)`</span> to convince yourself
 that the running time is $$O(2^n)$$:
 
 <figure>
@@ -495,32 +506,32 @@ that the running time is $$O(2^n)$$:
 
 <script>
 drawTree('#lattice-2-2-call-tree', {
-  name: 'num_paths(2, 2)',
+  name: 'f(2, 2)',
   children: [
     {
-      name: 'num_paths(2, 1)',
+      name: 'f(2, 1)',
       children: [
-        { name: 'num_paths(2, 0)' },
+        { name: 'f(2, 0)' },
         {
-          name: 'num_paths(1, 1)',
+          name: 'f(1, 1)',
           children: [
-            { name: 'num_paths(1, 0)' },
-            { name: 'num_paths(0, 1)' }
+            { name: 'f(1, 0)' },
+            { name: 'f(0, 1)' }
           ]
         },
       ]
     },
     {
-      name: 'num_paths(1, 2)',
+      name: 'f(1, 2)',
       children: [
         {
-          name: 'num_paths(1, 1)',
+          name: 'f(1, 1)',
           children: [
-            { name: 'num_paths(1, 0)' },
-            { name: 'num_paths(0, 1)' }
+            { name: 'f(1, 0)' },
+            { name: 'f(0, 1)' }
           ]
         },
-        { name: 'num_paths(0, 2)' }
+        { name: 'f(0, 2)' }
       ]
     },
   ]
@@ -557,7 +568,7 @@ which represents the number of paths to traverse the entire lattice.
 For instance, this is the memo that we will generate in the process of
 computing `f(2, 2)` using this strategy:
 
-```python
+```
 [
     [1, 1, 1],
     [1, 2, 3],
@@ -569,7 +580,7 @@ Again we arrive at our answer 6.
 
 This is what the memo looks like for `f(10, 10)`:
 
-```python
+```
 [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -588,9 +599,25 @@ This is what the memo looks like for `f(10, 10)`:
 Below is a possible implementation of the dynamic programming strategy
 we have discussed.
 
+<div data-language="python">
 <!-- litpy recursion/lattice_traversal_dp.py -->
-
-<!-- TODO: litjs -->
+</div>
+<div data-language="javascript">
+```javascript
+const numPathsDp = (height, width) {
+  const memo = Array.from(Array(height + 1)).map(
+    () => Array.from(Array(width + 1)).map(() => 1)
+  )
+  for (let i = 1; i < memo.length; i++) {
+    const row = memo[i]
+    for (let j = 1; j < row.length; j++) {
+      memo[i][j] = memo[i - 1][j] + memo[i][j - 1]
+    }
+  }
+  return memo[height][width]
+}
+```
+</div>
 
 Both the time and space cost for this implementation are $$O(H \times W)$$,
 compared to $$2^{max(H, W)}$$ previously, making a big difference as $$H$$
