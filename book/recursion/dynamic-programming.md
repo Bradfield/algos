@@ -568,7 +568,7 @@ which represents the number of paths to traverse the entire lattice.
 For instance, this is the memo that we will generate in the process of
 computing `f(2, 2)` using this strategy:
 
-```
+```python
 [
     [1, 1, 1],
     [1, 2, 3],
@@ -580,7 +580,7 @@ Again we arrive at our answer 6.
 
 This is what the memo looks like for `f(10, 10)`:
 
-```
+```python
 [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
