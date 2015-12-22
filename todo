@@ -3,9 +3,6 @@ move away from CDN, just in case
 literate javascript
 speed up dev build - would make dev much easier
 
-stacks
-    fix katex formatting in convert-number-bases.md
-
 trees
     move code samples to literate python, add tests
     use tuples (or named tuples in list-of-lists representation?)
