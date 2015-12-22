@@ -32,12 +32,23 @@ numbers” and recognizes the relationship $$f(n) = f(n-1) + f(n-2)$$.
 With 0 and 1 as our base cases, this leads to an implementation in code that
 looks very much like the mathematical definition of the sequence:
 
+<div data-language="python">
 ```python
 def fib(n):
     if n <= 1:
         return n  # base cases: return 0 or 1 if n is 0 or 1, respectively
     return fib(n - 1) + fib(n - 2)
 ```
+</div>
+
+<div data-language="javascript">
+```javascript
+const fib = (n) => {
+  if (n <= 1) return n
+  return fib(n - 1) + fib(n - 2)
+}
+```
+</div>
 
 This is a correct solution, but it poses a problem evident to those who run
 `fib(50)` and wait for an answer. The running time of this implementation is
@@ -125,6 +136,7 @@ calculations, and we never obtain the same sum twice.
 
 An implementation of this strategy might look like:
 
+<div data-language="python">
 ```python
 def fib(n):
     a, b = 0, 1
@@ -132,6 +144,20 @@ def fib(n):
         a, b = a + b, a
     return a
 ```
+</div>
+<div data-language="javascript">
+```javascript
+const fib = (n) => {
+  let a = 0
+  let b = 1
+  for (let i = 0; i < n; i++) {
+    let temp = a
+    a = a + b
+    b = temp
+  }
+  return a
+}
+</div>
 
 With this implementation, we sacrifice some of the elegance and
 readability of our recursive solution, but gain a much better $$O(n)$$
@@ -563,6 +589,8 @@ Below is a possible implementation of the dynamic programming strategy
 we have discussed.
 
 <!-- litpy recursion/lattice_traversal_dp.py -->
+
+<!-- TODO: litjs -->
 
 Both the time and space cost for this implementation are $$O(H \times W)$$,
 compared to $$2^{max(H, W)}$$ previously, making a big difference as $$H$$

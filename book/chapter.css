@@ -199,3 +199,12 @@ table tr:last-child td {
 .graph-edge-deemphasized {
   stroke: #eee;
 }
+
+#language-switcher {
+  float: right;
+  visibility: hidden;
+}
+
+[data-language] {
+  visibility: hidden;
+}
