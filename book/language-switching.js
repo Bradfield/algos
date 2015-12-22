@@ -1,7 +1,6 @@
 // TODO:
 // retain latest in stack-like structure
 // improve select visuals
-// highlight javascript too
 // litjs
 
 const languageName = {
