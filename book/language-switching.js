@@ -1,6 +1,5 @@
 // TODO:
 // retain latest in stack-like structure
-// improve select visuals
 // litjs
 
 const languageName = {

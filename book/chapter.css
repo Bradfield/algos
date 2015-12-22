@@ -202,6 +202,8 @@ table tr:last-child td {
 
 #language-switcher {
   float: right;
+  font-size: 1.5em;
+  margin: 15px 0 0 20px;
   visibility: hidden;
 }
 
