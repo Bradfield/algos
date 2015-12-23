@@ -3,11 +3,7 @@ title: Prim’s Spanning Tree Algorithm
 layout: chapter.html
 collection: graphs
 position: 11
-draft: true
 ---
-# -*- coding: utf-8 -*-
-# -*- litpy -*-
-"""
 
 For our last graph algorithm let’s consider a problem that online game
 designers and Internet radio providers face. The problem is that they
@@ -94,73 +90,9 @@ that the tree will always remain a tree and therefore have no cycles.
 The Python code to implement Prim’s algorithm is shown below. Prim’s
 algorithm is similar to Dijkstra’s algorithm in that they both use a
 priority queue to select the next vertex to add to the growing graph.
-"""
 
-from collections import defaultdict
-import heapq
+<!-- litpy graphs/prims_spanning_tree.py -->
 
-
-def create_spanning_tree(graph, starting_vertex):
-    tree = defaultdict(set)
-    distances = {vertex: float('infinity') for vertex in graph}
-    distances[starting_vertex] = 0
-
-    entry_lookup = {}
-    pq = []
-
-    added = set()
-
-    for vertex, distance in distances.items():
-        entry = [distance, vertex]
-        entry_lookup[vertex] = entry
-        heapq.heappush(pq, entry)
-
-    while len(pq) > 0:
-        current_distance, current_vertex = heapq.heappop(pq)
-
-        for neighbor, neighbor_distance in graph[current_vertex].items():
-            distance = distances[current_vertex] + neighbor_distance
-
-            if distance < distances[neighbor] and neighbor in pq:
-                added.add(neighbor)
-                distances[neighbor] = distance
-                entry_lookup[neighbor][0] = distance
-                tree[current_vertex].add(neighbor)
-
-    return tree
-
-
-example_graph = {
-    'A': {'B': 2, 'C': 3},
-    'B': {'A': 2, 'C': 1, 'D': 1, 'E': 4},
-    'C': {'A': 3, 'B': 1, 'F': 5},
-    'D': {'B': 1, 'E': 1},
-    'E': {'B': 4, 'D': 1, 'F': 1},
-    'F': {'C': 5, 'E': 1, 'G': 1},
-    'G': {'F': 1},
-}
-
-print dict(create_spanning_tree(example_graph, 'A'))
-
-
-# def prim(G,start):
-#     pq = PriorityQueue()
-#     for v in G:
-#         v.setDistance(sys.maxsize)
-#         v.setPred(None)
-#     start.setDistance(0)
-#     pq.buildHeap([(v.getDistance(),v) for v in G])
-#     while not pq.isEmpty():
-#         currentVert = pq.delMin()
-#         for nextVert in currentVert.getConnections():
-#           newCost = currentVert.getWeight(nextVert) \
-#                   + currentVert.getDistance()
-#           if nextVert in pq and newCost<nextVert.getDistance():
-#               nextVert.setPred(currentVert)
-#               nextVert.setDistance(newCost)
-#               pq.decreaseKey(nextVert,newCost)
-
-"""
 The following sequence of diagrams shows the algorithm in operation on our
 sample tree. We begin with the starting vertex as A. The distances to
 all the other vertices are initialized to infinity. Looking at the
@@ -186,17 +118,16 @@ to be grafted into the spanning tree but in a different location. The
 rest of the algorithm proceeds as you would expect, adding each new node
 to the tree.
 
-![Tracing Prim’s algorithm](figures/prima.png)
+![ ](figures/prima.png)
 
-![Tracing Prim’s algorithm](figures/primb.png)
+![ ](figures/primb.png)
 
-![Tracing Prim’s algorithm](figures/primc.png)
+![ ](figures/primc.png)
 
-![Tracing Prim’s algorithm](figures/primd.png)
+![ ](figures/primd.png)
 
-![Tracing Prim’s algorithm](figures/prime.png)
+![ ](figures/prime.png)
 
-![Tracing Prim’s algorithm](figures/primf.png)
+![ ](figures/primf.png)
 
-![Tracing Prim’s algorithm](figures/primg.png)
-"""
+![ ](figures/primg.png)
