@@ -1,5 +1,5 @@
 ---
-title: Implementing an Unordered List: Linked Lists
+title: Implementing an Unordered List
 layout: chapter.html
 collection: lists
 position: 3
