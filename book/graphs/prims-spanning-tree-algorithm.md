@@ -94,15 +94,14 @@ priority queue to select the next vertex to add to the growing graph.
 <!-- litpy graphs/prims_spanning_tree.py -->
 
 The following sequence of diagrams shows the algorithm in operation on our
-sample tree. We begin with the starting vertex as A. The distances to
-all the other vertices are initialized to infinity. Looking at the
-neighbors of A we can update distances to two of the additional vertices
-B and C because the distances to B and C through A are less than
-infinite. This moves B and C to the front of the priority queue. Update
-the predecessor links for B and C by setting them to point to A. It is
-important to note that we have not formally added B or C to the spanning
-tree yet. A node is not considered to be part of the spanning tree until
-it is removed from the priority queue.
+sample tree. We begin with the starting vertex as A. Looking at the neighbors
+of A we can update distances to two of the additional vertices B and C because
+the distances to B and C through A are less than infinite. We can then add B
+and C to the priority queue in the correct order. Update the predecessor links
+for B and C by setting them to point to A. It is important to note that we
+have not formally added B or C to the spanning tree yet. A node is not
+considered to be part of the spanning tree until it is removed from the
+priority queue.
 
 Since B has the smallest distance we look at B next. Examining B’s
 neighbors we see that D and E can be updated. Both D and E get new
