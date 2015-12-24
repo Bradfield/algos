@@ -124,6 +124,7 @@ code, code[class*="language-"] {
 pre {
   background: rgba(242, 242, 242, 0.5);
   padding: 20px;
+  overflow-x: scroll;
 }
 
 figure {

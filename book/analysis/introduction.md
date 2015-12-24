@@ -55,8 +55,9 @@ If we perform 5 invocations of the function, each computing the sum of
 the first 10,000 integers, we get something like the following:
 
 ```
+>>> output_template = 'Sum is {}, required {:10.7f} seconds'
 >>> for i in range(5):
-...     print('Sum is {}, required {:10.7f} seconds'.format(sum_of_n(10000)))
+...     print(output_template.format(sum_of_n(10000)))
 Sum is 50005000, required  0.0018950 seconds
 Sum is 50005000, required  0.0018620 seconds
 Sum is 50005000, required  0.0019171 seconds
@@ -70,7 +71,7 @@ process for the first 100,000 integers?
 
 ```
 >>> for i in range(5):
-...     print('Sum is {:d}, required {:10.7f} seconds'.format(sum_of_n(100000)))
+...     print(output_template.format(sum_of_n(100000)))
 Sum is 5000050000, required  0.0199420 seconds
 Sum is 5000050000, required  0.0180972 seconds
 Sum is 5000050000, required  0.0194821 seconds
@@ -83,7 +84,7 @@ averaging about 0.019 seconds. For `n` equal to 1,000,000 we get:
 
 ```
 >>> for i in range(5):
-...     print('Sum is {}, required {:10.7f} seconds'.format(*sum_of_n(1000000)))
+...     print(output_template.format(*sum_of_n(1000000)))
 Sum is 500000500000, required  0.1948988 seconds
 Sum is 500000500000, required  0.1850290 seconds
 Sum is 500000500000, required  0.1809771 seconds

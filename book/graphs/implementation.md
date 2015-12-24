@@ -31,7 +31,10 @@ class Vertex(object):
         self.neighbors[neighbor] = weight
 
     def __str__(self):
-        return '{} neighbors: {}'.format(self.key, [x.key for x in self.neighbors])
+        return '{} neighbors: {}'.format(
+            self.key,
+            [x.key for x in self.neighbors]
+        )
 
     def get_connections(self):
         return self.neighbors.keys()

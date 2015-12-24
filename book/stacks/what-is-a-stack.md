@@ -52,7 +52,7 @@ them.
 Here is another stack, this one contains a number of primitive Python
 data objects:
 
-![A Stack of primitive Python objects](figures/primitive.png)
+![A stack of primitive Python objects](figures/primitive.png)
 
 One of the most useful ideas related to stacks comes from the simple
 observation that the order of insertion is the reverse of the order of
