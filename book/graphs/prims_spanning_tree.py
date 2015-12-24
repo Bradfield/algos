@@ -1,6 +1,5 @@
 from collections import defaultdict
 import heapq
-import pprint
 
 
 def create_spanning_tree(graph, starting_vertex):
@@ -14,7 +13,6 @@ def create_spanning_tree(graph, starting_vertex):
 
     while edges:
         cost, frm, to = heapq.heappop(edges)
-        print cost, frm, to
         if to not in visited:
             visited.add(to)
             mst[frm].add(to)
@@ -34,7 +32,7 @@ example_graph = {
     'G': {'F': 1},
 }
 
-pprint.pprint(dict(create_spanning_tree(example_graph, 'A')))
+dict(create_spanning_tree(example_graph, 'A'))
 
 # {'A': set(['B']),
 #  'B': set(['C', 'D']),
