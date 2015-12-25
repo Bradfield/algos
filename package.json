@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/Bradfield/algos#readme",
   "devDependencies": {
-    "http-server": "^0.8.5"
+    "http-server": "^0.8.5",
+    "jsdom": "^7.2.1",
+    "request": "^2.67.0"
   }
 }
