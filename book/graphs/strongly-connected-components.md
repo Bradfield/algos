@@ -22,7 +22,19 @@ another set of vertices. Doing this three links deep, we end up with a graph
 that looks like the one below. Slide the slider to show the graphs at greater
 and lesser depths.
 
-[GRAPH]
+<style>
+.node {
+  stroke: none;
+  /*stroke-width: 1.5px;*/
+}
+.link {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+}
+</style>
+<svg id="link-graph"></svg>
+<script src="/graphs/show-link-graph.js"></script>
+
 
 If you look closely at the graph above you might make some interesting
 observations.

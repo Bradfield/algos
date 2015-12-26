@@ -1,0 +1,18 @@
+
+<--- Last few GCs --->
+
+  176821 ms: Mark-sweep 1367.8 (1459.0) -> 1371.6 (1459.0) MB, 1246.0 / 0 ms [allocation failure] [GC in old space requested].
+  178140 ms: Mark-sweep 1371.6 (1459.0) -> 1371.6 (1459.0) MB, 1318.5 / 0 ms [allocation failure] [GC in old space requested].
+  179489 ms: Mark-sweep 1371.6 (1459.0) -> 1366.4 (1459.0) MB, 1348.8 / 0 ms [last resort gc].
+  180814 ms: Mark-sweep 1366.4 (1459.0) -> 1367.2 (1459.0) MB, 1324.8 / 0 ms [last resort gc].
+
+
+<--- JS stacktrace --->
+
+==== JS stack trace =========================================
+
+Security context: 0x272b00d37399 <JS Object>
+    1: create [native v8natives.js:~754] [pc=0x3f95c14f2223] (this=0x272b00d36bc1 <JS Function Object (SharedFunctionInfo 0x272b00d36b31)>,am=0x3184657723c1 <an Object with map 0x1995050045d1>,aC=0x272b00d04131 <undefined>)
+    2: arguments adaptor frame: 1->2
+    3: create [/Users/ozan/Dropbox (Personal)/dev/bradfield/algorithms-data-structures/node_modules/jsdom/lib/jsdom/living/generated/Mut...
+

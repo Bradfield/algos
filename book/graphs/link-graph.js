@@ -19,6 +19,29 @@ const parseLinks = (markup, host) =>
   .map(a => a.href)
   .map(href => href.slice(0, 4) === 'http' ? href : `http://${host}${href}`)
 
+const generateLinkGraph = (startingUrl, maxDepth) => {
+  const graph = {}
+  const queue = [[startingUrl, 0]]
+  const pendingRequests = 0
+  while (queue.length > 0 || pendingRequests > 0) {
+    const [location, depth] = queue.shift()
+    if (depth < maxDepth) {
+      const addLinkForUrl = addLink(graph, location)
+      pendingRequests += 1
+      request({ url: location, headers }, (error, response, body) => {
+        pendingRequests -= 1
+        if (error) return
+        parseLinks(body, url.parse(location).host)
+        .forEach(link => {
+          addLinkForUrl(link)
+          traverse(link, depth - 1)
+        })
+      })
+    }
+  }
+  return graph
+}
+
 const generateLinkGraph = (startingUrl, depth) => {
   const graph = { }
 
@@ -26,7 +49,8 @@ const generateLinkGraph = (startingUrl, depth) => {
     if (depth === 0) return
     if (graph[location]) return
     const addLinkForUrl = addLink(graph, location)
-    console.log('traversing', location)
+
+    // TODO: handle redundant requests
     request({ url: location, headers }, (error, response, body) => {
       if (error) return
       parseLinks(body, url.parse(location).host)
@@ -42,6 +66,12 @@ const generateLinkGraph = (startingUrl, depth) => {
   return graph
 }
 
-const graph = generateLinkGraph('https://www.wikipedia.org', 3)
+const graph = generateLinkGraph('http://localhost:8000/graphs/strongly-connected-components/', 3)
 
-setTimeout(() => console.log(graph), 20000)
+// TODO: actually, just wait
+setTimeout(() => {
+  for (let key in graph) {
+    graph[key] = Array.from(graph[key])
+  }
+  console.log(JSON.stringify(graph))
+}, 50000)
