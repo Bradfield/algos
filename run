@@ -8,7 +8,7 @@ IFS=$'\n\t'
 BUILD_DIR="/tmp/algo-book-build"
 SITE_ROOT=${SITE_ROOT-"/"}
 REPO="github.com/Bradfield/algos.git"
-PORT=5000
+PORT=${PORT-"5000"}
 
 
 function test {
