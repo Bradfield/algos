@@ -32,7 +32,7 @@ function dev {
   build-book
   log-msg 'Starting server and browser'
   ( serve ) &
-  ( sleep 0.5 && open -a "Google Chrome" "http://localhost:${$PORT}" ) &
+  ( sleep 0.5 && open -a "Google Chrome" "http://localhost:${PORT}" ) &
   log-msg 'Watching for changes'
   wach ./run build-book
   wait
