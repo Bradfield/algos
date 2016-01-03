@@ -8,7 +8,7 @@ position: 4
 We now turn our attention to using stacks to solve real computer science
 problems. You have no doubt written arithmetic expressions such as
 
-$$(5+6)*(7+8)/(4+3)$$
+$$(5+6)\times(7+8)/(4+3)$$
 
 where parentheses are used to order the performance of operations. You
 may also have some experience programming in a language such as Lisp
