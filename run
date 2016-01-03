@@ -21,12 +21,16 @@ function publish-from-travis {
   fi
 }
 
+function serve {
+  cd $BUILD_DIR && http-server -p 8000
+}
+
 # run in dev mode
 function dev {
   log-msg 'Building'
   build-book
   log-msg 'Starting server and browser'
-  ( cd $BUILD_DIR && http-server -p 8000 ) &
+  ( serve ) &
   ( sleep 0.5 && open -a "Google Chrome" http://localhost:8000 ) &
   log-msg 'Watching for changes'
   wach ./run build-book
