@@ -78,14 +78,14 @@ body {
 
 @font-face {
   font-family: 'Whitney';
-  src: url('//bradfield.institute/WhitneyHTF-Light.woff') format('woff');
+  src: url('./WhitneyHTF-Light.woff') format('woff');
   font-weight: 300;
   font-variant: normal;
 }
 
 @font-face {
   font-family: 'Whitney';
-  src: url('//bradfield.institute/WhitneyHTF-Medium.woff') format('woff');
+  src: url('./WhitneyHTF-Medium.woff') format('woff');
   font-weight: 400;
   font-variant: normal;
 }
