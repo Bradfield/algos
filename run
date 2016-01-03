@@ -8,6 +8,7 @@ IFS=$'\n\t'
 BUILD_DIR="/tmp/algo-book-build"
 SITE_ROOT=${SITE_ROOT-"/"}
 REPO="github.com/Bradfield/algos.git"
+PORT=${PORT-"5000"}
 
 
 function test {
@@ -21,13 +22,17 @@ function publish-from-travis {
   fi
 }
 
+function serve {
+  cd $BUILD_DIR && http-server -p $PORT
+}
+
 # run in dev mode
 function dev {
   log-msg 'Building'
   build-book
   log-msg 'Starting server and browser'
-  ( cd $BUILD_DIR && http-server -p 8000 ) &
-  ( sleep 0.5 && open -a "Google Chrome" http://localhost:8000 ) &
+  ( serve ) &
+  ( sleep 0.5 && open -a "Google Chrome" "http://localhost:${PORT}" ) &
   log-msg 'Watching for changes'
   wach ./run build-book
   wait
