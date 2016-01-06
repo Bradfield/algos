@@ -17,8 +17,10 @@ body {
 
 .container {
   display: flex;
+  flex-direction: row-reverse;
   height: 100vh;
   overflow: hidden;
+  align-items: stretch;
 }
 
 .table-of-contents {
@@ -61,7 +63,7 @@ body {
 
 @media (max-width: 1190px) {
   .container {
-    flex-direction: column-reverse;
+    display: block;
     overflow: scroll;
   }
   .table-of-contents {
@@ -69,7 +71,6 @@ body {
   }
   .page {
     height: initial;
-    overflow: visible;
   }
 }
 
