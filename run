@@ -34,7 +34,7 @@ function dev {
   ( serve ) &
   ( sleep 0.5 && open -a "Google Chrome" "http://localhost:${PORT}" ) &
   log-msg 'Watching for changes'
-  wach ./run build-book
+  wach './run build-book && rld chrome'
   wait
 }
 
