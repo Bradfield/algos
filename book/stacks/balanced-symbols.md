@@ -1,6 +1,6 @@
 ---
 title: Balanced Symbols (A General Case)
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 5
 ---

@@ -1,6 +1,6 @@
 ---
 title: Palindrome Checker
-layout: chapter.html
+layout: default.html
 collection: deques
 position: 4
 ---

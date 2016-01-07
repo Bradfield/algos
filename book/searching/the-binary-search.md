@@ -1,6 +1,6 @@
 ---
 title: The Binary Search
-layout: chapter.html
+layout: default.html
 collection: searching
 position: 3
 ---

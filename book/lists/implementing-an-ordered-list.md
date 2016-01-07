@@ -1,6 +1,6 @@
 ---
 title: Implementing an Ordered List
-layout: chapter.html
+layout: default.html
 collection: lists
 position: 5
 ---

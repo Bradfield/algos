@@ -1,6 +1,6 @@
 ---
 title: What Is Recursion?
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 1
 ---

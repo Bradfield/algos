@@ -1,6 +1,6 @@
 ---
 title: An Adjacency List
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 3
 ---

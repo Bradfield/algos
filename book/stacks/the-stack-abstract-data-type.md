@@ -1,6 +1,6 @@
 ---
 title: The Stack Abstract Data Type
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 2
 ---

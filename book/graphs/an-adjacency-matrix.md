@@ -1,6 +1,6 @@
 ---
 title: An Adjacency Matrix
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 4
 ---

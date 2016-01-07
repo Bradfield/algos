@@ -1,6 +1,6 @@
 ---
 title: The Deque Abstract Data Type
-layout: chapter.html
+layout: default.html
 collection: deques
 position: 2
 ---

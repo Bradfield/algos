@@ -1,6 +1,6 @@
 ---
 title: The Queue Abstract Data Type
-layout: chapter.html
+layout: default.html
 collection: queues
 position: 2
 ---

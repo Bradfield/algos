@@ -1,6 +1,6 @@
 ---
 title: Searching
-layout: chapter.html
+layout: default.html
 collection: searching
 position: 1
 ---

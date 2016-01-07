@@ -1,6 +1,6 @@
 ---
 title: The Graph Abstract Data Type
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 2
 ---

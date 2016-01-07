@@ -394,9 +394,7 @@ three cases to consider when looking for the successor:
     parent, excluding this node.
 
 The first condition is the only one that matters for us when deleting a
-node from a binary search tree. However, the `find_successor` method has
-other uses that we will explore in the exercises at the end of this
-section.
+node from a binary search tree.
 
 The `find_min` method is called to find the minimum key in a subtree. You
 should convince yourself that the minimum valued key in any binary

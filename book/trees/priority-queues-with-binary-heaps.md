@@ -1,6 +1,6 @@
 ---
 title: Priority Queues with Binary Heaps
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 8
 ---

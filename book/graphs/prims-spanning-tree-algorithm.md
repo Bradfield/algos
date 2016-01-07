@@ -1,6 +1,6 @@
 ---
 title: Prim’s Spanning Tree Algorithm
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 11
 ---

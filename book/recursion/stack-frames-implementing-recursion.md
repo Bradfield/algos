@@ -1,6 +1,6 @@
 ---
 title: Stack Frames: Implementing Recursion
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 5
 ---

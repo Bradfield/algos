@@ -1,6 +1,6 @@
 ---
 title: Tree Traversals
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 7
 ---

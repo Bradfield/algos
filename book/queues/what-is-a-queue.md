@@ -1,6 +1,6 @@
 ---
 title: What Is a Queue?
-layout: chapter.html
+layout: default.html
 collection: queues
 position: 1
 ---

@@ -1,6 +1,6 @@
 ---
 title: What is a Tree?
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 1
 ---

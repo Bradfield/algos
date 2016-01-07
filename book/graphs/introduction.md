@@ -1,22 +1,22 @@
 ---
 title: Introduction
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 1
 ---
 
-In this section we will study graphs. Graphs are a more general
-structure than the trees we studied in the last section; in fact you can
+In this chapter we will study graphs. Graphs are a more general
+structure than the trees we studied in the last chapter; in fact you can
 think of a tree as a special kind of graph. Graphs can be used to
 represent many interesting things about our world, including systems of
 roads, airline flights from city to city, how the Internet is connected,
 or even the sequence of classes you must take to complete a major in
-computer science. We will see in this section that once we have a good
+computer science. We will see in this chapter that once we have a good
 representation for a problem, we can use some standard graph algorithms
 to solve what otherwise might seem to be a very difficult problem.
 
 Below we introduce some definitions that will allow us to talk precisely
-about graphs throughout the section.
+about graphs throughout the chapter.
 
 **Vertex**
 
@@ -79,5 +79,3 @@ cycle. A graph with no cycles is called an **acyclic graph**. A directed
 graph with no cycles is called a **directed acyclic graph** or a
 **DAG**. We will see that we can solve several important problems if the
 problem can be represented as a DAG.
-
-
