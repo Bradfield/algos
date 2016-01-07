@@ -33,7 +33,7 @@ every day. Those who see recursion everywhere see recursion everywhere...
 :)
 
 One trade-off that *we* have made is to sacrifice breadth for the sake
-of depth; we cover fewer data structures and algorithms than a typical
+of depth; we cover fewer algorithms and data structures than a typical
 introductory text may cover in order to focus more on what we consider
 to be important. For instance, we do not cover sorting algorithms,
 a topic that rarely arises in practice, at all; instead, we spend more time
