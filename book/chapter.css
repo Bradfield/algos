@@ -205,6 +205,7 @@ table tr:last-child td {
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
+  /*marker-end: url(#arrowhead);*/
 }
 
 .graph-edge-emphasized {
@@ -214,4 +215,9 @@ table tr:last-child td {
 
 .graph-edge-deemphasized {
   stroke: #eee;
+}
+
+#svg-refs {
+  width: 0;
+  height: 0;
 }

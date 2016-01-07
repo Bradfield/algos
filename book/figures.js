@@ -1,6 +1,6 @@
 
 function isLeftNode (node) {
-  return node.parent && node.parent.children && node.parent.children[0] == node
+  return node.parent && node.parent.children && node.parent.children[0] === node
 }
 
 function isLeaf (node) {
@@ -31,40 +31,39 @@ function drawTree (target, root) {
   var links = tree.links(nodes)
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 60 })
+  nodes.forEach(function (d) { d.y = d.depth * 60 })
 
   // Declare the nodes
   var node = svg.selectAll('g.node')
-   .data(nodes, function(d) { return d.id || (d.id = ++i) })
+   .data(nodes, function (d) { return d.id || (d.id = ++i) })
 
   // Enter the nodes.
   var nodeEnter = node.enter().append('g')
     .attr('class', 'graph-node')
-    .attr('transform', function(d) {
+    .attr('transform', function (d) {
       return 'translate(' + d.x * 2.5 + ',' + d.y + ')'
     })
 
   nodeEnter.append('circle').attr('r', 5)
 
   nodeEnter.append('text')
-    .attr('x', function(d) {
+    .attr('x', function (d) {
       if (isLeaf(d)) return 0
       return isLeftNode(d) ? -10 : 10
     })
-    .attr('y', function(d) {
+    .attr('y', function (d) {
       return isLeaf(d) ? 20 : 0
     })
-    .attr('text-anchor', function(d) {
+    .attr('text-anchor', function (d) {
       if (isLeftNode(d)) return 'end'
       return isLeaf(d) ? 'middle' : 'start'
     })
-    .text(function(d) { return d.name })
+    .text(function (d) { return d.name })
 
   // Declare the link
   svg.selectAll('path.link')
-    .data(links, function(d) { return d.target.id })
+    .data(links, function (d) { return d.target.id })
     .enter().insert('path', 'g')
     .attr('class', 'graph-edge')
     .attr('d', diagonal)
-
 }
