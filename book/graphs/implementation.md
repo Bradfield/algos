@@ -1,6 +1,6 @@
 ---
 title: Implementation
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 5
 ---

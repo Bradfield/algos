@@ -1,6 +1,6 @@
 ---
 title: Implementing a Queue in Python
-layout: chapter.html
+layout: default.html
 collection: queues
 position: 3
 ---

@@ -2,7 +2,7 @@
 title: Introduction to Algorithm Analysis
 collection: analysis
 position: 1
-layout: chapter.html
+layout: default.html
 ---
 
 What makes one computer program better than another?

@@ -1,6 +1,6 @@
 ---
 title: The Unordered List Abstract Data Type
-layout: chapter.html
+layout: default.html
 collection: lists
 position: 2
 ---

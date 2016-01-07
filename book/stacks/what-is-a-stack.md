@@ -1,6 +1,6 @@
 ---
 title: What is a Stack?
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 1
 ---

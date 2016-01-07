@@ -1,6 +1,6 @@
 ---
 title: Converting an Integer to Any Base
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 4
 ---

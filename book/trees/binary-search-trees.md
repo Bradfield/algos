@@ -1,6 +1,6 @@
 ---
 title: Binary Search Trees
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 10
 ---

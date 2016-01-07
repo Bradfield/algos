@@ -1,6 +1,6 @@
 ---
 title: What is a List?
-layout: chapter.html
+layout: default.html
 collection: lists
 position: 1
 ---

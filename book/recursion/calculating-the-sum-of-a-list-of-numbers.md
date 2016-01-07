@@ -1,6 +1,6 @@
 ---
 title: Calculating the Sum of a List of Numbers
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 2
 ---

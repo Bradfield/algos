@@ -1,6 +1,6 @@
 ---
 title: The Three Laws of Recursion
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 3
 ---

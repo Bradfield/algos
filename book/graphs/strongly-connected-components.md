@@ -1,6 +1,6 @@
 ---
 title: Strongly Connected Components
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 10
 ---

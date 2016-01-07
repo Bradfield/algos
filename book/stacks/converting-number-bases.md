@@ -1,6 +1,6 @@
 ---
 title: Converting Number Bases
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 6
 ---

@@ -1,6 +1,6 @@
 ---
 title: Shortest Path with Dijkstra’s Algorithm
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 10
 ---

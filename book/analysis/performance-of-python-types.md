@@ -2,7 +2,7 @@
 title: Performance of Python Types
 collection: analysis
 position: 4
-layout: chapter.html
+layout: default.html
 ---
 
 Now that you have a general idea of Big-O notation and the differences

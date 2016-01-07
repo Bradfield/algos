@@ -1,6 +1,6 @@
 ---
 title: Parse Trees
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 6
 ---

@@ -1,6 +1,6 @@
 ---
 title: Practical Algorithms and Data Structures
-layout: chapter.html
+layout: default.html
 ---
 
 This book is a practical—and, we hope, entertaining—introduction to some
