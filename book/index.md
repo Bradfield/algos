@@ -26,7 +26,7 @@ Whatever the case, we’re confident that the usefulness of algorithms and
 data structures is proportional to the depth at which you understand it.
 Those who understand trees in depth are more likely to identify tree
 shapes in their own data, unlocking superior solutions to their
-problems. Those who count Big-O analysis as a tool in their toolkits not
+problems. Those who count big O analysis as a tool in their toolkits not
 only have a better vocabulary for comparing alternative strategies, they
 are also more generally cognizant of the trade-offs we implicitly make
 every day. Those who see recursion everywhere see recursion everywhere...

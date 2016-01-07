@@ -38,7 +38,7 @@ unbalanced, right-heavy tree and the balance factors of each node.
 
 Before we proceed any further let’s look at the result of enforcing this
 new balance factor requirement. Our claim is that by ensuring that a
-tree always has a balance factor of -1, 0, or 1 we can get better big-O
+tree always has a balance factor of -1, 0, or 1 we can get better big O
 performance of key operations. Let us start by thinking about how this
 balance condition changes the worst-case tree. There are two
 possibilities to consider, a left-heavy tree and a right heavy tree. If
