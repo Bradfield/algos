@@ -15,6 +15,13 @@
 <body>
 
 <% var nextItem %>
+<% for (var i = 0; i < tableOfContents.length; i++) { %>
+  <% var chapter = tableOfContents[i] %>
+  <% for (var j = 0; j < chapter.collection.length; j++) { %>
+    <% var section = chapter.collection[j] %>
+    <% if (section.path === path) { nextItem = section.next } %>
+  <% } %>
+<% } %>
 
 <div class="container">
 
@@ -48,7 +55,7 @@
       <% for (var i = 0; i < tableOfContents.length; i++) { %>
         <% var chapter = tableOfContents[i] %>
         <div class="chapter">
-          <h2><%= chapter.sectionName %></h2>
+          <h2><%= chapter.name %></h2>
           <ol>
           <% for (var j = 0; j < chapter.collection.length; j++) { %>
             <% var section = chapter.collection[j] %>
