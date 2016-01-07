@@ -63,7 +63,7 @@ a:hover {
   font-size: 16px;
   min-width: 350px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0 20px 40px 50px;
   width: 350px;
 }
@@ -124,7 +124,7 @@ code, code[class*="language-"] {
 pre {
   background: rgba(242, 242, 242, 0.5);
   padding: 20px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 figure {
