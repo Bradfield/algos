@@ -13,4 +13,4 @@ The members of a list are comonly refered to as nodes. When each node holds a re
 
 For simplicity we will assume that lists cannot contain duplicate items. Again this is a point of departure from Python’s native list type.
 
-In this section we will consider both unordered and ordered lists. As we will see, an ordered list is simply a list with additional functionality designed to maintain its constituent nodes in a particular order.
+In this chapter we will consider both unordered and ordered lists. As we will see, an ordered list is simply a list with additional functionality designed to maintain its constituent nodes in a particular order.

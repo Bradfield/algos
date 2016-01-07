@@ -41,6 +41,6 @@ But the logic is not circular at all; the logic of recursion is an
 elegant expression of solving a problem by breaking it down into a
 smaller and easier problems.
 
-In the remainder of this section we will look at more examples of
+In the remainder of this chapter we will look at more examples of
 recursion. In each case we will focus on designing a solution to a
 problem by using the three laws of recursion.

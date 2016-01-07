@@ -5,7 +5,7 @@ collection: graphs
 position: 10
 ---
 
-For the remainder of this section we will turn our attention to some
+For the remainder of this chapter we will turn our attention to some
 extremely large graphs. The graphs we will use to study some additional
 algorithms are the graphs produced by the connections between hosts on
 the Internet and the links between web pages. We will begin with web
