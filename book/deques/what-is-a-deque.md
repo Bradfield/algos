@@ -2,7 +2,7 @@
 title: What Is a Deque?
 collection: deques
 position: 1
-layout: chapter.html
+layout: default.html
 collection: deques
 position: 1
 ---

@@ -1,6 +1,6 @@
 ---
 title: Simple Balanced Parentheses
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 4
 ---

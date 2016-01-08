@@ -11,7 +11,7 @@ const removePragmas =
 const invert =
   content =>
     '```python\n' +
-    content.replace(/^"""\n([\s\S]+?)\n^"""/gm, '```\n$1\n```python') +
+    content.replace(/"""\n([\s\S]+?)\n^"""/gm, '```\n$1\n```python') +
     '\n```'
 
 const removeEmptyCodeBlocks =

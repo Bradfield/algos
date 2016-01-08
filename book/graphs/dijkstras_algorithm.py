@@ -131,7 +131,7 @@ example_graph = {
 
 """
 Dijkstra’s algorithm uses a priority queue, which we introduced in the
-trees section and which we achieve here using Python’s `heapq` module.
+trees chapter and which we achieve here using Python’s `heapq` module.
 
 The entries in our priority queue are lists of `[distance, vertex]`
 which allows us to maintain a queue of vertices sorted by distance.

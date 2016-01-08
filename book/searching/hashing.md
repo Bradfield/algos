@@ -1,6 +1,6 @@
 ---
 title: Hashing
-layout: chapter.html
+layout: default.html
 collection: searching
 position: 4
 ---

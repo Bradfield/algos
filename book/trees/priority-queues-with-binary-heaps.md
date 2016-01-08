@@ -1,6 +1,6 @@
 ---
 title: Priority Queues with Binary Heaps
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 8
 ---
@@ -43,3 +43,53 @@ follows:
 -   `is_empty()` returns true if the heap is empty, false otherwise.
 -   `size()` returns the number of items in the heap.
 -   `build_heap(list)` builds a new heap from a list of keys.
+
+
+The Structure Property
+----------------------
+
+In order to make our heap work efficiently, we will take advantage of
+the logarithmic nature of the binary tree to represent our heap. In
+order to guarantee logarithmic performance, we must keep our tree
+balanced. A balanced binary tree has roughly the same number of nodes in
+the left and right subtrees of the root. In our heap implementation we
+keep the tree balanced by creating a **complete binary tree**. A
+complete binary tree is a tree in which each level has all of its nodes.
+The exception to this is the bottom level of the tree, which we fill in
+from left to right. This diagram shows an example of a
+complete binary tree:
+
+![ ](figures/complete-binary-tree.png)
+
+Another interesting property of a complete tree is that we can represent
+it using a single list. We do not need to use nodes and references or
+even lists of lists. Because the tree is complete, the left child of a
+parent (at position $$p$$) is the node that is found in position $$2p$$ in
+the list. Similarly, the right child of the parent is at position
+$$2p + 1$$ in the list. To find the parent of any node in the tree, we can
+simply use Python’s integer division. Given that a node is at position
+$$n$$ in the list, the parent is at position $$n/2$$.
+The diagram below shows a complete binary tree and also
+gives the list representation of the tree. Note the $$2p$$ and $$2p+1$$
+relationship between parent and children. The list representation of the
+tree, along with the full structure property, allows us to efficiently
+traverse a complete binary tree using only a few simple mathematical
+operations. We will see that this also leads to an efficient
+implementation of our binary heap.
+
+The Heap Order Property
+-----------------------
+
+The method that we will use to store items in a heap relies on
+maintaining the heap order property. The **heap order property** is as
+follows: In a heap, for every node $$x$$ with parent $$p$$, the key in $$p$$
+is smaller than or equal to the key in $$x$$.
+The diagram below also illustrates a complete binary tree
+that has the heap order property.
+
+![A complete binary tree, along with its list representation](figures/heap-order.png)
+
+Heap Operations
+---------------
+
+<!-- litpy trees/binary_heap.py -->

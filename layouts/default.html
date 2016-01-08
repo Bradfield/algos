@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="http://bradfield.institute/favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
-  <link rel="stylesheet" href="<%= process.env.SITE_ROOT %>chapter.css">
+  <link rel="stylesheet" href="<%= process.env.SITE_ROOT %>book.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
   <script src="<%= process.env.SITE_ROOT %>figures.js"></script>
@@ -15,6 +15,13 @@
 <body>
 
 <% var nextItem %>
+<% for (var i = 0; i < tableOfContents.length; i++) { %>
+  <% var chapter = tableOfContents[i] %>
+  <% for (var j = 0; j < chapter.collection.length; j++) { %>
+    <% var section = chapter.collection[j] %>
+    <% if (section.path === path) { nextItem = section.next } %>
+  <% } %>
+<% } %>
 
 <div class="container">
 
@@ -48,7 +55,7 @@
       <% for (var i = 0; i < tableOfContents.length; i++) { %>
         <% var chapter = tableOfContents[i] %>
         <div class="chapter">
-          <h2><%= chapter.sectionName %></h2>
+          <h2><%= chapter.name %></h2>
           <ol>
           <% for (var j = 0; j < chapter.collection.length; j++) { %>
             <% var section = chapter.collection[j] %>
@@ -69,6 +76,14 @@
   </div>
 
 </div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
 
 <!-- Google Analytics -->
 <script>

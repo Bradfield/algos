@@ -1,6 +1,6 @@
 ---
 title: Tower of Hanoi
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 6
 ---
