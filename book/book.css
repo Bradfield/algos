@@ -133,13 +133,14 @@ a:hover {
   padding: 0;
 }
 
-code[class*="language-"] {
+code, code[class*="language-"] {
   font-family: Inconsolata, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
 pre {
   background: rgba(242, 242, 242, 0.5);
   padding: 20px;
+  overflow-x: auto;
 }
 
 figure {
