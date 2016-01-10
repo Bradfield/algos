@@ -1,5 +1,5 @@
 ---
-title: What Is Recursion?
+title: Introduction to Recursion
 layout: default.html
 collection: recursion
 position: 1
