@@ -1,5 +1,5 @@
 ---
-title: Implementing a Deque in Python
+title: A Deque Implementation
 layout: default.html
 collection: deques
 position: 3
