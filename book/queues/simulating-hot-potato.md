@@ -1,6 +1,6 @@
 ---
 title: Simulating Hot Potato
-layout: chapter.html
+layout: default.html
 collection: queues
 position: 4
 ---

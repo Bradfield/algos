@@ -1,6 +1,6 @@
 ---
 title: Converting Number Bases
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 6
 ---
@@ -17,7 +17,7 @@ Integer values are common data items. They are used in computer programs
 and computation all the time. We learn about them in math class and of
 course represent them using the decimal number system, or base 10. The
 decimal number $$233_{10}$$ and its corresponding binary equivalent
-$$11101001_{2}$$ are interpreted respectively as
+$$11101001_2$$ are interpreted respectively as
 
 $$2\times10^{2} + 3\times10^{1} + 3\times10^{0}$$
 

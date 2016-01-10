@@ -1,6 +1,6 @@
 ---
 title: Infix, Prefix and Postfix Expressions
-layout: chapter.html
+layout: default.html
 collection: stacks
 position: 7
 ---

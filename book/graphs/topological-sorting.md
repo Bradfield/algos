@@ -1,6 +1,6 @@
 ---
 title: Topological Sorting
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 9
 ---

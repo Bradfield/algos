@@ -2,7 +2,7 @@
 title: Big O Notation
 collection: analysis
 position: 2
-layout: chapter.html
+layout: default.html
 ---
 
 When trying to characterize an algorithm’s efficiency in terms of

@@ -16,7 +16,7 @@ process.env.SITE_ROOT = process.env.SITE_ROOT || '/'
 
 const BUILD_DESTINATION = process.env.BUILD_DESTINATION || '/tmp/algos-book-dev-build'
 
-const sections = [
+const chapters = [
   ['analysis', 'Analysis'],
   ['stacks', 'Stacks'],
   ['queues', 'Queues'],
@@ -30,19 +30,19 @@ const sections = [
 const collectionConfig = {}
 const nextSection = {}
 const previousSection = {}
-sections.forEach(([label, name], i) => {
+chapters.forEach(([label, name], i) => {
   collectionConfig[label] = {
     sortBy: 'position',
     metadata: { name: name },
   }
-  nextSection[label] = sections[i + 1] ? sections[i + 1][0] : null
-  previousSection[label] = sections[i - 1] ? sections[i - 1][0] : null
+  nextSection[label] = chapters[i + 1] ? chapters[i + 1][0] : null
+  previousSection[label] = chapters[i - 1] ? chapters[i - 1][0] : null
 })
 
 const INDEX_PATH = 'index.html'
 
 // UGH! fix this ugly hack around the fact that the collections plugin
-// does not link previous/next between sections
+// does not link previous/next between chapters
 const bridgeLinksBetweenCollections =
   (files, metalsmith) => {
     for (let path in files) {
@@ -52,7 +52,7 @@ const bridgeLinksBetweenCollections =
       const file = files[path]
       // special case: link introduction to first section
       if (path === INDEX_PATH) {
-        file.next = metalsmith._metadata.collections[sections[0][0]][0]
+        file.next = metalsmith._metadata.collections[chapters[0][0]][0]
         continue
       }
 
@@ -70,7 +70,7 @@ const bridgeLinksBetweenCollections =
             const collection = metalsmith._metadata.collections[previousCollection]
             file.previous = collection[collection.length - 1]
           } else {
-            // special case: link first chapter of first section back to intro
+            // special case: link first section of first chapter back to intro
             file.previous = files[INDEX_PATH]
           }
         }
@@ -83,9 +83,9 @@ const byPosition = (a, b) => a.position - b.position
 const generateTableOfContents =
   (files, metalsmith) => {
     const metadata = metalsmith.metadata()
-    metadata['tableOfContents'] = sections.map(([label, name]) => {
+    metadata['tableOfContents'] = chapters.map(([label, name]) => {
       return {
-        sectionName: name,
+        name: name,
         collection: (metadata[label] || []).sort(byPosition),
       }
     })

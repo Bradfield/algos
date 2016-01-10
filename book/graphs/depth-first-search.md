@@ -1,6 +1,6 @@
 ---
 title: General Depth First Search
-layout: chapter.html
+layout: default.html
 collection: graphs
 position: 8
 ---

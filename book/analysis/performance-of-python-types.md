@@ -2,12 +2,12 @@
 title: Performance of Python Types
 collection: analysis
 position: 4
-layout: chapter.html
+layout: default.html
 ---
 
-Now that you have a general idea of Big-O notation and the differences
+Now that you have a general idea of big O notation and the differences
 between the different functions, our goal in this section is to tell you
-about the Big-O performance for the operations on Python lists and
+about the big O performance for the operations on Python lists and
 dictionaries. It is important for you to understand the efficiency of
 these Python data structures because they are the building blocks we
 will use as we implement other data structures in the remainder of the
@@ -90,7 +90,7 @@ Below we provide a table of performance characteristics of Python list
 operations, for future reference.
 
 
-Operation  | Big-O Efficiency
+Operation  | Big O Efficiency
 --- | ---
 index []    | $$O(1)$$
 index assignment    | $$O(1)$$
@@ -139,7 +139,7 @@ degenerate into $$O(n)$$ performance but we will get into that in a
 later section when we talk about the different ways that a dictionary
 could be implemented.
 
-Operation  | Big-O Efficiency
+Operation  | Big O Efficiency
 --- | ---
 copy   | $$O(n)$$
 get item   | $$O(1)$$
@@ -153,4 +153,3 @@ behind the scenes. The latest information on the performance of Python
 data structures can be found on the Python website. As of this writing
 the Python wiki has a nice time complexity page that can be found at the
 [Time Complexity Wiki](http://wiki.python.org/moin/TimeComplexity).
-

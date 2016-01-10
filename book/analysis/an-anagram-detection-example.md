@@ -2,7 +2,7 @@
 title: An Anagram Detection Example
 collection: analysis
 position: 3
-layout: chapter.html
+layout: default.html
 ---
 
 To explore different orders of magnitude, let’s consider four different

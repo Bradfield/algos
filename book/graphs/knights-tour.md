@@ -1,6 +1,6 @@
 ---
-title: The Knight’s Tour Problem
-layout: chapter.html
+title: A Knight’s Tour
+layout: default.html
 collection: graphs
 position: 7
 ---

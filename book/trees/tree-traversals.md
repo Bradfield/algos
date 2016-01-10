@@ -1,6 +1,6 @@
 ---
 title: Tree Traversals
-layout: chapter.html
+layout: default.html
 collection: trees
 position: 7
 ---
@@ -50,9 +50,8 @@ any additional recursive calls. When we are finished with Section 1.1,
 we move up the tree to Chapter 1. At this point we still need to visit
 the right subtree of Chapter 1, which is Section 1.2. As before we visit
 the left subtree, which brings us to Section 1.2.1, then we visit the
-node for Section 1.2.2. With Section 1.2 finished, we return to Chapter
-1. Then we return to the Book node and follow the same procedure for
-Chapter 2.
+node for Section 1.2.2. With Section 1.2 finished, we return to Chapter 1.
+Then we return to the Book node and follow the same procedure for Chapter 2.
 
 The code for writing tree traversals is surprisingly elegant, largely
 because the traversals are written recursively.
@@ -65,9 +64,9 @@ is `None`, then the function returns without taking any action.
 ```python
 def preorder(node):
     if node:
-        print(node.val)
-        preorder(node.left)
-        preorder(node.right)
+        print(node['val'])
+        preorder(node.get('left'))
+        preorder(node.get('right'))
 ```
 
 The algorithm for the `postorder` traversal, shown below, is nearly identical to `preorder`
@@ -76,43 +75,15 @@ except that we move the call to print to the end of the function.
 ```python
 def postorder(node):
     if node:
-        postorder(node.left)
-        postorder(node.right)
-        print(node.val)
+        postorder(node.get('left'))
+        postorder(node.get('right'))
+        print(node['val'])
 ```
 
 We have already seen a common use for the postorder traversal, namely
-evaluating a parse tree.
-What we are doing is evaluating the left subtree, evaluating the right
-subtree, and combining them in the root through the function call to an
-operator. Assume that our binary tree is going to store only expression
-tree data. Let’s rewrite the evaluation function, but model it even more
-closely on the `postorder` code above.
-
-```python
-import operator
-
-OPERATORS = {
-    '+': operator.add,
-    '-': operator.sub,
-    '*': operator.mul,
-    '/': operator.truediv
-}
-
-def postorder_eval(node):
-    if node:
-        left_result = postorder_eval(node.left)
-        right_result = postorder_eval(node.right)
-        if left_result and right_result:
-            return OPERATORS[node.val](left_result, right_result)
-        else:
-            return node.val
-```
-
-Notice that the form of the above two functions is the same, except that instead of
-printing the value at the end of the function, we return it. This allows
-us to save the values returned from the recursive calls and use them as arguments
-to the appropriate operator function.
+evaluating a parse tree. What we did in the previous chapter to evaluate the
+parse tree was to evaluate the left subtree, evaluate the right subtree, then
+combine them in the root through the function call to an operator.
 
 The final traversal we will look at in this section is the inorder
 traversal. In the inorder traversal we visit the left subtree, followed
@@ -124,9 +95,9 @@ the two recursive function calls.
 ```python
 def inorder(node):
     if node:
-        inorder(node.left)
-        print(node.val)
-        inorder(node.right)
+        inorder(node.get('left'))
+        print(node['val'])
+        inorder(node.get('right'))
 ```
 
 If we perform a simple inorder traversal of a parse tree we get our
@@ -138,19 +109,4 @@ recursive call to the left subtree, and print a right parenthesis
 *after* the recursive call to the right subtree. The modified code is
 shown below.
 
-
-```python
-def print_exp(node):
-    if node:
-        return '({}{}{})'.format(
-            print_exp(node.left),
-            node.val,
-            print_exp(node.right)
-        )
-    return ''
-```
-
-Notice that the `print_exp` function as we have implemented it puts
-parentheses around each number. While not incorrect, the parentheses are
-clearly not needed. Modifying the function to remove these redundant
-parentheses is left as an exercise for the reader.
+<!-- litpy trees/parse_tree_reverse.py -->
