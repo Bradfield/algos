@@ -1,5 +1,5 @@
 ---
-title: The Knight’s Tour Problem
+title: A Knight’s Tour
 layout: default.html
 collection: graphs
 position: 7

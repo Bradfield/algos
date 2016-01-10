@@ -1,5 +1,5 @@
 ---
-title: What is a Tree?
+title: Introduction to Trees
 layout: default.html
 collection: trees
 position: 1

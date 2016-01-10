@@ -1,5 +1,5 @@
 ---
-title: The Word Ladder Problem
+title: Word Ladders
 layout: default.html
 collection: graphs
 position: 6

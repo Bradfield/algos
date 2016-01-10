@@ -1,5 +1,5 @@
 ---
-title: Implementing a Queue in Python
+title: A Queue Implementation
 layout: default.html
 collection: queues
 position: 3

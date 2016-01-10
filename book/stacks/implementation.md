@@ -1,5 +1,5 @@
 ---
-title: Implementing a Stack in Python
+title: A Stack Implementation
 layout: default.html
 collection: stacks
 position: 3
