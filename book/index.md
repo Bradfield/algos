@@ -29,7 +29,7 @@ data, unlocking superior solutions to their problems. Those who have big O
 analysis in their toolkits not only have a better vocabulary for comparing
 alternative strategies, they are also more generally cognizant of the
 trade-offs we implicitly make every day. Those who see recursion everywhere see
-recursion everywhere... :)
+recursion everywhere...
 
 One trade-off that *we* have made is to sacrifice breadth for the sake
 of depth; we cover fewer algorithms and data structures than a typical

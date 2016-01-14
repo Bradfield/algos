@@ -122,7 +122,7 @@ Sum is 50000005000000, required 0.00000095 seconds
 Sum is 5000000050000000, required 0.00000119 seconds
 ```
 
-There are a couple things to notice about this output:
+There are a couple of things to notice about this output:
 
 First, the run times we're seeing for `arithmetic_sum` are much shorter than
 for `sum_of_n`. Second, the run times are consistent and don't seem
