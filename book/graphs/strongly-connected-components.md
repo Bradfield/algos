@@ -19,8 +19,7 @@ Starting at a vertex representing this very web page, let’s draw directed
 edges out to every web page that we’ve linked to. Then, from each of those
 pages, let’s again identify the hyperlinks, and use those as directed edges to
 another set of vertices. Doing this three links deep, we end up with a graph
-that looks like the one below. Slide the slider to show the graphs at greater
-and lesser depths.
+that looks like the one below.
 
 <style>
 .node {

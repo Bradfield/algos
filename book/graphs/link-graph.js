@@ -22,7 +22,7 @@ const parseLinks = (markup, host) =>
 const generateLinkGraph = (startingUrl, maxDepth) => {
   const graph = {}
   const queue = [[startingUrl, 0]]
-  const pendingRequests = 0
+  let pendingRequests = 0
   while (queue.length > 0 || pendingRequests > 0) {
     const [location, depth] = queue.shift()
     if (depth < maxDepth) {
@@ -42,29 +42,29 @@ const generateLinkGraph = (startingUrl, maxDepth) => {
   return graph
 }
 
-const generateLinkGraph = (startingUrl, depth) => {
-  const graph = { }
-
-  const traverse = (location, depth) => {
-    if (depth === 0) return
-    if (graph[location]) return
-    const addLinkForUrl = addLink(graph, location)
-
-    // TODO: handle redundant requests
-    request({ url: location, headers }, (error, response, body) => {
-      if (error) return
-      parseLinks(body, url.parse(location).host)
-      .forEach(link => {
-        addLinkForUrl(link)
-        traverse(link, depth - 1)
-      })
-    })
-  }
-
-  traverse(startingUrl, depth)
-
-  return graph
-}
+// const generateLinkGraph = (startingUrl, depth) => {
+//   const graph = { }
+//
+//   const traverse = (location, depth) => {
+//     if (depth === 0) return
+//     if (graph[location]) return
+//     const addLinkForUrl = addLink(graph, location)
+//
+//     // TODO: handle redundant requests
+//     request({ url: location, headers }, (error, response, body) => {
+//       if (error) return
+//       parseLinks(body, url.parse(location).host)
+//       .forEach(link => {
+//         addLinkForUrl(link)
+//         traverse(link, depth - 1)
+//       })
+//     })
+//   }
+//
+//   traverse(startingUrl, depth)
+//
+//   return graph
+// }
 
 const graph = generateLinkGraph('http://localhost:8000/graphs/strongly-connected-components/', 3)
 
