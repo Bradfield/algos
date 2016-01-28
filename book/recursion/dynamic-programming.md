@@ -1,6 +1,6 @@
 ---
 title: Dynamic Programming
-layout: chapter.html
+layout: default.html
 collection: recursion
 position: 7
 ---

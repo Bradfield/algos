@@ -1,65 +1,54 @@
----
-title: AVL Tree Implementation
-layout: chapter.html
-collection: trees
-position: 13
----
+# -*- coding: utf-8 -*-
 
-Now that we have demonstrated that keeping an AVL tree in balance is
-going to be a big performance improvement, let us look at how we will
-augment the procedure to insert a new key into the tree. Since all new
-keys are inserted into the tree as leaf nodes and we know that the
-balance factor for a new leaf is zero, there are no new requirements for
-the node that was just inserted. But once the new leaf is added we must
-update the balance factor of its parent. How this new leaf affects the
-parent’s balance factor depends on whether the leaf node is a left child
-or a right child. If the new node is a right child the balance factor of
-the parent will be reduced by one. If the new node is a left child then
-the balance factor of the parent will be increased by one. This relation
-can be applied recursively to the grandparent of the new node, and
-possibly to every ancestor all the way up to the root of the tree. Since
-this is a recursive procedure let us examine the two base cases for
-updating balance factors:
+"""
+We will implement the AVL tree as a subclass of `BinarySearchTree`.
+To begin, we will override the `_put` method and write a new
+`update_balance` helper method. These methods are shown below. You
+will notice that the definition for `_put` is exactly the same as in
+simple binary search trees except for the additions of the calls to
+`update_balance`.
+"""
 
--   The recursive call has reached the root of the tree.
--   The balance factor of the parent has been adjusted to zero. You
-    should convince yourself that once a subtree has a balance factor of
-    zero, then the balance of its ancestor nodes does not change.
+from binary_search_tree import BinarySearchTree, TreeNode
 
-We will implement the AVL tree as a subclass of `BinarySearchTree`. To
-begin, we will override the `_put` method and write a new
-`update_balance` helper method. These methods are shown in below. You will notice that the definition for
-`_put` is exactly the same as in simple binary search trees except for
-the additions of the calls to `update_balance`.
 
-```python
-def _put(self, key, val, node):
-    if key < node.key:
-        if node.has_left_child():
-            self._put(key, val, node.left)
+class AVLTreeNode(TreeNode):
+    def __init__(self, *args, **kwargs):
+        super(AVLTreeNode, self).__init__(*args, **kwargs)
+        self.balance_factor = 0
+
+
+class AVLTree(BinarySearchTree):
+
+    TreeNodeClass = AVLTreeNode
+
+    def _put(self, key, val, node):
+        if key < node.key:
+            if node.left:
+                self._put(key, val, node.left)
+            else:
+                node.left = self.TreeNodeClass(key, val, parent=node)
+                self.update_balance(node.left)
         else:
-            node.left = TreeNode(key, val, parent=node)
-            self.update_balance(node.left)
-    else:
-        if node.has_right_child():
-            self._put(key, val, node.right)
-        else:
-            node.right = TreeNode(key,val,parent=node)
-            self.update_balance(node.right)
+            if node.right:
+                self._put(key, val, node.right)
+            else:
+                node.right = self.TreeNodeClass(key, val, parent=node)
+                self.update_balance(node.right)
 
-def update_balance(self,node):
-    if node.balance_factor > 1 or node.balance_factor < -1:
-        self.rebalance(node)
-        return
-    if node.parent is not None:
-        if node.is_left_child():
-            node.parent.balance_factor += 1
-        elif node.is_rich_child():
-            node.parent.balance_factor -= 1
+    def update_balance(self, node):
+        if node.balance_factor > 1 or node.balance_factor < -1:
+            self.rebalance(node)
+            return
+        if node.parent is not None:
+            if node.is_left_child():
+                node.parent.balance_factor += 1
+            elif node.is_right_child():
+                node.parent.balance_factor -= 1
 
-        if node.parent.balance_factor != 0:
-            self.update_balance(node.parent)
-```
+            if node.parent.balance_factor != 0:
+                self.update_balance(node.parent)
+    """
 
 The new `update_balance` method is where most of the work is done. This
 implements the recursive procedure we just described. The
@@ -83,7 +72,8 @@ This tree is out of balance with a balance factor of -2. To bring this
 tree into balance we will use a left rotation around the subtree rooted
 at node A.
 
-![Transforming an unbalanced tree using a left rotation](figures/simple-unbalanced.png)
+![Transforming an unbalanced tree using a left
+rotation](figures/simple-unbalanced.png)
 
 To perform a left rotation we essentially do the following:
 
@@ -114,14 +104,16 @@ perform a right rotation we essentially do the following:
     empty at this point. This allows us to add a new node as the left
     child without any further consideration.
 
-![Transforming an unbalanced tree using a right rotation](figures/rotate-right.png)
+![Transforming an unbalanced tree using a right
+rotation](figures/rotate-right.png)
 
 Now that you have seen the rotations and have the basic idea of how a
-rotation works let us look at the code below for both the left rotations. First we create a temporary variable to keep
-track of the new root of the subtree. As we said before the new root is
-the right child of the previous root. Now that a reference to the right
-child has been stored in this temporary variable we replace the right
-child of the old root with the left child of the new.
+rotation works let us look at the code below for both the left
+rotations. First we create a temporary variable to keep track of the new
+root of the subtree. As we said before the new root is the right child
+of the previous root. Now that a reference to the right child has been
+stored in this temporary variable we replace the right child of the old
+root with the left child of the new.
 
 The next step is to adjust the parent pointers of the two nodes. If
 `new_root` has a left child then the new parent of the left child becomes
@@ -133,29 +125,50 @@ point to the new root; otherwise we change the parent of the right child
 to point to the new root. Finally we set the parent of
 the old root to be the new root. This is a lot of complicated
 bookkeeping, so we encourage you to trace through this function while
-looking at the diagram above. The `rotate_right` method
-is symmetrical to `rotate_left` so we will leave it to you to implement the
-code for `rotate_right`.
+looking at the diagram above.
 
-```python
-def rotate_left(self, rotation_root):
-    new_root = rotation_root.right
-    rotation_root.right = new_root.left
-    if new_root.left != None:
-        new_root.left.parent = rotation_root
-    new_root.parent = rotation_root.parent
-    if rotation_root.is_root():
-        self.root = new_root
-    else:
-        if rotation_root.is_left_child():
-            rotation_root.parent.left = new_root
+"""
+    def rotate_left(self, rotation_root):
+        new_root = rotation_root.right
+        rotation_root.right = new_root.left
+        if new_root.left is not None:
+            new_root.left.parent = rotation_root
+        new_root.parent = rotation_root.parent
+        if not rotation_root.parent:
+            self.root = new_root
         else:
-            rotation_root.parent.right = new_root
-    new_root.left = rotation_root
-    rotation_root.parent = new_root
-    rotation_root.balance_factor = rotation_root.balance_factor + 1 - min(new_root.balance_factor, 0)
-    new_root.balance_factor = new_root.balance_factor + 1 + max(rotation_root.balance_factor, 0)
-```
+            if rotation_root.is_left_child():
+                rotation_root.parent.left = new_root
+            else:
+                rotation_root.parent.right = new_root
+        new_root.left = rotation_root
+        rotation_root.parent = new_root
+        rotation_root.balance_factor = \
+            rotation_root.balance_factor + 1 - min(new_root.balance_factor, 0)
+        new_root.balance_factor = \
+            new_root.balance_factor + 1 + max(rotation_root.balance_factor, 0)
+
+    def rotate_right(self, rotation_root):
+        new_root = rotation_root.left
+        rotation_root.left = new_root.right
+        if new_root.right is not None:
+            new_root.right.parent = rotation_root
+        new_root.parent = rotation_root.parent
+        if not rotation_root.parent:
+            self.root = new_root
+        else:
+            if rotation_root.is_right_child():
+                rotation_root.parent.right = new_root
+            else:
+                rotation_root.parent.left = new_root
+        new_root.right = rotation_root
+        rotation_root.parent = new_root
+        rotation_root.balance_factor = \
+            rotation_root.balance_factor + 1 - min(new_root.balance_factor, 0)
+        new_root.balance_factor = \
+            new_root.balance_factor + 1 + max(rotation_root.balance_factor, 0)
+
+    """
 
 The last two lines require some explanation. In these lines we
 update the balance factors of the old and the new root. Since all the
@@ -214,7 +227,8 @@ remember that B is `rotation_root` and D is `new_root` then we can see this
 corresponds exactly to the statement on the penulitmate line, or:
 
 ```python
-rotation_root.balance_factor = rotation_root.balance_factor + 1 - min(0,new_root.balance_factor)
+rotation_root.balance_factor = \
+    rotation_root.balance_factor + 1 - min(0, new_root.balance_factor)
 ```
 
 A similar derivation gives us the equation for the updated node D, as
@@ -227,13 +241,15 @@ but take a look at the diagram below. Since node A has a
 balance factor of -2 we should do a left rotation. But, what happens
 when we do the left rotation around A?
 
-![An unbalanced tree that is more difficult to balance](figures/hard-unbalanced.png)
+![An unbalanced tree that is more difficult to
+balance](figures/hard-unbalanced.png)
 
 The diagram below shows us that after the left rotation we
 are now out of balance the other way. If we do a right rotation to
 correct the situation we are right back where we started.
 
-![After a left rotation, the tree is out of balance in the other direction](figures/bad-rotatation.png)
+![After a left rotation, the tree is out of balance in the other
+direction](figures/bad-rotatation.png)
 
 To correct this problem we must use the following set of rules:
 
@@ -258,31 +274,18 @@ method, which is shown below. Rule number
 1 from above is implemented by the `if` statement starting on line 2.
 Rule number 2 is implemented by the `elif` statement starting on line 8.
 
-```python
-def rebalance(self,node):
-    if node.balance_factor < 0:
-        if node.right.balance_factor > 0:
-            self.rotate_right(node.right)
-            self.rotate_left(node)
-        else:
-            self.rotate_left(node)
-    elif node.balance_factor > 0:
-        if node.left.balance_factor < 0:
-            self.rotate_left(node.left)
-            self.rotate_right(node)
-        else:
-            self.rotate_right(node)
-```
-By keeping the tree in balance at all times, we can ensure that the
-`get` method will run in order $$O(log_2(n))$$ time. But the question is
-at what cost to our `put` method? Let us break this down into the
-operations performed by `put`. Since a new node is inserted as a leaf,
-updating the balance factors of all the parents will require a maximum
-of $$log_2(n)$$ operations, one for each level of the tree. If a subtree
-is found to be out of balance a maximum of two rotations are required to
-bring the tree back into balance. But, each of the rotations works in
-$$O(1)$$ time, so even our `put` operation remains $$O(log_2(n))$$.
+"""
 
-At this point we have implemented a functional AVL-Tree, unless you need
-the ability to delete a node. We leave the deletion of the node and
-subsequent updating and rebalancing as an exercise for you.
+    def rebalance(self, node):
+        if node.balance_factor < 0 and node.right:
+            if node.right.balance_factor > 0:
+                self.rotate_right(node.right)
+                self.rotate_left(node)
+            else:
+                self.rotate_left(node)
+        elif node.balance_factor > 0 and node.left:
+            if node.left.balance_factor < 0:
+                self.rotate_left(node.left)
+                self.rotate_right(node)
+            else:
+                self.rotate_right(node)

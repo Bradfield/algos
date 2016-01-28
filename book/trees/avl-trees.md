@@ -1,6 +1,6 @@
 ---
-title: Balanced Binary Search Trees
-layout: chapter.html
+title: AVL Trees
+layout: default.html
 collection: trees
 position: 12
 ---
@@ -38,7 +38,7 @@ unbalanced, right-heavy tree and the balance factors of each node.
 
 Before we proceed any further let’s look at the result of enforcing this
 new balance factor requirement. Our claim is that by ensuring that a
-tree always has a balance factor of -1, 0, or 1 we can get better Big-O
+tree always has a balance factor of -1, 0, or 1 we can get better big O
 performance of key operations. Let us start by thinking about how this
 balance condition changes the worst-case tree. There are two
 possibilities to consider, a left-heavy tree and a right heavy tree. If
@@ -96,3 +96,57 @@ This derivation shows us that at any time the height of our AVL tree is
 equal to a constant(1.44) times the log of the number of nodes in the
 tree. This is great news for searching our AVL tree because it limits
 the search to $$O(\log{N})$$.
+
+Implementation
+---
+
+Now that we have demonstrated that keeping an AVL tree in balance is
+going to be a big performance improvement, let us look at how we will
+augment the procedure to insert a new key into the tree. Since all new
+keys are inserted into the tree as leaf nodes and we know that the
+balance factor for a new leaf is zero, there are no new requirements for
+the node that was just inserted. But once the new leaf is added we must
+update the balance factor of its parent. How this new leaf affects the
+parent’s balance factor depends on whether the leaf node is a left child
+or a right child. If the new node is a right child the balance factor of
+the parent will be reduced by one. If the new node is a left child then
+the balance factor of the parent will be increased by one. This relation
+can be applied recursively to the grandparent of the new node, and
+possibly to every ancestor all the way up to the root of the tree. Since
+this is a recursive procedure let us examine the two base cases for
+updating balance factors:
+
+-   The recursive call has reached the root of the tree.
+-   The balance factor of the parent has been adjusted to zero. You
+    should convince yourself that once a subtree has a balance factor of
+    zero, then the balance of its ancestor nodes does not change.
+
+<!-- litpy trees/avl_tree.py -->
+
+By keeping the tree in balance at all times, we can ensure that the
+`get` method will run in order $$O(\log_2{n})$$ time. But the question is
+at what cost to our `put` method? Let us break this down into the
+operations performed by `put`. Since a new node is inserted as a leaf,
+updating the balance factors of all the parents will require a maximum
+of $$\log_2{n}$$ operations, one for each level of the tree. If a subtree
+is found to be out of balance a maximum of two rotations are required to
+bring the tree back into balance. But, each of the rotations works in
+$$O(1)$$ time, so even our `put` operation remains $$O(\log_2{n})$$.
+
+At this point we have implemented a functional AVL-Tree, unless you need
+the ability to delete a node. We leave the deletion of the node and
+subsequent updating and rebalancing as an exercise for you.
+
+Over the past few sections we have looked at several data structures
+that can be used to implement the map abstract data type. A binary
+Search on a list, a hash table, a binary search tree, and a balanced
+binary search tree. To conclude this section, let’s summarize the
+performance of each data structure for the key operations defined by the
+map ADT.
+
+operation |  Sorted List | Hash Table  | Binary Search Tree | AVL Tree
+--- | --- | --- | --- | ---
+`put` | $$O(n)$$    | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
+`get` | $$O(\log_2{n})$$    | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
+`in`  | $$O(\log_2{n})$$    | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$
+`del` | $$O(n)$$   | $$O(1)$$   | $$O(n)$$   | $$O(\log_2{n})$$

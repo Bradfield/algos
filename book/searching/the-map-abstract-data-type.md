@@ -1,6 +1,6 @@
 ---
 title: The Map Abstract Data Type
-layout: chapter.html
+layout: default.html
 collection: searching
 position: 5
 --

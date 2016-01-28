@@ -15,4 +15,5 @@ def hot_potato(names, num):
     return queue.pop()
 
 
-hot_potato(('Bill', 'David', 'Susan', 'Jane', 'Kent', 'Brad'), 7)  # => 'Susan'
+hot_potato(('Bill', 'David', 'Susan', 'Jane', 'Kent', 'Brad'), 7)
+# => 'Susan'

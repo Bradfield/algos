@@ -1,6 +1,6 @@
 ---
-title: The Word Ladder Problem
-layout: chapter.html
+title: Word Ladders
+layout: default.html
 collection: graphs
 position: 6
 ---

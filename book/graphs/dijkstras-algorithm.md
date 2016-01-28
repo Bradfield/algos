@@ -1,6 +1,6 @@
 ---
-title: Shortest Path Problems and Dijkstra’s Algorithm
-layout: chapter.html
+title: Shortest Path with Dijkstra’s Algorithm
+layout: default.html
 collection: graphs
 position: 10
 ---

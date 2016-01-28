@@ -1,6 +1,6 @@
 ---
-title: Implementing a Deque in Python
-layout: chapter.html
+title: A Deque Implementation
+layout: default.html
 collection: deques
 position: 3
 ---

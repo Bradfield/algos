@@ -1,6 +1,6 @@
 ---
-title: Converting an Integer to a String in Any Base
-layout: chapter.html
+title: Converting an Integer to Any Base
+layout: default.html
 collection: recursion
 position: 4
 ---
@@ -9,8 +9,8 @@ Suppose you want to convert an integer to a string in some base between
 binary and hexadecimal. For example, convert the integer 10 to its
 string representation in decimal as `'10'`, or to its string
 representation in binary as `'1010'`. While there are many algorithms to
-solve this problem, including the algorithm discussed in the stack
-section, the recursive formulation of the problem is very elegant.
+solve this problem, including the algorithm discussed in the stacks
+chapter, the recursive formulation of the problem is very elegant.
 
 Let’s look at a concrete example using base 10 and the number 769.
 Suppose we have a sequence of characters corresponding to the first 10
@@ -80,4 +80,4 @@ reversed returning the `CHAR_FOR_INT` lookup and returning the `to_string`
 call, the resulting string would be backward! But by delaying the
 concatenation operation until after the recursive call has returned, we
 get the result in the proper order. This should remind you of our
-discussion of stacks back in the previous section.
+discussion of stacks back in the previous chapter.

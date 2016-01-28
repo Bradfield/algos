@@ -1,6 +1,6 @@
 ---
-title: Implementing a Stack in Python
-layout: chapter.html
+title: A Stack Implementation
+layout: default.html
 collection: stacks
 position: 3
 ---
