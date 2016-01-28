@@ -225,7 +225,7 @@ table tr:last-child td {
   visibility: hidden;
 }
 
-[data-language] {
+[data-language-switcher-enabled] [data-language] {
   visibility: hidden;
 }
 

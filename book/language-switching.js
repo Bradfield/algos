@@ -39,8 +39,8 @@ const handleSwitchLanguage = (event) => {
   switchLanguageTo(language)
 }
 
-// Populate the language switcher <select> element and bind change callback
-window.addEventListener('load', () => {
+const renderLanguageSwitcher = () => {
+  document.body.attributes['data-language-switcher-enabled'] = true
   const switcher = document.getElementById('language-switcher')
   const languages = getUniqueLanguages()
   const preferredLanguage = window.localStorage.getItem('preferredLanguage')
@@ -61,4 +61,9 @@ window.addEventListener('load', () => {
     switcher.addEventListener('change', handleSwitchLanguage)
     switchLanguageTo(preferredLanguage || languages[0])
   }
+}
+
+// Populate the language switcher <select> element and bind change callback
+window.addEventListener('load', () => {
+  renderLanguageSwitcher()
 })
