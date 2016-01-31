@@ -32,12 +32,23 @@ numbers” and recognizes the relationship $$f(n) = f(n-1) + f(n-2)$$.
 With 0 and 1 as our base cases, this leads to an implementation in code that
 looks very much like the mathematical definition of the sequence:
 
+<div data-language="python">
 ```python
 def fib(n):
     if n <= 1:
         return n  # base cases: return 0 or 1 if n is 0 or 1, respectively
     return fib(n - 1) + fib(n - 2)
 ```
+</div>
+
+<div data-language="javascript">
+```javascript
+const fib = (n) => {
+  if (n <= 1) return n
+  return fib(n - 1) + fib(n - 2)
+}
+```
+</div>
 
 This is a correct solution, but it poses a problem evident to those who run
 `fib(50)` and wait for an answer. The running time of this implementation is
@@ -125,6 +136,7 @@ calculations, and we never obtain the same sum twice.
 
 An implementation of this strategy might look like:
 
+<div data-language="python">
 ```python
 def fib(n):
     a, b = 0, 1
@@ -132,6 +144,21 @@ def fib(n):
         a, b = a + b, a
     return a
 ```
+</div>
+<div data-language="javascript">
+```javascript
+const fib = (n) => {
+  let a = 0
+  let b = 1
+  for (let i = 0; i < n; i++) {
+    let temp = a
+    a = a + b
+    b = temp
+  }
+  return a
+}
+```
+</div>
 
 With this implementation, we sacrifice some of the elegance and
 readability of our recursive solution, but gain a much better $$O(n)$$
@@ -451,7 +478,17 @@ is simply `1`.
 Putting our base case and general case together, we obtain a succinct recursive
 solution:
 
+<div data-language="python">
 <!-- litpy recursion/lattice_traversal_recursive.py -->
+</div>
+<div data-language="javascript">
+```javascript
+const numPaths = (height, width) => {
+  if (height === 0 || width === 0) return 1
+  return numPaths(height, width - 1) + numPaths(height - 1, width)
+}
+```
+</div>
 
 Unfortunately, we find ourselves with another $$O(2^n)$$ solution
 (where $$n = max(H, W)$$) due
@@ -460,7 +497,7 @@ calculating `f(3, 2)` involves calculating `f(2, 2)` and `f(3, 1)`,
 but then in calculating `f(2, 3)` we redundantly call `f(2, 2)` once
 more.
 
-Consider the call tree of `num_paths(2, 2)` to convince yourself
+Consider the call tree of <span data-language="python">`num_paths(2, 2)`</span><span data-language="javascript">`numPaths(2, 2)`</span> to convince yourself
 that the running time is $$O(2^n)$$:
 
 <figure>
@@ -469,32 +506,32 @@ that the running time is $$O(2^n)$$:
 
 <script>
 drawTree('#lattice-2-2-call-tree', {
-  name: 'num_paths(2, 2)',
+  name: 'f(2, 2)',
   children: [
     {
-      name: 'num_paths(2, 1)',
+      name: 'f(2, 1)',
       children: [
-        { name: 'num_paths(2, 0)' },
+        { name: 'f(2, 0)' },
         {
-          name: 'num_paths(1, 1)',
+          name: 'f(1, 1)',
           children: [
-            { name: 'num_paths(1, 0)' },
-            { name: 'num_paths(0, 1)' }
+            { name: 'f(1, 0)' },
+            { name: 'f(0, 1)' }
           ]
         },
       ]
     },
     {
-      name: 'num_paths(1, 2)',
+      name: 'f(1, 2)',
       children: [
         {
-          name: 'num_paths(1, 1)',
+          name: 'f(1, 1)',
           children: [
-            { name: 'num_paths(1, 0)' },
-            { name: 'num_paths(0, 1)' }
+            { name: 'f(1, 0)' },
+            { name: 'f(0, 1)' }
           ]
         },
-        { name: 'num_paths(0, 2)' }
+        { name: 'f(0, 2)' }
       ]
     },
   ]
@@ -562,7 +599,25 @@ This is what the memo looks like for `f(10, 10)`:
 Below is a possible implementation of the dynamic programming strategy
 we have discussed.
 
+<div data-language="python">
 <!-- litpy recursion/lattice_traversal_dp.py -->
+</div>
+<div data-language="javascript">
+```javascript
+const numPathsDp = (height, width) {
+  const memo = Array.from(Array(height + 1)).map(
+    () => Array.from(Array(width + 1)).map(() => 1)
+  )
+  for (let i = 1; i < memo.length; i++) {
+    const row = memo[i]
+    for (let j = 1; j < row.length; j++) {
+      memo[i][j] = memo[i - 1][j] + memo[i][j - 1]
+    }
+  }
+  return memo[height][width]
+}
+```
+</div>
 
 Both the time and space cost for this implementation are $$O(H \times W)$$,
 compared to $$2^{max(H, W)}$$ previously, making a big difference as $$H$$

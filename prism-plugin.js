@@ -4,6 +4,8 @@ const prism = require('prismjs')
 
 const pythonCode = /```python\n([\s\S]*?)```/g
 
+const javascriptCode = /```javascript\n([\s\S]*?)```/g
+
 const pythonGrammar = {
   'triple-quoted-string': {
     pattern: /"""[\s\S]+?"""|'''[\s\S]+?'''/,
@@ -29,15 +31,22 @@ const pythonGrammar = {
   punctuation: /[{}[\];(),.:]/,
 }
 
-const highlight = (match, group) => `
+const highlightPython = (match, group) => `
   <pre><code class="language-python">${prism.highlight(group, pythonGrammar)}</code></pre>
+`
+
+const highlightJavaScript = (match, group) => `
+  <pre><code class="language-javascript">${prism.highlight(group, prism.languages.javascript)}</code></pre>
 `
 
 const highlightCode = files => {
   for (let path in files) {
     if (path.search('\.md$') !== -1) {
       const file = files[path]
-      const replaced = file.contents.toString('utf8').replace(pythonCode, highlight)
+      const replaced = file.contents
+        .toString('utf8')
+        .replace(pythonCode, highlightPython)
+        .replace(javascriptCode, highlightJavaScript)
       file.contents = new Buffer(replaced, 'utf8')
     }
   }

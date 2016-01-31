@@ -218,6 +218,17 @@ table tr:last-child td {
   stroke: #eee;
 }
 
+#language-switcher {
+  float: right;
+  font-size: 1.5em;
+  margin: 15px 0 0 20px;
+  visibility: hidden;
+}
+
+[data-language-switcher-enabled] [data-language] {
+  visibility: hidden;
+}
+
 #svg-refs {
   width: 0;
   height: 0;

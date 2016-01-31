@@ -23,6 +23,7 @@ function publish-from-travis {
 }
 
 function serve {
+  mkdir -p $BUILD_DIR
   cd $BUILD_DIR && http-server -p $PORT
 }
 

@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="<%= process.env.SITE_ROOT %>book.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="<%= process.env.SITE_ROOT %>language-switching.js"></script>
   <script src="<%= process.env.SITE_ROOT %>figures.js"></script>
+
 </head>
 <body>
 
@@ -27,7 +29,10 @@
 
   <div class="page">
     <div class="content">
-      <h1><%= title %></h1>
+      <h1>
+        <%= title %>
+        <select id="language-switcher"></select>
+      </h1>
       <%- contents %>
 
       <div class="navigation">
