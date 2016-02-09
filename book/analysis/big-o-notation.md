@@ -5,43 +5,51 @@ position: 2
 layout: default.html
 ---
 
-When trying to characterize an algorithm’s efficiency in terms of
-execution time, independent of any particular program or computer, we
-must quantify the number of operations or steps that the algorithm will
-require. If each of these steps is considered to be a basic unit of
-computation, then the execution time for an algorithm can be expressed
-as the number of steps required to solve the problem.
+An algorithm is little more than a series of operations (or steps) required to
+perform some task. If we treat each step as a basic unit of computation, then
+an algorithm’s execution time can be expressed as the *number of steps required
+to solve the problem*.
 
-In our summation algorithms shown earlier, a good basic unit of
-computation  might be to count the number of assignment statements
-performed to compute the sum. In the function `sum_of_n`, the number of
-assignment statements is 1 (`the_sum = 0`) plus the value of *n* (the
-number of times we perform `the_sum=the_sum+i`). We can denote this by
-a function, call it T, where $$T(n)=1 + n$$. The parameter *n* is often
-referred to as the “size of the problem,” and we can read this as “T(n)
-is the time it takes to solve a problem of size n, namely 1 + n steps.”
+This abstraction is exactly what we need: it characterizes an algorithm’s
+efficiency in terms of execution time while remaining independent of any
+particular program or computer.
 
-In the summation functions given earlier, it makes sense to use the number
-of terms in the summation to denote the size of the problem. We can then
-say that the sum of the first 100,000 integers is a bigger instance of
-the summation problem than the sum of the first 1,000. Because of this,
-it might seem reasonable that the time required to solve the larger case
-would be greater than for the smaller case. Our goal then is to show how
-the algorithm’s execution time changes with respect to the size of the
-problem.
+How can we apply this abstraction to the summation algorithms shown earlier?
 
-Computer scientists prefer to take this analysis technique one step
-further. It turns out that the exact number of operations is not as
-important as determining the most dominant part of the $$T(n)$$ function.
-In other words, as the problem gets larger, some portion of the $$T(n)$$
-function tends to overpower the rest. This dominant term is what, in the
-end, is used for comparison. The *order of magnitude* function
-describes the part of $$T(n)$$ that increases the fastest as the value of
-*n* increases. Order of magnitude is often called *big O* notation
-(for “order”) and written as $$O(f(n))$$. It provides a useful
-approximation to the actual number of steps in the computation. The
-function $$f(n)$$ provides a simple representation of the dominant part of
-the original $$T(n)$$.
+Looking back at our function `sum_of_n`, the most basic unit of computation
+seems to be variable assignment so, if we count those, we could have a worthy
+representation of the algorithm's execution time. There's an initial assignment
+statement that is performed only once (`the_sum = 0`), followed by a loop that executes (`the_sum += i`) a total of `n` times.
+
+We can denote this more elegantly with function $$T$$, where $$T(n) = 1 + n$$.
+
+The parameter *n* is often referred to as the “size of the problem”, so we can
+read this as “T(n) is the time it takes to solve a problem of size *n*,
+namely 1 + *n* steps.”
+
+For our summation functions, it makes sense to use the number of terms being
+summed to denote the size of the problem. Then, we can say that “The sum of the
+first 100,000 integers is a *bigger instance* of the summation problem than the
+sum of the first 1,000 integers”.
+
+Based on that claim, it seems reasonable that the time required to solve the
+larger case would be greater than for the smaller case. “Seems reasonable” isn’t
+quite good enough, though; we need to prove that the algorithm’s execution time
+is dependent on the size of the problem.
+
+To do this, we’re going to stop worrying about the *exact* number of operations
+an algorithm performs and determine the dominant part of the $$T(n)$$ function.
+We can do this because, as the problem gets larger, some portion of the $$T(n)$$
+function tends to overpower the rest; it is this dominant portion that is
+ultimately most helpful for algorithm comparisons.
+
+The *order of magnitude* function describes the part of $$T(n)$$ that increases
+fastest as the value of *n* increases. “Order of magnitude function” is a bit of
+a mouthful, though, so we call it *big O* notation and write it as $$O(f(n))$$,
+where $$f(n)$$ is the dominant part of the original $$T(n)$$. Big O notation provides a useful approximation for the *actual* number of steps in a
+computation.
+
+****
 
 In the above example, $$T(n)=1+n$$. As *n* gets large, the constant 1 will
 become less and less significant to the final result. If we are looking
