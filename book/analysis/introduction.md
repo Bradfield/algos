@@ -131,7 +131,7 @@ to be dependent on the value of `n`.
 Intuitively, we can see that the iterative program seems to be doing more work;
 some program steps are being repeated, so the program takes longer. Also, the
 iterative program takes more time to finish if we increase the value of `n`.
-But these conclusions can be misleading...
+But these conclusions can be misleading.
 
 If we ran the same function on a different computer or used a different
 programming language, we would likely get different results. It could take
