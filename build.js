@@ -104,8 +104,7 @@ console.log(`Building to ${BUILD_DESTINATION} ..`)
 const EXCLUSION_FILE_PATTERNS = [
   '\.pyc$',
   '\.py$',
-  '\.DS_STORE',
-  '\.txt',
+  '\.DS_STORE'
 ]
 
 const removeNonPublicFiles =

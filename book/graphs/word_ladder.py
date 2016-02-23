@@ -124,12 +124,12 @@ word_graph = build_graph(get_words(vocabulary_file))
 
 """
 Since this is our first real-world graph problem, you might be wondering
-how sparse is the graph? The list of four-letter words we have for this
-problem is 5,110 words long. If we were to use an adjacency matrix, the
-matrix would have 5,110 \* 5,110 = 26,112,100 cells. The graph
-constructed by the `build_graph` function has exactly 53,286 edges, so
-the matrix would have only 0.20% of the cells filled! That is a very
-sparse matrix indeed.
+how sparse is the graph? The [list of four-letter words](vocabulary.txt)
+we have for this problem is 5,110 words long. If we were to use an
+adjacency matrix, the matrix would have 5,110 \* 5,110 = 26,112,100 cells.
+The graph constructed by the `build_graph` function has exactly 53,286
+edges, so the matrix would have only 0.20% of the cells filled! That is
+a very sparse matrix indeed.
 
 Implementing breadth first search
 ---
