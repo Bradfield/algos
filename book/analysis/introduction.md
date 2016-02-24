@@ -9,29 +9,26 @@ What makes one computer program better than another?
 
 The answer depends on the criteria we use: code readability, engineering
 paradigms, and efficiency are a few possible metrics by which we we could
-measure a program's quality.
+measure a program’s quality.
 
-Let's set aside aspects of a program that are specific to language or
+Let’s set aside aspects of a program that are specific to language or
 implementation and instead focus on the underlying _algorithm_. Doing this
 limits the number of factors we have to consider and enables us to make bold
-statements like “Tesla's algorithm is better than Edison's algorithm because
+statements like “Tesla’s algorithm is better than Edison’s algorithm because
 it uses computing resources more efficiently.”
 
 Typically, the two “computing resources” that we care about are *space* and
 *time*. Depending on the situation, we may be willing to sacrifice one resource
-if it means getting more of the other; for instance, we might be fine with a
-program running longer as long as it doesn't exceed a certain amount of space.
-Or maybe we're comfortable using more memory so the program can run faster.
+if it means getting more of the other; we might be fine with a program taking
+more time as long as it doesn’t exceed a certain amount of space. Or maybe we’re
+comfortable using more space so the program can run faster.
 
 But, in order to talk intelligently about space/time for algorithms we
-encounter, we'll need both a vocabulary and a method of analysis. Let's
-tackle the method of analysis first.
+encounter, we need a way to analyze them. We _could_ use benchmark analysis to
+measure a program’s running time; this would involve tracking the actual time
+required for the program to compute its result.
 
-One way we _could_ measure the running time for a program is to do a
-benchmark analysis. This would involve tracking the actual time required
-for the program to compute its result.
-
-Let's try this for a simple function computing the sum of a range of integers:
+Let’s try this for a simple function computing the sum of a range of integers:
 
 ```python
 import time
@@ -65,9 +62,9 @@ Sum is 50005000, required  0.0019162 seconds
 Sum is 50005000, required  0.0019360 seconds
 ```
 
-It seems like the running time is fairly consistent and takes an average of
-0.0019 seconds to perform the actual calculation. What if we repeat this
-process for the first 100,000 integers?
+It seems like the running time is fairly consistent, averaging about 0.0019
+seconds to perform the actual calculation. What if we repeat this process for
+the first 100,000 integers?
 
 ```
 >>> for i in range(5):
@@ -79,8 +76,8 @@ Sum is 5000050000, required  0.0178988 seconds
 Sum is 5000050000, required  0.0188949 seconds
 ```
 
-Again, the time required for each run, although longer, is very consistent,
-averaging about 0.019 seconds. For `n` equal to 1,000,000 we get:
+Again, the time required for each run, although longer, is consistent, averaging
+about 0.019 seconds. For `n` equal to 1,000,000 we get:
 
 ```
 >>> for i in range(5):
@@ -103,7 +100,7 @@ clever solution:
 
 $$\sum_{i=1}^{n} i = \frac {(n)(n+1)}{2}$$
 
-Here's that same formula rewritten as a function:
+Here’s that same formula rewritten as a function:
 
 ```python
 def arithmetic_sum(n):
@@ -124,22 +121,18 @@ Sum is 5000000050000000, required 0.00000119 seconds
 
 There are a couple of things to notice about this output:
 
-First, the run times we're seeing for `arithmetic_sum` are much shorter than
-for `sum_of_n`. Second, the run times are consistent and don't seem
-to be dependent on the value of `n`.
+First, the run times we’re seeing for `arithmetic_sum` are much shorter than
+what we saw for `sum_of_n`. Second, the run times are consistent and don’t seem
+to be dependent on the value of `n`. These times _prove_ that `arithmetic_sum`
+is faster than `sum_of_n`, right? Not exactly.
 
-Intuitively, we can see that the iterative program seems to be doing more work;
-some program steps are being repeated, so the program takes longer. Also, the
-iterative program takes more time to finish if we increase the value of `n`.
-But these conclusions can be misleading.
-
-If we ran the same function on a different computer or used a different
+If we ran the same functions on a different computer or used a different
 programming language, we would likely get different results. It could take
 much longer to perform `arithmetic_sum` if the computer were older.
 
-The benchmark technique computes the _actual_ time to execute, but this isn't
-really a useful measurement; this “time” is dependent on a list of sources,
-including the programming language, compiler, OS, machine, and time of day.
+The benchmark technique computes the _actual_ time to execute, but this isn’t
+really a useful measurement; this “time” depends on several sources, including
+the programming language used, compiler, OS, machine, and time of day.
 
 We need a more abstract way to characterize these algorithms with respect to
 their execution times, one that is independent of the program or computer

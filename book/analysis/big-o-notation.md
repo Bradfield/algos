@@ -12,14 +12,19 @@ problem*.
 
 This abstraction is exactly what we need: it characterizes an algorithm’s
 efficiency in terms of execution time while remaining independent of any
-particular program or computer.
+particular program or computer. Now we can take a closer look at those two
+summation algorithms we introduced last chapter.
 
-How can we apply this abstraction to the summation algorithms shown earlier?
+Intuitively, we can see that the `sum_of_n` is doing more work; some program
+steps are being repeated, and the program takes even longer if we increase the
+value of `n`. But we need to be more precise than this.
 
-Looking back at our function `sum_of_n`, the most expensive unit of computation
-seems to be variable assignment; if we count those, we could have a worthy
-representation of the algorithm's execution time. There's an initial assignment
-statement (`the_sum = 0`) that is performed only once, followed by a loop that executes (`the_sum += i`) a total of `n` times.
+The most expensive unit of computation seems to be variable assignment; if we count those, we could have a worthy representation of the algorithm's execution
+time. There's an initial assignment statement (`the_sum = 0`) that is performed only once, followed by a loop that executes (`the_sum += i`) a total of `n` times.
+
+Intuitively, we can see that the iterative program seems to be doing more work;
+some program steps are being repeated, so the program takes longer. Also, the
+iterative program takes more time to finish if we increase the value of `n`.
 
 We can denote this more succinctly with function $$T$$, where $$T(n)=1+n$$.
 
