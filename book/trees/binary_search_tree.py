@@ -379,7 +379,7 @@ the key node.
                 node.val = successor.val
     """
 
-The code to find the successor is shown below and as you can see is a
+The code to find the successor is shown above and as you can see is a
 method of the `TreeNode` class. This code makes use of the same
 properties of binary search trees that cause an inorder traversal to
 print out the nodes in the tree from smallest to largest. There are

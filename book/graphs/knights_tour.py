@@ -119,7 +119,7 @@ above, and for each vertex in the graph attempts to traverse depth first
 by way of the `traverse` function.
 
 The `traverse` function is a little more interesting. It accepts a path,
-as a list as a list of coordinates, as well as the vertex currently
+as a list of coordinates, as well as the vertex currently
 being considered. If the traversal has proceeded deep enough that we
 know that every square has been visited once, then we return the full
 path traversed.
@@ -279,10 +279,9 @@ complete the knight’s tour.
 
 
 def warnsdorffs_heuristic(graph):
-    """
-    Given a graph, return a comparator function that prioritizes nodes
-    with the fewest subsequent moves
-    """
+    
+    #Given a graph, return a comparator function that prioritizes nodes
+    #with the fewest subsequent moves
     def comparator(a, b):
         return len(graph[a]) - len(graph[b])
 

@@ -152,9 +152,9 @@ imagine that it is building a tree, one level of the tree at a time. A
 breadth first search adds all children of the starting vertex before it
 begins to discover any of the grandchildren.
 
-The breadth first search algorithm shown in below uses the adjacency
+The breadth first search algorithm shown below uses the adjacency
 list graph representation we developed earlier. In addition it uses a
-queue a crucial point as we will see, to decide which vertex to explore
+queue at a crucial point as we will see, to decide which vertex to explore
 next, and also to maintain a record of the depth to which we have
 traversed at any point.
 
@@ -167,9 +167,7 @@ our starting vertex.
 
 The next step is to begin to systematically grow the paths one at a
 time, starting from the path at the front of the queue, in each case
-taking one more step from the vertex last explored (which in each case
-has been added to the end of the path) explore vertices at the front of
-the queue.
+taking one more step from the vertex last explored.
 
 Once we have popped from our queue a path to continue exploring and
 retrieved the last the vertex visited from that path, we retrieve its

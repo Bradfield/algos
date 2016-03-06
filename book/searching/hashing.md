@@ -281,8 +281,7 @@ When we want to search for an item, we use the hash function to generate
 the slot where it should reside. Since each slot holds a collection, we
 use a searching technique to decide whether the item is present. The
 advantage is that on the average there are likely to be many fewer items
-in each slot, so the search is perhaps more efficient. We will look at
-the analysis for hashing at the end of this section.
+in each slot, so the search is perhaps more efficient.
 
 Analysis of Hashing
 -------------------
