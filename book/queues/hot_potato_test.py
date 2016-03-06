@@ -6,7 +6,7 @@ cases = (
     (
         ('Bill', 'David', 'Susan', 'Jane', 'Kent', 'Brad'),
         9,
-        'Bill'
+        'David'
     ),
 )
 
