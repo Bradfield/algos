@@ -16,4 +16,4 @@ def hot_potato(names, num):
 
 
 hot_potato(('Bill', 'David', 'Susan', 'Jane', 'Kent', 'Brad'), 9)
-# => 'Bill'
+# => 'David'
