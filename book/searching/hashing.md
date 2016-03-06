@@ -35,7 +35,7 @@ The mapping between an item and the slot where that item belongs in the
 hash table is called the **hash function**. The hash function will take
 any item in the collection and return an integer in the range of slot
 names, between 0 and *m*-1. Assume that we have the set of integer items
-54, 26, 93, 17, 77, and 31. Our first hash function, sometimes referred
+54, 26, 93, 17,77, and 31. Our first hash function, sometimes referred
 to as the “remainder method,” simply takes an item and divides it by the
 table size, returning the remainder as its hash value
 ($$h(item)=item \% 11$$). The table below gives all of
@@ -281,8 +281,7 @@ When we want to search for an item, we use the hash function to generate
 the slot where it should reside. Since each slot holds a collection, we
 use a searching technique to decide whether the item is present. The
 advantage is that on the average there are likely to be many fewer items
-in each slot, so the search is perhaps more efficient. We will look at
-the analysis for hashing at the end of this section.
+in each slot, so the search is perhaps more efficient.
 
 Analysis of Hashing
 -------------------

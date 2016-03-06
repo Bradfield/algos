@@ -148,8 +148,8 @@ example, $$Mammal \rightarrow Carnivora \rightarrow Felidae \rightarrow Felis \r
 
 ### Children
 
-The set of nodes $$c$$ that have incoming edges from the same node to are said
-to be the children of that node. in our file system example, nodes log/, spool/,
+The set of nodes $$c$$ that have incoming edges from the same node are said
+to be the children of that node. In our file system example, nodes log/, spool/,
 and yp/ are the children of node var/.
 
 ### Parent

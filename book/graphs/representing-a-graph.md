@@ -79,7 +79,7 @@ it is connected, and the weight of each edge. If we weren’t concerned
 with edge weights, we could use a set in place of a dictionary. This
 dictionary is called `neighbors`.
 
-In the code below, The `add_neighbor` method is used add a connection
+In the code below, the `add_neighbor` method is used to add a connection
 from this vertex to another. The `get_connections` method returns all of
 the vertices in the adjacency list, as represented by the `neighbors`
 instance variable. The `get_weight` method returns the weight of the
@@ -149,7 +149,7 @@ class Graph(object):
 ```
 
 Using the `Graph` and `Vertex` classes just defined, the following
-Python session creates our example graph.. First we create six vertices
+Python session creates our example graph. First we create six vertices
 numbered 0 through 5. Then we display the vertex dictionary. Notice that
 for each key 0 through 5 we have created an instance of a `Vertex`.
 Next, we add the edges that connect the vertices together. Finally, a

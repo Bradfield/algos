@@ -156,7 +156,7 @@ priority queue. The state of the algorithm is:
 ![ ](figures/dijkstraa.png)
 
 In the next iteration of the `while` loop we examine the vertices that
-are adjacent to $$x$$. The vertex $$x$$ is next because it has the lowest
+are adjacent to $$u$$. The vertex $$x$$ is next because it has the lowest
 overall cost and therefore bubbled its way to the beginning of the
 priority queue. At $$x$$ we look at its neighbors $$u,v,w$$ and $$y$$. For
 each neighboring vertex we check to see if the distance to that vertex

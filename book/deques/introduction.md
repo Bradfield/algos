@@ -3,8 +3,6 @@ title: Introduction to Deques
 collection: deques
 position: 1
 layout: default.html
-collection: deques
-position: 1
 ---
 
 A **deque**, also known as a double-ended queue, is an ordered

@@ -1,0 +1,275 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'wach',
+1 verbose cli   'rld' ]
+2 info using npm@1.4.9
+3 info using node@v0.10.28
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose cache add [ 'wach', null ]
+6 verbose cache add name=undefined spec="wach" args=["wach",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'wach',
+7 verbose parsed url   path: 'wach',
+7 verbose parsed url   href: 'wach' }
+8 verbose cache add [ 'rld', null ]
+9 verbose cache add name=undefined spec="rld" args=["rld",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'rld',
+10 verbose parsed url   path: 'rld',
+10 verbose parsed url   href: 'rld' }
+11 silly lockFile d31b31db-wach wach
+12 verbose lock wach C:\Users\Rob\AppData\Roaming\npm-cache\d31b31db-wach.lock
+13 silly lockFile c466b3a3-rld rld
+14 verbose lock rld C:\Users\Rob\AppData\Roaming\npm-cache\c466b3a3-rld.lock
+15 silly lockFile c466b3a3-rld rld
+16 silly lockFile c466b3a3-rld rld
+17 silly lockFile d31b31db-wach wach
+18 silly lockFile d31b31db-wach wach
+19 verbose addNamed [ 'rld', '' ]
+20 verbose addNamed [ null, '*' ]
+21 silly lockFile ac68d5be-rld rld@
+22 verbose lock rld@ C:\Users\Rob\AppData\Roaming\npm-cache\ac68d5be-rld.lock
+23 verbose addNamed [ 'wach', '' ]
+24 verbose addNamed [ null, '*' ]
+25 silly lockFile b8a35945-wach wach@
+26 verbose lock wach@ C:\Users\Rob\AppData\Roaming\npm-cache\b8a35945-wach.lock
+27 silly addNameRange { name: 'rld', range: '*', hasData: false }
+28 verbose url raw rld
+29 verbose url resolving [ 'https://registry.npmjs.org/', './rld' ]
+30 verbose url resolved https://registry.npmjs.org/rld
+31 info trying registry request attempt 1 at 11:38:41
+32 http GET https://registry.npmjs.org/rld
+33 silly addNameRange { name: 'wach', range: '*', hasData: false }
+34 verbose url raw wach
+35 verbose url resolving [ 'https://registry.npmjs.org/', './wach' ]
+36 verbose url resolved https://registry.npmjs.org/wach
+37 info trying registry request attempt 1 at 11:38:41
+38 http GET https://registry.npmjs.org/wach
+39 http 200 https://registry.npmjs.org/rld
+40 silly registry.get cb [ 200,
+40 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+40 silly registry.get     etag: '"4TNK53H41SMEIT78I8WHK175H"',
+40 silly registry.get     'content-type': 'application/json',
+40 silly registry.get     'cache-control': 'max-age=300',
+40 silly registry.get     'content-length': '4555',
+40 silly registry.get     'accept-ranges': 'bytes',
+40 silly registry.get     date: 'Fri, 04 Mar 2016 00:35:28 GMT',
+40 silly registry.get     via: '1.1 varnish',
+40 silly registry.get     age: '0',
+40 silly registry.get     connection: 'keep-alive',
+40 silly registry.get     'x-served-by': 'cache-syd1627-SYD',
+40 silly registry.get     'x-cache': 'MISS',
+40 silly registry.get     'x-cache-hits': '0',
+40 silly registry.get     'x-timer': 'S1457051728.334519,VS0,VE185',
+40 silly registry.get     vary: 'Accept' } ]
+41 silly addNameRange number 2 { name: 'rld', range: '*', hasData: true }
+42 silly addNameRange versions [ 'rld', [ '0.1.0', '0.2.0', '0.3.0', '1.0.0' ] ]
+43 verbose addNamed [ 'rld', '1.0.0' ]
+44 verbose addNamed [ '1.0.0', '1.0.0' ]
+45 silly lockFile 853c85cd-rld-1-0-0 rld@1.0.0
+46 verbose lock rld@1.0.0 C:\Users\Rob\AppData\Roaming\npm-cache\853c85cd-rld-1-0-0.lock
+47 silly lockFile 692f781c-stry-npmjs-org-rld-rld-1-0-0-tgz https://registry.npmjs.org/rld/-/rld-1.0.0.tgz
+48 verbose lock https://registry.npmjs.org/rld/-/rld-1.0.0.tgz C:\Users\Rob\AppData\Roaming\npm-cache\692f781c-stry-npmjs-org-rld-rld-1-0-0-tgz.lock
+49 verbose addRemoteTarball [ 'https://registry.npmjs.org/rld/-/rld-1.0.0.tgz',
+49 verbose addRemoteTarball   'ed0f5449a6e523a2f9a8debe2af7b6f9bc2adae2' ]
+50 info retry fetch attempt 1 at 11:38:41
+51 verbose fetch to= C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051921608-0.12250945111736655\tmp.tgz
+52 http GET https://registry.npmjs.org/rld/-/rld-1.0.0.tgz
+53 http 200 https://registry.npmjs.org/rld/-/rld-1.0.0.tgz
+54 verbose tar unpack C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051921608-0.12250945111736655\tmp.tgz
+55 silly lockFile dfbc3e65-ming-npm-cache-rld-1-0-0-package tar://C:\Users\Rob\AppData\Roaming\npm-cache\rld\1.0.0\package
+56 verbose lock tar://C:\Users\Rob\AppData\Roaming\npm-cache\rld\1.0.0\package C:\Users\Rob\AppData\Roaming\npm-cache\dfbc3e65-ming-npm-cache-rld-1-0-0-package.lock
+57 silly lockFile 3999e39f-1608-0-12250945111736655-tmp-tgz tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051921608-0.12250945111736655\tmp.tgz
+58 verbose lock tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051921608-0.12250945111736655\tmp.tgz C:\Users\Rob\AppData\Roaming\npm-cache\3999e39f-1608-0-12250945111736655-tmp-tgz.lock
+59 silly gunzTarPerm modes [ '755', '644' ]
+60 silly gunzTarPerm extractEntry package.json
+61 silly gunzTarPerm extractEntry README
+62 silly gunzTarPerm extractEntry LICENSE
+63 silly gunzTarPerm extractEntry Makefile
+64 silly gunzTarPerm extractEntry completions/rld.bash
+65 silly gunzTarPerm extractEntry completions/rld.zsh
+66 silly gunzTarPerm extractEntry libexec/rld
+67 silly gunzTarPerm extractEntry libexec/rld-chrome
+68 silly gunzTarPerm extractEntry libexec/rld-chrome-css
+69 silly gunzTarPerm extractEntry libexec/rld-commands
+70 silly gunzTarPerm extractEntry libexec/rld-completions
+71 silly gunzTarPerm extractEntry libexec/rld-help
+72 silly gunzTarPerm extractEntry libexec/rld-init
+73 silly gunzTarPerm extractEntry libexec/rld-safari
+74 silly gunzTarPerm extractEntry libexec/rld-sh-shell
+75 silly gunzTarPerm extractEntry share/reload-css.js
+76 silly lockFile dfbc3e65-ming-npm-cache-rld-1-0-0-package tar://C:\Users\Rob\AppData\Roaming\npm-cache\rld\1.0.0\package
+77 silly lockFile dfbc3e65-ming-npm-cache-rld-1-0-0-package tar://C:\Users\Rob\AppData\Roaming\npm-cache\rld\1.0.0\package
+78 silly lockFile 3999e39f-1608-0-12250945111736655-tmp-tgz tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051921608-0.12250945111736655\tmp.tgz
+79 silly lockFile 3999e39f-1608-0-12250945111736655-tmp-tgz tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051921608-0.12250945111736655\tmp.tgz
+80 silly lockFile 692f781c-stry-npmjs-org-rld-rld-1-0-0-tgz https://registry.npmjs.org/rld/-/rld-1.0.0.tgz
+81 silly lockFile 692f781c-stry-npmjs-org-rld-rld-1-0-0-tgz https://registry.npmjs.org/rld/-/rld-1.0.0.tgz
+82 silly lockFile 853c85cd-rld-1-0-0 rld@1.0.0
+83 silly lockFile 853c85cd-rld-1-0-0 rld@1.0.0
+84 silly lockFile ac68d5be-rld rld@
+85 silly lockFile ac68d5be-rld rld@
+86 http 200 https://registry.npmjs.org/wach
+87 silly registry.get cb [ 200,
+87 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+87 silly registry.get     etag: '"3AQW27EM1J65PVSOFKUCK6XXC"',
+87 silly registry.get     'content-type': 'application/json',
+87 silly registry.get     'cache-control': 'max-age=300',
+87 silly registry.get     'content-length': '16364',
+87 silly registry.get     'accept-ranges': 'bytes',
+87 silly registry.get     date: 'Fri, 04 Mar 2016 00:35:29 GMT',
+87 silly registry.get     via: '1.1 varnish',
+87 silly registry.get     age: '0',
+87 silly registry.get     connection: 'keep-alive',
+87 silly registry.get     'x-served-by': 'cache-syd1621-SYD',
+87 silly registry.get     'x-cache': 'MISS',
+87 silly registry.get     'x-cache-hits': '0',
+87 silly registry.get     'x-timer': 'S1457051728.346037,VS0,VE898',
+87 silly registry.get     vary: 'Accept' } ]
+88 silly addNameRange number 2 { name: 'wach', range: '*', hasData: true }
+89 silly addNameRange versions [ 'wach',
+89 silly addNameRange   [ '0.0.1',
+89 silly addNameRange     '0.0.2',
+89 silly addNameRange     '0.1.0',
+89 silly addNameRange     '0.1.1',
+89 silly addNameRange     '0.1.3',
+89 silly addNameRange     '0.9.0',
+89 silly addNameRange     '0.9.1',
+89 silly addNameRange     '0.9.2',
+89 silly addNameRange     '0.10.0',
+89 silly addNameRange     '0.10.1',
+89 silly addNameRange     '1.0.0',
+89 silly addNameRange     '2.0.0' ] ]
+90 verbose addNamed [ 'wach', '2.0.0' ]
+91 verbose addNamed [ '2.0.0', '2.0.0' ]
+92 silly lockFile 4aa08850-wach-2-0-0 wach@2.0.0
+93 verbose lock wach@2.0.0 C:\Users\Rob\AppData\Roaming\npm-cache\4aa08850-wach-2-0-0.lock
+94 silly lockFile bfec8ac1-ry-npmjs-org-wach-wach-2-0-0-tgz https://registry.npmjs.org/wach/-/wach-2.0.0.tgz
+95 verbose lock https://registry.npmjs.org/wach/-/wach-2.0.0.tgz C:\Users\Rob\AppData\Roaming\npm-cache\bfec8ac1-ry-npmjs-org-wach-wach-2-0-0-tgz.lock
+96 verbose addRemoteTarball [ 'https://registry.npmjs.org/wach/-/wach-2.0.0.tgz',
+96 verbose addRemoteTarball   'd04c7db83a1c604f0bc784a8979324b6ee220c53' ]
+97 info retry fetch attempt 1 at 11:38:42
+98 verbose fetch to= C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051922335-0.3706768078263849\tmp.tgz
+99 http GET https://registry.npmjs.org/wach/-/wach-2.0.0.tgz
+100 http 200 https://registry.npmjs.org/wach/-/wach-2.0.0.tgz
+101 verbose tar unpack C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051922335-0.3706768078263849\tmp.tgz
+102 silly lockFile b60e81e4-ing-npm-cache-wach-2-0-0-package tar://C:\Users\Rob\AppData\Roaming\npm-cache\wach\2.0.0\package
+103 verbose lock tar://C:\Users\Rob\AppData\Roaming\npm-cache\wach\2.0.0\package C:\Users\Rob\AppData\Roaming\npm-cache\b60e81e4-ing-npm-cache-wach-2-0-0-package.lock
+104 silly lockFile 8e40957a-22335-0-3706768078263849-tmp-tgz tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051922335-0.3706768078263849\tmp.tgz
+105 verbose lock tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051922335-0.3706768078263849\tmp.tgz C:\Users\Rob\AppData\Roaming\npm-cache\8e40957a-22335-0-3706768078263849-tmp-tgz.lock
+106 silly gunzTarPerm modes [ '755', '644' ]
+107 silly gunzTarPerm extractEntry package.json
+108 silly gunzTarPerm extractEntry .npmignore
+109 silly gunzTarPerm extractEntry README
+110 silly gunzTarPerm extractEntry LICENSE
+111 silly gunzTarPerm extractEntry examples/as-a-lib/as-a-lib.coffee
+112 silly gunzTarPerm extractEntry examples/cat-file/cat-file.sh
+113 silly gunzTarPerm extractEntry examples/cat-file/file.txt
+114 silly gunzTarPerm extractEntry examples/filename-subsitution/file.txt
+115 silly gunzTarPerm extractEntry examples/filename-subsitution/filename-substitution.sh
+116 silly gunzTarPerm extractEntry examples/mocha-test/test.js
+117 silly gunzTarPerm extractEntry examples/mocha-test/test.sh
+118 silly gunzTarPerm extractEntry examples/reload-http-server/http-server.coffee
+119 silly gunzTarPerm extractEntry examples/reload-http-server/reload-http-server.sh
+120 silly gunzTarPerm extractEntry examples/reload-sinatra-app/reload-sinatra-app.sh
+121 silly gunzTarPerm extractEntry examples/reload-sinatra-app/sinatra-app.rb
+122 silly gunzTarPerm extractEntry bin/wach
+123 silly gunzTarPerm extractEntry bin/wachs
+124 silly gunzTarPerm extractEntry Makefile
+125 silly gunzTarPerm extractEntry lib/support.js
+126 silly gunzTarPerm extractEntry lib/wach-cli.js
+127 silly gunzTarPerm extractEntry lib/wach.js
+128 silly gunzTarPerm extractEntry lib/wachs-cli.js
+129 silly gunzTarPerm extractEntry src/support.coffee
+130 silly gunzTarPerm extractEntry src/wach-cli.coffee
+131 silly gunzTarPerm extractEntry src/wach.coffee
+132 silly gunzTarPerm extractEntry src/wachs-cli.coffee
+133 silly gunzTarPerm extractEntry test/support_test.coffee
+134 silly lockFile b60e81e4-ing-npm-cache-wach-2-0-0-package tar://C:\Users\Rob\AppData\Roaming\npm-cache\wach\2.0.0\package
+135 silly lockFile b60e81e4-ing-npm-cache-wach-2-0-0-package tar://C:\Users\Rob\AppData\Roaming\npm-cache\wach\2.0.0\package
+136 silly lockFile 8e40957a-22335-0-3706768078263849-tmp-tgz tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051922335-0.3706768078263849\tmp.tgz
+137 silly lockFile 8e40957a-22335-0-3706768078263849-tmp-tgz tar://C:\Users\Rob\AppData\Local\Temp\npm-22672-auIqXKek\1457051922335-0.3706768078263849\tmp.tgz
+138 silly lockFile bfec8ac1-ry-npmjs-org-wach-wach-2-0-0-tgz https://registry.npmjs.org/wach/-/wach-2.0.0.tgz
+139 silly lockFile bfec8ac1-ry-npmjs-org-wach-wach-2-0-0-tgz https://registry.npmjs.org/wach/-/wach-2.0.0.tgz
+140 silly lockFile 4aa08850-wach-2-0-0 wach@2.0.0
+141 silly lockFile 4aa08850-wach-2-0-0 wach@2.0.0
+142 silly lockFile b8a35945-wach wach@
+143 silly lockFile b8a35945-wach wach@
+144 silly resolved [ { name: 'rld',
+144 silly resolved     version: '1.0.0',
+144 silly resolved     description: 'Reload the frontmost browser tab. OSX only. Written in bash',
+144 silly resolved     repository: { type: 'git', url: 'https://github.com/quackingduck/rld.git' },
+144 silly resolved     bin: { rld: './libexec/rld' },
+144 silly resolved     author: { name: 'Myles Byrne', email: 'myles@myles.id.au' },
+144 silly resolved     license: 'BSD',
+144 silly resolved     bugs: { url: 'https://github.com/quackingduck/rld/issues' },
+144 silly resolved     readme: '    8 888888888o.   8 8888         8 888888888o.\n    8 8888    `88.  8 8888         8 8888    `^888.\n    8 8888     `88  8 8888         8 8888        `88.\n    8 8888     ,88  8 8888         8 8888         `88\n    8 8888.   ,88\'  8 8888         8 8888          88\n    8 888888888P\'   8 8888         8 8888          88\n    8 8888`8b       8 8888         8 8888         ,88\n    8 8888 `8b.     8 8888         8 8888        ,88\'\n    8 8888   `8b.   8 8888         8 8888    ,o88P\'\n    8 8888     `88. 8 888888888888 8 888888888P\'\n\n\n    (OS X only, Chrome only, patches welcome)\n\n    Reloads the frontmost browser tab. E.g.\n\n        rld chrome\n\n    Can also reload just the linked CSS\n\n        rld chrome-css\n    \n    To install with NPM (Node Packaged Modules)\n    \n        npm install -g rld\n    \n    Or from source\n        \n        git clone https://github.com/quackingduck/rld.git\n        cd rld\n        make install\n',
+144 silly resolved     readmeFilename: 'README',
+144 silly resolved     homepage: 'https://github.com/quackingduck/rld',
+144 silly resolved     _id: 'rld@1.0.0',
+144 silly resolved     _shasum: 'ed0f5449a6e523a2f9a8debe2af7b6f9bc2adae2',
+144 silly resolved     _from: 'rld@',
+144 silly resolved     _resolved: 'https://registry.npmjs.org/rld/-/rld-1.0.0.tgz' },
+144 silly resolved   { name: 'wach',
+144 silly resolved     description: 'Run a command when a file add/update event occurs',
+144 silly resolved     version: '2.0.0',
+144 silly resolved     main: './lib/wach',
+144 silly resolved     bin: { wach: './bin/wach', wachs: './bin/wachs' },
+144 silly resolved     engines: { node: '>=0.4.0 <5.0.0' },
+144 silly resolved     dependencies: { minimatch: '>=0.0.5', wachdir: '~0.1.0' },
+144 silly resolved     devDependencies: { 'coffee-script': '~1.6.3', mocha: '0.14.1' },
+144 silly resolved     os: [ 'darwin' ],
+144 silly resolved     author: { name: 'Myles Byrne' },
+144 silly resolved     repository: { type: 'git', url: 'git://github.com/quackingduck/wach.git' },
+144 silly resolved     licenses: [ [Object] ],
+144 silly resolved     keywords:
+144 silly resolved      [ 'watch',
+144 silly resolved        'filesystem',
+144 silly resolved        'fsevents',
+144 silly resolved        'monitor',
+144 silly resolved        'supervise',
+144 silly resolved        'observe' ],
+144 silly resolved     scripts: { build: 'coffee -co lib src' },
+144 silly resolved     readme: '`8.`888b                 ,8\' .8.           ,o888888o.    8 8888        8\n `8.`888b               ,8\' .888.         8888     `88.  8 8888        8\n  `8.`888b             ,8\' :88888.     ,8 8888       `8. 8 8888        8\n   `8.`888b     .b    ,8\' . `88888.    88 8888           8 8888        8\n    `8.`888b    88b  ,8\' .8. `88888.   88 8888           8 8888        8\n     `8.`888b .`888b,8\' .8`8. `88888.  88 8888           8 8888        8\n      `8.`888b8.`8888\' .8\' `8. `88888. 88 8888           8 8888888888888\n       `8.`888`8.`88\' .8\'   `8. `88888.`8 8888       .8\' 8 8888        8\n        `8.`8\' `8,`\' .888888888. `88888.  8888     ,88\'  8 8888        8\n         `8.`   `8\' .8\'       `8. `88888.  `8888888P\'    8 8888        8\n\n\n"watch changes"\n\n  Watch for changes to files within the current directory and run a command\n  when they occur.\n\n  Wach is really fast, the command is run as soon as the file changes, no\n  polling delay.\n\n  Comes with two executables: `wach` and `wachs`.\n\n  The `wach` utility will run any command (or inline shell script) whenever\n  files in the current directory are updated.\n\n  The `wachs` (there\'s an "s" on the end) utility does the same thing but for\n  commands that launch a long running process like a web server. It\'ll kill\n  the current process and launch a new one.\n\nRequirements\n\n  Only runs on OS X >=10.7 (Lion and up)\n\nInstall\n\n  npm install wach\n\nExamples\n\n  # Run `make` every time a file in the current directory is updated/added\n  wach make\n\n  # Compile and run on every change\n  wach "gcc hello.c && ./a.out"\n\n  # Only watch for changes to coffee files, compile the one that changed\n  wach -o *.coffee, coffee -c {}\n\n  # Run the tests every time a ruby file changes\n  TEST_DIR=generators wach -o **/*.rb, bundle exec rake test\n\n  # Restart a node app any time a js file changes\n  wachs -o *.js, node server.js\n\nNode API\n\n  wach = require(\'wach\');\n  wach(\'.\', function(path) {\n    return console.log("something happened to " + path + "!");\n  })\n\nContributing\n\n  Patches welcome. Especially if you\'d like to re-write this in plain\n  JavaScript. Just fork and make a pull request\n\nOther similar projects:\n\n  Patrick Mueller\'s wr\n  https://github.com/pmuellr/wr\n\n  steakout\n  http://michael-mccracken.net/software/stakeout.tgz\n\n  steakout.rb\n  http://www.pragmaticautomation.com/cgi-bin/pragauto.cgi/Monitor/StakingOutFileChanges.rdoc\n\n  the --watch flag for coffeescript\n  http://jashkenas.github.com/coffee-script/#usage\n\n  unix watch\n  http://en.wikipedia.org/wiki/Watch_(Unix)\n\n  TJ Holowaychuk\'s watch\n  https://github.com/visionmedia/watch\n\n  Isaac Z. Schlueter\'s node-supervisor\n  https://github.com/isaacs/node-supervisor\n\n  David Trejo\'s run.js\n  https://github.com/DTrejo/run.js\n\n  Gabriel Gironda\'s kqfm\n  https://github.com/gabrielg/kqfm\n\n  Mark Bao\'s watchdir\n  https://github.com/markbao/watchdir\n',
+144 silly resolved     readmeFilename: 'README',
+144 silly resolved     bugs: { url: 'https://github.com/quackingduck/wach/issues' },
+144 silly resolved     homepage: 'https://github.com/quackingduck/wach',
+144 silly resolved     _id: 'wach@2.0.0',
+144 silly resolved     _shasum: 'd04c7db83a1c604f0bc784a8979324b6ee220c53',
+144 silly resolved     _from: 'wach@',
+144 silly resolved     _resolved: 'https://registry.npmjs.org/wach/-/wach-2.0.0.tgz' } ]
+145 info install rld@1.0.0 into C:\Users\Rob\AppData\Roaming\npm
+146 info install wach@2.0.0 into C:\Users\Rob\AppData\Roaming\npm
+147 info installOne rld@1.0.0
+148 info installOne wach@2.0.0
+149 error notsup Unsupported
+149 error notsup Not compatible with your operating system or architecture: wach@2.0.0
+149 error notsup Valid OS:    darwin
+149 error notsup Valid Arch:  any
+149 error notsup Actual OS:   win32
+149 error notsup Actual Arch: x64
+150 error System Windows_NT 6.2.9200
+151 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "wach" "rld"
+152 error cwd C:\Sites\algos
+153 error node -v v0.10.28
+154 error npm -v 1.4.9
+155 error code EBADPLATFORM
+156 verbose exit [ 1, true ]
