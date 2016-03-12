@@ -45,3 +45,14 @@ const incorporateLiteratePython = files => {
 }
 
 module.exports = { incorporateLiteratePython }
+
+
+/* TESTS */
+
+const test = () => {
+
+}
+
+if (process.env.TEST) test()
+
+
