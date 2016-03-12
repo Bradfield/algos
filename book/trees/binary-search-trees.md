@@ -66,7 +66,7 @@ level logic to construct and manipulate the tree itself, and
 `BinarySearchTree` to hold a reference to the root node and provide a
 map-like interface to the user.
 
-<!-- litpy trees/binary_search_tree.py -->
+<!-- literate trees/binary_search_tree.py -->
 
 Analysis
 ---

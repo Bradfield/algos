@@ -109,4 +109,4 @@ recursive call to the left subtree, and print a right parenthesis
 *after* the recursive call to the right subtree. The modified code is
 shown below.
 
-<!-- litpy trees/parse_tree_reverse.py -->
+<!-- literate trees/parse_tree_reverse.py -->

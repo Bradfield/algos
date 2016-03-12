@@ -48,7 +48,7 @@ until only one name remains (the size of the queue is 1).
 
 A possible implementation of this simulation is:
 
-<!-- litpy queues/hot_potato.py -->
+<!-- literate queues/hot_potato.py -->
 
 Note that in this example the value of the counting constant is greater
 than the number of names in the list. This is not a problem since the

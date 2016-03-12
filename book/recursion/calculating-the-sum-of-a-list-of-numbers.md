@@ -5,4 +5,4 @@ collection: recursion
 position: 2
 ---
 
-<!-- litpy recursion/sum_of_numbers.py -->
+<!-- literate recursion/sum_of_numbers.py -->

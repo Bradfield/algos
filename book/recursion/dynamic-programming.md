@@ -32,23 +32,23 @@ numbers” and recognizes the relationship $$f(n) = f(n-1) + f(n-2)$$.
 With 0 and 1 as our base cases, this leads to an implementation in code that
 looks very much like the mathematical definition of the sequence:
 
-<div data-language="python">
+<!-- language python -->
 ```python
 def fib(n):
     if n <= 1:
         return n  # base cases: return 0 or 1 if n is 0 or 1, respectively
     return fib(n - 1) + fib(n - 2)
 ```
-</div>
+<!-- /language -->
 
-<div data-language="javascript">
+<!-- language javascript -->
 ```javascript
 const fib = (n) => {
   if (n <= 1) return n
   return fib(n - 1) + fib(n - 2)
 }
 ```
-</div>
+<!-- /language -->
 
 This is a correct solution, but it poses a problem evident to those who run
 `fib(50)` and wait for an answer. The running time of this implementation is
@@ -136,7 +136,7 @@ calculations, and we never obtain the same sum twice.
 
 An implementation of this strategy might look like:
 
-<div data-language="python">
+<!-- language python -->
 ```python
 def fib(n):
     a, b = 0, 1
@@ -144,8 +144,8 @@ def fib(n):
         a, b = a + b, a
     return a
 ```
-</div>
-<div data-language="javascript">
+<!-- /language -->
+<!-- language javascript -->
 ```javascript
 const fib = (n) => {
   let a = 0
@@ -158,7 +158,7 @@ const fib = (n) => {
   return a
 }
 ```
-</div>
+<!-- /language -->
 
 With this implementation, we sacrifice some of the elegance and
 readability of our recursive solution, but gain a much better $$O(n)$$
@@ -478,17 +478,18 @@ is simply `1`.
 Putting our base case and general case together, we obtain a succinct recursive
 solution:
 
-<div data-language="python">
-<!-- litpy recursion/lattice_traversal_recursive.py -->
-</div>
-<div data-language="javascript">
+<!-- language python -->
+<!-- literate recursion/lattice_traversal_recursive.py -->
+<!-- /language -->
+
+<!-- language javascript -->
 ```javascript
 const numPaths = (height, width) => {
   if (height === 0 || width === 0) return 1
   return numPaths(height, width - 1) + numPaths(height - 1, width)
 }
 ```
-</div>
+<!-- /language -->
 
 Unfortunately, we find ourselves with another $$O(2^n)$$ solution
 (where $$n = max(H, W)$$) due
@@ -599,10 +600,11 @@ This is what the memo looks like for `f(10, 10)`:
 Below is a possible implementation of the dynamic programming strategy
 we have discussed.
 
-<div data-language="python">
-<!-- litpy recursion/lattice_traversal_dp.py -->
-</div>
-<div data-language="javascript">
+<!-- language python -->
+<!-- literate recursion/lattice_traversal_dp.py -->
+<!-- /language -->
+
+<!-- language javascript -->
 ```javascript
 const numPathsDp = (height, width) {
   const memo = Array.from(Array(height + 1)).map(
@@ -617,7 +619,7 @@ const numPathsDp = (height, width) {
   return memo[height][width]
 }
 ```
-</div>
+<!-- /language -->
 
 Both the time and space cost for this implementation are $$O(H \times W)$$,
 compared to $$2^{max(H, W)}$$ previously, making a big difference as $$H$$

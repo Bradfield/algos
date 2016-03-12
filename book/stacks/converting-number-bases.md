@@ -52,7 +52,7 @@ the division process reaches 0, a binary string is constructed in lines
 from the stack one at a time and appended to the right-hand end of the
 string. The binary string is then returned.
 
-<!-- litpy stacks/binary_conversion.py -->
+<!-- literate stacks/binary_conversion.py -->
 
 The algorithm for binary conversion can easily be extended to perform
 the conversion for any base. In computer science it is common to use a
@@ -82,7 +82,7 @@ simply use the remainders, as they are themselves represented as two-
 digit decimal numbers. Instead we need to create a set of digits that
 can be used to represent those remainders beyond 9.
 
-<!-- litpy stacks/base_conversion.py -->
+<!-- literate stacks/base_conversion.py -->
 
 A solution to this problem is to extend the digit set to include some
 alphabet characters. For example, hexadecimal uses the ten decimal

@@ -5,4 +5,4 @@ collection: graphs
 position: 8
 ---
 
-<!-- litpy graphs/depth_first_search.py -->
+<!-- literate graphs/depth_first_search.py -->

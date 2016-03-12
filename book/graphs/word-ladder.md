@@ -5,4 +5,4 @@ collection: graphs
 position: 6
 ---
 
-<!-- litpy graphs/word_ladder.py -->
+<!-- literate graphs/word_ladder.py -->
