@@ -18,7 +18,7 @@ seen previously with unordered lists. We will subclass `UnorderedList` and
 leave the `__init__` method intact as once again, an empty list will be
 denoted by a `head` reference to `None`.
 
-<!-- litpy lists/ordered_list.py -->
+<!-- literate lists/ordered_list.py -->
 
 Analysis of Linked Lists
 ------------------------

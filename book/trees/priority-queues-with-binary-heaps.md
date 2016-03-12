@@ -92,4 +92,4 @@ that has the heap order property.
 Heap Operations
 ---------------
 
-<!-- litpy trees/binary_heap.py -->
+<!-- literate trees/binary_heap.py -->

@@ -479,7 +479,7 @@ Putting our base case and general case together, we obtain a succinct recursive
 solution:
 
 <div data-language="python">
-<!-- litpy recursion/lattice_traversal_recursive.py -->
+<!-- literate recursion/lattice_traversal_recursive.py -->
 </div>
 <div data-language="javascript">
 ```javascript
@@ -600,7 +600,7 @@ Below is a possible implementation of the dynamic programming strategy
 we have discussed.
 
 <div data-language="python">
-<!-- litpy recursion/lattice_traversal_dp.py -->
+<!-- literate recursion/lattice_traversal_dp.py -->
 </div>
 <div data-language="javascript">
 ```javascript

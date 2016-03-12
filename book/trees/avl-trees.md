@@ -121,7 +121,7 @@ updating balance factors:
     should convince yourself that once a subtree has a balance factor of
     zero, then the balance of its ancestor nodes does not change.
 
-<!-- litpy trees/avl_tree.py -->
+<!-- literate trees/avl_tree.py -->
 
 By keeping the tree in balance at all times, we can ensure that the
 `get` method will run in order $$O(\log_2{n})$$ time. But the question is

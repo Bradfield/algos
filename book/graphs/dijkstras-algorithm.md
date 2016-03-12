@@ -5,4 +5,4 @@ collection: graphs
 position: 10
 ---
 
-<!-- litpy graphs/dijkstras_algorithm.py -->
+<!-- literate graphs/dijkstras_algorithm.py -->

@@ -56,7 +56,7 @@ side of the diagram.
 
 Below is a Python implementation of this algorithm for any base between 2 and 16.
 
-<!-- litpy recursion/base_conversion.py -->
+<!-- literate recursion/base_conversion.py -->
 
 Notice that we check for the base case where `n` is less than
 the base we are converting to. When we detect the base case, we stop

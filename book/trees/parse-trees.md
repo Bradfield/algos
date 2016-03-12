@@ -126,4 +126,4 @@ Using the rules described above, along with the stack and binary tree abstract
 data types, we are now ready to write a Python function to create a parse
 tree. The code for our parse tree builder is presented below.
 
-<!-- litpy trees/parse_tree.py -->
+<!-- literate trees/parse_tree.py -->

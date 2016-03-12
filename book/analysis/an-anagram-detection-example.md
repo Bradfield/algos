@@ -14,4 +14,4 @@ made up of symbols from the set of 26 lowercase alphabetic characters.
 Our goal is to write a boolean function that will take two strings and
 return whether they are anagrams.
 
-<!-- litpy analysis/anagrams.py -->
+<!-- literate analysis/anagrams.py -->
