@@ -15,9 +15,9 @@ efficiency in terms of execution time while remaining independent of any
 particular program or computer. Now we can take a closer look at those two
 summation algorithms we introduced last chapter.
 
-Intuitively, we can see that the `sum_of_n` is doing more work: some program
-steps are being repeated, and the program takes even longer if we increase the
-value of `n`. But we need to be more precise.
+Intuitively, we can see that the first algorithm (`sum_of_n`) is doing more
+work than the second (`arithmetic_sum`): some program steps are being repeated,
+and the program takes even longer if we increase the value of `n`. But we need to be more precise.
 
 The most expensive unit of computation in `sum_of_n` is variable assignment. If
 we counted the number of assignment statements, we would have a worthy
@@ -77,11 +77,9 @@ of the problem. For these kinds of algorithms, we need to characterize their
 performances as *worst case*, *best case*, or *average case*.
 
 The worst case performance refers to a particular data set where the algorithm
-performs especially poorly, while the best case performance, as you can
-probably infer, refers to a data set that the algorithm can process extremely
-fast. In most cases, however, the algorithm performs somewhere in between
-these two extremes, in what we kindly call the average case. Understanding
-these distinctions can help prevent any one particular case from misleading us.
+performs especially poorly, while the best case performance refers to a data
+set that the algorithm can process extremely fast. The average case, as you can probably infer, performs somewhere in between these two extremes. Understanding
+these distinctions can help revent any one particular case from misleading us.
 
 There are several common order of magnitude functions that will frequently
 appear as you study algorithms. These functions are listed below from lowest
