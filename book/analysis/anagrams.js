@@ -138,26 +138,17 @@ function anagramCountCompare (string1, string2) {
     return letter.charCodeAt() - 'a'.charCodeAt()
   }
 
-  // No "clean" way to prepopulate an array in JavaScript with 0's
-  const string1LetterCounts = new Array(26)
-  const string2LetterCounts = new Array(26)
+  const string1LetterCounts = new Array(26).fill(0)
+  const string2LetterCounts = new Array(26).fill(0)
 
   for (let i = 0; i < string1.length; i++) {
     const letterPosition = getLetterPosition(string1[i])
-    if (!string1LetterCounts[letterPosition]) {
-      string1LetterCounts[letterPosition] = 1
-    } else {
-      string1LetterCounts[letterPosition]++
-    }
+    string1LetterCounts[letterPosition]++
   }
 
   for (let i = 0; i < string2.length; i++) {
     const letterPosition = getLetterPosition(string2[i])
-    if (!string2LetterCounts[letterPosition]) {
-      string2LetterCounts[letterPosition] = 1
-    } else {
-      string2LetterCounts[letterPosition]++
-    }
+    string2LetterCounts[letterPosition]++
   }
 
   for (let i = 0; i < string1LetterCounts.length; i++) {
