@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  globals: {
+    "assert": true
+  },
+  extends: "eslint:recommended",
+  "rules": {
+    "comma-dangle": [2, "always-multiline"],
+    "semi": [2, "never"],
+    "no-var": 2,
+    "space-before-function-paren": [2, "always"]
+  }
+}

@@ -14,6 +14,10 @@ PORT=${PORT-"5000"}
 function test {
   log-msg 'Running Python tests of code samples'
   python -m unittest discover -p "*_test.py"
+  log-msg 'Running JavaScript code samples to check for failing asserts'
+  for file in book/**/*.js; do
+    { echo 'var assert = require("assert");'; cat $file; } | node --use_strict
+  done
   log-msg 'Running JavaScript tests of book building code'
   for file in *.js; do
     TEST=1 node --harmony_destructuring $file

@@ -13,32 +13,28 @@ can be checked against the characters in the list and if found, checked off by
 replacement. An implementation of this strategy may look like this:
 */
 
-function anagramCheckingOff(string1, string2) {
-  if (string1.length != string2.length) {
-    return false;
-  }
+function anagramCheckingOff (string1, string2) {
+  if (string1.length !== string2.length) return false
 
-  var string2ToCheckOff = string2.split("");
+  const string2ToCheckOff = string2.split('')
 
-  for (var i = 0; i < string1.length; i++) {
-    var letterFound = false;
-    for (var j = 0; j < string2ToCheckOff.length; j++) {
+  for (let i = 0; i < string1.length; i++) {
+    let letterFound = false
+    for (let j = 0; j < string2ToCheckOff.length; j++) {
       if (string1[i] === string2ToCheckOff[j]) {
-        string2ToCheckOff[j] = null;
-        letterFound = true;
-        break;
+        string2ToCheckOff[j] = null
+        letterFound = true
+        break
       }
     }
-    if (!letterFound) {
-      return false;
-    }
+    if (!letterFound) return false
   }
 
-  return true;
+  return true
 }
 
-anagramCheckingOff('abcd', 'dcba')  // => True
-anagramCheckingOff('abcd', 'abcc')  // => False
+assert.equal(true, anagramCheckingOff('abcd', 'dcba'))
+assert.equal(false, anagramCheckingOff('abcd', 'abcc'))
 
 /*
 To analyze this algorithm, we need to note that each of the `n`
@@ -75,25 +71,21 @@ loop through the first string, checking to make sure that both strings contain
 the same letter at every index.
 */
 
-function anagramSortAndCompare(string1, string2) {
-  if (string1.length !== string2.length) {
-    return false;
+function anagramSortAndCompare (string1, string2) {
+  if (string1.length !== string2.length) return false
+
+  const sortedString1 = string1.split('').sort()
+  const sortedString2 = string2.split('').sort()
+
+  for (let i = 0; i < sortedString1.length; i++) {
+    if (sortedString1[i] !== sortedString2[i]) return false
   }
 
-  var sortedString1 = string1.split("").sort();
-  var sortedString2 = string2.split("").sort();
-
-  for (var i = 0; i < sortedString1.length; i++) {
-    if (sortedString1[i] !== sortedString2[i]) {
-      return false;
-    }
-  }
-
-  return true;
+  return true
 }
 
-anagramSortAndCompare('abcde', 'edcba')  // => True
-anagramSortAndCompare('abcde', 'abcd')   // => False
+assert.equal(true, anagramSortAndCompare('abcde', 'edcba'))
+assert.equal(false, anagramSortAndCompare('abcde', 'abcd'))
 
 /*
 At first glance you may be tempted to think that this algorithm is
@@ -140,45 +132,36 @@ anagrams. Here is a possible implementation of the strategy:
 
 */
 
-function anagramCountCompare(string1, string2) {
+function anagramCountCompare (string1, string2) {
 
-  function getLetterPosition(letter) {
-    return letter.charCodeAt() - 'a'.charCodeAt();
+  function getLetterPosition (letter) {
+    return letter.charCodeAt() - 'a'.charCodeAt()
   }
 
-  // No "clean" way to prepopulate an array in JavaScript with 0's
-  var string1LetterCounts = new Array(26);
-  var string2LetterCounts = new Array(26);
+  const string1LetterCounts = new Array(26).fill(0)
+  const string2LetterCounts = new Array(26).fill(0)
 
-  for (var i = 0; i < string1.length; i++) {
-    var letterPosition = getLetterPosition(string1[i]);
-    if (!string1LetterCounts[letterPosition]) {
-      string1LetterCounts[letterPosition] = 1;
-    } else {
-      string1LetterCounts[letterPosition]++;
-    }
+  for (let i = 0; i < string1.length; i++) {
+    const letterPosition = getLetterPosition(string1[i])
+    string1LetterCounts[letterPosition]++
   }
 
-  for (var i = 0; i < string2.length; i++) {
-    var letterPosition = getLetterPosition(string2[i]);
-    if (!string2LetterCounts[letterPosition]) {
-      string2LetterCounts[letterPosition] = 1;
-    } else {
-      string2LetterCounts[letterPosition]++;
-    }
+  for (let i = 0; i < string2.length; i++) {
+    const letterPosition = getLetterPosition(string2[i])
+    string2LetterCounts[letterPosition]++
   }
 
-  for (var i = 0; i < string1LetterCounts.length; i++) {
+  for (let i = 0; i < string1LetterCounts.length; i++) {
     if (string1LetterCounts[i] !== string2LetterCounts[i]) {
-      return false;
+      return false
     }
   }
 
-  return true;
+  return true
 }
 
-anagramCountCompare('apple', 'pleap')  // => True
-anagramCountCompare('apple', 'applf')  // => False
+assert.equal(true, anagramCountCompare('apple', 'pleap'))
+assert.equal(false, anagramCountCompare('apple', 'applf'))
 
 /*
 Again, the solution has a number of iterations. However, unlike the
@@ -197,32 +180,32 @@ since our dictionary comparison loop will not account for string2 having
 additional characters.
 */
 
-function anagramCountCompareWithReduce(string1, string2) {
+function anagramCountCompareWithReduce (string1, string2) {
 
-  function letterCountReducer(letterCounts, letter) {
+  function letterCountReducer (letterCounts, letter) {
     if (letterCounts[letter]) {
-      letterCounts[letter]++;
+      letterCounts[letter]++
     } else {
-      letterCounts[letter] = 0;
+      letterCounts[letter] = 0
     }
-    return letterCounts;
+    return letterCounts
   }
 
-  var string1LetterCounts = string1.split('').reduce(letterCountReducer, {});
-  var string2LetterCounts = string2.split('').reduce(letterCountReducer, {});
+  const string1LetterCounts = string1.split('').reduce(letterCountReducer, {})
+  const string2LetterCounts = string2.split('').reduce(letterCountReducer, {})
 
 
-  for (var letter in string1LetterCounts) {
+  for (let letter in string1LetterCounts) {
     if (string1LetterCounts[letter] !== string2LetterCounts[letter]) {
-      return false;
+      return false
     }
   }
 
-  return string1.length === string2.length;
+  return string1.length === string2.length
 }
 
-anagramCountCompareWithReduce('apple', 'pleap')  // => True
-anagramCountCompareWithReduce('apple', 'applf')  // => False
+assert.equal(true, anagramCountCompareWithReduce('apple', 'pleap'))
+assert.equal(false, anagramCountCompareWithReduce('apple', 'applf'))
 
 /*
 It is worth noting that `anagramCounterCompareWithReduce` is also $$O(n)$$, but
