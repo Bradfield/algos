@@ -37,8 +37,8 @@ function anagramCheckingOff(string1, string2) {
   return true;
 }
 
-anagramCheckingOff('abcd', 'dcba')  // => True
-anagramCheckingOff('abcd', 'abcc')  // => False
+assert.equal(true, anagramCheckingOff('abcd', 'dcba'))
+assert.equal(false, anagramCheckingOff('abcd', 'abcc'))
 
 /*
 To analyze this algorithm, we need to note that each of the `n`
@@ -92,8 +92,8 @@ function anagramSortAndCompare(string1, string2) {
   return true;
 }
 
-anagramSortAndCompare('abcde', 'edcba')  // => True
-anagramSortAndCompare('abcde', 'abcd')   // => False
+assert.equal(true, anagramSortAndCompare('abcde', 'edcba'))
+assert.equal(false, anagramSortAndCompare('abcde', 'abcd'))
 
 /*
 At first glance you may be tempted to think that this algorithm is
@@ -177,8 +177,8 @@ function anagramCountCompare(string1, string2) {
   return true;
 }
 
-anagramCountCompare('apple', 'pleap')  // => True
-anagramCountCompare('apple', 'applf')  // => False
+assert.equal(true, anagramCountCompare('apple', 'pleap'))
+assert.equal(false, anagramCountCompare('apple', 'applf'))
 
 /*
 Again, the solution has a number of iterations. However, unlike the
@@ -221,8 +221,8 @@ function anagramCountCompareWithReduce(string1, string2) {
   return string1.length === string2.length;
 }
 
-anagramCountCompareWithReduce('apple', 'pleap')  // => True
-anagramCountCompareWithReduce('apple', 'applf')  // => False
+assert.equal(true, anagramCountCompareWithReduce('apple', 'pleap'))
+assert.equal(false, anagramCountCompareWithReduce('apple', 'applf'))
 
 /*
 It is worth noting that `anagramCounterCompareWithReduce` is also $$O(n)$$, but
