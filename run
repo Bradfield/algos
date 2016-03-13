@@ -16,10 +16,7 @@ function test {
   python -m unittest discover -p "*_test.py"
   log-msg 'Running JavaScript code samples to check for failing asserts'
   for file in book/**/*.js; do
-    node --use_strict <(
-      echo 'var assert = require("assert");'
-      cat $file
-    )
+    { echo 'var assert = require("assert");'; cat $file; } | node --use_strict
   done
   log-msg 'Running JavaScript tests of book building code'
   for file in *.js; do
