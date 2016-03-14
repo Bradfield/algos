@@ -72,7 +72,7 @@ not balanced properly. At the end of the string, when all symbols have
 been processed, the stack should be empty. The Python code to implement
 this algorithm may look like this:
 
-<!-- litpy stacks/balanced_parentheses.py -->
+<!-- literate stacks/balanced_parentheses.py -->
 
 This function, `is_balanced`, returns a boolean result as to whether the
 string of parentheses is balanced. If the current symbol is `(`, then it
@@ -127,7 +127,7 @@ that we use a dictionary to ensure that symbols popped from the stack
 correctly match our expectations of pairing with the symbol being
 considered at the time.
 
-<!-- litpy stacks/balanced_symbols.py -->
+<!-- literate stacks/balanced_symbols.py -->
 
 These two examples show that stacks are very important data structures
 for the processing of language constructs in computer science. Almost

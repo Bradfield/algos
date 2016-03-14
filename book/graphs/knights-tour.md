@@ -5,4 +5,4 @@ collection: graphs
 position: 7
 ---
 
-<!-- litpy graphs/knights_tour.py -->
+<!-- literate graphs/knights_tour.py -->

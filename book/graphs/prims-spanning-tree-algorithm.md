@@ -91,7 +91,7 @@ The Python code to implement Prim’s algorithm is shown below. Prim’s
 algorithm is similar to Dijkstra’s algorithm in that they both use a
 priority queue to select the next vertex to add to the growing graph.
 
-<!-- litpy graphs/prims_spanning_tree.py -->
+<!-- literate graphs/prims_spanning_tree.py -->
 
 The following sequence of diagrams shows the algorithm in operation on our
 sample tree. We begin with the starting vertex as A. Looking at the neighbors

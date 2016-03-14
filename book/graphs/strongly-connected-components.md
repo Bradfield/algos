@@ -57,7 +57,7 @@ algorithm by making use of a depth first search. Before we tackle the
 main SCC algorithm we must look at one other definition. The transpose
 of a graph $$G$$ is defined as the graph $$G^T$$ where all the edges in
 the graph have been reversed. That is, if there is a directed edge from
-node A to node B in the original graph then $$G^T$$ will contain and
+node A to node B in the original graph then $$G^T$$ will contain an
 edge from node B to node A. The diagrams below show a simple graph and
 its transposition.
 

@@ -27,4 +27,4 @@ items, we will eventually either run out of characters or be left with a
 deque of size 1 depending on whether the length of the original string
 was even or odd. In either case, the string must be a palindrome. A complete implementation for this strategy may look like:
 
-<!-- litpy deques/palindromes.py -->
+<!-- literate deques/palindromes.py -->

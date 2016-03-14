@@ -40,7 +40,7 @@ simplified tree shown below.
 ![A simplified parse tree for (7+3) * (5-2)](figures/parse-tree-math-simplified.png)
 
 In the rest of this section we are going to examine parse trees in more
-detail. In particular we will look at how to build a parse tree from a fully parenthesized mathematical expression, and how hot evaluate the expression stored in a parse tree.
+detail. In particular we will look at how to build a parse tree from a fully parenthesized mathematical expression, and how to evaluate the expression stored in a parse tree.
 
 The first step in building a parse tree is to break up the expression
 string into a list of tokens. There are four different kinds of tokens
@@ -126,4 +126,4 @@ Using the rules described above, along with the stack and binary tree abstract
 data types, we are now ready to write a Python function to create a parse
 tree. The code for our parse tree builder is presented below.
 
-<!-- litpy trees/parse_tree.py -->
+<!-- literate trees/parse_tree.py -->

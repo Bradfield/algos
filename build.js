@@ -8,7 +8,8 @@ const Metalsmith = require('metalsmith')
 const permalinks = require('metalsmith-permalinks')
 
 const { convertToKatex } = require('./katex-plugin')
-const { incorporateLiteratePython } = require('./litpy-plugin')
+const { addLanguageMarkers } = require('./language-switching-plugin')
+const { incorporateLiterateCode } = require('./literate-code-plugin')
 const { highlightCode } = require('./prism-plugin')
 const { wrapFigures } = require('./captions-plugin')
 
@@ -93,14 +94,6 @@ const generateTableOfContents =
 
 console.log(`Building to ${BUILD_DESTINATION} ..`)
 
-// const debugSingleFile =
-//   (targetPath) =>
-//     (files) => {
-//       for (let path in files) {
-//         if (path !== targetPath) delete files[path]
-//       }
-//     }
-
 const EXCLUSION_FILE_PATTERNS = [
   '\.pyc$',
   '\.py$',
@@ -119,23 +112,30 @@ const removeNonPublicFiles =
     }
   }
 
-Metalsmith(__dirname)
-.source('book')
-.destination(BUILD_DESTINATION)
-// .use(debugSingleFile('graphs/knights-tour.md'))
-.use(drafts())
-.use(incorporateLiteratePython)
-.use(convertToKatex)
-.use(highlightCode)
-.use(markdown({ tables: true }))
-.use(collections(collectionConfig))
-.use(bridgeLinksBetweenCollections)
-.use(wrapFigures)
-.use(removeNonPublicFiles)
-.use(permalinks())
-.use(generateTableOfContents)
-.use(layouts({ engine: 'ejs' }))
-.build(err => {
-  console.log('Built')
-  if (err) { throw err }
-})
+const log = (filePath) =>
+  (files) =>
+    console.log(files[filePath].contents.toString('utf8'))
+
+if (!process.env.TEST) {
+  Metalsmith(__dirname)
+  .source('book')
+  .destination(BUILD_DESTINATION)
+  .use(drafts())
+  .use(incorporateLiterateCode)
+  .use(convertToKatex)
+  .use(highlightCode)
+  .use(markdown({ tables: true, pedantic: true }))
+  .use(addLanguageMarkers)
+  // .use(log('analysis/an-anagram-detection-example.html'))
+  .use(collections(collectionConfig))
+  .use(bridgeLinksBetweenCollections)
+  .use(wrapFigures)
+  .use(removeNonPublicFiles)
+  .use(permalinks())
+  .use(generateTableOfContents)
+  .use(layouts({ engine: 'ejs' }))
+  .build(err => {
+    console.log('Built')
+    if (err) { throw err }
+  })
+}

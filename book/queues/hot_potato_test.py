@@ -5,8 +5,8 @@ from hot_potato import hot_potato
 cases = (
     (
         ('Bill', 'David', 'Susan', 'Jane', 'Kent', 'Brad'),
-        7,
-        'Susan'
+        9,
+        'David'
     ),
 )
 

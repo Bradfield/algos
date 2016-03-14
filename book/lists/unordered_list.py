@@ -130,7 +130,7 @@ added ahead of it. Also, since 54 is the last item added, it will become
 the data value in the first node of the linked list.
 
 The `add` method is shown below. Each item of the list must reside in a node
-object. We create a new node within the method and places the item as its
+object. We create a new node within the method and place the item as its
 value. Then we complete the process by linking the new node into the existing
 structure.
 
@@ -171,11 +171,11 @@ keep a count of the number of nodes that occurred.
 Below we provide the Python code for counting the
 number of nodes in the list. The external reference is called `current`
 and is initialized to the head of the list in line 2. At the start of
-the process we have not seen any nodes so the count is set to $0$. Lines
+the process we have not seen any nodes so the count is set to $$0$$. Lines
 4–6 actually implement the traversal. As long as the current reference
 has not seen the end of the list (`None`), we move current along to the
 next node via the assignment statement in line 6. Every time current moves
-to a new node, we add $1$ to `count`. Finally, `count` gets returned
+to a new node, we add $$1$$ to `count`. Finally, `count` gets returned
 after the iteration stops.
 
 """

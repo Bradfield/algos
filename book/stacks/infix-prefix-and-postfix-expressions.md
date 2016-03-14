@@ -246,7 +246,7 @@ used the integers 3, 2, and 1). The left parenthesis will receive the
 lowest value possible. This way any operator that is compared against it
 will have higher precedence and will be placed on top of it.
 
-<!-- litpy stacks/postfix_conversion.py -->
+<!-- literate stacks/postfix_conversion.py -->
 
 Postfix Evaluation
 ------------------
@@ -317,7 +317,7 @@ module from the Python standard library to specify functions that will
 take two arguments and return the result of the proper arithmetic
 operation.
 
-<!-- litpy stacks/postfix_evaluation.py -->
+<!-- literate stacks/postfix_evaluation.py -->
 
 It is important to note that in both the postfix conversion and the
 postfix evaluation programs we assumed that there were no errors in the

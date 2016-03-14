@@ -28,4 +28,4 @@ first item can tell us where the second is, and so on. The external
 reference is often referred to as the **head** of the list. Similarly,
 the last item needs to know that there is no next item.
 
-<!-- litpy lists/unordered_list.py -->
+<!-- literate lists/unordered_list.py -->
