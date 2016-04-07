@@ -8,7 +8,7 @@ layout: default.html
 What makes one computer program better than another?
 
 The answer depends on the criteria we use: code readability, engineering
-paradigms, and efficiency are a few possible metrics by which we we could
+paradigms, and efficiency are a few possible metrics with which we we could
 measure a program’s quality.
 
 Let’s set aside aspects of a program that are specific to language or
@@ -100,6 +100,7 @@ clever solution:
 
 $$\sum_{i=1}^{n} i = \frac {(n)(n+1)}{2}$$
 
+
 Here’s that same formula rewritten as a function:
 
 ```python
@@ -126,13 +127,10 @@ what we saw for `sum_of_n`. Second, the run times are consistent and don’t see
 to be dependent on the value of `n`. These times _prove_ that `arithmetic_sum`
 is faster than `sum_of_n`, right? Not exactly.
 
-If we ran the same functions on a different computer or used a different
-programming language, we would likely get different results. It could take
-much longer to perform `arithmetic_sum` if the computer were older.
-
 The benchmark technique computes the _actual_ time to execute, but this isn’t
 really a useful measurement; this “time” depends on several sources, including
-the programming language used, compiler, OS, machine, and time of day.
+the programming language used, compiler, OS, machine, and time of day. It could
+take much longer to perform `arithmetic_sum` if the computer were older.
 
 We need a more abstract way to characterize these algorithms with respect to
 their execution times, one that is independent of the program or computer
