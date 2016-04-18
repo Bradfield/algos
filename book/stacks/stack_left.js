@@ -20,15 +20,15 @@ class Stack {
   }
 
   pop() {
-    return this._items.splice(0, 1);
+    return this._items.splice(0, 1)[0];
   }
 
   peek() {
-    return self._items[0];
+    return this._items[0];
   }
 
   size() {
-    return self._items.length;
+    return this._items.length;
   }
 }
 

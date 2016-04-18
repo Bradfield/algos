@@ -48,10 +48,10 @@ class Stack {
   }
 
   peek() {
-    return self._items[self._items.length - 1];
+    return this._items[self._items.length - 1];
   }
 
   size() {
-    return self._items.length;
+    return this._items.length;
   }
 }
