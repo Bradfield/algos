@@ -54,7 +54,7 @@ function build-book {
   mkdir -p $BUILD_DIR
   rm -rf $BUILD_DIR/**/*
   log-msg "Building book"
-  BUILD_DESTINATION=$BUILD_DIR SITE_ROOT=$SITE_ROOT node --harmony_destructuring build.js
+  BUILD_DESTINATION=$BUILD_DIR SITE_ROOT=$SITE_ROOT node build.js
 }
 
 # publish a built book by commiting and force pushing it to gh-pages
