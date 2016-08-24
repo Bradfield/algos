@@ -4,14 +4,13 @@ Solution 1: Checking Off
 ------------------------
 
 Our first solution to the anagram problem will check to see that each character
-in the first string actually occurs in the second. If it is possible to "check
-off" each character, then the two strings must be anagrams.
+in the first string occurs in the second. If it is possible to "check off" each
+character, then the two strings must be anagrams.
 
 We can check off a character by replacing it with the special Python value
-`None`. Since strings in Python are immutable, we will first need to convert
-the second string to a list. Each character from the first string will be
-checked against the characters in this list and, if found, checked off by
-replacement.
+`None`. Since strings in Python are immutable, we need to convert the second
+second string to a list. Each character from the first string will be checked
+against the characters in this list and, if found, checked off by replacement.
 
 An implementation of this strategy might look like this:
 """
@@ -59,16 +58,14 @@ $$O(n^{2})$$.
 Solution 2: Sort and Compare
 ----------------------------
 
-Another solution to the anagram problem will make use of the fact that
-even though `s1` and `s2` are different, they are anagrams only if they
-consist of exactly the same characters. So, if we begin by sorting each
-string alphabetically, from a to z, we will end up with the same string
-if the original two strings are anagrams. Below is a possible
-implementation of this strategy. We use the Python builtin function
-`sorted` to return an iterable of the sorted characters in each string,
-and `itertools.izip_longest` to iterate over one character from each of
-the sorted strings at a time, all the way through to the end of the
-longer string.
+A second solution uses the fact that, even though `s1` and `s2` are different,
+they are only anagrams if they consist of the same characters. If the strings
+are anagrams, sorting them both alphabetically should produce the same string.
+
+Below is a possible implementation using this strategy. We use the Python
+builtin function `sorted` to return an iterable of the sorted characters for
+each string, and `itertools.izip_longest` to iterate these sorted iterables
+at the same time until the end of the longer string.
 """
 from itertools import izip_longest
 
@@ -83,13 +80,12 @@ anagram_sort_and_compare('abcde', 'edcba')  # => True
 anagram_sort_and_compare('abcde', 'abcd')  # => False
 
 """
-At first glance you may be tempted to think that this algorithm is
-$$O(n)$$, since there is one simple iteration to compare the *n*
-characters after the sorting process. However, the two calls to the
-Python `sorted` method are not without their own cost. Sorting is
-typically either $$O(n^{2})$$ or $$O(n\log n)$$, so the sorting
-operations dominate the iteration. In the end, this algorithm will have
-the same order of magnitude as that of the sorting process.
+At first glance, you may be tempted to think that this algorithm is $$O(n)$$,
+since there is only one iteration to compare `n` characters after sorting.
+However, the two `sorted` method calls have their own costs: sorting is
+typically either $$O(n^{2})$$ or $$O(n\log n)$$. Since both of these functions
+dominate $$O(n)$$, this algorithm will have the same order of magnitude as that
+of the sorting process.
 
 Solution 3: Brute Force
 -----------------------
