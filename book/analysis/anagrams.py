@@ -63,10 +63,10 @@ A second solution uses the fact that, even though `s1` and `s2` are different,
 they are only anagrams if they consist of the same characters. If the strings
 are anagrams, sorting them both alphabetically should produce the same string.
 
-Below is a possible implementation using this strategy. We use the Python
-builtin function `sorted` to return an iterable of the sorted characters for
-each string, and `itertools.izip_longest` to iterate these sorted iterables
-at the same time until the end of the longer string.
+Below is a possible implementation using this strategy. First, we use the
+Python builtin function `sorted` to return an iterable of sorted characters for
+each string. Then, we use `itertools.izip_longest` to iterate over the sorted
+characters of both strings until the end of the longer string.
 """
 from itertools import izip_longest
 
@@ -94,7 +94,7 @@ Solution 3: Brute Force
 A *brute force* technique for solving a problem typically tries to exhaust all
 possibilities. We can apply this technique to the anagram problem by generating
 a list of all possible strings using the characters from `s1`. If `s2` occurs
-in that list, then `s1` and `s2` ar anagrams.
+in that list, then `s1` and `s2` are anagrams.
 
 There is a difficulty with this approach, however: when generating all possible
 strings from `s1`, there are $$n$$ possible first characters, $$n-1$$ possible
@@ -122,7 +122,7 @@ each string. Each time we see a particular character, we will increment the
 counter at that position. In the end, if the two lists are identical, the
 strings must be anagrams.
 
-Here is a possible implementation of the strategy:
+Here is a possible implementation of this strategy:
 """
 
 
@@ -154,11 +154,10 @@ two lists of counts, always takes 26 steps since there are 26 possible
 characters. Adding everything gives $$T(n)=2n+26$$ steps, which is $$O(n)$$.
 We have found a linear order of magnitude algorithm for solving this problem.
 
-Those with greater familiarity with Python may note that the counting strategy
-we implemented in `anagram_count_compare` could be more succinctly written
-using `collections.Counter`, which constructs a `dict`-like object mapping
-elements in an iterable to the number of occurrences of that element in the
-iterable. Behold:
+This implementation could be written more succinctly by using
+`collections.Counter`, which constructs a `dict`-like object mapping elements
+in an iterable to the number of occurrences of that element in the iterable.
+Behold:
 """
 from collections import Counter
 
@@ -178,11 +177,12 @@ to run in linear time, it only did so by using additional storage for the two
 lists of character counts. In other words, this algorithm sacrificed space in
 order to gain time.
 
-This is a common tradeoff. On many occasions, you will need to make decisions
-about trade-offs between time and space. In this case, the amount of extra
-space is not significant; however, if the underlying alphabet had millions of
-characters, there we be more cause for concern.
+This is a common tradeoff. In this case, the amount of extra space is not
+significant; however, if the underlying alphabet had millions of characters,
+there would be more cause for concern.
 
-When given a choice of algorithms, it is up to you as a software engineer to
-determine the best use of computing resources for a given problem.
+On many occasions, you will need to make decisions about these tradeoffs
+between time and space. When given a choice of algorithms, it is up to you as a
+software engineer to determine the best use of computing resources for a given
+problem.
 """
