@@ -37,12 +37,12 @@ anagram_checking_off('abcd', 'dcba')  # => True
 anagram_checking_off('abcd', 'abcc')  # => False
 
 """
-To analyze this algorithm, we need to note that each of the `n`
-characters in `s1` will cause an iteration through up to `n` characters
-in the list from `s2`. Each of the `n` positions in the list will be
-visited once to match a character from `s1`. The number of visits then
-becomes the sum of the integers from 1 to `n`. We recognized earlier that
-this can be written as
+To analyze this algorithm, note that each of the `n` characters in `s1` causes
+an iteration of up to `n` characters in the list from `s2`. Each of the `n`
+positions in the list will be visited once to match a character from `s1`.
+
+So the number of visits becomes the sum of the integers from 1 to `n`. We
+recognized earlier that this can be written as
 
 $$
 \sum_{i=1}^{n} i = \frac {n(n+1)}{2}
@@ -52,8 +52,9 @@ $$
                  = \frac {1}{2}n^{2} + \frac {1}{2}n
 $$
 
-As $$n$$ gets large, the $$n^{2}$$ term will dominate the $$n$$ term and the
-$$\frac {1}{2}$$ can be ignored. Therefore, this solution is $$O(n^{2})$$.
+As $$n$$ gets larger, the $$n^{2}$$ term will dominate the $$n$$ term and the
+$$\frac {1}{2}$$ constant can be ignored. Therefore, this solution is
+$$O(n^{2})$$.
 
 Solution 2: Sort and Compare
 ----------------------------
