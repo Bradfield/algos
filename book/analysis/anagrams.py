@@ -36,11 +36,12 @@ anagram_checking_off('abcd', 'dcba')  # => True
 anagram_checking_off('abcd', 'abcc')  # => False
 
 """
-To analyze this algorithm, note that each of the `n` characters in `s1` causes
-an iteration of up to `n` characters in the list from `s2`. Each of the `n`
-positions in the list will be visited once to match a character from `s1`.
+To analyze this algorithm, note that each of the $$n$$ characters in `s1`
+causes an iteration of up to $$n$$ characters in the list from `s2`. Each of
+the $$n$$ positions in the list will be visited once to match a character from
+`s1`.
 
-So the number of visits becomes the sum of the integers from 1 to `n`. We
+So the number of visits becomes the sum of the integers from 1 to $$n$$. We
 recognized earlier that this can be written as
 
 $$
@@ -81,7 +82,7 @@ anagram_sort_and_compare('abcde', 'abcd')  # => False
 
 """
 At first glance, you may be tempted to think that this algorithm is $$O(n)$$,
-since there is only one iteration to compare `n` characters after sorting.
+since there is only one iteration to compare $$n$$ characters after sorting.
 However, the two `sorted` method calls have their own costs: sorting is
 typically either $$O(n^{2})$$ or $$O(n\log n)$$. Since both of these functions
 dominate $$O(n)$$, this algorithm will have the same order of magnitude as that
@@ -111,16 +112,17 @@ entire list. This is probably not going to be a good solution.
 Solution 4: Count and Compare
 -----------------------------
 
-Our final solution to the anagram problem takes advantage of the fact
-that any two anagrams will have the same number of a’s, the same number
-of b’s, the same number of c’s, and so on. In order to decide whether
-two strings are anagrams, we will first count the number of times each
-character occurs. Since there are 26 possible characters, we can use a
-list of 26 counters, one for each possible character. Each time we see a
-particular character, we will increment the counter at that position. In
-the end, if the two lists of counters are identical, the strings must be
-anagrams. Here is a possible implementation of the strategy:
+Our final solution uses the fact that any two anagrams have the same number of
+a's, the same number of b's, the same number of c's, and so on. First, we
+generate character counts for each string. If these counts match, the two
+strings are anagrams.
 
+Since there are 26 possible characters, we can use a list of 26 counters for
+each string. Each time we see a particular character, we will increment the
+counter at that position. In the end, if the two lists are identical, the
+strings must be anagrams.
+
+Here is a possible implementation of the strategy:
 """
 
 
@@ -130,11 +132,11 @@ def anagram_count_compare(s1, s2):
 
     for char in s1:
         pos = ord(char) - ord('a')
-        c1[pos] = c1[pos] + 1
+        c1[pos] += 1
 
     for char in s2:
         pos = ord(char) - ord('a')
-        c2[pos] = c2[pos] + 1
+        c2[pos] += 1
 
     for a, b in zip(c1, c2):
         if a != b:
@@ -145,21 +147,18 @@ anagram_count_compare('apple', 'pleap')  # => True
 anagram_count_compare('apple', 'applf')  # => False
 
 """
+Again, the solution has a number of iterations. However, unlike the first
+solution, none of them are nested. The first two iterations used to count the
+characters are both based on $$n$$. The third iteration, where we compare the
+two lists of counts, always takes 26 steps since there are 26 possible
+characters. Adding everything gives $$T(n)=2n+26$$ steps, which is $$O(n)$$.
+We have found a linear order of magnitude algorithm for solving this problem.
 
-Again, the solution has a number of iterations. However, unlike the
-first solution, none of them are nested. The first two iterations used
-to count the characters are both based on $$n$$. The third iteration,
-comparing the two lists of counts, always takes 26 steps since there are
-26 possible characters in the strings. Adding it all up gives us
-$$T(n)=2n+26$$ steps. That is $$O(n)$$. We have found a linear order of
-magnitude algorithm for solving this problem.
-
-Those with greater familiarity with Python may note that the counting
-strategy we implemented in `anagram_count_compare` could be much more
-succinctly approached using `collections.Counter`, which constructs a
-`dict`-like object mapping elements in an iterable to the number of
-occurences of that element in a that iterable. In fact, the
-implementation becomes _very_ succinct:
+Those with greater familiarity with Python may note that the counting strategy
+we implemented in `anagram_count_compare` could be more succinctly written
+using `collections.Counter`, which constructs a `dict`-like object mapping
+elements in an iterable to the number of occurrences of that element in the
+iterable. Behold:
 """
 from collections import Counter
 
@@ -171,22 +170,19 @@ anagram_with_counter('apple', 'pleap')  # => True
 anagram_with_counter('apple', 'applf')  # => False
 
 """
+Note that `anagram_with_counter` is also $$O(n)$$, but this is impossible to
+determine without understanding the implementation of `collections.Counter`.
 
-It is worth noting that `anagram_with_counter` is also $$O(n)$$, but
-that it is impossible to determine this without understanding the
-implementation of `collections.Counter`.
-
-Before leaving this example, we need to say something about space
-requirements. Although the last solution was able to run in linear time,
-it could only do so by using additional storage to keep the two lists of
-character counts. In other words, this algorithm sacrificed space in
+One final thought about space requirements: although the last solution was able
+to run in linear time, it only did so by using additional storage for the two
+lists of character counts. In other words, this algorithm sacrificed space in
 order to gain time.
 
-This is a common tradeoff. On many occasions you will need to make
-decisions between time and space trade-offs. In this case, the amount of
-extra space is not significant. However, if the underlying alphabet had
-millions of characters, there would be more concern. As a software
-engineer, when given a choice of algorithms, it will be up to you to
-determine the best use of computing resources given a particular
-problem.
+This is a common tradeoff. On many occasions, you will need to make decisions
+about trade-offs between time and space. In this case, the amount of extra
+space is not significant; however, if the underlying alphabet had millions of
+characters, there we be more cause for concern.
+
+When given a choice of algorithms, it is up to you as a software engineer to
+determine the best use of computing resources for a given problem.
 """
