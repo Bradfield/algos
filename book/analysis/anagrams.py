@@ -83,10 +83,9 @@ anagram_sort_and_compare('abcde', 'abcd')  # => False
 """
 At first glance, you may be tempted to think that this algorithm is $$O(n)$$,
 since there is only one iteration to compare $$n$$ characters after sorting.
-However, the two `sorted` method calls have their own costs: sorting is
-typically either $$O(n^{2})$$ or $$O(n\log n)$$. Since both of these functions
-dominate $$O(n)$$, this algorithm will have the same order of magnitude as that
-of the sorting process.
+However, the two `sorted` method calls have their own cost, typically
+$$O(n\log n)$$. Since that function dominates $$O(n)$$, this algorithm will
+also be $$O(n\log n)$$.
 
 Solution 3: Brute Force
 -----------------------
