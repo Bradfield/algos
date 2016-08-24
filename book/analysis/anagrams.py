@@ -3,15 +3,17 @@
 Solution 1: Checking Off
 ------------------------
 
-Our first solution to the anagram problem will check to see that each
-character in the first string actually occurs in the second. If it is
-possible to “checkoff” each character, then the two strings must be
-anagrams. Checking off a character will be accomplished by replacing it
-with the special Python value `None`. However, since strings in Python
-are immutable, the first step in the process will be to convert the
-second string to a list. Each character from the first string can be
-checked against the characters in the list and if found, checked off by
-replacement. An implementation of this strategy may look like this:
+Our first solution to the anagram problem will check to see that each character
+in the first string actually occurs in the second. If it is possible to "check
+off" each character, then the two strings must be anagrams.
+
+We can check off a character by replacing it with the special Python value
+`None`. Since strings in Python are immutable, we will first need to convert
+the second string to a list. Each character from the first string will be
+checked against the characters in this list and, if found, checked off by
+replacement.
+
+An implementation of this strategy might look like this:
 """
 
 
