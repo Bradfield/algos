@@ -27,15 +27,15 @@ designers had to make a tradeoff.
 
 Two common operations are indexing and assigning to an index position. In
 Python lists, values are assigned to and retrieved from specific, known memory
-locations. So, no matter how large the list is, index lookup and assignment
+locations. No matter how large the list is, then, index lookup and assignment
 take a constant amount of time and are thus $$O(1)$$.
 
 Another common programming need is to grow a list. There are ways to do this:
-you can use the `append` method or the concatenation operator `+`
+you can use the `append` method or the concatenation operator (`+`).
 
 The `append` method is $$O(1)$$ since the new value is stored at a specific
-memory location that has already been allocated for the array, much like index assignment. However, `+` is $$O(k)$$ where $$k$$ is the size of the
-concatenated list because $$k$$ sequential assignment operations must occur.
+memory location that has already been allocated for the list, much like index assignment. However, concatenation is $$O(k)$$, where $$k$$ is the size of the
+concatenated list, since $$k$$ sequential assignment operations must occur.
 
 Popping from a Python list is typically performed from its end but, by passing
 an index, you can pop from a specific position. When `pop` is called from the
@@ -45,11 +45,11 @@ $$O(n)$$. Why the difference?
 When an item is taken from the front of a Python list, all other elements in
 the list are shifted one position closer to the beginning. This might seem
 silly now, but the Python designers did this intentionally to allow $$O(1)$$
-index operations, which we already showed as more common.
+index operations, which are more common.
 
-For the same reasons, inserting at an index is $$O(n)$$ in Python; every
-subsequent element must be shifted one position closer to the end to accomodate
-the new element. Unsurprisingly, deletion behaves the same way.
+For the same reasons, inserting at an index is $$O(n)$$; every subsequent
+element must be shifted one position closer to the end to accomodate the new
+element. Unsurprisingly, deletion behaves the same way.
 
 Iteration is $$O(n)$$ because iterating over $$n$$ elements requires $$n$$
 steps. This also explains why the `in` operator in Python is $$O(n)$$: to
@@ -68,8 +68,8 @@ require $$k(n - 1)$$ appends.
 
 Reversing a list is $$O(n)$$ since we must reposition each element.
 
-Finally, and least intuitively, [sorting in Python](http://svn.python.org/view/python/trunk/Objects/listsort.txt?revision=69846&view=markup)
-is $$O(n log n)$$ and [beyond the scope of this book](https://en.wikipedia.org/wiki/Timsort) to demonstrate.
+Finally (and least intuitively), [sorting in Python](http://svn.python.org/view/python/trunk/Objects/listsort.txt?revision=69846&view=markup)
+is $$O(nlog n)$$ and [beyond the scope of this book](https://en.wikipedia.org/wiki/Timsort) to demonstrate.
 
 For future reference, we have summarized the performance characteristics of
 Python's list operations in the table below:
@@ -95,7 +95,7 @@ multiply    | $$O(nk)$$
 Dictionaries
 ---
 
-The second major Python data type is the dictionary. As you probably recall,
+The second major Python data type is the dictionary. As you might recall,
 dictionaries differ from lists in their ability to access items by key rather
 than position. For now, the most important characteristic to note is that
 "getting" and "setting" an item in a dictionary are both $$O(1)$$ operations.
@@ -128,7 +128,10 @@ iteration  | $$O(n)$$
 One important sidenote is that the efficiences provided in the above tables are
 performances in the *average case*. In rare cases, "contains", "get item" and
 "set item" can degenerate into $$O(n)$$ performance but, again, we shall save
-that discussion for when we talk about ways of implementing a dictionary.
+that discussion for when we talk about different ways of implementing a
+dictionary.
+
+---
 
 Python is still an evolving language, so there are always changes going on
 behind the scenes. The latest information on the performance of Python data
