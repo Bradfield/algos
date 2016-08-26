@@ -20,7 +20,7 @@ function test {
   done
   log-msg 'Running JavaScript tests of book building code'
   for file in *.js; do
-    TEST=1 node --harmony_destructuring $file
+    TEST=1 node $file
   done
 }
 
