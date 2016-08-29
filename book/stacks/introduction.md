@@ -5,11 +5,10 @@ collection: stacks
 position: 1
 ---
 
-We will begin our study of data structures by examining four simple but
-powerful concepts. Stacks, queues, deques, and lists are all data collections
-with items ordered according to how they are added or removed. Once an item is
-added, it stays in the same position relative to its neighbors. Because of this
-characteristic, we call these collections *linear data structures*.
+Stacks, queues, deques, and lists are data collections with items ordered
+according to how they are added or removed. Once an item is added, it stays in
+the same position relative to its neighbors. Because of this characteristic, we
+call these collections *linear data structures*.
 
 Linear structures can be thought of as having two ends, referred to variously
 as “left” and “right”, “top” and “bottom”, or “front” and “rear”. What
@@ -43,21 +42,20 @@ sitting on top of them.
 
 ![A stack of books](figures/bookstack2.png)
 
-Here is another stack, this one contains a number of primitive Python
-data objects:
+Here is another stack containing a number of primitive Python data objects:
 
 ![A stack of primitive Python objects](figures/primitive.png)
 
-One of the most useful features of stacks comes from the simple observation
-that the insertion order is the reverse of the removal order.
+One of the most useful features of stacks comes from the observation that the
+insertion order is the reverse of the removal order.
 
 Starting with a clean desk, place books on top of each other one at a time and
 consider what happens when you begin removing books: the order that they are
-removed is exactly the reverse of the order that they were placed. Stacks are
-fundamentally important, as they can be used to reverse the order of items.
+removed is exactly the reverse of the order that they were placed. This ability
+to reverse the order of items is what makes stacks so important.
 
-Below we show the Python data object stack during insertion and removal. Note
-the order of the objects.
+Below we show the Python object stack during insertion and removal. Note the
+objects’ order.
 
 ![The reversal property of stacks](figures/simple-reversal.png)
 
@@ -100,9 +98,9 @@ added to and removed from the top. The interface for a stack is:
 -   `is_empty()` returns a boolean representing whether the stack is empty
 -   `size()` returns the number of items on the stack as an integer
 
-For example, if `s` is a newly-created, empty stack, then the below table shows
-the results of a sequence of stack operations. The top item is the item
-farthest to the right in “Stack contents”.
+For example, if `s` is a newly-created, empty stack, then the table below shows
+the results of a sequence of stack operations. The top item is the one farthest
+to the right in “Stack contents”.
 
 Stack operation | Stack contents | Return value
 --- | --- | ---
