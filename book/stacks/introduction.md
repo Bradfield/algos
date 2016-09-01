@@ -30,9 +30,8 @@ commonly referred to as the “top”, and the opposite end is known as the “b
 
 Items that are closer to the base have been in the stack the longest. The most
 recently added item is always on the top of the stack and thus will be removed
-first. This ordering principle is sometimes called *LIFO* (Last In, First Out).
-It provides an ordering based on length of time in the collection. The time
-spent in the stack for any given item increases as you move from top to base.
+first. The stack provides an ordering based on length of time in the
+collection; the “age” of any given item increases as you move from top to base.
 
 There are many examples of stacks in everyday situations. Consider a stack of
 plates on a table, where it is only possible to add or remove plates to or from
