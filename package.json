@@ -19,7 +19,7 @@
     "start": "./run build-book && ./run serve"
   },
   "engines": {
-    "node": ">=4.1"
+    "node": "6.1.0"
   },
   "repository": {
     "type": "git",
