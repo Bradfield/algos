@@ -186,7 +186,7 @@ function anagramCountCompareWithReduce (string1, string2) {
     if (letterCounts[letter]) {
       letterCounts[letter]++
     } else {
-      letterCounts[letter] = 0
+      letterCounts[letter] = 1
     }
     return letterCounts
   }
