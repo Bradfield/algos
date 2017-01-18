@@ -11,7 +11,7 @@ $$O(n)$$ for operations like `get` and `put` when the tree becomes
 unbalanced. In this section we will look at a special kind of binary
 search tree that automatically makes sure that the tree remains balanced
 at all times. This tree is called an **AVL tree** after its
-inventors: G.M. Adelson-Velskii and E.M. Landis.
+inventors: G.M. Adelson-Velskii and E.M. Landis. We have decided to focus on AVL trees as an example of self-balancing binary search trees, but there are many others such as the popular [red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree).
 
 An AVL tree implements the Map abstract data type just like a regular
 binary search tree, the only difference is in how the tree performs. To

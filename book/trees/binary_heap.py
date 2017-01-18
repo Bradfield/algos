@@ -6,7 +6,7 @@ the constructor will do is initialize the list and an attribute
 The code below shows the Python code for the constructor.
 You will notice that an empty binary heap has a single zero as the first
 element of `items` and that this zero is not used, but is there so
-that simple integer division can be used in later methods.
+that simple integer division can be used in later steps.
 """
 
 
