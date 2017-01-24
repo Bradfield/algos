@@ -78,7 +78,7 @@ Solution 4: Count and Compare
 
 Our final solution uses the fact that any two anagrams have the same number of a’s, the same number of b’s, the same number of c’s, and so on. First, we generate character counts for each string. If these counts match, the two strings are anagrams.
 
-Since there are 26 possible characters, we can use a list of 26 counters for each string. Each time we see a particular character, we’ll increment the counter at that character’s position. If the two lists are identical t the end, the strings must be anagrams.
+Since there are 26 possible characters, we can use a list of 26 counters for each string. Each time we see a particular character, we’ll increment the counter at that character’s position. If the two lists are identical at the end, the strings must be anagrams.
 
 Here is a possible implementation of this strategy:
 """
