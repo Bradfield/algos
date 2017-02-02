@@ -18,28 +18,28 @@ A *stack* is an ordered collection of items where the addition of new items and 
 
 Items that are closer to the base have been in the stack the longest. The most recently added item is always on the top of the stack and thus will be removed first. The stack provides an ordering based on length of time in the collection; the “age” of any given item increases as you move from top to base.
 
-There are many examples of stacks in everyday situations. Consider a stack of plates on a table, where it is only possible to add or remove plates to or from the top. Or imagine a stack of books on a desk. The only book whose cover is visible is the one on top. To access the others, we must first remove the ones sitting on top of them.
+There are many examples of stacks in everyday situations. Consider a stack of plates on a table, where it’s only possible to add or remove plates to or from the top. Or imagine a stack of books on a desk. The only book whose cover is visible is the one on top. To access the others, we must first remove the ones sitting on top of them.
 
 ![A stack of books](figures/bookstack2.png)
 
-Here is another stack containing a number of primitive Python data objects:
+Here’s another stack containing a number of primitive Python data objects:
 
 ![A stack of primitive Python objects](figures/primitive.png)
 
 One of the most useful features of stacks comes from the observation that the insertion order is the reverse of the removal order.
 
-Starting with a clean desk, place books on top of each other one at a time and consider what happens when you begin removing books: the order that they are removed is exactly the reverse of the order that they were placed. This ability to reverse the order of items is what makes stacks so important.
+Starting with a clean desk, place books on top of each other one at a time and consider what happens when you begin removing books: the order that they’re removed is exactly the reverse of the order that they were placed. This ability to reverse the order of items is what makes stacks so important.
 
 Below we show the Python object stack during insertion and removal. Note the objects’ order.
 
 ![The reversal property of stacks](figures/simple-reversal.png)
 
-Considering this reversal property, perhaps you can think of stack examples that occur while using your computer. For example, every web browser has a “Back” button. As you navigate from page to page, the URLs of those pages are placed on a stack. The page you are currently viewing is on the top, and the first page you looked at is at the base. Clicking on the Back button moves you in reverse order through the stack of pages.
+Considering this reversal property, perhaps you can think of stack examples that occur while using your computer. For example, every web browser has a “Back” button. As you navigate from page to page, the URLs of those pages are placed on a stack. The page you’re currently viewing is on the top, and the first page you looked at is at the base. Clicking on the Back button moves you in reverse order through the stack of pages.
 
 The Stack Abstract Data Type
 ---
 
-An *abstract data type*, sometimes abbreviated *ADT*, is a logical description of how we view the data and the allowed operations without regard to how they will be implemented. This means that we are only concerned with what the data represents and not with how it will be constructed. This level of abstraction *encapsulates* the data and hides implementation details from the user's view, a technique called *information hiding*.
+An *abstract data type*, sometimes abbreviated *ADT*, is a logical description of how we view the data and the allowed operations without regard to how they’ll be implemented. This means that we’re only concerned with what the data represents and not with how it’ll be constructed. This level of abstraction *encapsulates* the data and hides implementation details from the user's view, a technique called *information hiding*.
 
 A *data structure* is an implementation of an abstract data type and requires a physical view of the data using some collection of primitive data types and other programming constructs.
 
@@ -50,7 +50,7 @@ The stack abstract data type is an ordered collection of items where items are a
 -   `Stack()` creates a new, empty stack
 -   `push(item)` adds the given item to the top of the stack and returns nothing
 -   `pop()` removes and returns the top item from the stack
--   `peek()` returns the top item from the stack but does not remove it (the stack is not modified)
+-   `peek()` returns the top item from the stack but doesn’t remove it (the stack isn’t modified)
 -   `is_empty()` returns a boolean representing whether the stack is empty
 -   `size()` returns the number of items on the stack as an integer
 
