@@ -109,6 +109,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 1em;
 }
 
+.footnote {
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
 blockquote {
   border-left: 5px solid rgba(36, 51, 64, 0.1);
   margin-left: 0;
@@ -232,4 +237,19 @@ table tr:last-child td {
 #svg-refs {
   width: 0;
   height: 0;
+}
+
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
+}
+
+hr {
+  margin: 2em;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
