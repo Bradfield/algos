@@ -54,7 +54,7 @@ const languages = {
     blockComment: /\/\*\n([\s\S]+?)\n^\*\//gm,
     pragmas: /^'use strict';?\n/g,
     syntax: 'javascript',
-  }
+  },
 }
 
 
@@ -87,7 +87,7 @@ const conversionSteps = (config) =>
     removePragmas,
     invert,
     removeEmptyCodeBlocks,
-    stripNewlinesInCodeBlocks
+    stripNewlinesInCodeBlocks,
   ].map(f => _.partial(f, config)))
 
 
@@ -169,5 +169,3 @@ const foo = () => {}
 }
 
 if (process.env.TEST) test()
-
-

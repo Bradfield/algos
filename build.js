@@ -97,7 +97,7 @@ console.log(`Building to ${BUILD_DESTINATION} ..`)
 const EXCLUSION_FILE_PATTERNS = [
   '\.pyc$',
   '\.py$',
-  '\.DS_STORE'
+  '\.DS_STORE',
 ]
 
 const removeNonPublicFiles =
@@ -112,9 +112,9 @@ const removeNonPublicFiles =
     }
   }
 
-const log = (filePath) =>
-  (files) =>
-    console.log(files[filePath].contents.toString('utf8'))
+// const log = (filePath) =>
+//   (files) =>
+//     console.log(files[filePath].contents.toString('utf8'))
 
 if (!process.env.TEST) {
   Metalsmith(__dirname)
