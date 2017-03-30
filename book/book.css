@@ -264,8 +264,45 @@ p.crux::before {
   content: "the crux";
   display: block;
   font-variant: small-caps;
-  font-weight: bold;
   margin-bottom: 2px;
   font-size: 17px;
   opacity: 0.8;
+}
+
+div.concealed {
+  background: repeating-linear-gradient(
+    135deg,
+    rgb(242, 242, 242),
+    rgb(242, 242, 242) 12px,
+    rgba(0, 119, 204, 0.2) 8px,
+    rgba(0, 119, 204, 0.2) 20px
+  );
+  position: relative;
+}
+
+div.concealed:hover {
+  cursor: pointer;
+  background: repeating-linear-gradient(
+    135deg,
+    rgb(242, 242, 242),
+    rgb(242, 242, 242) 12px,
+    rgba(0, 119, 204, 0.3) 8px,
+    rgba(0, 119, 204, 0.3) 20px
+  );
+}
+
+div.concealed * {
+  visibility: hidden;
+}
+
+div.concealed::before {
+  content: 'click to reveal';
+  font-size: 17px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: rgb(242, 242, 242);
+  color: rgba(0, 119, 204, 0.7);
+  padding: 0px 12px 0px;
 }

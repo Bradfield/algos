@@ -9,7 +9,9 @@ What makes one computer program better than another?
 
 Take a moment to answer this for yourself 🙂. If you were given two programs that solve the same problem, how would you decide which one to use?
 
+<!-- concealed -->
 The truth is there are many valid criteria, which are often in conflict.
+<!-- /concealed -->
 
 For instance, we typically want our program to be _correct_. In other words, we’d like the program’s output to match our expectations. Unfortunately, correctness is not always clear. For instance, what does it mean for Google to return the “correct” top 10 search results for your search query?
 
@@ -23,6 +25,7 @@ Another aspect of “it depends”, even when we focus on just time or space, is
 
 Beyond this, the exact and space that your program uses will also depend on many other factors. Can you think of at least three?
 
+<!-- concealed -->
 Here are some:
 
 * How long it takes your computer to execute every instruction
@@ -33,6 +36,7 @@ Here are some:
 * What other programs are running at the same time
 
 &hellip; and so on.
+<!-- /concealed -->
 
 All of these are important factors for us software engineers, but to the computer scientist these are details that don’t speak to the core question of whether an algorithm is fast or slow. Sometimes we’d like to be able to ask: generally speaking, irrespective of whether a program is written in Fortran for the IBM 704 or in Python running on a shiny new Macbook, will it be more time and/or space efficient than an alternative? This is the crux of algorithm analysis.
 
