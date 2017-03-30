@@ -124,7 +124,20 @@ sum_to_n(9000000) =  40500004500000 (1.0458572 seconds)
 
 Do you see the general relationship between between n and time elapsed? Is this what you expected? What would the relationship look like if you were to plot our different values of n on the x-axis and time elapsed on the y-axis?
 
-[TODO chart]
+<svg class="scatter scatter-linear"></svg>
+<script>
+drawScatter('svg.scatter-linear', [
+  {x: 1, y: 0.1198549},
+  {x: 2, y: 0.2401729},
+  {x: 3, y: 0.3838110},
+  {x: 4, y: 0.4790699},
+  {x: 5, y: 0.6189690},
+  {x: 6, y: 0.6952291},
+  {x: 7, y: 0.8431778},
+  {x: 8, y: 0.9679160},
+  {x: 9, y: 1.0458572},
+], 'n (millions)', 'Execution time (seconds)')
+</script>
 
 It turns out that our simple strategy is not the most efficient. In fact there is a short formula that will give us the answer to our question without any looping. Can you determine (or perhaps remember) what it is? Here's a hint... try it with the numbers 1 to 6, and group 1 and 6, 2 and 5, and 3 and 4 together to notice that there are three pairs each individually totaling 7.
 
@@ -165,8 +178,25 @@ arithmetic_sum(9000000) =  40500004500000 (0.0000019 seconds)
 
 Notice that our answers are all correct. Did you expect each calculation to take around the same amount of time? What would this look like if we were to again plot our range of n values on the x-axis and times to calculate on the y-axis?
 
-[TODO graph]
+<svg class="scatter scatter-constant"></svg>
+<script>
+drawScatter('svg.scatter-constant', [
+  {x: 1, y: 2.1},
+  {x: 2, y: 2.9},
+  {x: 3, y: 1.9},
+  {x: 4, y: 1.9},
+  {x: 5, y: 3.1},
+  {x: 6, y: 2.1},
+  {x: 7, y: 2.1},
+  {x: 8, y: 2.9},
+  {x: 9, y: 1.9},
+], 'n (millions)', 'Execution time (microseconds)', null, [0, 10])
+</script>
 
-Not to get too far ahead of ourselves, but we describe `sum_to_n` as “linear” or $$O(n)$$, and `arithmetic_sum` as “constant” or $$O(1)$$. Hopefully you can see why. Irrespective of the exact times that these functions take to execute, we can spot a general trend that, that the execution time for `sum_to_n` grows in proportion to n, whereas the execution time for `arithmetic_sum` remains constant. All else being equal, `arithmetic_sum` is the better algorithm due to its more efficient use of time.
+Notice that our y-axis is now measured in _microseconds_, so millionths of a second. And the time to execute is independent of the size of the input.
+
+All else being equal, `arithmetic_sum` is the better algorithm.
+
+Not to get too far ahead of ourselves, but we describe `sum_to_n` as “linear” or $$O(n)$$, and `arithmetic_sum` as “constant” or $$O(1)$$. Hopefully you can see why. Irrespective of the exact times that these functions take to execute, we can spot a general trend that, that the execution time for `sum_to_n` grows in proportion to n, whereas the execution time for `arithmetic_sum` remains constant.
 
 In the following sections, we’ll apply a little more rigor to our reasoning, and develop a vocabulary for describing these time and space usage characteristics more generally.

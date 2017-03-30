@@ -196,18 +196,18 @@ table tr:last-child td {
   margin-bottom: 10px;
 }
 
-.graph-node {
+.graph-node, .dot {
   fill: #243340;
   stroke-width: 0px;
 }
 
-.graph-node text {
-  color: #243340;
+svg text {
   font-family: Inconsolata, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 12px;
+  color: #243340;
 }
 
-.graph-edge {
+.graph-edge, .axis path, .axis line {
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;

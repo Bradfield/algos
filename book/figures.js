@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 function isLeftNode (node) {
   return node.parent && node.parent.children && node.parent.children[0] === node
@@ -10,35 +11,35 @@ function isLeaf (node) {
 // TODO: this code could be less crappy overall
 
 function drawTree (target, root) {
-  var height = 270
-  var width = 720
-  var marginTop = 20
+  const height = 270
+  const width = 720
+  const marginTop = 20
 
-  var i = 0
+  let i = 0
 
-  var tree = d3.layout.tree().size([height, width])
+  const tree = d3.layout.tree().size([height, width])
 
-  var diagonal = d3.svg.diagonal()
+  const diagonal = d3.svg.diagonal()
    .projection(function (d) { return [d.x * 2.5, d.y] })
 
-  var svg = d3.select(target)
+  const svg = d3.select(target)
    .attr('width', width)
    .attr('height', height + marginTop)
     .append('g')
     .attr('transform', 'translate(0,' + marginTop + ')')
 
-  var nodes = tree.nodes(root).reverse()
-  var links = tree.links(nodes)
+  const nodes = tree.nodes(root).reverse()
+  const links = tree.links(nodes)
 
   // Normalize for fixed-depth.
   nodes.forEach(function (d) { d.y = d.depth * 60 })
 
   // Declare the nodes
-  var node = svg.selectAll('g.node')
+  const node = svg.selectAll('g.node')
    .data(nodes, function (d) { return d.id || (d.id = ++i) })
 
   // Enter the nodes.
-  var nodeEnter = node.enter().append('g')
+  const nodeEnter = node.enter().append('g')
     .attr('class', 'graph-node')
     .attr('transform', function (d) {
       return 'translate(' + d.x * 2.5 + ',' + d.y + ')'
@@ -66,4 +67,58 @@ function drawTree (target, root) {
     .enter().insert('path', 'g')
     .attr('class', 'graph-edge')
     .attr('d', diagonal)
+}
+
+function drawScatter (target, data, xLabel, yLabel, xDomain, yDomain) {
+
+  const margin = {top: 20, right: 30, bottom: 30, left: 40},
+      width = 720 - margin.left - margin.right,
+      height = 240 - margin.top - margin.bottom
+
+  const x = d3.scale.linear().range([0, width])
+  const y = d3.scale.linear().range([height, 0])
+
+  const xAxis = d3.svg.axis().scale(x).orient('bottom')
+  const yAxis = d3.svg.axis().scale(y).orient('left')
+
+  const svg = d3.select(target)
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+
+  x.domain(xDomain || d3.extent(data, d => d.x)).nice()
+  y.domain(yDomain || d3.extent(data, d => d.y)).nice()
+
+  svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(xAxis)
+    .append('text')
+      .attr('class', 'label')
+      .attr('x', width)
+      .attr('y', -6)
+      .style('text-anchor', 'end')
+      .text(xLabel)
+
+  svg.append('g')
+      .attr('class', 'y axis')
+      .call(yAxis)
+    .append('text')
+      .attr('class', 'label')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text(yLabel)
+
+  svg.selectAll('.dot')
+      .data(data)
+    .enter().append('circle')
+      .attr('class', 'dot')
+      .attr('r', 3.5)
+      .attr('cx', d => x(d.x))
+      .attr('cy', d => y(d.y))
+
 }
