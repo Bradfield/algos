@@ -1,3 +1,14 @@
+/* COLOR SCHEME */
+
+/*
+
+#243340 - very dark blue, use for main text and significant lines on figures
+#07c - link default
+
+#eee - graph edge de-emphasized
+*/
+
+
 /* layout */
 
 * {
@@ -256,8 +267,8 @@ hr {
 
 p.crux {
   padding: 6px 18px 12px;
-  background-color: rgb(255, 222, 222);
-  color: rgb(165, 81, 81);
+  background-color: rgb(222, 255, 222);
+  color: rgb(70, 140, 70);
 }
 
 p.crux::before {
@@ -266,7 +277,6 @@ p.crux::before {
   font-variant: small-caps;
   margin-bottom: 2px;
   font-size: 17px;
-  opacity: 0.8;
 }
 
 div.concealed {
@@ -296,7 +306,8 @@ div.concealed * {
 }
 
 div.concealed::before {
-  content: 'click to reveal';
+  content: 'reveal';
+  font-variant: small-caps;
   font-size: 17px;
   position: absolute;
   top: 50%;
@@ -305,4 +316,6 @@ div.concealed::before {
   background: rgb(242, 242, 242);
   color: rgba(0, 119, 204, 0.7);
   padding: 0px 12px 0px;
+  line-height: 25px;
+  height: 28px;
 }
