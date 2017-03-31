@@ -9,6 +9,7 @@ const permalinks = require('metalsmith-permalinks')
 
 const { convertToKatex } = require('./katex-plugin')
 const { addLanguageMarkers } = require('./language-switching-plugin')
+const { addConcealmentMarkers } = require('./concealed-portions-plugin')
 const { incorporateLiterateCode } = require('./literate-code-plugin')
 const { highlightCode } = require('./prism-plugin')
 const { wrapFigures } = require('./captions-plugin')
@@ -97,7 +98,7 @@ console.log(`Building to ${BUILD_DESTINATION} ..`)
 const EXCLUSION_FILE_PATTERNS = [
   '\.pyc$',
   '\.py$',
-  '\.DS_STORE'
+  '\.DS_STORE',
 ]
 
 const removeNonPublicFiles =
@@ -112,9 +113,9 @@ const removeNonPublicFiles =
     }
   }
 
-const log = (filePath) =>
-  (files) =>
-    console.log(files[filePath].contents.toString('utf8'))
+// const log = (filePath) =>
+//   (files) =>
+//     console.log(files[filePath].contents.toString('utf8'))
 
 if (!process.env.TEST) {
   Metalsmith(__dirname)
@@ -126,6 +127,7 @@ if (!process.env.TEST) {
   .use(highlightCode)
   .use(markdown({ tables: true, pedantic: true }))
   .use(addLanguageMarkers)
+  .use(addConcealmentMarkers)
   // .use(log('analysis/an-anagram-detection-example.html'))
   .use(collections(collectionConfig))
   .use(bridgeLinksBetweenCollections)

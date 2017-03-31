@@ -3,14 +3,16 @@
     "node": true,
     "es6": true
   },
-  globals: {
-    "assert": true
+  "globals": {
+    "assert": true,
+    "d3": true
   },
-  extends: "eslint:recommended",
+  "extends": "eslint:recommended",
   "rules": {
     "comma-dangle": [2, "always-multiline"],
     "semi": [2, "never"],
     "no-var": 2,
-    "space-before-function-paren": [2, "always"]
+    "space-before-function-paren": [2, "always"],
+    "no-console": 0
   }
 }
