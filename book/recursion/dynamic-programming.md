@@ -492,7 +492,7 @@ const numPaths = (height, width) => {
 <!-- /language -->
 
 Unfortunately, we find ourselves with another $$O(2^n)$$ solution
-(where $$n = max(H, W)$$) due
+(where $$n = H + W$$) due
 to redundant calls in our overlapping subproblems. For instance,
 calculating `f(3, 2)` involves calculating `f(2, 2)` and `f(3, 1)`,
 but then in calculating `f(2, 3)` we redundantly call `f(2, 2)` once
@@ -622,7 +622,7 @@ const numPathsDp = (height, width) {
 <!-- /language -->
 
 Both the time and space cost for this implementation are $$O(H \times W)$$,
-compared to $$2^{max(H, W)}$$ previously, making a big difference as $$H$$
+compared to $$O(2^{H + W})$$ time and $$O(H + W)$$ space previously, making a big time difference as $$H$$
 and $$W$$ increase.
 
 If space is of particular concern, the space cost could be decreased to
