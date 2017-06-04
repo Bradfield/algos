@@ -203,7 +203,7 @@ Here is a possible implementation of `search`:
         current = self.head
 
         while current is not None:
-            if current.value is item:
+            if current.value == item:
                 return True
             current = current.next
 
