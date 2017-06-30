@@ -23,7 +23,7 @@ We may need to trade these off against other concerns: algorithm A may be faster
 
 Another aspect of “it depends”, even when we focus on just time or space, is the context in which the program runs. There is often a relationship between the inputs of a program and its running time or space usage. For instance if you `grep` over many large files, it will take longer than if you `grep` over fewer, smaller files. This relationship between inputs and behavior will be an important part of our analysis.
 
-Beyond this, the exact and space that your program uses will also depend on many other factors. Can you think of at least three?
+Beyond this, the exact time and space that your program uses will also depend on many other factors. Can you think of at least three?
 
 <!-- concealed -->
 Here are some:
