@@ -54,7 +54,7 @@ we will store the name of the node as the value. Using nodes and references to
 represent the tree illustrated above, we would create six instances of the Node
 class.
 
-Next let’s look at function that can help us build the tree beyond the root
+Next let’s look at a function that can help us build the tree beyond the root
 node. To add a left child to the tree, we will instantiate a new `Node` instance
 and pass it as `child` to the `insert_left` function defined here:
 
