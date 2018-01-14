@@ -100,7 +100,7 @@ a simple web page written using HTML.
 </html>
 ```
 
-Here in the tree that corresponds to each of the HTML tags used to
+Here is the tree that corresponds to each of the HTML tags used to
 create the page.
 
 ![A tree corresponding to the markup elements of a web
