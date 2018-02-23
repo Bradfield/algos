@@ -29,9 +29,10 @@ body {
 .container {
   display: flex;
   flex-direction: row-reverse;
-  height: 100vh;
-  overflow: hidden;
   align-items: stretch;
+  height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-of-contents {
@@ -75,7 +76,6 @@ body {
 @media (max-width: 1190px) {
   .container {
     display: block;
-    overflow: auto;
   }
   .table-of-contents {
     width: 100%;
