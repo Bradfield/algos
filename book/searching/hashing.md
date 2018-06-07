@@ -152,7 +152,7 @@ remainder method to get a hash value.
 
 ![Hashing a string using ordinal values](figures/string-hash.png)
 
-Below is a a function called `hash` that takes a string and a table size and
+Below is a function called `hash` that takes a string and a table size and
 returns the hash value in the range from 0 to `tablesize - 1`.
 
 ```python
