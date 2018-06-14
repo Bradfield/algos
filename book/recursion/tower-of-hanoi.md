@@ -64,7 +64,7 @@ case. The simplest Tower of Hanoi problem is a tower of one disk. In
 this case, we need move only a single disk to its final destination. A
 tower of one disk will be our base case. In addition, the steps outlined
 above move us toward the base case by reducing the height of the tower
-in steps 1 and 3. Below we present a possiblem Python solution to the Tower of Hanoi puzzle.
+in steps 1 and 3. Below we present a possible Python solution to the Tower of Hanoi puzzle.
 
 
 ```python
