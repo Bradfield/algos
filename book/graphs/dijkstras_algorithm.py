@@ -107,7 +107,7 @@ def calculate_distances(graph, starting_vertex):
         heapq.heappush(pq, entry)
 
     while len(pq) > 0:
-        current_distance, current_vertex = heapq.heappop(pq)
+        _, current_vertex = heapq.heappop(pq)
 
         for neighbor, neighbor_distance in graph[current_vertex].items():
             distance = distances[current_vertex] + neighbor_distance
