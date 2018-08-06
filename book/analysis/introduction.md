@@ -157,7 +157,7 @@ $$\sum_{i=1}^{n} i = \frac {n(n+1)}{2}$$
 
 <!-- /concealed -->
 
-If you don’t quite understand this formula, take a moment to explore [one of these visual explanations](https://fr0ddy.github.io/math/visual-proofs/sum-of-first-n-natural-numbers.html).
+If you don’t quite understand this formula, take a moment to explore [one of these visual explanations](https://artofproblemsolving.com/wiki/index.php?title=Proofs_without_words).
 
 How would we implement this as a Python function, again with our timing code?
 
