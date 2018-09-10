@@ -43,9 +43,9 @@ There are several common order of magnitude functions that will frequently appea
 f(n) | Name
 --- | ---
 $$1$$ | Constant
-$$\log{}n$$ | Logarithmic
+$$\log{n}$$ | Logarithmic
 $$n$$ | Linear
-$$n{}\log{}n$$ | Log Linear
+$$n\log{n}$$ | Log Linear
 $$n^{2}$$ | Quadratic
 $$n^{3}$$ | Cubic
 $$2^{n}$$ | Exponential
