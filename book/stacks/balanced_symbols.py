@@ -8,7 +8,7 @@ PAIRINGS = {
 def is_balanced(symbols):
     stack = []
     for s in symbols:
-        if s in PAIRINGS.keys():
+        if s in PAIRINGS:
             stack.append(s)
             continue
         try:
