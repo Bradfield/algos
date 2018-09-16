@@ -98,7 +98,7 @@ Assume the infix expression is a string of tokens delimited by spaces. The opera
 
 Below we show the conversion algorithm working on the expression `A * B + C * D`. Note that the first `*` operator is removed upon seeing the `+` operator. Also, `+` stays on the stack when the second `*` occurs, since multiplication has precedence over addition. At the end of the infix expression the stack is popped twice, removing both operators and placing + as the last operator in the postfix expression.
 
-![Converting `A * B + C * D` to postfix notation](figures/into-postfix.png)
+![Converting A * B + C * D to postfix notation](figures/into-postfix.png)
 
 In order to code the algorithm in Python, we’ll use a dictionary called `precedence` to hold the precedence values for the operators. This dictionary will map each operator to an integer that can be compared against the precedence levels of other operators (we have arbitrarily used the integers 3, 2, and 1). The left parenthesis will receive the lowest value possible. This way any operator that is compared against it will have higher precedence and will be placed on top of it.
 
