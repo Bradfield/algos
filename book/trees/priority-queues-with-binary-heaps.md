@@ -68,7 +68,7 @@ lists. Because the tree is complete, the left child of a parent (at position
 $$p$$) is the node that is found in position $$2p$$ in the list. Similarly, the
 right child of the parent is at position $$2p + 1$$ in the list. To find the
 parent of any node in the tree, we can simply use integer division (like normal
-mathematical division except we discard the remained). Given that a node is at
+mathematical division except we discard the remainder). Given that a node is at
 position $$n$$ in the list, the parent is at position $$n/2$$.
 
 The diagram below shows a complete binary tree and also gives the list
