@@ -79,7 +79,7 @@ we will make use of a `distances` dictionary which we will initialize to
 `0` for the start vertex, and `infinity` for the other vertices. Our
 algorithm will update these values until they represent the smallest
 weight path from the start to the vertex in question, at which point we
-will return the `distances` dictionary`.
+will return the `distances` dictionary.
 
 The algorithm iterates once for every vertex in the graph; however, the
 order that we iterate over the vertices is controlled by a priority
