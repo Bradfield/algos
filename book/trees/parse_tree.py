@@ -23,7 +23,7 @@ def build_parse_tree(expression):
             node = node['left']
         elif token == RIGHT_PAREN:
             node = stack.pop()
-        elif token in OPERATORS.keys():
+        elif token in OPERATORS:
             node['val'] = token
             node['right'] = {}
             stack.append(node)
