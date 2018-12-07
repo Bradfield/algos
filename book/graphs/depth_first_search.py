@@ -64,7 +64,7 @@ def depth_first_search(graph, starting_vertex):
         traversal_times[vertex]['finish'] = counter[0]
 
     # in this case start with just one vertex, but we could equally
-    # dfs from all_vertices to product a dfs forest
+    # dfs from all_vertices to produce a dfs forest
     traverse(starting_vertex)
     return traversal_times
 
