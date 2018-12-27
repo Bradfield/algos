@@ -5,6 +5,7 @@ node_js:
   - '6.1.0'
 install:
   - npm install
+  - pip install pqdict
 script:
   - ./run test
 after_success:
