@@ -91,29 +91,23 @@ we are always exploring the one with the smallest distance.
 The code for Dijkstra’s algorithm is shown below.
 """
 
-import heapq
+from pqdict import pqdict
 
 
 def calculate_distances(graph, starting_vertex):
     distances = {vertex: float('infinity') for vertex in graph}
     distances[starting_vertex] = 0
 
-    entry_lookup = {}
-    pq = []
-
-    for vertex, distance in distances.items():
-        entry = [distance, vertex]
-        entry_lookup[vertex] = entry
-        heapq.heappush(pq, entry)
-
+    pq = pqdict({starting_vertex: 0})
+    
     while len(pq) > 0:
-        _, current_vertex = heapq.heappop(pq)
-
+        current_vertex, _ = pq.popitem()
+        
         for neighbor, neighbor_distance in graph[current_vertex].items():
             distance = distances[current_vertex] + neighbor_distance
             if distance < distances[neighbor]:
                 distances[neighbor] = distance
-                entry_lookup[neighbor][0] = distance
+                pq[neighbor] = distance
 
     return distances
 
