@@ -217,7 +217,7 @@ def set_root_val(root, new_val):
 def get_left_child(root):
     return root[1]
 
-def get_root_child(root):
+def get_right_child(root):
     return root[2]
 ```
 
@@ -237,7 +237,7 @@ root  # => [3, [9, [4, [], []], []], [7, [], [6, [], []]]]
 
 insert_left(left, 11)
 root  # => [3, [9, [11, [4, [], []], []], []], [7, [], [6, [], []]]]
-get_root_child(get_root_child(root))  # => [6, [], []]
+get_right_child(get_right_child(root))  # => [6, [], []]
 ```
 
 Map-based representation
