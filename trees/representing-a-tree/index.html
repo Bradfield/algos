@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Representing a Tree</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357512">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Representing a Tree
+        <select id="language-switcher"></select>
+      </h1>
+      <p>In this section, we consider some different ways to represent a tree-like shape
+with data types in Python. It is important to become familiar with multiple
+representations since trees occur in many contexts and the right choice of
+representation in one may not quite fit another.</p>
+<p>In Python, many of the libraries that deal with trees (such as the <a href="http://html5lib.readthedocs.org/en/latest/index.html">html5lib</a> for parsing html, or <a href="https://docs.python.org/2/library/ast.html">ast</a> for working with the abstract syntax grammar of Python) use the object oriented “nodes and references” representation we discuss first. However, when building functionality around our own trees it is generally simpler to use a representation constructed from dicts and lists, which we discuss later. This simpler representation is also more portable to other languages and contexts, even those without a notion of objects (such as pen and paper!).</p>
+<h2 id="nodes-and-references-representation">Nodes and references representation</h2>
+<p>Our first method to represent a tree uses instances of a <code>Node</code> class along
+with references between node instances.</p>
+<p>Let us consider a small example:</p>
+<p>
+  <figure>
+    <img src="figures/smalltree.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>Using nodes and references, we might think of this tree as being
+structured like:</p>
+<p>
+  <figure>
+    <img src="figures/treerecs.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>We will start out with a simple class definition for the nodes and
+references approach as shown below. In this case we will consider binary
+trees, so will directly reference <code>left</code> and <code>right</code> nodes. For trees where
+nodes may have more than two children, a <code>children</code> list could be used to
+contain these references instead.</p>
+<p>The important thing to remember about this representation is that the attributes
+<code>left</code> and <code>right</code> will become references to other instances of the <code>Node</code>
+class. For example, when we insert a new left child into the tree we create
+another instance of <code>Node</code> and modify <code>self.left</code> in the root to reference the
+new subtree.</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Node</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> val
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> None
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+</code></pre>
+
+
+<p>Notice that the constructor function expects to get some kind of value to store
+in the node. Just like you can store any object you like in a list, the <code>val</code>
+attribute for a node can be a reference to any object. For our early examples,
+we will store the name of the node as the value. Using nodes and references to
+represent the tree illustrated above, we would create six instances of the Node
+class.</p>
+<p>Next let’s look at a function that can help us build the tree beyond the root
+node. To add a left child to the tree, we will instantiate a new <code>Node</code> instance
+and pass it as <code>child</code> to the <code>insert_left</code> function defined here:</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">insert_left</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> child<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>left <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> child
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        child<span class="token punctuation">.</span>left <span class="token operator">=</span> self<span class="token punctuation">.</span>left
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> child
+</code></pre>
+
+
+<p>We must consider two cases for insertion. The first case is characterized by a
+node with no existing left child. When there is no left child, simply add a node
+to the tree. The second case is characterized by a node with an existing left
+child. In the second case, we insert a node and push the existing child down one
+level in the tree.</p>
+<p>The code for <code>insert_right</code> must consider a symmetric set of cases. There will
+either be no right child, or we must insert the node between the root and an
+existing right child:</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">insert_right</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> child<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>right <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> child
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        child<span class="token punctuation">.</span>right <span class="token operator">=</span> self<span class="token punctuation">.</span>right
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> child
+</code></pre>
+
+
+<p>Now that we have all the pieces to create and manipulate a binary tree, let’s
+use them to check on the structure a bit more. Let’s make a simple tree with
+node a as the root, and add nodes b and c as children. Below we create the tree
+and look at the some of the values stored in <code>key</code>, <code>left</code>, and <code>right</code>. Notice
+that both the left and right children of the root are themselves distinct
+instances of the <code>Node</code> class. As we said in our original recursive definition
+for a tree, this allows us to treat any child of a binary tree as a binary tree
+itself.</p>
+  <pre><code class="language-python">root <span class="token operator">=</span> Node<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span>
+root<span class="token punctuation">.</span>val  <span class="token comment"># => 'a'</span>
+root<span class="token punctuation">.</span>left  <span class="token comment"># => None</span>
+
+root<span class="token punctuation">.</span>insert_left<span class="token punctuation">(</span>Node<span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+root<span class="token punctuation">.</span>left  <span class="token comment"># => &lt;__main__.Node object></span>
+root<span class="token punctuation">.</span>left<span class="token punctuation">.</span>val  <span class="token comment"># => 'b'</span>
+
+root<span class="token punctuation">.</span>insert_right<span class="token punctuation">(</span>Node<span class="token punctuation">(</span><span class="token string">'c'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+root<span class="token punctuation">.</span>right  <span class="token comment"># => &lt;__main__.Node object></span>
+root<span class="token punctuation">.</span>right<span class="token punctuation">.</span>val  <span class="token comment"># => 'c'</span>
+
+root<span class="token punctuation">.</span>right<span class="token punctuation">.</span>val <span class="token operator">=</span> <span class="token string">'hello'</span>
+root<span class="token punctuation">.</span>right<span class="token punctuation">.</span>val  <span class="token comment"># => 'hello'</span>
+</code></pre>
+
+
+<h2 id="list-of-lists-representation">List of lists representation</h2>
+<p>A common way to represent trees succinctly using pure data is as a list of
+lists. Consider that in a list of lists, each element has one and only one
+parent (up to the outermost list) so meets our expectation of a tree as a
+hierarchical structure with no cycles.</p>
+<p>In a list of lists tree, we will store the value of the each node as the first
+element of the list. The second element of the list will itself be a list that
+represents the left subtree. The third element of the list will be another list
+that represents the right subtree. To illustrate this technique, let’s consider
+a list of lists representation of our example tree:</p>
+  <pre><code class="language-python">tree <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">'a'</span><span class="token punctuation">,</span>  <span class="token comment">#root</span>
+    <span class="token punctuation">[</span>
+        <span class="token string">'b'</span><span class="token punctuation">,</span>  <span class="token comment"># left subtree</span>
+        <span class="token punctuation">[</span><span class="token string">'d'</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token string">'e'</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>
+        <span class="token string">'c'</span><span class="token punctuation">,</span>  <span class="token comment"># right subtree</span>
+        <span class="token punctuation">[</span><span class="token string">'f'</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+</code></pre>
+
+
+<p>Notice that we can access subtrees of the list using standard list indexing. The
+root of the tree is <code>tree[0]</code>, the left subtree of the root is <code>tree[1]</code>, and
+the right subtree is <code>tree[2]</code>. Below we illustrate creating a simple tree using
+a list. Once the tree is constructed, we can access the root and the left and
+right subtrees.</p>
+  <pre><code class="language-python">tree <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'f'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+<span class="token comment"># the left subtree</span>
+tree<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>  <span class="token comment"># => ['b', ['d', [], []], ['e', [], []]]</span>
+
+<span class="token comment"># the right subtree</span>
+tree<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>  <span class="token comment"># => ['c', ['f', [], []], []]</span>
+
+<span class="token comment"># the root</span>
+tree<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>  <span class="token comment"># => 'a'</span>
+</code></pre>
+
+
+<p>One very nice property of this list of lists approach is that the structure of a
+list representing a subtree adheres to the structure defined for a tree; the
+structure itself is recursive! A subtree that has a root value and two empty
+lists is a leaf node. Another nice feature of the list of lists approach is that
+it generalizes to a tree that has many subtrees. In the case where the tree is
+more than a binary tree, another subtree is just another list.</p>
+<p>Since this representation is simply a composite of lists, we will use functions
+to manipulate the structure as a tree, analogous to the methods in our object
+oriented “nodes and references” representation above.</p>
+<p>To add a left subtree to the root of a tree, we need to insert a new list into
+the second position of the root list. We must be careful. If the list already
+has something in the second position, we need to keep track of it and push it
+down the tree as the left child of the list we are adding. Here is a possible function for inserting a left child:</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">insert_left</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> child_val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    subtree <span class="token operator">=</span> root<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>subtree<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">:</span>
+        root<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>child_val<span class="token punctuation">,</span> subtree<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        root<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>child_val<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> root
+</code></pre>
+
+
+<p>Notice that to insert a left child, we first obtain the (possibly empty)
+list that corresponds to the current left child. We then add the new
+left child, installing the old left child as the left child of the new
+one. This allows us to splice a new node into the tree at any position.
+The code for <code>insert_right</code> is similar to <code>insert_left</code> and is shown below:</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">insert_right</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> child_val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    subtree <span class="token operator">=</span> root<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>subtree<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">:</span>
+        root<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>child_val<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> subtree<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        root<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>child_val<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> root
+</code></pre>
+
+
+<p>To round out this set of tree-making functions, let’s write a couple of access
+functions for getting and setting the root value, as well as getting the
+left or right subtrees. This way we can abstract away the fact that we use the positions in a list to represent values, left subtrees and right subtrees:</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">get_root_val</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> root<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+<span class="token keyword">def</span> <span class="token function">set_root_val</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> new_val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    root<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> new_val
+
+<span class="token keyword">def</span> <span class="token function">get_left_child</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> root<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+<span class="token keyword">def</span> <span class="token function">get_right_child</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> root<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+</code></pre>
+
+
+<p>We can now use our function definitions to build a tree and retrieve children of given nodes:</p>
+  <pre><code class="language-python">root <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+insert_left<span class="token punctuation">(</span>root<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span>
+insert_left<span class="token punctuation">(</span>root<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+insert_right<span class="token punctuation">(</span>root<span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span>
+insert_right<span class="token punctuation">(</span>root<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+left <span class="token operator">=</span> get_left_child<span class="token punctuation">(</span>root<span class="token punctuation">)</span>
+left  <span class="token comment"># => [5, [4, [], []], []]</span>
+
+set_root_val<span class="token punctuation">(</span>left<span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span>
+root  <span class="token comment"># => [3, [9, [4, [], []], []], [7, [], [6, [], []]]]</span>
+
+insert_left<span class="token punctuation">(</span>left<span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span>
+root  <span class="token comment"># => [3, [9, [11, [4, [], []], []], []], [7, [], [6, [], []]]]</span>
+get_right_child<span class="token punctuation">(</span>get_right_child<span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># => [6, [], []]</span>
+</code></pre>
+
+
+<h2 id="map-based-representation">Map-based representation</h2>
+<p>Our list of list representation has a handful of benefits:</p>
+<ol>
+<li>It is succinct;</li>
+<li>We can easily construct the tree as Python list literals;</li>
+<li>We can easily serialize and print the tree; and,</li>
+<li>It is portable to languages and contexts without objects.</li>
+</ol>
+<p>However, it has the significant disadvantage that it is somewhat difficult to
+see the tree-like nature of the composite lists simply by looking at one,
+particularly if it is printed on a single line.</p>
+<p>For this reason, our preference in this book (and often in real-life
+programming, for that matter) is to use a very similar representation using
+nested mappings (i.e. of <code>dict</code>s in Python) such that we can name children,
+values and potentially other data related to a tree node.</p>
+<p>Using maps, our example tree may look like:</p>
+  <pre><code class="language-python"><span class="token punctuation">{</span>
+    <span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'A'</span><span class="token punctuation">,</span>
+    <span class="token string">'left'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'B'</span><span class="token punctuation">,</span>
+        <span class="token string">'left'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'D'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token string">'right'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'E'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'right'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'C'</span><span class="token punctuation">,</span>
+        <span class="token string">'right'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'F'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+
+<p>In this case, each of our nodes becomes a map with at least the <code>val</code> key, and
+in some cases a <code>left</code> and/or <code>right</code> key(s).</p>
+<p>If we were dealing with a tree that is not a binary tree, we could use a
+<code>children</code> key instead:</p>
+  <pre><code class="language-python"><span class="token punctuation">{</span>
+    <span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'A'</span><span class="token punctuation">,</span>
+    <span class="token string">'children'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'B'</span><span class="token punctuation">,</span>
+            <span class="token string">'children'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'D'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'E'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'C'</span><span class="token punctuation">,</span>
+            <span class="token string">'children'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'F'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'G'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span><span class="token string">'val'</span><span class="token punctuation">:</span> <span class="token string">'H'</span><span class="token punctuation">}</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+
+<p>This is almost as compact as our list of lists representation, and significantly
+more readable, so we will continue to use this map-based representation
+throughout the book.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/parse-trees">
+            Parse Trees
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Representing a Tree
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

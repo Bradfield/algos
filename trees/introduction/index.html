@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to Trees</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357509">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Introduction to Trees
+        <select id="language-switcher"></select>
+      </h1>
+      <p>The tree is a very commonly encountered data shape that allows us to represent hierarchical relationships.</p>
+<p>It turns out that <em>many</em> of the structures we encounter when writing software are hierarchical. For instance, every file and directory within a file system is “inside” one and only one parent directory, up to the root directory. In an HTML document, every tag is inside one and only one parent tag, up to the root (<code>html</code>) tag.</p>
+<p>It also turns out that that we can use trees to implement useful data structures like maps, and to do fast searches. We will cover some of the many use cases for trees in this section, as well as exploring algorithms to traverse through trees.</p>
+<h2 id="examples-of-trees">Examples of trees</h2>
+<p>Tree data structures have many things in common with their botanical
+cousins. Both have a root, branches, and leaves. One difference is that
+we find it more intuitive to consider the root of a tree data structure
+to be at the “top”, for instance that the root of a file system is
+“above” its subdirectories.</p>
+<p>Before we begin our study of tree data structures, let’s look at a few
+common examples.</p>
+<p>Our first example of a tree is a classification tree
+from biology. The illustration below shows an example of the
+biological classification of some animals. From this simple example, we
+can learn about several properties of trees. The first property this
+example demonstrates is that trees are hierarchical. By hierarchical, we
+mean that trees are structured in layers with the more general things
+near the top and the more specific things near the bottom. The top of
+the hierarchy is the Kingdom, the next layer of the tree (the “children”
+of the layer above) is the Phylum, then the Class, and so on. However,
+no matter how deep we go in the classification tree, all the organisms
+are still animals.</p>
+<p>
+  <figure>
+    <img src="figures/biology.png" alt="Taxonomy of some common animals shown as a
+tree">
+    <figcaption>Taxonomy of some common animals shown as a
+tree</figcaption>
+  </figure></p>
+<p>Notice that you can start at the top of the tree and follow a path made
+of circles and arrows all the way to the bottom. At each level of the
+tree we might ask ourselves a question and then follow the path that
+agrees with our answer. For example we might ask, “Is this animal a
+Chordate or an Arthropod?” If the answer is “Chordate” then we follow
+that path and ask, “Is this Chordate a Mammal?” If not, we are stuck
+(but only in this simplified example). When we are at the Mammal level
+we ask, “Is this Mammal a Primate or a Carnivore?” We can keep following
+paths until we get to the very bottom of the tree where we have the
+common name.</p>
+<p>A second property of trees is that all of the children of one node are
+independent of the children of another node. For example, the Genus
+Felis has the children Domestica and Leo. The Genus Musca also has a
+child named Domestica, but it is a different node and is independent of
+the Domestica child of Felis. This means that we can change the node
+that is the child of Musca without affecting the child of Felis.</p>
+<p>A third property is that each leaf node is unique. We can specify a path
+from the root of the tree to a leaf that uniquely identifies each
+species in the animal kingdom; for example, Animalia <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span>
+Chordate <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> Mammal <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> Carnivora <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span>
+Felidae <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> Felis <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> Domestica.</p>
+<p>Another example of a tree structure that you probably use every day is a
+file system. In a file system, directories, or folders, are structured
+as a tree:</p>
+<p>
+  <figure>
+    <img src="figures/directory.png" alt="A small part of the unix file system
+hierarchy">
+    <figcaption>A small part of the unix file system
+hierarchy</figcaption>
+  </figure></p>
+<p>The file system tree has much in common with the biological
+classification tree. You can follow a path from the root to any
+directory. That path will uniquely identify that subdirectory (and all
+the files in it). Another important property of trees, derived from
+their hierarchical nature, is that you can move entire sections of a
+tree (called a <strong>subtree</strong>) to a different position in the tree without
+affecting the lower levels of the hierarchy. For example, we could take
+the entire subtree starting with /etc/, detach etc/ from the root and
+reattach it under usr/. This would change the unique pathname to httpd
+from /etc/httpd to /usr/etc/httpd, but would not affect the contents or
+any children of the httpd directory.</p>
+<p>A final example of a tree is a web page. The following is an example of
+a simple web page written using HTML.</p>
+<pre><code class="lang-html">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;simple&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;A simple web page&lt;/h1&gt;
+    &lt;ul&gt;
+        &lt;li&gt;List item one&lt;/li&gt;
+        &lt;li&gt;List item two&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h2&gt;&lt;a href=&quot;https://www.google.com&quot;&gt;Google&lt;/a&gt;&lt;h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Here is the tree that corresponds to each of the HTML tags used to
+create the page.</p>
+<p>
+  <figure>
+    <img src="figures/htmltree.png" alt="A tree corresponding to the markup elements of a web
+page">
+    <figcaption>A tree corresponding to the markup elements of a web
+page</figcaption>
+  </figure></p>
+<p>The HTML source code and the tree accompanying the source illustrate
+another hierarchy. Notice that each level of the tree corresponds to a
+level of nesting inside the HTML tags. The first tag in the source is
+<code>&lt;html&gt;</code> and the last is <code>&lt;/html&gt;</code> All the rest of the tags in the page
+are inside the pair. If you check, you will see that this nesting
+property is true at all levels of the tree.</p>
+<h2 id="definitions">Definitions</h2>
+<p>Now that we have looked at examples of trees, we will formally define a
+tree and its components.</p>
+<h3 id="node">Node</h3>
+<p>A node is a fundamental part of a tree. It can have a unique name, which we
+sometimes call the “key.” A node may also have additional information, which we
+refer to in this book as the “payload.” While the payload information is not
+central to many tree algorithms, it is often critical in applications that make
+use of trees.</p>
+<h3 id="edge">Edge</h3>
+<p>An edge is another fundamental part of a tree. An edge connects two nodes to
+show that there is a relationship between them. Every node other than the root
+is connected by exactly one incoming edge from another node. Each node may have
+several outgoing edges.</p>
+<h3 id="root">Root</h3>
+<p>The root of the tree is the only node in the tree that has no incoming edges. In
+a file system, <code>/</code> is the root of the tree. In an HTML document, the <code>&lt;html&gt;</code>
+tag is the root of the tree.</p>
+<h3 id="path">Path</h3>
+<p>A path is an ordered list of nodes that are connected by edges. For
+example, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>a</mi><mi>m</mi><mi>m</mi><mi>a</mi><mi>l</mi><mo>→</mo><mi>C</mi><mi>a</mi><mi>r</mi><mi>n</mi><mi>i</mi><mi>v</mi><mi>o</mi><mi>r</mi><mi>a</mi><mo>→</mo><mi>F</mi><mi>e</mi><mi>l</mi><mi>i</mi><mi>d</mi><mi>a</mi><mi>e</mi><mo>→</mo><mi>F</mi><mi>e</mi><mi>l</mi><mi>i</mi><mi>s</mi><mo>→</mo><mi>D</mi><mi>o</mi><mi>m</mi><mi>e</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>c</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">Mammal \rightarrow Carnivora \rightarrow Felidae \rightarrow Felis \rightarrow Domestica</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">M</span><span class="mord mathit">a</span><span class="mord mathit">m</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mrel">→</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">n</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">a</span><span class="mrel">→</span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit">d</span><span class="mord mathit">a</span><span class="mord mathit">e</span><span class="mrel">→</span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit">s</span><span class="mrel">→</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mord mathit">o</span><span class="mord mathit">m</span><span class="mord mathit">e</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">c</span><span class="mord mathit">a</span></span></span></span> is a path.</p>
+<h3 id="children">Children</h3>
+<p>The set of nodes <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">c</span></span></span></span> that have incoming edges from the same node are said
+to be the children of that node. In our file system example, nodes log/, spool/,
+and yp/ are the children of node var/.</p>
+<h3 id="parent">Parent</h3>
+<p>A node is the parent of all the nodes to which it connects with outgoing edges.
+In our file system example the node var/ is the parent of nodes log/, spool/,
+and yp/.</p>
+<h3 id="sibling">Sibling</h3>
+<p>Nodes in the tree that are children of the same parent are said to be siblings.
+The nodes etc/ and usr/ are siblings in the file system tree.</p>
+<h3 id="subtree">Subtree</h3>
+<p>A subtree is a set of nodes and edges comprised of a parent and all the
+descendants of that parent.</p>
+<h3 id="leaf-node">Leaf Node</h3>
+<p>A leaf node is a node that has no children. For example, Human and Chimpanzee
+are leaf nodes in our animal taxonomy example.</p>
+<h3 id="level">Level</h3>
+<p>The level of a node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> is the number of edges on the path from the root node
+to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>. For example, the level of the Felis node in our animal taxonomy
+example is five. By definition, the level of the root node is zero.</p>
+<h3 id="height">Height</h3>
+<p>The height of a tree is equal to the maximum level of any node in the tree. The
+height of the tree in our file system example is two.</p>
+<p>With the basic vocabulary now defined, we can move on to two formal definitions
+of a tree: one involving nodes and edges, and the other a recursive definition.</p>
+<p><em>Definition one:</em> A tree consists of a set of nodes and a set of edges
+that connect pairs of nodes. A tree has the following properties:</p>
+<ul>
+<li>One node of the tree is designated as the root node.</li>
+<li>Every node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>, except the root node, is connected by an edge from
+exactly one other node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">p</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">p</span></span></span></span> is the parent of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>.</li>
+<li>A unique path traverses from the root to each node.</li>
+<li>If each node in the tree has a maximum of two children, we say that
+the tree is a <strong>binary tree</strong>.</li>
+</ul>
+<p>The diagram below illustrates a tree that fits definition one. The arrowheads on
+the edges indicate the direction of the connection.</p>
+<p>
+  <figure>
+    <img src="figures/tree-definition.png" alt="A Tree consisting of a set of nodes and
+edges">
+    <figcaption>A Tree consisting of a set of nodes and
+edges</figcaption>
+  </figure></p>
+<p><em>Definition two:</em> A tree is either empty or consists of a root and zero
+or more subtrees, each of which is also a tree. The root of each subtree
+is connected to the root of the parent tree by an edge.</p>
+<p>The diagram below illustrates this recursive definition of a tree. Using the
+recursive definition of a tree, we know that the tree below has at least four
+nodes, since each of the triangles representing a subtree must have a root. It
+may have many more nodes than that, but we do not know unless we look deeper
+into the tree.</p>
+<p>
+  <figure>
+    <img src="figures/tree-definition-recursive.png" alt="A recursive definition of a tree">
+    <figcaption>A recursive definition of a tree</figcaption>
+  </figure></p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/representing-a-tree">
+            Representing a Tree
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                
+                Introduction to Trees
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

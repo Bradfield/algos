@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Stack Implementation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357503">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        A Stack Implementation
+        <select id="language-switcher"></select>
+      </h1>
+      <p>Now that we’ve clearly defined the stack as an abstract data type we’ll turn our attention to using Python to implement the stack. Recall that when we give an abstract data type a physical implementation we refer to the implementation as a data structure.</p>
+<p>You may be wondering if a Python <code>list</code> “is” a stack. It’s more precise to say that a Python <code>list</code> “may be used as a” stack. That is to say, the implementation of <code>list</code> in Python provides methods that allow us to achieve the behavior of the stack abstract data type, for instance <code>.append()</code> allows us to push items to our stack.</p>
+<p>In practice “use a Python list as a stack” is precisely what you’re likely to do, in other words you will define something like: <code>pancake_stack = []</code> then diligently use only the <code>append</code> and <code>pop</code> methods as well as <code>len(pancake_stack)</code> for the size, and <code>pancake_stack[-1]</code> to peek. Of course, a Python <code>list</code> permits much more than the behavior of a stack, notably accessing an item by index, and inserting and deleting items at any point by index.</p>
+<p>As such, we ought to communicate as clearly as possible our intention to use this (concrete) data structure of a <code>list</code> as an abstract data type stack. Sometimes we can achieve this simply by naming it a stack. Other times, we may want to use a class to abstract away the implementation of the stack as a list, and only provide the behaviors that we require of a stack.</p>
+<p>Such an abstraction is also illustrative of the distinction between concrete data structures and abstract data types, so we provide a possible implementation of a stack class here:</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Stack</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">is_empty</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">not</span> bool<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_items<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">push</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_items<span class="token punctuation">.</span>append<span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">pop</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_items<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">peek</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_items<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">size</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_items<span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>It’s important to note that we could’ve chosen to implement the stack using a list where the top is at the beginning instead of at the end. In this case, instead of using <code>pop</code> and <code>append</code> as above, instead we’d pop from and insert into position 0 in the list. Here’s a possible implementation of that approach:</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Stack</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">is_empty</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">not</span> bool<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_items<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">push</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>_items<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> item<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">pop</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_items<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">peek</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_items<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">size</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_items<span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>This ability to change the physical implementation of an abstract data type while maintaining the logical characteristics is an example of abstraction at work. However, even though the stack will work either way, if we consider the performance of the two implementations, there’s definitely a difference. Recall that the <code>append</code> and <code>pop()</code> operations were both <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>. This means that the first implementation will perform push and pop in constant time no matter how many items are on the stack. The performance of the second implementation suffers in that the <code>insert(0)</code> and <code>pop(0)</code> operations will both require <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> for a stack of size n. Clearly, even though the implementations are logically equivalent, they would have very different timings when performing benchmark testing.</p>
+<p>Going forward, we’ll simply use Python <code>list</code>s directly as stacks, being careful to only use the stack-like behavior of the <code>list</code>.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/stacks/balanced-parentheses">
+            Balanced Parentheses
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                A Stack Implementation
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

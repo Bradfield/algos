@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Ladders</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357485">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Word Ladders
+        <select id="language-switcher"></select>
+      </h1>
+      <p>To begin our study of graph algorithms let’s consider the following
+puzzle called a word ladder. Transform the word “FOOL” into the word
+“SAGE”. In a word ladder puzzle you must make the change occur gradually
+by changing one letter at a time. At each step you must transform one
+word into another word, you are not allowed to transform a word into a
+non-word. The word ladder puzzle was invented in 1878 by Lewis Carroll,
+the author of <em>Alice in Wonderland</em>. The following sequence of words
+shows one possible solution to the problem posed above.</p>
+<pre><code>FOOL
+POOL
+POLL
+POLE
+PALE
+SALE
+SAGE
+
+
+</code></pre><p>There are many variations of the word ladder puzzle. For example you
+might be given a particular number of steps in which to accomplish the
+transformation, or you might need to use a particular word. In this
+section we are interested in figuring out the smallest number of
+transformations needed to turn the starting word into the ending word.</p>
+<p>Not surprisingly, since this chapter is on graphs, we can solve this
+problem using a graph algorithm. Here is an outline of where we are
+going:</p>
+<ul>
+<li>Represent the relationships between the words as a graph.</li>
+<li>Use the graph algorithm known as breadth first search to find an
+efficient path from the starting word to the ending word.</li>
+</ul>
+<h2 id="building-the-word-ladder-graph">Building the Word Ladder Graph</h2>
+<p>Our first problem is to figure out how to turn a large collection of
+words into a graph. What we would like is to have an edge from one word
+to another if the two words are only different by a single letter. If we
+can create such a graph, then any path from one word to another is a
+solution to the word ladder puzzle. The illustration below shows a
+small graph of some words that solve the FOOL to SAGE word ladder
+problem. Notice that the graph is an undirected graph and that the edges
+are unweighted.</p>
+<p>
+  <figure>
+    <img src="figures/word-graph.png" alt="A small word ladder graph">
+    <figcaption>A small word ladder graph</figcaption>
+  </figure></p>
+<p>We could use several different approaches to create the graph we need to
+solve this problem. Let’s start with the assumption that we have a list
+of words that are all the same length. As a starting point, we can
+create a vertex in the graph for every word in the list. To figure out
+how to connect the words, we could compare each word in the list with
+every other. When we compare we are looking to see how many letters are
+different. If the two words in question are different by only one
+letter, we can create an edge between them in the graph. For a small set
+of words that approach would work fine; however let’s suppose we have a
+list of 5,110 words. Roughly speaking, comparing one word to every other
+word on the list is an <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> algorithm. For 5,110 words, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> is
+more than 26 million comparisons.</p>
+<p>We can do much better by using the following approach. Suppose that we
+have a huge number of buckets, each of them with a four-letter word on
+the outside, except that one of the letters in the label has been
+replaced by an underscore. For example we might have a bucket labeled
+“pop_.” As we process each word in our list we compare the word with
+each bucket, using the ‘_’ as a wildcard, so both “pope” and “pops”
+would match “pop_.” Every time we find a matching bucket, we put our
+word in that bucket. Once we have all the words in the appropriate
+buckets we know that all the words in the bucket must be connected.</p>
+<p>
+  <figure>
+    <img src="figures/word-buckets.png" alt="Word buckets for words that are different by one
+letter">
+    <figcaption>Word buckets for words that are different by one
+letter</figcaption>
+  </figure></p>
+<p>In Python, we can implement the scheme we have just described by using a
+dictionary. The labels on the buckets we have just described are the
+keys in our dictionary. The value stored for that key is a list of
+words. Once we have the dictionary built we can create the graph. We
+start our graph by creating a vertex for each word in the graph. Then we
+create edges between all the vertices we find for words found under the
+same key in the dictionary.</p>
+<p>Below is an example of Python code implementing this strategy. In this
+case, we use a dictionary mapping vertices (words) to sets of the
+vertices that can be reached by changing one letter in that word.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+<span class="token keyword">from</span> itertools <span class="token keyword">import</span> product
+<span class="token keyword">import</span> os
+
+
+<span class="token keyword">def</span> <span class="token function">build_graph</span><span class="token punctuation">(</span>words<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    buckets <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>list<span class="token punctuation">)</span>
+    graph <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> word <span class="token keyword">in</span> words<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>word<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            bucket <span class="token operator">=</span> <span class="token string">'{}_{}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>word<span class="token punctuation">[</span><span class="token punctuation">:</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> word<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            buckets<span class="token punctuation">[</span>bucket<span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span>word<span class="token punctuation">)</span>
+
+    <span class="token comment"># add vertices and edges for words in the same bucket</span>
+    <span class="token keyword">for</span> bucket<span class="token punctuation">,</span> mutual_neighbors <span class="token keyword">in</span> buckets<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> word1<span class="token punctuation">,</span> word2 <span class="token keyword">in</span> product<span class="token punctuation">(</span>mutual_neighbors<span class="token punctuation">,</span> repeat<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> word1 <span class="token operator">!=</span> word2<span class="token punctuation">:</span>
+                graph<span class="token punctuation">[</span>word1<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>word2<span class="token punctuation">)</span>
+                graph<span class="token punctuation">[</span>word2<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>word1<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> graph
+
+
+<span class="token keyword">def</span> <span class="token function">get_words</span><span class="token punctuation">(</span>vocabulary_file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> open<span class="token punctuation">(</span>vocabulary_file<span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">yield</span> line<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>  <span class="token comment"># remove newline character</span>
+
+
+vocabulary_file <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'vocabulary.txt'</span><span class="token punctuation">)</span>
+word_graph <span class="token operator">=</span> build_graph<span class="token punctuation">(</span>get_words<span class="token punctuation">(</span>vocabulary_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># word_graph['FOOL']</span>
+<span class="token comment"># set(['POOL', 'WOOL', 'FOWL', 'FOAL', 'FOUL', ... ])</span>
+</code></pre>
+
+<p>Since this is our first real-world graph problem, you might be wondering
+how sparse is the graph? The <a href="vocabulary.txt">list of four-letter words</a>
+we have for this problem is 5,110 words long. If we were to use an
+adjacency matrix, the matrix would have 5,110 * 5,110 = 26,112,100 cells.
+The graph constructed by the <code>build_graph</code> function has exactly 53,286
+edges, so the matrix would have only 0.20% of the cells filled! That is
+a very sparse matrix indeed.</p>
+<h2 id="implementing-breadth-first-search">Implementing breadth first search</h2>
+<p>With the graph constructed we can now turn our attention to the
+algorithm we will use to find the shortest solution to the word ladder
+problem. The graph algorithm we are going to use is called the “breadth
+first search” algorithm. <strong>Breadth first search</strong> (<strong>BFS</strong>) is one of
+the easiest algorithms for searching a graph. It also serves as a
+prototype for several other important graph algorithms that we will
+study later.</p>
+<p>Given a graph <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">G</span></span></span></span> and a starting vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span></span></span></span>, a breadth first search
+proceeds by exploring edges in the graph to find all the vertices in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">G</span></span></span></span>
+for which there is a path from <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span></span></span></span>. The remarkable thing about a breadth
+first search is that it finds <em>all</em> the vertices that are a distance <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>
+from <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span></span></span></span> before it finds <em>any</em> vertices that are a distance <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>. One
+good way to visualize what the breadth first search algorithm does is to
+imagine that it is building a tree, one level of the tree at a time. A
+breadth first search adds all children of the starting vertex before it
+begins to discover any of the grandchildren.</p>
+<p>The breadth first search algorithm shown below uses the adjacency
+list graph representation we developed earlier. In addition it uses a
+queue at a crucial point as we will see, to decide which vertex to explore
+next, and also to maintain a record of the depth to which we have
+traversed at any point.</p>
+<p>BFS starts by initializing a set to retain a record of which vertices
+have been visited already. Next, we initialize a queue (in this case
+utilizing the deque type from Python’s <code>collections</code> module) which will
+contain all paths from our starting vertex that we have explored as our
+algorithm progress. As such we initialize it with a list containing just
+our starting vertex.</p>
+<p>The next step is to begin to systematically grow the paths one at a
+time, starting from the path at the front of the queue, in each case
+taking one more step from the vertex last explored.</p>
+<p>Once we have popped from our queue a path to continue exploring and
+retrieved the last the vertex visited from that path, we retrieve its
+neighbors from our graph, remove those vertices that we know have
+already been visited, then for each of the remaining (unvisited)
+neighbors do two things:</p>
+<ol>
+<li>Add the vertex to <code>visited</code></li>
+<li>Add a path consisisting of the path so far plus the vertex</li>
+</ol>
+<p>Adding the new vertex effectively schedules it for
+further exploration, but not until all the other vertices on the
+adjacency list have been explored.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> deque
+
+
+<span class="token keyword">def</span> <span class="token function">traverse</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> starting_vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    queue <span class="token operator">=</span> deque<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span>starting_vertex<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">while</span> queue<span class="token punctuation">:</span>
+        path <span class="token operator">=</span> queue<span class="token punctuation">.</span>popleft<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        vertex <span class="token operator">=</span> path<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">yield</span> vertex<span class="token punctuation">,</span> path
+        <span class="token keyword">for</span> neighbor <span class="token keyword">in</span> graph<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span> <span class="token operator">-</span> visited<span class="token punctuation">:</span>
+            visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>neighbor<span class="token punctuation">)</span>
+            queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>path <span class="token operator">+</span> <span class="token punctuation">[</span>neighbor<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> vertex<span class="token punctuation">,</span> path <span class="token keyword">in</span> traverse<span class="token punctuation">(</span>word_graph<span class="token punctuation">,</span> <span class="token string">'FOOL'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> vertex <span class="token operator">==</span> <span class="token string">'SAGE'</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span> <span class="token string">' -> '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+            <span class="token comment"># FOOL -> FOOD -> FOLD -> SOLD -> SOLE -> SALE -> SAGE</span>
+</code></pre>
+
+<p>Let’s look at how the <code>traverse</code> function would construct the breadth first
+tree corresponding to the word ladder graph we considered previously.
+Starting from fool we take all nodes that are adjacent to fool and add
+them to the tree. The adjacent nodes include pool, foil, foul, and cool.
+Each of these nodes are added to the queue of new nodes to expand.
+The illustration below shows the state of the in-progress tree along
+with the queue after this step.</p>
+<p>
+  <figure>
+    <img src="figures/bfs-1.png" alt="The first step in the breadth first search">
+    <figcaption>The first step in the breadth first search</figcaption>
+  </figure></p>
+<p>In the next step <code>traverse</code> removes the next node (pool) from the front
+of the queue and repeats the process for all of its adjacent nodes.
+However, when <code>traverse</code> examines the node cool, it finds that it has
+already been visited. This implies that there is a shorter path to cool.
+The only new node added to the queue while examining pool is poll. The
+new state of the tree and queue is shown below.</p>
+<p>
+  <figure>
+    <img src="figures/bfs-2.png" alt="The second step in the breadth first search">
+    <figcaption>The second step in the breadth first search</figcaption>
+  </figure></p>
+<p>The next vertex on the queue is foil. The only new node that foil can
+add to the tree is fail. As <code>traverse</code> continues to process the queue,
+neither of the next two nodes add anything new to the queue or the tree.
+The illustration below shows the tree and the queue after expanding
+all the vertices on the second level of the tree.</p>
+<p>
+  <figure>
+    <img src="figures/bfs-3.png" alt="Breadth first search tree after completing one level">
+    <figcaption>Breadth first search tree after completing one level</figcaption>
+  </figure></p>
+<p>You should continue to work through the algorithm on your own so that
+you are comfortable with how it works. The illustration below shows the
+final breadth first search tree after all the vertices have been
+expanded.</p>
+<p>
+  <figure>
+    <img src="figures/bfs-done.png" alt="Final breadth first search tree">
+    <figcaption>Final breadth first search tree</figcaption>
+  </figure></p>
+<h2 id="breadth-first-search-analysis">Breadth First Search Analysis</h2>
+<p>Before we continue with other graph algorithms let us analyze the run
+time performance of the breadth first search algorithm. The first thing
+to observe is that the while loop is executed, at most, one time for
+each vertex in the graph <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|V|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord mathrm">∣</span></span></span></span>. You can see that this is true because a
+vertex must be white before it can be examined and added to the queue.
+This gives us <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>V</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(V)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span> for the while loop. The for loop, which is nested
+inside the while is executed at most once for each edge in the graph,
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>E</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|E|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathrm">∣</span></span></span></span>. The reason is that every vertex is dequeued at most once and we
+examine an edge from node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> to node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> only when node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> is
+dequeued. This gives us <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> for the for loop. combining the two loops
+gives us <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>V</mi><mo>+</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(V + E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>.</p>
+<p>Of course doing the breadth first search is only part of the task.
+Following the links from the starting node to the goal node is the other
+part of the task. The worst case for this would be if the graph was a
+single long chain. In this case traversing through all of the vertices
+would be <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>V</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(V)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span>. The normal case is going to be some fraction of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>V</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|V|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord mathrm">∣</span></span></span></span>
+but we would still write <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>V</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(V)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span>.</p>
+<p>Finally, at least for this problem, there is the time required to build
+the initial graph. We leave the analysis of the <code>build_graph</code> function as
+an exercise for you.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/graphs/knights-tour">
+            A Knight’s Tour
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Word Ladders
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

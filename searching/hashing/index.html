@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hashing</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357497">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Hashing
+        <select id="language-switcher"></select>
+      </h1>
+      <p>In previous sections we were able to make improvements in our search
+algorithms by taking advantage of information about where items are
+stored in the collection with respect to one another. For example, by
+knowing that a list was ordered, we could search in logarithmic time
+using a binary search. In this section we will attempt to go one step
+further by building a data structure that can be searched in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>
+time. This concept is referred to as <strong>hashing</strong>.</p>
+<p>In order to do this, we will need to know even more about where the
+items might be when we go to look for them in the collection. If every
+item is where it should be, then the search can use a single comparison
+to discover the presence of an item. We will see, however, that this is
+typically not the case.</p>
+<p>A <strong>hash table</strong> is a collection of items which are stored in such a way
+as to make it easy to find them later. Each position of the hash table,
+often called a <strong>slot</strong>, can hold an item and is named by an integer
+value starting at 0. For example, we will have a slot named 0, a slot
+named 1, a slot named 2, and so on. Initially, the hash table contains
+no items so every slot is empty. We can implement a hash table by using
+a list with each element initialized to the special Python value <code>None</code>.
+The illustration below shows a hash table of size <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>=</mo><mn>1</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">m=11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">1</span></span></span></span>. In
+other words, there are <em>m</em> slots in the table, named 0 through 10.</p>
+<p>
+  <figure>
+    <img src="figures/hash-table.png" alt="Hash table with 11 empty slots">
+    <figcaption>Hash table with 11 empty slots</figcaption>
+  </figure></p>
+<p>The mapping between an item and the slot where that item belongs in the
+hash table is called the <strong>hash function</strong>. The hash function will take
+any item in the collection and return an integer in the range of slot
+names, between 0 and <em>m</em>-1. Assume that we have the set of integer items
+54, 26, 93, 17, 77, and 31. Our first hash function, sometimes referred
+to as the “remainder method,” simply takes an item and divides it by the
+table size, returning the remainder as its hash value
+(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>(</mo><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mo>)</mo><mo>=</mo><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mi mathvariant="normal">%</mi><mn>1</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">h(item)=item \% 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">m</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">m</span><span class="mord mathrm">%</span><span class="mord mathrm">1</span><span class="mord mathrm">1</span></span></span></span>). The table below gives all of
+the hash values for our example items. Note that this remainder method
+(modulo arithmetic) will typically be present in some form in all hash
+functions, since the result must be in the range of slot names.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Hash Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>54</td>
+<td>10</td>
+</tr>
+<tr>
+<td>26</td>
+<td>4</td>
+</tr>
+<tr>
+<td>93</td>
+<td>5</td>
+</tr>
+<tr>
+<td>17</td>
+<td>6</td>
+</tr>
+<tr>
+<td>77</td>
+<td>0</td>
+</tr>
+<tr>
+<td>31</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>Once the hash values have been computed, we can insert each item into
+the hash table at the designated position as shown in the illustration below. Note that 6 of the 11 slots are now
+occupied. This is referred to as the <strong>load factor</strong>, and is commonly
+denoted by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi><mo>=</mo><mfrac><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi>o</mi><mi>f</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mi>s</mi></mrow><mrow><mi>t</mi><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\lambda = \frac {numberofitems}{tablesize}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9322159999999999em;"></span><span class="strut bottom" style="height:1.277216em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">e</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="mord mathit">e</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.44610799999999995em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">i</span><span class="mord mathit">t</span><span class="mord mathit">e</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span>. For this
+example, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi><mo>=</mo><mfrac><mrow><mn>6</mn></mrow><mrow><mn>1</mn><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\lambda = \frac {6}{11}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">6</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span>.</p>
+<p>
+  <figure>
+    <img src="figures/hash-table-2.png" alt="Hash table with six items">
+    <figcaption>Hash table with six items</figcaption>
+  </figure></p>
+<p>Now when we want to search for an item, we simply use the hash function
+to compute the slot name for the item and then check the hash table to
+see if it is present. This searching operation is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>, since a
+constant amount of time is required to compute the hash value and then
+index the hash table at that location. If everything is where it should
+be, we have found a constant time search algorithm.</p>
+<p>You can probably already see that this technique is going to work only
+if each item maps to a unique location in the hash table. For example,
+if the item 44 had been the next item in our collection, it would have a
+hash value of 0 (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mn>4</mn><mi mathvariant="normal">%</mi><mn>1</mn><mn>1</mn><mo>=</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">44 \% 11 == 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mord mathrm">4</span><span class="mord mathrm">%</span><span class="mord mathrm">1</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span>). Since 77 also had a hash value of 0,
+we would have a problem. According to the hash function, two or more
+items would need to be in the same slot. This is referred to as a
+<strong>collision</strong>. Clearly, collisions
+create a problem for the hashing technique. We will discuss them in
+detail later.</p>
+<h2 id="hash-functions">Hash Functions</h2>
+<p>Given a collection of items, a hash function that maps each item into a
+unique slot is referred to as a <strong>perfect hash function</strong>. If we know
+the items and the collection will never change, then it is possible to
+construct a perfect hash function (refer to the exercises for more about
+perfect hash functions). Unfortunately, given an arbitrary collection of
+items, there is no systematic way to construct a perfect hash function.
+Luckily, we do not need the hash function to be perfect to still gain
+performance efficiency.</p>
+<p>One way to always have a perfect hash function is to increase the size
+of the hash table so that each possible value in the item range can be
+accommodated. This guarantees that each item will have a unique slot.
+Although this is practical for small numbers of items, it is not
+feasible when the number of possible items is large. For example, if the
+items were nine-digit Social Security numbers, this method would require
+almost one billion slots. If we only want to store data for a class of
+25 students, we will be wasting an enormous amount of memory.</p>
+<p>Our goal is to create a hash function that minimizes the number of
+collisions, is easy to compute, and evenly distributes the items in the
+hash table. There are a number of common ways to extend the simple
+remainder method. We will consider a few of them here.</p>
+<p>The <strong>folding method</strong> for constructing hash functions begins by
+dividing the item into equal-size pieces (the last piece may not be of
+equal size). These pieces are then added together to give the resulting
+hash value. For example, if our item was the phone number 436-555-4601,
+we would take the digits and divide them into groups of 2
+(43,65,55,46,01). After the addition, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mn>3</mn><mo>+</mo><mn>6</mn><mn>5</mn><mo>+</mo><mn>5</mn><mn>5</mn><mo>+</mo><mn>4</mn><mn>6</mn><mo>+</mo><mn>0</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">43+65+55+46+01</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mord mathrm">6</span><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">5</span><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">4</span><span class="mord mathrm">6</span><span class="mbin">+</span><span class="mord mathrm">0</span><span class="mord mathrm">1</span></span></span></span>, we get 210. If
+we assume our hash table has 11 slots, then we need to perform the extra
+step of dividing by 11 and keeping the remainder. In this case
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>1</mn><mn>0</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mn>1</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">210\ \%\ 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mspace"> </span><span class="mord mathrm">%</span><span class="mord mspace"> </span><span class="mord mathrm">1</span><span class="mord mathrm">1</span></span></span></span> is 1, so the phone number 436-555-4601 hashes to slot 1.
+Some folding methods go one step further and reverse every other piece
+before the addition. For the above example, we get
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mn>3</mn><mo>+</mo><mn>5</mn><mn>6</mn><mo>+</mo><mn>5</mn><mn>5</mn><mo>+</mo><mn>6</mn><mn>4</mn><mo>+</mo><mn>0</mn><mn>1</mn><mo>=</mo><mn>2</mn><mn>1</mn><mn>9</mn></mrow><annotation encoding="application/x-tex">43+56+55+64+01 = 219</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mord mathrm">5</span><span class="mord mathrm">6</span><span class="mbin">+</span><span class="mord mathrm">5</span><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">6</span><span class="mord mathrm">4</span><span class="mbin">+</span><span class="mord mathrm">0</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">2</span><span class="mord mathrm">1</span><span class="mord mathrm">9</span></span></span></span> which gives <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>1</mn><mn>9</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mn>1</mn><mn>1</mn><mo>=</mo><mn>1</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">219\ \%\ 11 = 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">1</span><span class="mord mathrm">9</span><span class="mord mspace"> </span><span class="mord mathrm">%</span><span class="mord mspace"> </span><span class="mord mathrm">1</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span></span></span></span>.</p>
+<p>Another numerical technique for constructing a hash function is called
+the <strong>mid-square method</strong>. We first square the item, and then extract
+some portion of the resulting digits. For example, if the item were 44,
+we would first compute <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><msup><mn>4</mn><mrow><mn>2</mn></mrow></msup><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mn>9</mn><mn>3</mn><mn>6</mn></mrow><annotation encoding="application/x-tex">44 ^{2} = 1,936</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span><span class="mord"><span class="mord mathrm">4</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">9</span><span class="mord mathrm">3</span><span class="mord mathrm">6</span></span></span></span>. By extracting the middle two
+digits, 93, and performing the remainder step, we get 5 (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>9</mn><mn>3</mn><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mn>1</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">93\ \%\ 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">9</span><span class="mord mathrm">3</span><span class="mord mspace"> </span><span class="mord mathrm">%</span><span class="mord mspace"> </span><span class="mord mathrm">1</span><span class="mord mathrm">1</span></span></span></span>).
+The table below shows items under both the remainder
+method and the mid-square method. You should verify that you understand
+how these values were computed.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Remainder</th>
+<th>Mid-Square</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>54</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr>
+<td>26</td>
+<td>4</td>
+<td>7</td>
+</tr>
+<tr>
+<td>93</td>
+<td>5</td>
+<td>9</td>
+</tr>
+<tr>
+<td>17</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr>
+<td>77</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>31</td>
+<td>9</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>We can also create hash functions for character-based items such as
+strings. The word “cat” can be thought of as a sequence of ordinal
+values.</p>
+  <pre><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> ord<span class="token punctuation">(</span><span class="token string">'c'</span><span class="token punctuation">)</span>
+<span class="token number">99</span>
+<span class="token operator">>></span><span class="token operator">></span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span>
+<span class="token number">97</span>
+<span class="token operator">>></span><span class="token operator">></span> ord<span class="token punctuation">(</span><span class="token string">'t'</span><span class="token punctuation">)</span>
+<span class="token number">116</span>
+</code></pre>
+
+
+<p>We can then take these three ordinal values, add them up, and use the
+remainder method to get a hash value.</p>
+<p>
+  <figure>
+    <img src="figures/string-hash.png" alt="Hashing a string using ordinal values">
+    <figcaption>Hashing a string using ordinal values</figcaption>
+  </figure></p>
+<p>Below is a function called <code>hash</code> that takes a string and a table size and
+returns the hash value in the range from 0 to <code>tablesize - 1</code>.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">hash</span><span class="token punctuation">(</span>astring<span class="token punctuation">,</span> tablesize<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    the_sum <span class="token operator">=</span> sum<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>char<span class="token punctuation">)</span> <span class="token keyword">for</span> char <span class="token keyword">in</span> astring<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> the_sum <span class="token operator">%</span> tablesize
+</code></pre>
+
+
+<p>It is interesting to note that when using this hash function, anagrams
+will always be given the same hash value. To remedy this, we could use
+the position of the character as a weight.
+The illustration below shows one possible way to use the
+positional value as a weighting factor. The modification to the <code>hash</code>
+function is left as an exercise.</p>
+<p>
+  <figure>
+    <img src="figures/string-hash-2.png" alt="Hashing a String Using Ordinal Values with
+Weighting">
+    <figcaption>Hashing a String Using Ordinal Values with
+Weighting</figcaption>
+  </figure></p>
+<p>You may be able to think of a number of additional ways to compute hash
+values for items in a collection. The important thing to remember is
+that the hash function has to be efficient so that it does not become
+the dominant part of the storage and search process. If the hash
+function is too complex, then it becomes more work to compute the slot
+name than it would be to simply do a basic sequential or binary search
+as described earlier. This would quickly defeat the purpose of hashing.</p>
+<h2 id="collision-resolution">Collision Resolution</h2>
+<p>We now return to the problem of collisions. When two items hash to the
+same slot, we must have a systematic method for placing the second item
+in the hash table. This process is called <strong>collision resolution</strong>. As
+we stated earlier, if the hash function is perfect, collisions will
+never occur. However, since this is often not possible, collision
+resolution becomes a very important part of hashing.</p>
+<p>One method for resolving collisions looks into the hash table and tries
+to find another open slot to hold the item that caused the collision. A
+simple way to do this is to start at the original hash value position
+and then move in a sequential manner through the slots until we
+encounter the first slot that is empty. Note that we may need to go back
+to the first slot (circularly) to cover the entire hash table. This
+collision resolution process is referred to as <strong>open addressing</strong> in
+that it tries to find the next open slot or address in the hash table.
+By systematically visiting each slot one at a time, we are performing an
+open addressing technique called <strong>linear probing</strong>.</p>
+<p>The illustration below shows an extended set of integer
+items under the simple remainder method hash function
+(54, 26, 93, 17, 77, 31, 44, 55, 20). When we
+attempt to place 44 into slot 0, a collision occurs. Under linear
+probing, we look sequentially, slot by slot, until we find an open
+position. In this case, we find slot 1.</p>
+<p>Again, 55 should go in slot 0 but must be placed in slot 2 since it is
+the next open position. The final value of 20 hashes to slot 9. Since
+slot 9 is full, we begin to do linear probing. We visit slots 10, 0, 1,
+and 2, and finally find an empty slot at position 3.</p>
+<p>
+  <figure>
+    <img src="figures/linear-probing-1.png" alt="Collision resolution with linear probing">
+    <figcaption>Collision resolution with linear probing</figcaption>
+  </figure></p>
+<p>Once we have built a hash table using open addressing and linear
+probing, it is essential that we utilize the same methods to search for
+items. Assume we want to look up the item 93. When we compute the hash
+value, we get 5. Looking in slot 5 reveals 93, and we can return <code>True</code>.
+What if we are looking for 20? Now the hash value is 9, and slot 9 is
+currently holding 31. We cannot simply return <code>False</code> since we know that
+there could have been collisions. We are now forced to do a sequential
+search, starting at position 10, looking until either we find the item
+20 or we find an empty slot.</p>
+<p>A disadvantage to linear probing is the tendency for <strong>clustering</strong>;
+items become clustered in the table. This means that if many collisions
+occur at the same hash value, a number of surrounding slots will be
+filled by the linear probing resolution. This will have an impact on
+other items that are being inserted, as we saw when we tried to add the
+item 20 above. A cluster of values hashing to 0 had to be skipped to
+finally find an open position. This cluster is shown below.</p>
+<p>
+  <figure>
+    <img src="figures/clustering.png" alt="A cluster of items for slot 0">
+    <figcaption>A cluster of items for slot 0</figcaption>
+  </figure></p>
+<p>One way to deal with clustering is to extend the linear probing
+technique so that instead of looking sequentially for the next open
+slot, we skip slots, thereby more evenly distributing the items that
+have caused collisions. This will potentially reduce the clustering that
+occurs. The illustration below shows the items when collision resolution
+is done with a “plus 3” probe. This means that once a collision occurs,
+we will look at every third slot until we find one that is empty.</p>
+<p>
+  <figure>
+    <img src="figures/linear-probing-2.png" alt="Collision resolution using “plus 3”">
+    <figcaption>Collision resolution using “plus 3”</figcaption>
+  </figure></p>
+<p>The general name for this process of looking for another slot after a
+collision is <strong>rehashing</strong>. With simple linear probing, the rehash
+function is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>=</mo><mi>r</mi><mi>e</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">newhashvalue = rehash(oldhashvalue)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit">h</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">u</span><span class="mord mathit">e</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">h</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mopen">(</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit">h</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">u</span><span class="mord mathit">e</span><span class="mclose">)</span></span></span></span> where
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi mathvariant="normal">%</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">rehash(pos) = (pos + 1) \% sizeoftable</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">h</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mclose">)</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mord mathrm">%</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="mord mathit">e</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">e</span></span></span></span>. The “plus 3” rehash can be
+defined as <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>+</mo><mn>3</mn><mo>)</mo><mi mathvariant="normal">%</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">rehash(pos) = (pos+3) \% sizeoftable</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">h</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mclose">)</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mbin">+</span><span class="mord mathrm">3</span><span class="mclose">)</span><span class="mord mathrm">%</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="mord mathit">e</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">e</span></span></span></span>. In general,
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mo>(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>+</mo><mi>s</mi><mi>k</mi><mi>i</mi><mi>p</mi><mo>)</mo><mi mathvariant="normal">%</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">rehash(pos) = (pos + skip) \% sizeoftable</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">h</span><span class="mord mathit">a</span><span class="mord mathit">s</span><span class="mord mathit">h</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mclose">)</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mbin">+</span><span class="mord mathit">s</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mord mathit">i</span><span class="mord mathit">p</span><span class="mclose">)</span><span class="mord mathrm">%</span><span class="mord mathit">s</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="mord mathit">e</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">e</span></span></span></span>. It is important to note
+that the size of the “skip” must be such that all the slots in the table
+will eventually be visited. Otherwise, part of the table will be unused.
+To ensure this, it is often suggested that the table size be a prime
+number. This is the reason we have been using 11 in our examples.</p>
+<p>A variation of the linear probing idea is called <strong>quadratic probing</strong>.
+Instead of using a constant “skip” value, we use a rehash function that
+increments the hash value by 1, 3, 5, 7, 9, and so on. This means that
+if the first hash value is <em>h</em>, the successive values are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">h+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>+</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">h+4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">4</span></span></span></span>,
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>+</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">h+9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">9</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>+</mo><mn>1</mn><mn>6</mn></mrow><annotation encoding="application/x-tex">h+16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mord mathrm">6</span></span></span></span>, and so on. In other words, quadratic probing uses a skip
+consisting of successive perfect squares.
+The illustration below shows our example values after they are
+placed using this technique.</p>
+<p>
+  <figure>
+    <img src="figures/quadratic.png" alt="Collision resolution with quadratic probing">
+    <figcaption>Collision resolution with quadratic probing</figcaption>
+  </figure></p>
+<p>An alternative method for handling the collision problem is to allow
+each slot to hold a reference to a collection (or chain) of items.
+<strong>Chaining</strong> allows many items to exist at the same location in the hash
+table. When collisions happen, the item is still placed in the proper
+slot of the hash table. As more and more items hash to the same
+location, the difficulty of searching for the item in the collection
+increases. The illustration below shows the items as they are
+added to a hash table that uses chaining to resolve collisions.</p>
+<p>
+  <figure>
+    <img src="figures/chaining.png" alt="Collision resolution with chaining">
+    <figcaption>Collision resolution with chaining</figcaption>
+  </figure></p>
+<p>When we want to search for an item, we use the hash function to generate
+the slot where it should reside. Since each slot holds a collection, we
+use a searching technique to decide whether the item is present. The
+advantage is that on the average there are likely to be many fewer items
+in each slot, so the search is perhaps more efficient.</p>
+<h2 id="analysis-of-hashing">Analysis of Hashing</h2>
+<p>We stated earlier that in the best case hashing would provide a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>,
+constant time search technique. However, due to collisions, the number
+of comparisons is typically not so simple. Even though a complete
+analysis of hashing is beyond the scope of this text, we can state some
+well-known results that approximate the number of comparisons necessary
+to search for an item.</p>
+<p>The most important piece of information we need to analyze the use of a
+hash table is the load factor, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span></span></span></span>. Conceptually, if <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span></span></span></span> is
+small, then there is a lower chance of collisions, meaning that items
+are more likely to be in the slots where they belong. If <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span></span></span></span> is
+large, meaning that the table is filling up, then there are more and
+more collisions. This means that collision resolution is more difficult,
+requiring more comparisons to find an empty slot. With chaining,
+increased collisions means an increased number of items on each chain.</p>
+<p>As before, we will have a result for both a successful and an
+unsuccessful search. For a successful search using open addressing with
+linear probing, the average number of comparisons is approximately
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mrow><mo fence="true">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>1</mn><mo>−</mo><mi>λ</mi></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\frac{1}{2}\left(1+\frac{1}{1-\lambda}\right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.85em;"></span><span class="strut bottom" style="height:1.253331em;vertical-align:-0.403331em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span><span class="mbin">−</span><span class="mord mathit">λ</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span> and an unsuccessful
+search gives
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mrow><mo fence="true">(</mo><mn>1</mn><mo>+</mo><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>1</mn><mo>−</mo><mi>λ</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\frac{1}{2}\left(1+\left(\frac{1}{1-\lambda}\right)^2\right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9151079999999999em;"></span><span class="strut bottom" style="height:1.318439em;vertical-align:-0.403331em;"></span><span class="base textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="minner"><span class="minner textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">1</span><span class="mbin">−</span><span class="mord mathit">λ</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="vlist"><span style="top:-0.46399999999999997em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="style-wrap reset-textstyle textstyle uncramped" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span> If we are
+using chaining, the average number of comparisons is
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mfrac><mrow><mi>λ</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">1 + \frac {\lambda}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8801079999999999em;"></span><span class="strut bottom" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">λ</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span> for the successful case, and simply <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span></span></span></span>
+comparisons if the search is unsuccessful.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/introduction">
+            Introduction to Trees
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Hashing
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

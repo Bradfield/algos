@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to Stacks</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357505">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Introduction to Stacks
+        <select id="language-switcher"></select>
+      </h1>
+      <p>Stacks, queues, deques, and lists are data collections with items ordered according to how they are added or removed. Once an item is added, it stays in the same position relative to its neighbors. Because of this characteristic, we call these collections <em>linear data structures</em>.</p>
+<p>Linear structures can be thought of as having two ends, referred to variously as “left” and “right”, “top” and “bottom”, or “front” and “rear”. What distinguishes one linear structure from another is where additions and removals may occur. For example, a structure might only allow new items to be added at one end and removed at another; another may allow addition or removal from either end.</p>
+<p>These variations give rise to some of the most useful data structures in computer science. They appear in many algorithms and can be used to solve a variety of important problems.</p>
+<h2 id="stacks">Stacks</h2>
+<p>A <em>stack</em> is an ordered collection of items where the addition of new items and the removal of existing items always takes place at the same end. This end is commonly referred to as the “top”, and the opposite end is known as the “base”.</p>
+<p>Items that are closer to the base have been in the stack the longest. The most recently added item is always on the top of the stack and thus will be removed first. The stack provides an ordering based on length of time in the collection; the “age” of any given item increases as you move from top to base.</p>
+<p>There are many examples of stacks in everyday situations. Consider a stack of plates on a table, where it’s only possible to add or remove plates to or from the top. Or imagine a stack of books on a desk. The only book whose cover is visible is the one on top. To access the others, we must first remove the ones sitting on top of them.</p>
+<p>
+  <figure>
+    <img src="figures/bookstack2.png" alt="A stack of books">
+    <figcaption>A stack of books</figcaption>
+  </figure></p>
+<p>Here’s another stack containing a number of primitive Python data objects:</p>
+<p>
+  <figure>
+    <img src="figures/primitive.png" alt="A stack of primitive Python objects">
+    <figcaption>A stack of primitive Python objects</figcaption>
+  </figure></p>
+<p>One of the most useful features of stacks comes from the observation that the insertion order is the reverse of the removal order.</p>
+<p>Starting with a clean desk, place books on top of each other one at a time and consider what happens when you begin removing books: the order that they’re removed is exactly the reverse of the order that they were placed. This ability to reverse the order of items is what makes stacks so important.</p>
+<p>Below we show the Python object stack during insertion and removal. Note the objects’ order.</p>
+<p>
+  <figure>
+    <img src="figures/simple-reversal.png" alt="The reversal property of stacks">
+    <figcaption>The reversal property of stacks</figcaption>
+  </figure></p>
+<p>Considering this reversal property, perhaps you can think of stack examples that occur while using your computer. For example, every web browser has a “Back” button. As you navigate from page to page, the URLs of those pages are placed on a stack. The page you’re currently viewing is on the top, and the first page you looked at is at the base. Clicking on the Back button moves you in reverse order through the stack of pages.</p>
+<h2 id="the-stack-abstract-data-type">The Stack Abstract Data Type</h2>
+<p>An <em>abstract data type</em>, sometimes abbreviated <em>ADT</em>, is a logical description of how we view the data and the allowed operations without regard to how they’ll be implemented. This means that we’re only concerned with what the data represents and not with how it’ll be constructed. This level of abstraction <em>encapsulates</em> the data and hides implementation details from the user&#39;s view, a technique called <em>information hiding</em>.</p>
+<p>A <em>data structure</em> is an implementation of an abstract data type and requires a physical view of the data using some collection of primitive data types and other programming constructs.</p>
+<p>The separation of these two perspectives allows us to define complex data models for our problems without giving any details about how the model will actually be built. This provides an <em>implementation-independent</em> view of the data. Since there are usually many ways to implement an abstract data type, this independence allows the programmer to change implementation details without changing how the user interacts with it. Instead, the user can remain focused on the process of problem-solving.</p>
+<p>The stack abstract data type is an ordered collection of items where items are added to and removed from the top. The interface for a stack is:</p>
+<ul>
+<li><code>Stack()</code> creates a new, empty stack</li>
+<li><code>push(item)</code> adds the given item to the top of the stack and returns nothing</li>
+<li><code>pop()</code> removes and returns the top item from the stack</li>
+<li><code>peek()</code> returns the top item from the stack but doesn’t remove it (the stack isn’t modified)</li>
+<li><code>is_empty()</code> returns a boolean representing whether the stack is empty</li>
+<li><code>size()</code> returns the number of items on the stack as an integer</li>
+</ul>
+<p>For example, if <code>s</code> is a newly-created, empty stack, then the table below shows the results of a sequence of stack operations. The top item is the one farthest to the right in “Stack contents”.</p>
+<table>
+<thead>
+<tr>
+<th>Stack operation</th>
+<th>Stack contents</th>
+<th>Return value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s.is_empty()</code></td>
+<td><code>[]</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>s.push(4)</code></td>
+<td><code>[4]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>s.push(&#39;dog&#39;)</code></td>
+<td><code>[4, &#39;dog&#39;]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>s.peek()</code></td>
+<td><code>[4, &#39;dog&#39;]</code></td>
+<td><code>&#39;dog&#39;</code></td>
+</tr>
+<tr>
+<td><code>s.push(True)</code></td>
+<td><code>[4, &#39;dog&#39;, True]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>s.size()</code></td>
+<td><code>[4, &#39;dog&#39;, True]</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>s.is_empty()</code></td>
+<td><code>[4, &#39;dog&#39;, True]</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>s.push(8.4)</code></td>
+<td><code>[4, &#39;dog&#39;, True, 8.4]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>s.pop()</code></td>
+<td><code>[4, &#39;dog&#39;, True]</code></td>
+<td><code>8.4</code></td>
+</tr>
+<tr>
+<td><code>s.pop()</code></td>
+<td><code>[4, &#39;dog&#39;]</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>s.size()</code></td>
+<td><code>[4, &#39;dog&#39;]</code></td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/stacks/implementation">
+            A Stack Implementation
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                
+                Introduction to Stacks
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

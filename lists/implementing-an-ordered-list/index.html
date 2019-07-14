@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Implementing an Ordered List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357486">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Implementing an Ordered List
+        <select id="language-switcher"></select>
+      </h1>
+      <p>In order to implement the ordered list, we must remember that the relative
+positions of the items are based on some underlying characteristic. The
+ordered list of integers given above (17, 26, 31, 54, 77, and 93) can be
+represented by a linked structure as shown below. Again, the node and link
+structure is ideal for representing the relative positioning of the items.</p>
+<p>
+  <figure>
+    <img src="figures/ordered-list.png" alt="An ordered linked list">
+    <figcaption>An ordered linked list</figcaption>
+  </figure></p>
+<p>To implement the <code>OrderedList</code> class, we will use the same technique as
+seen previously with unordered lists. We will subclass <code>UnorderedList</code> and
+leave the <code>__init__</code> method intact as once again, an empty list will be
+denoted by a <code>head</code> reference to <code>None</code>.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> unordered_list <span class="token keyword">import</span> Node<span class="token punctuation">,</span> UnorderedList
+
+
+<span class="token keyword">class</span> <span class="token class-name">OrderedList</span><span class="token punctuation">(</span>UnorderedList<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    </code></pre>
+
+
+<p>As we consider the operations for the ordered list, we should note that
+the <code>is_empty</code> and <code>size</code> methods can be implemented the same as with
+unordered lists since they deal only with the number of nodes in the
+list without regard to the actual item values. Likewise, the <code>remove</code>
+method will work just fine since we still need to find the item and then
+link around the node to remove it. The two remaining methods, <code>search</code>
+and <code>add</code>, will require some modification.</p>
+<p>The search of an unordered linked list required that we traverse the
+nodes one at a time until we either find the item we are looking for or
+run out of nodes (<code>None</code>). It turns out that the same approach would
+actually work with the ordered list and in fact in the case where we
+find the item it is exactly what we need. However, in the case where the
+item is not in the list, we can take advantage of the ordering to stop
+the search as soon as possible.</p>
+<p>For example, the diagram below shows the ordered linked
+list as a search is looking for the value 45. As we traverse, starting
+at the head of the list, we first compare against 17. Since 17 is not
+the item we are looking for, we move to the next node, in this case 26.
+Again, this is not what we want, so we move on to 31 and then on to 54.
+Now, at this point, something is different. Since 54 is not the item we
+are looking for, our former strategy would be to move forward. However,
+due to the fact that this is an ordered list, that will not be
+necessary. Once the value in the node becomes greater than the item we
+are searching for, the search can stop and return <code>False</code>. There is no
+way the item could exist further out in the linked list.</p>
+<p>
+  <figure>
+    <img src="figures/ordered-list-search.png" alt="Searching an ordered linked
+list">
+    <figcaption>Searching an ordered linked
+list</figcaption>
+  </figure></p>
+<p>Below we provide an adaptation of the <code>search</code> method from our <code>UnorderedList</code>
+class to take advantage of this optimization.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">search</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        current <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+
+        <span class="token keyword">while</span> current <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> current<span class="token punctuation">.</span>value <span class="token operator">==</span> item<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">True</span>
+            <span class="token keyword">if</span> current<span class="token punctuation">.</span>value <span class="token operator">></span> item<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">False</span>
+            current <span class="token operator">=</span> current<span class="token punctuation">.</span>next
+
+        <span class="token keyword">return</span> <span class="token boolean">False</span>
+    </code></pre>
+
+<p>The most significant method modification will take place in <code>add</code>.
+Recall that for unordered lists, the <code>add</code> method could simply place a
+new node at the head of the list. It was the easiest point of access.
+Unfortunately, this will no longer work with ordered lists. It is now
+necessary that we discover the specific place where a new item belongs
+in the existing ordered list.</p>
+<p>Assume we have the ordered list consisting of 17, 26, 54, 77, and 93 and
+we want to add the value 31. The <code>add</code> method must decide that the new
+item belongs between 26 and 54. Below we show
+the setup that we need. As we explained earlier, we need to traverse the
+linked list looking for the place where the new node will be added. We
+know we have found that place when either we run out of nodes (<code>current</code>
+becomes <code>None</code>) or the value of the current node becomes greater than
+the item we wish to add. In our example, seeing the value 54 causes us
+to stop.</p>
+<p>
+  <figure>
+    <img src="figures/ordered-list-insert.png" alt="Adding an item to an ordered linked
+list">
+    <figcaption>Adding an item to an ordered linked
+list</figcaption>
+  </figure></p>
+<p>As we saw with unordered lists, it is necessary to have an additional
+reference, again called <code>previous</code>, since <code>current</code> will not provide
+access to the node that must be modified.</p>
+<p>Once we have identified the position at which to add our new node, we
+construct it and place it correctly, either as the new head of the node (if
+<code>previous</code> is <code>None</code>) or between <code>previous</code> and <code>current</code> otherwise.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        current <span class="token operator">=</span> self<span class="token punctuation">.</span>head
+        previous <span class="token operator">=</span> None
+
+        <span class="token keyword">while</span> current <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> current<span class="token punctuation">.</span>value <span class="token operator">></span> item<span class="token punctuation">:</span>
+                <span class="token keyword">break</span>
+            previous<span class="token punctuation">,</span> current <span class="token operator">=</span> current<span class="token punctuation">,</span> current<span class="token punctuation">.</span>next
+
+        temp <span class="token operator">=</span> Node<span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> previous <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            temp<span class="token punctuation">.</span>next<span class="token punctuation">,</span> self<span class="token punctuation">.</span>head <span class="token operator">=</span> self<span class="token punctuation">.</span>head<span class="token punctuation">,</span> temp
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            temp<span class="token punctuation">.</span>next<span class="token punctuation">,</span> previous<span class="token punctuation">.</span>next <span class="token operator">=</span> current<span class="token punctuation">,</span> temp
+</code></pre>
+
+<p>We leave the remaining methods as exercises. You should
+carefully consider whether the unordered implementations will work given
+that the list is now ordered.</p>
+<h2 id="analysis-of-linked-lists">Analysis of Linked Lists</h2>
+<p>To analyze the complexity of the linked list operations, we need to
+consider whether they require traversal. Consider a linked list that has
+<em>n</em> nodes. The <code>is_empty</code> method is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> since it requires one step to
+check the head reference for <code>None</code>. <code>size</code>, on the other hand, will
+always require <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> steps since there is no way to know how many nodes
+are in the linked list without traversing from head to end. Therefore,
+<code>length</code> is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>. Adding an item to an unordered list will always be
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> since we simply place the new node at the head of the linked list.
+However, <code>search</code> and <code>remove</code>, as well as <code>add</code> for an ordered list,
+all require the traversal process. Although on average they may need to
+traverse only half of the nodes, these methods are all <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> since in
+the worst case each will process every node in the list.</p>
+<p>You may also have noticed that the performance of this implementation
+differs from the actual performance given earlier for Python lists. This
+suggests that linked lists are not the way Python lists are implemented.
+The actual implementation of a Python list is based on the notion of an
+array. We discuss this in depth later.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/recursion/introduction">
+            Introduction to Recursion
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Implementing an Ordered List
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

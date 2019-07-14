@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AVL Trees</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357506">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        AVL Trees
+        <select id="language-switcher"></select>
+      </h1>
+      <p>In the previous section we looked at building a binary search tree. As
+we learned, the performance of the binary search tree can degrade to
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> for operations like <code>get</code> and <code>put</code> when the tree becomes
+unbalanced. In this section we will look at a special kind of binary
+search tree that automatically makes sure that the tree remains balanced
+at all times. This tree is called an <strong>AVL tree</strong> after its
+inventors: G.M. Adelson-Velskii and E.M. Landis. We have decided to focus on AVL trees as an example of self-balancing binary search trees, but there are many others such as the popular <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">red-black tree</a>.</p>
+<p>An AVL tree implements the Map abstract data type just like a regular
+binary search tree, the only difference is in how the tree performs. To
+implement our AVL tree we need to keep track of a <strong>balance factor</strong> for
+each node in the tree. We do this by looking at the heights of the left
+and right subtrees for each node. More formally, we define the balance
+factor for a node as the difference between the height of the left
+subtree and the height of the right subtree.</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mi>a</mi><mi>l</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mi>F</mi><mi>a</mi><mi>c</mi><mi>t</mi><mi>o</mi><mi>r</mi><mo>=</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>(</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi>S</mi><mi>u</mi><mi>b</mi><mi>T</mi><mi>r</mi><mi>e</mi><mi>e</mi><mo>)</mo><mo>−</mo><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>(</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mi>S</mi><mi>u</mi><mi>b</mi><mi>T</mi><mi>r</mi><mi>e</mi><mi>e</mi><mo>)</mo></mrow><annotation encoding="application/x-tex"> balanceFactor = height(leftSubTree) - height(rightSubTree) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">b</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">a</span><span class="mord mathit">n</span><span class="mord mathit">c</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit">a</span><span class="mord mathit">c</span><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mrel">=</span><span class="mord mathit">h</span><span class="mord mathit">e</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">h</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">e</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">h</span><span class="mord mathit">e</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">h</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">h</span><span class="mord mathit">t</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mord mathit">u</span><span class="mord mathit">b</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">e</span><span class="mclose">)</span></span></span></span></div>
+Using the definition for balance factor given above we say that a
+subtree is left-heavy if the balance factor is greater than zero. If the
+balance factor is less than zero then the subtree is right heavy. If the
+balance factor is zero then the tree is perfectly in balance. For
+purposes of implementing an AVL tree, and gaining the benefit of having
+a balanced tree we will define a tree to be in balance if the balance
+factor is -1, 0, or 1. Once the balance factor of a node in a tree is
+outside this range we will need to have a procedure to bring the tree
+back into balance. The illustration below shows an example of an
+unbalanced, right-heavy tree and the balance factors of each node.</p>
+<p>
+  <figure>
+    <img src="figures/unbalanced.png" alt="An unbalanced right-heavy tree with balance factors">
+    <figcaption>An unbalanced right-heavy tree with balance factors</figcaption>
+  </figure></p>
+<p>Before we proceed any further let’s look at the result of enforcing this
+new balance factor requirement. Our claim is that by ensuring that a
+tree always has a balance factor of -1, 0, or 1 we can get better big O
+performance of key operations. Let us start by thinking about how this
+balance condition changes the worst-case tree. There are two
+possibilities to consider, a left-heavy tree and a right heavy tree. If
+we consider trees of heights 0, 1, 2, and 3,
+The diagram below illustrates the most unbalanced
+left-heavy tree possible under the new rules.</p>
+<p>
+  <figure>
+    <img src="figures/worst-case-AVL.png" alt="Worst-case left-heavy AVL trees">
+    <figcaption>Worst-case left-heavy AVL trees</figcaption>
+  </figure></p>
+<p>Looking at the total number of nodes in the tree we see that for a tree
+of height 0 there is 1 node, for a tree of height 1 there is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1+1
+= 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mrel">=</span><span class="mord mathrm">2</span></span></span></span> nodes, for a tree of height 2 there are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1+1+2 = 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mrel">=</span><span class="mord mathrm">4</span></span></span></span> and for a tree
+of height 3 there are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>4</mn><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">1 + 2 + 4 = 7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mbin">+</span><span class="mord mathrm">4</span><span class="mrel">=</span><span class="mord mathrm">7</span></span></span></span>. More generally the pattern we see
+for the number of nodes in a tree of height h (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">N_h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>) is:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><msub><mi>N</mi><mrow><mi>h</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>N</mi><mrow><mi>h</mi><mo>−</mo><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex"> N_h = 1 + N_{h-1} + N_{h-2} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">h</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">h</span><span class="mbin">−</span><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></div>
+This recurrence may look familiar to you because it is very similar to
+the Fibonacci sequence. We can use this fact to derive a formula for the
+height of an AVL tree given the number of nodes in the tree. Recall that
+for the Fibonacci sequence the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>i</mi><mrow><mi>t</mi><mi>h</mi></mrow></msub></mrow><annotation encoding="application/x-tex">i_{th}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">t</span><span class="mord mathit">h</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> Fibonacci number is given by:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex"> F_0 = 0 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">0</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex"> F_1 = 1 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>i</mi></msub><mo>=</mo><msub><mi>F</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>F</mi><mrow><mi>i</mi><mo>−</mo><mn>2</mn></mrow></msub><mtext><mtext> </mtext><mi mathvariant="normal">f</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mtext> </mtext><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">l</mi><mtext> </mtext></mtext><mi>i</mi><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex"> F_i = F_{i-1} + F_{i-2}  \text{ for all } i \ge 2 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mbin">−</span><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="text mord textstyle uncramped"><span class="mord mspace"> </span><span class="mord mathrm" style="margin-right:0.07778em;">f</span><span class="mord mathrm">o</span><span class="mord mathrm">r</span><span class="mord mspace"> </span><span class="mord mathrm">a</span><span class="mord mathrm">l</span><span class="mord mathrm">l</span><span class="mord mspace"> </span></span><span class="mord mathit">i</span><span class="mrel">≥</span><span class="mord mathrm">2</span></span></span></span></div>
+An important mathematical result is that as the numbers of the Fibonacci
+sequence get larger and larger the ratio of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>i</mi></msub><mi mathvariant="normal">/</mi><msub><mi>F</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">F_i / F_{i-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">/</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> becomes
+closer and closer to approximating the golden ratio <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Φ</mi></mrow><annotation encoding="application/x-tex">\Phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">Φ</span></span></span></span> which is
+defined as <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Φ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><msqrt><mrow><mn>5</mn></mrow></msqrt></mrow><mrow><mn>2</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">\Phi = \frac{1 + \sqrt{5}}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.054554em;"></span><span class="strut bottom" style="height:1.399554em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">Φ</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">+</span><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.08650571428571419em;"><span class="style-wrap reset-scriptstyle scriptstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord mathrm">5</span></span></span><span style="top:-0.8293628571428571em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span>. You can consult a math text
+if you want to see a derivation of the previous equation. We will simply
+use this equation to approximate <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">F_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> as <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>i</mi></msub><mo>=</mo><msup><mi mathvariant="normal">Φ</mi><mi>i</mi></msup><mi mathvariant="normal">/</mi><msqrt><mrow><mn>5</mn></mrow></msqrt></mrow><annotation encoding="application/x-tex">F_i =
+\Phi^i/\sqrt{5}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.9072200000000001em;"></span><span class="strut bottom" style="height:1.1572200000000001em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathrm">Φ</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">/</span><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.06722000000000006em;"><span class="style-wrap reset-textstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="mord textstyle cramped"><span class="mord mathrm">5</span></span></span><span style="top:-0.8272200000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span></span></span></span>. If we make use of this approximation we can rewrite
+the equation for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">N_h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> as:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub><mo>=</mo><msub><mi>F</mi><mrow><mi>h</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi>h</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex"> N_h = F_{h+2} - 1, h \ge 1 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathit">h</span><span class="mrel">≥</span><span class="mord mathrm">1</span></span></span></span></div>
+By replacing the Fibonacci reference with its golden ratio approximation
+we get:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mi>h</mi></msub><mo>=</mo><mfrac><mrow><msup><mi mathvariant="normal">Φ</mi><mrow><mi>h</mi><mo>+</mo><mn>2</mn></mrow></msup></mrow><mrow><msqrt><mrow><mn>5</mn></mrow></msqrt></mrow></mfrac><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex"> N_h = \frac{\Phi^{h+2}}{\sqrt{5}} - 1 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.99532em;"></span><span class="strut bottom" style="height:1.54532em;vertical-align:-0.55em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.470554em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:-0.08650571428571419em;"><span class="style-wrap reset-scriptstyle scriptstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord mathrm">5</span></span></span><span style="top:-0.8293628571428571em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathrm">Φ</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span></div>
+If we rearrange the terms, and take the base 2 log of both sides and
+then solve for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span></span></span></span> we get the following derivation:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>log</mi><mrow><msub><mi>N</mi><mi>h</mi></msub><mo>+</mo><mn>1</mn></mrow><mo>=</mo><mo>(</mo><mi>H</mi><mo>+</mo><mn>2</mn><mo>)</mo><mi>log</mi><mrow><mi mathvariant="normal">Φ</mi></mrow><mo>−</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mi>log</mi><mrow><mn>5</mn></mrow></mrow><annotation encoding="application/x-tex"> \log{N_h+1} = (H+2)\log{\Phi} - \frac{1}{2} \log{5} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.845108em;"></span><span class="strut bottom" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathrm">1</span></span><span class="mrel">=</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mclose">)</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathrm">Φ</span></span><span class="mbin">−</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathrm">5</span></span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>=</mo><mfrac><mrow><mi>log</mi><mrow><msub><mi>N</mi><mi>h</mi></msub><mo>+</mo><mn>1</mn></mrow><mo>−</mo><mn>2</mn><mi>log</mi><mrow><mi mathvariant="normal">Φ</mi></mrow><mo>+</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mi>log</mi><mrow><mn>5</mn></mrow></mrow><mrow><mi>log</mi><mrow><mi mathvariant="normal">Φ</mi></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex"> h = \frac{\log{N_h+1} - 2 \log{\Phi} + \frac{1}{2} \log{5}}{\log{\Phi}} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.1495199999999999em;"></span><span class="strut bottom" style="height:1.6306279999999997em;vertical-align:-0.481108em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord scriptstyle cramped"><span class="mord mathrm">Φ</span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.5515em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15122857142857138em;margin-right:0.07142857142857144em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathrm">1</span></span><span class="mbin">−</span><span class="mord mathrm">2</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord scriptstyle uncramped"><span class="mord mathrm">Φ</span></span><span class="mbin">+</span><span class="mord reset-scriptstyle scriptstyle uncramped"><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22142857142857142em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord scriptstyle uncramped"><span class="mord mathrm">5</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">.</mi><mn>4</mn><mn>4</mn><mi>log</mi><mrow><msub><mi>N</mi><mi>h</mi></msub></mrow></mrow><annotation encoding="application/x-tex"> h = 1.44 \log{N_h} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">4</span><span class="mord mathrm">4</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.10903em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">h</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></div>
+This derivation shows us that at any time the height of our AVL tree is
+equal to a constant(1.44) times the log of the number of nodes in the
+tree. This is great news for searching our AVL tree because it limits
+the search to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mrow><mi>N</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log{N})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span><span class="mclose">)</span></span></span></span>.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Now that we have demonstrated that keeping an AVL tree in balance is
+going to be a big performance improvement, let us look at how we will
+augment the procedure to insert a new key into the tree. Since all new
+keys are inserted into the tree as leaf nodes and we know that the
+balance factor for a new leaf is zero, there are no new requirements for
+the node that was just inserted. But once the new leaf is added we must
+update the balance factor of its parent. How this new leaf affects the
+parent’s balance factor depends on whether the leaf node is a left child
+or a right child. If the new node is a right child the balance factor of
+the parent will be reduced by one. If the new node is a left child then
+the balance factor of the parent will be increased by one. This relation
+can be applied recursively to the grandparent of the new node, and
+possibly to every ancestor all the way up to the root of the tree. Since
+this is a recursive procedure let us examine the two base cases for
+updating balance factors:</p>
+<ul>
+<li>The recursive call has reached the root of the tree.</li>
+<li>The balance factor of the parent has been adjusted to zero. You
+should convince yourself that once a subtree has a balance factor of
+zero, then the balance of its ancestor nodes does not change.</li>
+</ul>
+<p>We will implement the AVL tree as a subclass of <code>BinarySearchTree</code>.
+To begin, we will override the <code>_put</code> method and write a new
+<code>update_balance</code> helper method. These methods are shown below. You
+will notice that the definition for <code>_put</code> is exactly the same as in
+simple binary search trees except for the additions of the calls to
+<code>update_balance</code>.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> binary_search_tree <span class="token keyword">import</span> BinarySearchTree<span class="token punctuation">,</span> TreeNode
+
+
+<span class="token keyword">class</span> <span class="token class-name">AVLTreeNode</span><span class="token punctuation">(</span>TreeNode<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        super<span class="token punctuation">(</span>AVLTreeNode<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> <span class="token number">0</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">AVLTree</span><span class="token punctuation">(</span>BinarySearchTree<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    TreeNodeClass <span class="token operator">=</span> AVLTreeNode
+
+    <span class="token keyword">def</span> <span class="token function">_put</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> key <span class="token operator">&lt;</span> node<span class="token punctuation">.</span>key<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>left <span class="token operator">=</span> self<span class="token punctuation">.</span>TreeNodeClass<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>update_balance<span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>right <span class="token operator">=</span> self<span class="token punctuation">.</span>TreeNodeClass<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>update_balance<span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">update_balance</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">></span> <span class="token number">1</span> <span class="token operator">or</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">&lt;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>rebalance<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>parent <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>balance_factor <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> node<span class="token punctuation">.</span>is_right_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>balance_factor <span class="token operator">-=</span> <span class="token number">1</span>
+
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>balance_factor <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>update_balance<span class="token punctuation">(</span>node<span class="token punctuation">.</span>parent<span class="token punctuation">)</span>
+    </code></pre>
+
+
+<p>The new <code>update_balance</code> method is where most of the work is done. This
+implements the recursive procedure we just described. The
+<code>update_balance</code> method first checks to see if the current node is out of
+balance enough to require rebalancing. If that is the case
+then the rebalancing is done and no further updating to parents is
+required. If the current node does not require rebalancing then the
+balance factor of the parent is adjusted. If the balance factor of the
+parent is non-zero then the algorithm continues to work its way up the
+tree toward the root by recursively calling <code>update_balance</code> on the
+parent.</p>
+<p>When a rebalancing of the tree is necessary, how do we do it? Efficient
+rebalancing is the key to making the AVL Tree work well without
+sacrificing performance. In order to bring an AVL Tree back into balance
+we will perform one or more <strong>rotations</strong> on the tree.</p>
+<p>To understand what a rotation is let us look at a very simple example.
+Consider the tree in the left half of the illustration below.
+This tree is out of balance with a balance factor of -2. To bring this
+tree into balance we will use a left rotation around the subtree rooted
+at node A.</p>
+<p>
+  <figure>
+    <img src="figures/simple-unbalanced.png" alt="Transforming an unbalanced tree using a left
+rotation">
+    <figcaption>Transforming an unbalanced tree using a left
+rotation</figcaption>
+  </figure></p>
+<p>To perform a left rotation we essentially do the following:</p>
+<ul>
+<li>Promote the right child (B) to be the root of the subtree.</li>
+<li>Move the old root (A) to be the left child of the new root.</li>
+<li>If new root (B) already had a left child then make it the right
+child of the new left child (A). Note: Since the new root (B) was
+the right child of A the right child of A is guaranteed to be empty
+at this point. This allows us to add a new node as the right child
+without any further consideration.</li>
+</ul>
+<p>While this procedure is fairly easy in concept, the details of the code
+are a bit tricky since we need to move things around in just the right
+order so that all properties of a Binary Search Tree are preserved.
+Furthermore we need to make sure to update all of the parent pointers
+appropriately.</p>
+<p>Let’s look at a slightly more complicated tree to illustrate the right
+rotation. The left side of the illustration below shows a tree
+that is left-heavy and with a balance factor of 2 at the root. To
+perform a right rotation we essentially do the following:</p>
+<ul>
+<li>Promote the left child (C) to be the root of the subtree.</li>
+<li>Move the old root (E) to be the right child of the new root.</li>
+<li>If the new root(C) already had a right child (D) then make it the
+left child of the new right child (E). Note: Since the new root (C)
+was the left child of E, the left child of E is guaranteed to be
+empty at this point. This allows us to add a new node as the left
+child without any further consideration.</li>
+</ul>
+<p>
+  <figure>
+    <img src="figures/rotate-right.png" alt="Transforming an unbalanced tree using a right
+rotation">
+    <figcaption>Transforming an unbalanced tree using a right
+rotation</figcaption>
+  </figure></p>
+<p>Now that you have seen the rotations and have the basic idea of how a
+rotation works let us look at the code below for both the left
+rotations. First we create a temporary variable to keep track of the new
+root of the subtree. As we said before the new root is the right child
+of the previous root. Now that a reference to the right child has been
+stored in this temporary variable we replace the right child of the old
+root with the left child of the new.</p>
+<p>The next step is to adjust the parent pointers of the two nodes. If
+<code>new_root</code> has a left child then the new parent of the left child becomes
+the old root. The parent of the new root is set to the parent of the old
+root. If the old root was the root of the entire tree then we must set
+the root of the tree to point to this new root. Otherwise, if the old
+root is a left child then we change the parent of the left child to
+point to the new root; otherwise we change the parent of the right child
+to point to the new root. Finally we set the parent of
+the old root to be the new root. This is a lot of complicated
+bookkeeping, so we encourage you to trace through this function while
+looking at the diagram above.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">rotate_left</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> rotation_root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        new_root <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>right
+        rotation_root<span class="token punctuation">.</span>right <span class="token operator">=</span> new_root<span class="token punctuation">.</span>left
+        <span class="token keyword">if</span> new_root<span class="token punctuation">.</span>left <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            new_root<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> rotation_root
+        new_root<span class="token punctuation">.</span>parent <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>parent
+        <span class="token keyword">if</span> <span class="token operator">not</span> rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>root <span class="token operator">=</span> new_root
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> rotation_root<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> new_root
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> new_root
+        new_root<span class="token punctuation">.</span>left <span class="token operator">=</span> rotation_root
+        rotation_root<span class="token punctuation">.</span>parent <span class="token operator">=</span> new_root
+        rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> \
+            rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> min<span class="token punctuation">(</span>new_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        new_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> \
+            new_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> max<span class="token punctuation">(</span>rotation_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">rotate_right</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> rotation_root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        new_root <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>left
+        rotation_root<span class="token punctuation">.</span>left <span class="token operator">=</span> new_root<span class="token punctuation">.</span>right
+        <span class="token keyword">if</span> new_root<span class="token punctuation">.</span>right <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            new_root<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> rotation_root
+        new_root<span class="token punctuation">.</span>parent <span class="token operator">=</span> rotation_root<span class="token punctuation">.</span>parent
+        <span class="token keyword">if</span> <span class="token operator">not</span> rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>root <span class="token operator">=</span> new_root
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> rotation_root<span class="token punctuation">.</span>is_right_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> new_root
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                rotation_root<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> new_root
+        new_root<span class="token punctuation">.</span>right <span class="token operator">=</span> rotation_root
+        rotation_root<span class="token punctuation">.</span>parent <span class="token operator">=</span> new_root
+        rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> \
+            rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> min<span class="token punctuation">(</span>new_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        new_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> \
+            new_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> max<span class="token punctuation">(</span>rotation_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+    </code></pre>
+
+
+<p>The last two lines require some explanation. In these lines we
+update the balance factors of the old and the new root. Since all the
+other moves are moving entire subtrees around the balance factors of all
+other nodes are unaffected by the rotation. But how can we update the
+balance factors without completely recalculating the heights of the new
+subtrees? The following derivation should convince you that these lines
+are correct.</p>
+<p>
+  <figure>
+    <img src="figures/balance-factor-derivation.png" alt="A left rotation">
+    <figcaption>A left rotation</figcaption>
+  </figure></p>
+<p>Above we see a left rotation. B and D are the
+pivotal nodes and A, C, E are their subtrees. Let <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">h_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">x</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> denote the
+height of a particular subtree rooted at node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>. By definition we know
+the following:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex"> newBal(B) = h_A - h_C </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><msub><mi>h</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex"> oldBal(B) = h_A - h_D </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></div>
+But we know that the old height of D can also be given by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">1 +
+max(h_C,h_E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>, that is, the height of D is one more than the maximum
+height of its two children. Remember that <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">h_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">c</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>E</mi></msub></mrow><annotation encoding="application/x-tex">h_E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> hav not
+changed. So, let us substitute that in to the second equation, which
+gives us</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><mo>(</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> oldBal(B) = h_A - (1 + max(h_C,h_E)) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div>
+and then subtract the two equations. The following steps do the
+subtraction and use some algebra to simplify the equation for
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">newBal(B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span>.</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>−</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub><mo>−</mo><mo>(</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><mo>(</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>)</mo><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> newBal(B) - oldBal(B) = h_A - h_C - (h_A - (1 + max(h_C,h_E))) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>−</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub><mo>−</mo><msub><mi>h</mi><mi>A</mi></msub><mo>+</mo><mo>(</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> newBal(B) - oldBal(B) = h_A - h_C - h_A + (1 + max(h_C,h_E)) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>−</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><msub><mi>h</mi><mi>A</mi></msub><mo>−</mo><msub><mi>h</mi><mi>A</mi></msub><mo>+</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>)</mo><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex"> newBal(B) - oldBal(B) = h_A  - h_A + 1 + max(h_C,h_E) - h_C  </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">A</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>−</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>)</mo><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex"> newBal(B) - oldBal(B) =  1 + max(h_C,h_E) - h_C </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></div>
+Next we will move <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">oldBal(B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span> to the right hand side of the equation and
+make use of the fact that <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo><mo>−</mo><mi>c</mi><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>a</mi><mo>−</mo><mi>c</mi><mo separator="true">,</mo><mi>b</mi><mo>−</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">max(a,b)-c = max(a-c, b-c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">c</span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mbin">−</span><span class="mord mathit">c</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mbin">−</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span>.</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>+</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><msub><mi>h</mi><mi>C</mi></msub><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub><mo separator="true">,</mo><msub><mi>h</mi><mi>E</mi></msub><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex"> newBal(B) = oldBal(B) + 1 + max(h_C - h_C ,h_E - h_C) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></div>
+But, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>h</mi><mi>E</mi></msub><mo>−</mo><msub><mi>h</mi><mi>C</mi></msub></mrow><annotation encoding="application/x-tex">h_E - h_C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit">h</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> is the same as <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>D</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">-oldBal(D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord">−</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mclose">)</span></span></span></span>. So we can use another
+identity that says <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mo>−</mo><mi>a</mi><mo separator="true">,</mo><mo>−</mo><mi>b</mi><mo>)</mo><mo>=</mo><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">max(-a,-b) = -min(a,b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord">−</span><span class="mord mathit">b</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord">−</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mclose">)</span></span></span></span>. So we can finish our
+derivation of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">newBal(B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span> with the following steps:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>+</mo><mn>1</mn><mo>+</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mo>−</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>D</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> newBal(B) = oldBal(B) + 1 + max(0 , -oldBal(D)) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord">−</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>w</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>=</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>B</mi><mo>)</mo><mo>+</mo><mn>1</mn><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mi>o</mi><mi>l</mi><mi>d</mi><mi>B</mi><mi>a</mi><mi>l</mi><mo>(</mo><mi>D</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> newBal(B) = oldBal(B) + 1 - min(0 , oldBal(D)) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mbin">−</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02778em;">D</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div>
+Now we have all of the parts in terms that we readily know. If we
+remember that B is <code>rotation_root</code> and D is <code>new_root</code> then we can see this
+corresponds exactly to the statement on the penulitmate line, or:</p>
+  <pre><code class="language-python">rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">=</span> \
+    rotation_root<span class="token punctuation">.</span>balance_factor <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> min<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> new_root<span class="token punctuation">.</span>balance_factor<span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>A similar derivation gives us the equation for the updated node D, as
+well as the balance factors after a right rotation. We leave these as
+exercises for you.</p>
+<p>Now you might think that we are done. We know how to do our left and
+right rotations, and we know when we should do a left or right rotation,
+but take a look at the diagram below. Since node A has a
+balance factor of -2 we should do a left rotation. But, what happens
+when we do the left rotation around A?</p>
+<p>
+  <figure>
+    <img src="figures/hard-unbalanced.png" alt="An unbalanced tree that is more difficult to
+balance">
+    <figcaption>An unbalanced tree that is more difficult to
+balance</figcaption>
+  </figure></p>
+<p>The diagram below shows us that after the left rotation we
+are now out of balance the other way. If we do a right rotation to
+correct the situation we are right back where we started.</p>
+<p>
+  <figure>
+    <img src="figures/bad-rotatation.png" alt="After a left rotation, the tree is out of balance in the other
+direction">
+    <figcaption>After a left rotation, the tree is out of balance in the other
+direction</figcaption>
+  </figure></p>
+<p>To correct this problem we must use the following set of rules:</p>
+<ul>
+<li>If a subtree needs a left rotation to bring it into balance, first
+check the balance factor of the right child. If the right child is
+left heavy then do a right rotation on right child, followed by the
+original left rotation.</li>
+<li>If a subtree needs a right rotation to bring it into balance, first
+check the balance factor of the left child. If the left child is
+right heavy then do a left rotation on the left child, followed by
+the original right rotation.</li>
+</ul>
+<p>The diagram below shows how these rules solve the dilemma
+we encountered above. Starting with a right rotation around
+node C puts the tree in a position where the left rotation around A
+brings the entire subtree back into balance.</p>
+<p>
+  <figure>
+    <img src="figures/rotate-left-right.png" alt="A right rotation followed by a left rotation">
+    <figcaption>A right rotation followed by a left rotation</figcaption>
+  </figure></p>
+<p>The code that implements these rules can be found in our <code>rebalance</code>
+method, which is shown below. Rule number
+1 from above is implemented by the <code>if</code> statement starting on line 2.
+Rule number 2 is implemented by the <code>elif</code> statement starting on line 8.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">rebalance</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">and</span> node<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>right<span class="token punctuation">.</span>balance_factor <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>rotate_right<span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>rotate_left<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>rotate_left<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> node<span class="token punctuation">.</span>balance_factor <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">and</span> node<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">.</span>balance_factor <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>rotate_left<span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>rotate_right<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>rotate_right<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>By keeping the tree in balance at all times, we can ensure that the
+<code>get</code> method will run in order <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span> time. But the question is
+at what cost to our <code>put</code> method? Let us break this down into the
+operations performed by <code>put</code>. Since a new node is inserted as a leaf,
+updating the balance factors of all the parents will require a maximum
+of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">\log_2{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.9388799999999999em;vertical-align:-0.24444em;"></span><span class="base textstyle uncramped"><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span></span></span></span> operations, one for each level of the tree. If a subtree
+is found to be out of balance a maximum of two rotations are required to
+bring the tree back into balance. But, each of the rotations works in
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> time, so even our <code>put</code> operation remains <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span>.</p>
+<p>At this point we have implemented a functional AVL-Tree, unless you need
+the ability to delete a node. We leave the deletion of the node and
+subsequent updating and rebalancing as an exercise for you.</p>
+<p>Over the past few sections we have looked at several data structures
+that can be used to implement the map abstract data type. A binary
+Search on a list, a hash table, a binary search tree, and a balanced
+binary search tree. To conclude this section, let’s summarize the
+performance of each data structure for the key operations defined by the
+map ADT.</p>
+<table>
+<thead>
+<tr>
+<th>operation</th>
+<th>Sorted List</th>
+<th>Hash Table</th>
+<th>Binary Search Tree</th>
+<th>AVL Tree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>put</code></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td><code>get</code></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td><code>in</code></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td><code>del</code></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/graphs/introduction">
+            Introduction to Graphs
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                AVL Trees
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

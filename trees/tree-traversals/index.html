@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tree Traversals</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357513">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Tree Traversals
+        <select id="language-switcher"></select>
+      </h1>
+      <p>Now that we have examined the basic functionality of our tree data
+structure, it is time to look at some additional usage patterns for
+trees. These usage patterns can be divided into the three ways that we
+access the nodes of the tree. There are three commonly used patterns to
+visit all the nodes in a tree. The difference between these patterns is
+the order in which each node is visited. We call this visitation of the
+nodes a “traversal.” The three traversals we will look at are called
+<strong>preorder</strong>, <strong>inorder</strong>, and <strong>postorder</strong>. Let’s start out by
+defining these three traversals more carefully, then look at some
+examples where these patterns are useful.</p>
+<p><strong>preorder</strong>: In a preorder traversal, we visit the root node first, then
+recursively do a preorder traversal of the left subtree, followed by
+a recursive preorder traversal of the right subtree.</p>
+<p><strong>inorder</strong>: In an inorder traversal, we recursively do an inorder traversal on
+the left subtree, visit the root node, and finally do a recursive
+inorder traversal of the right subtree.</p>
+<p><strong>postorder</strong>: In a postorder traversal, we recursively do a postorder traversal of
+the left subtree and the right subtree followed by a visit to the
+root node.</p>
+<p>Let’s look at some examples that illustrate each of these three kinds of
+traversals. First let’s look at the preorder traversal. As an example of
+a tree to traverse, we will represent this book as a tree. The book is
+the root of the tree, and each chapter is a child of the root. Each
+section within a chapter is a child of the chapter, and each subsection
+is a child of its section, and so on. The diagram below
+shows a limited version of a book with only two chapters. Note that the
+traversal algorithm works for trees with any number of children, but we
+will stick with binary trees for now.</p>
+<p>
+  <figure>
+    <img src="figures/book-tree.png" alt="Representing a book as a tree">
+    <figcaption>Representing a book as a tree</figcaption>
+  </figure></p>
+<p>Suppose that you wanted to read this book from front to back. The
+preorder traversal gives you exactly that ordering. Starting at the root
+of the tree (the Book node) we will follow the preorder traversal
+instructions. We recursively call <code>preorder</code> on the left child, in this
+case Chapter1. We again recursively call <code>preorder</code> on the left child to
+get to Section 1.1. Since Section 1.1 has no children, we do not make
+any additional recursive calls. When we are finished with Section 1.1,
+we move up the tree to Chapter 1. At this point we still need to visit
+the right subtree of Chapter 1, which is Section 1.2. As before we visit
+the left subtree, which brings us to Section 1.2.1, then we visit the
+node for Section 1.2.2. With Section 1.2 finished, we return to Chapter 1.
+Then we return to the Book node and follow the same procedure for Chapter 2.</p>
+<p>The code for writing tree traversals is surprisingly elegant, largely
+because the traversals are written recursively.
+The code below is a simple Python implementation of a preorder
+traversal of a binary tree. This approach is particularly elegant because our
+base case is simply to check if the tree exists. If the tree parameter
+is <code>None</code>, then the function returns without taking any action.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">preorder</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> node<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>node<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        preorder<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'left'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        preorder<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'right'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>The algorithm for the <code>postorder</code> traversal, shown below, is nearly identical to <code>preorder</code>
+except that we move the call to print to the end of the function.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">postorder</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> node<span class="token punctuation">:</span>
+        postorder<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'left'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        postorder<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'right'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>node<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>We have already seen a common use for the postorder traversal, namely
+evaluating a parse tree. What we did in the previous chapter to evaluate the
+parse tree was to evaluate the left subtree, evaluate the right subtree, then
+combine them in the root through the function call to an operator.</p>
+<p>The final traversal we will look at in this section is the inorder
+traversal. In the inorder traversal we visit the left subtree, followed
+by the root, and finally the right subtree.
+Notice that in all three of the traversal functions we are
+simply changing the position of the <code>print</code> statement with respect to
+the two recursive function calls.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">inorder</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> node<span class="token punctuation">:</span>
+        inorder<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'left'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>node<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        inorder<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'right'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>If we perform a simple inorder traversal of a parse tree we get our
+original expression back, without any parentheses. Let’s modify the
+basic inorder algorithm to allow us to recover the fully parenthesized
+version of the expression. The only modifications we will make to the
+basic template are as follows: print a left parenthesis <em>before</em> the
+recursive call to the left subtree, and print a right parenthesis
+<em>after</em> the recursive call to the right subtree. The modified code is
+shown below.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">construct_expression</span><span class="token punctuation">(</span>parse_tree<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> parse_tree <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">''</span>
+
+    left <span class="token operator">=</span> construct_expression<span class="token punctuation">(</span>parse_tree<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'left'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    right <span class="token operator">=</span> construct_expression<span class="token punctuation">(</span>parse_tree<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'right'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    val <span class="token operator">=</span> parse_tree<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> left <span class="token operator">and</span> right<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'({}{}{})'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>left<span class="token punctuation">,</span> val<span class="token punctuation">,</span> right<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> val
+</code></pre>
+
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/priority-queues-with-binary-heaps">
+            Priority Queues with Binary Heaps
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Tree Traversals
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Priority Queues with Binary Heaps</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357510">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Priority Queues with Binary Heaps
+        <select id="language-switcher"></select>
+      </h1>
+      <p>One important variation of the queue is the <strong>priority queue</strong>. A priority queue
+acts like a queue in that items remain in it for some time before being
+dequeued. However, in a priority queue the logical order of items inside a queue
+is determined by their “priority”. Specifically, the highest priority items are
+retrieved from the queue ahead of lower priority items.</p>
+<p>We will see that the priority queue is a useful data structure for specific
+algorithms such as Dijkstra’s shortest path algorithm. More generally though,
+priority queues are useful enough that you may have encountered one already:
+message queues or tasks queues for instance typically prioritize some items over
+others.</p>
+<p>You can probably think of a couple of easy ways to implement a priority queue
+using sorting functions and arrays or lists. However, sorting a list is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n
+\log{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span>. We can do better.</p>
+<p>The classic way to implement a priority queue is using a data structure called a
+<strong>binary heap</strong>. A binary heap will allow us to enqueue or dequeue items in
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span>.</p>
+<p>The binary heap is interesting to study because when we diagram the heap it
+looks a lot like a tree, but when we implement it we use only a single dynamic
+array (such as a Python list) as its internal representation. The binary heap
+has two common variations: the <strong>min heap</strong>, in which the smallest key is always
+at the front, and the <strong>max heap</strong>, in which the largest key value is always at
+the front. In this section we will implement the min heap, but the max heap is
+implemented in the same way.</p>
+<p>The basic operations we will implement for our binary heap are:</p>
+<ul>
+<li><code>BinaryHeap()</code> creates a new, empty, binary heap.</li>
+<li><code>insert(k)</code> adds a new item to the heap.</li>
+<li><code>find_min()</code> returns the item with the minimum key value, leaving
+item in the heap.</li>
+<li><code>del_min()</code> returns the item with the minimum key value, removing the
+item from the heap.</li>
+<li><code>is_empty()</code> returns true if the heap is empty, false otherwise.</li>
+<li><code>size()</code> returns the number of items in the heap.</li>
+<li><code>build_heap(list)</code> builds a new heap from a list of keys.</li>
+</ul>
+<h2 id="the-structure-property">The Structure Property</h2>
+<p>In order for our heap to work efficiently, we will take advantage of
+the logarithmic nature of the binary tree to represent our heap. In
+order to guarantee logarithmic performance, we must keep our tree
+balanced. A balanced binary tree has roughly the same number of nodes in
+the left and right subtrees of the root. In our heap implementation we
+keep the tree balanced by creating a <strong>complete binary tree</strong>. A
+complete binary tree is a tree in which each level has all of its nodes.
+The exception to this is the bottom level of the tree, which we fill in
+from left to right. This diagram shows an example of a
+complete binary tree:</p>
+<p>
+  <figure>
+    <img src="figures/complete-binary-tree.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>Another interesting property of a complete tree is that we can represent it
+using a single list. We do not need to use nodes and references or even lists of
+lists. Because the tree is complete, the left child of a parent (at position
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">p</span></span></span></span>) is the node that is found in position <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>p</mi></mrow><annotation encoding="application/x-tex">2p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">p</span></span></span></span> in the list. Similarly, the
+right child of the parent is at position <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2p + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">p</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span> in the list. To find the
+parent of any node in the tree, we can simply use integer division (like normal
+mathematical division except we discard the remainder). Given that a node is at
+position <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> in the list, the parent is at position <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mord mathrm">/</span><span class="mord mathrm">2</span></span></span></span>.</p>
+<p>The diagram below shows a complete binary tree and also gives the list
+representation of the tree. Note the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>p</mi></mrow><annotation encoding="application/x-tex">2p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">p</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>p</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2p+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathit">p</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span> relationship between
+parent and children. The list representation of the tree, along with the full
+structure property, allows us to efficiently traverse a complete binary tree
+using only a few simple mathematical operations. We will see that this also
+leads to an efficient implementation of our binary heap.</p>
+<h2 id="the-heap-order-property">The Heap Order Property</h2>
+<p>The method that we will use to store items in a heap relies on maintaining the
+heap order property. The <strong>heap order property</strong> is as follows: In a heap, for
+every node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> with parent <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">p</span></span></span></span>, the key in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">p</span></span></span></span> is smaller than or equal to
+the key in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>. The diagram below also illustrates a complete binary tree that
+has the heap order property.</p>
+<p>
+  <figure>
+    <img src="figures/heap-order.png" alt="A complete binary tree, along with its list representation">
+    <figcaption>A complete binary tree, along with its list representation</figcaption>
+  </figure></p>
+<h2 id="heap-operations">Heap Operations</h2>
+<p>We will begin our implementation of a binary heap with the constructor.
+Since the entire binary heap can be represented by a single list, all
+the constructor will do is initialize the list and an attribute
+<code>current_size</code> to keep track of the current size of the heap.
+The code below shows the Python code for the constructor.
+You will notice that an empty binary heap has a single zero as the first
+element of <code>items</code> and that this zero is not used, but is there so
+that simple integer division can be used in later steps.</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">BinaryHeap</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>items<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+
+    </code></pre>
+
+<p>The next method we will implement is <code>insert</code>. The easiest, and most
+efficient, way to add an item to a list is to simply append the item to
+the end of the list. The good news about appending is that it guarantees
+that we will maintain the complete tree property. The bad news about
+appending is that we will very likely violate the heap structure
+property. However, it is possible to write a method that will allow us
+to regain the heap structure property by comparing the newly added item
+with its parent. If the newly added item is less than its parent, then
+we can swap the item with its parent. The diagram below shows
+the series of swaps needed to percolate the newly added item up to its
+proper position in the tree.</p>
+<p>
+  <figure>
+    <img src="figures/percolate-up.png" alt="Percolate the new node up to its proper
+position">
+    <figcaption>Percolate the new node up to its proper
+position</figcaption>
+  </figure></p>
+<p>Notice that when we percolate an item up, we are restoring the heap
+property between the newly added item and the parent. We are also
+preserving the heap property for any siblings. Of course, if the newly
+added item is very small, we may still need to swap it up another level.
+In fact, we may need to keep swapping until we get to the top of the
+tree. The code below shows the <code>percolate_up</code> method, which
+percolates a new item as far up in the tree as it needs to go to
+maintain the heap property. Here is where our wasted element in
+<code>items</code> is important. Notice that we can compute the parent of any
+node by using simple integer division. The parent of the current node
+can be computed by dividing the index of the current node by 2.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">percolate_up</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        i <span class="token operator">=</span> len<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        <span class="token keyword">while</span> i <span class="token operator">//</span> <span class="token number">2</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> \
+                    self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span>
+            i <span class="token operator">=</span> i <span class="token operator">//</span> <span class="token number">2</span>
+    </code></pre>
+
+<p>We are now ready to write the <code>insert</code> method (see below). Most of the
+work in the <code>insert</code> method
+is really done by <code>percolate_up</code>. Once a new item is appended to the tree,
+<code>percolate_up</code> takes over and positions the new item properly.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">insert</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>items<span class="token punctuation">.</span>append<span class="token punctuation">(</span>k<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>percolate_up<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    </code></pre>
+
+<p>With the <code>insert</code> method properly defined, we can now look at the
+<code>delete_min</code> method. Since the heap property requires that the root of the
+tree be the smallest item in the tree, finding the minimum item is easy.
+The hard part of <code>delete_min</code> is restoring full compliance with the heap
+structure and heap order properties after the root has been removed. We
+can restore our heap in two steps. First, we will restore the root item
+by taking the last item in the list and moving it to the root position.
+Moving the last item maintains our heap structure property. However, we
+have probably destroyed the heap order property of our binary heap.
+Second, we will restore the heap order property by pushing the new root
+node down the tree to its proper position.
+The diagram shows the series of swaps needed to move
+the new root node to its proper position in the heap.</p>
+<p>
+  <figure>
+    <img src="figures/percolate-down.png" alt="Percolating the root node down the tree">
+    <figcaption>Percolating the root node down the tree</figcaption>
+  </figure></p>
+<p>In order to maintain the heap order property, all we need to do is swap
+the root with its smallest child less than the root. After the initial
+swap, we may repeat the swapping process with a node and its children
+until the node is swapped into a position on the tree where it is
+already less than both children. The code for percolating a node down
+the tree is found in the <code>percolate_down</code> and <code>min_child</code> methods below.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">percolate_down</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> i <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">&lt;=</span> len<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            mc <span class="token operator">=</span> self<span class="token punctuation">.</span>min_child<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>mc<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>mc<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>mc<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            i <span class="token operator">=</span> mc
+
+    <span class="token keyword">def</span> <span class="token function">min_child</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> i <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">></span> len<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> i <span class="token operator">*</span> <span class="token number">2</span>
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> i <span class="token operator">*</span> <span class="token number">2</span>
+
+        <span class="token keyword">return</span> i <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span>
+    </code></pre>
+
+<p>The code for the <code>delete_min</code> operation is below.
+Note that once again the hard work is handled by a helper function, in
+this case <code>percolate_down</code>.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">delete_min</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        return_value <span class="token operator">=</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>items<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>items<span class="token punctuation">[</span>len<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>items<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>percolate_down<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> return_value
+    </code></pre>
+
+<p>To finish our discussion of binary heaps, we will look at a method to
+build an entire heap from a list of keys. The first method you might
+think of may be like the following. Given a list of keys, you could
+easily build a heap by inserting each key one at a time. Since you are
+starting with a list of one item, the list is sorted and you could use
+binary search to find the right position to insert the next key at a
+cost of approximately <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span> operations. However, remember that
+inserting an item in the middle of the list may require <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>
+operations to shift the rest of the list over to make room for the new
+key. Therefore, to insert <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> keys into the heap would require a total
+of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n \log{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span> operations. However, if we start with an entire list
+then we can build the whole heap in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> operations.
+The code below shows the code to build the entire heap.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">build_heap</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> alist<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        i <span class="token operator">=</span> len<span class="token punctuation">(</span>alist<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+        self<span class="token punctuation">.</span>items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> alist
+        <span class="token keyword">while</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>percolate_down<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+            i <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span>
+</code></pre>
+
+<p>
+  <figure>
+    <img src="figures/build-heap.png" alt="Building a heap from the list [9, 6, 5, 2, 3]">
+    <figcaption>Building a heap from the list [9, 6, 5, 2, 3]</figcaption>
+  </figure></p>
+<p>Above we see the swaps that the <code>build_heap</code>
+method makes as it moves the nodes in an initial tree of <code>[9, 6, 5, 2,
+3]</code> into their proper positions. Although we start out in the middle of
+the tree and work our way back toward the root, the <code>percolate_down</code> method
+ensures that the largest child is always moved down the tree. Because
+the heap is a complete binary tree, any nodes past the halfway point
+will be leaves and therefore have no children. Notice that when <code>i==1</code>,
+we are percolating down from the root of the tree, so this may require
+multiple swaps. As you can see in the rightmost two trees of
+above, first the 9 is moved out of the root
+position, but after 9 is moved down one level in the tree, <code>percolate_down</code>
+ensures that we check the next set of children farther down in the tree
+to ensure that it is pushed as low as it can go. In this case it results
+in a second swap with 3. Now that 9 has been moved to the lowest level
+of the tree, no further swapping can be done. It is useful to compare
+the list representation of this series of swaps as shown in
+above with the tree representation.</p>
+<pre><code>i = 2  [0, 9, 5, 6, 2, 3]
+i = 1  [0, 9, 2, 6, 5, 3]
+i = 0  [0, 2, 3, 6, 5, 9]
+
+
+</code></pre><p>The assertion that we can build the heap in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> may seem a bit
+mysterious at first, and a proof is beyond the scope of this book.
+However, the key to understanding that you can build the heap in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>
+is to remember that the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>log</mi><mrow><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">\log{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span></span></span></span> factor is derived from the height of
+the tree. For most of the work in <code>build_heap</code>, the tree is shorter than
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>log</mi><mrow><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">\log{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span></span></span></span>.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/binary-search-trees">
+            Binary Search Trees
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Priority Queues with Binary Heaps
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

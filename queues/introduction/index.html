@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to Queues</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357490">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Introduction to Queues
+        <select id="language-switcher"></select>
+      </h1>
+      <p>A queue is an ordered collection of items where the addition of new
+items happens at one end, called the “rear,” and the removal of existing
+items occurs at the other end, commonly called the “front.” As an
+element enters the queue it starts at the rear and makes its way toward
+the front, waiting until that time when it is the next element to be
+removed.</p>
+<p>The most recently added item in the queue must wait at the end of the
+collection. The item that has been in the collection the longest is at
+the front. This ordering principle is sometimes called <strong>FIFO</strong>,
+<strong>first-in first-out</strong>. It is also known as “first-come first-served.”</p>
+<p>The simplest example of a queue is the typical line that we all
+participate in from time to time. We wait in a line for a movie, we wait
+in the check-out line at a grocery store, and we wait in the cafeteria
+line (so that we can pop the tray stack). Well-behaved lines, or queues,
+are very restrictive in that they have only one way in and only one way
+out. There is no jumping in the middle and no leaving before you have
+waited the necessary amount of time to get to the front.</p>
+<p>
+  <figure>
+    <img src="figures/basic-queue.png" alt="A queue of Python data objects">
+    <figcaption>A queue of Python data objects</figcaption>
+  </figure></p>
+<p>Queues are a very prevalent model for data flow in real life. Consider
+an office with 30 computers networked with a single printer. When
+somebody wants to print, their print tasks “get in line” with all the
+other printing tasks that are waiting. The first task in is the next to
+be completed. If you are last in line, you must wait for all the other
+tasks to print ahead of you.</p>
+<p>Operating systems also use a number of different queues to control
+processes within a computer. The scheduling of what gets done next is
+typically based on a queuing algorithm that tries to execute programs as
+quickly as possible and serve as many users as it can. Also, as we type,
+sometimes keystrokes get ahead of the characters that appear on the
+screen. This is due to the computer doing other work at that moment. The
+keystrokes are being placed in a queue-like buffer so that they can
+eventually be displayed on the screen in the proper order.</p>
+<h2 id="the-queue-abstract-data-type">The Queue Abstract Data Type</h2>
+<p>A queue is structured  as an ordered collection of items which are added
+at one end, called the “rear,” and removed from the other end, called
+the “front.” The queue operations are:</p>
+<ul>
+<li><code>Queue()</code> creates a new queue that is empty. It needs no parameters
+and returns an empty queue.</li>
+<li><code>enqueue(item)</code> adds a new item to the rear of the queue. It needs
+the item and returns nothing.</li>
+<li><code>dequeue()</code> removes the front item from the queue. It needs no
+parameters and returns the item. The queue is modified.</li>
+<li><code>is_empty()</code> tests to see whether the queue is empty. It needs no
+parameters and returns a boolean value.</li>
+<li><code>size()</code> returns the number of items in the queue. It needs no
+parameters and returns an integer.</li>
+</ul>
+<p>As an example, if we assume that <code>q</code> is a queue that has been created
+and is currently empty, then the table below shows
+the results of a sequence of queue operations. The queue contents are
+shown such that the front is on the right. 4 was the first item enqueued
+so it is the first item returned by dequeue.</p>
+<table>
+<thead>
+<tr>
+<th>Queue Operation</th>
+<th>Queue Contents</th>
+<th>Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q.is_empty()</code></td>
+<td><code>[]</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>q.enqueue(4)</code></td>
+<td><code>[4]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>q.enqueue(&#39;dog&#39;)</code></td>
+<td><code>[&#39;dog&#39;, 4]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>q.enqueue(True)</code></td>
+<td><code>[True, &#39;dog&#39;, 4]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>q.size()</code></td>
+<td><code>[True, &#39;dog&#39;, 4]</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>q.is_empty()</code></td>
+<td><code>[True, &#39;dog&#39;, 4]</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>q.enqueue(8.4)</code></td>
+<td><code>[8.4, True, &#39;dog&#39;, 4]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>q.dequeue()</code></td>
+<td><code>[8.4, True, &#39;dog&#39;]</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>q.dequeue()</code></td>
+<td><code>[8.4, True]</code></td>
+<td><code>&#39;dog&#39;</code></td>
+</tr>
+<tr>
+<td><code>q.size()</code></td>
+<td><code>[8.4, True]</code></td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/queues/implementation">
+            A Queue Implementation
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                
+                Introduction to Queues
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

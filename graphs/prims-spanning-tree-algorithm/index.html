@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prim’s Spanning Tree Algorithm</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357482">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Prim’s Spanning Tree Algorithm
+        <select id="language-switcher"></select>
+      </h1>
+      <p>For our last graph algorithm let’s consider a problem that online game
+designers and Internet radio providers face. The problem is that they
+want to efficiently transfer a piece of information to anyone and
+everyone who may be listening. This is important in gaming so that all
+the players know the very latest position of every other player. This is
+important for Internet radio so that all the listeners that are tuned in
+are getting all the data they need to reconstruct the song they are
+listening to. This diagram illustrates the broadcast
+problem:</p>
+<p>
+  <figure>
+    <img src="figures/broadcast-problem.png" alt="The broadcast problem">
+    <figcaption>The broadcast problem</figcaption>
+  </figure></p>
+<p>There are some brute force solutions to this problem, so let’s look at
+them first to help understand the broadcast problem better. This will
+also help you appreciate the solution that we will propose when we are
+done. To begin, the broadcast host has some information that the
+listeners all need to receive. The simplest solution is for the
+broadcasting host to keep a list of all of the listeners and send
+individual messages to each. In the diagram above we show a small
+network with a broadcaster and some listeners. Using this first
+approach, four copies of every message would be sent. Assuming that the
+least cost path is used, let’s see how many times each router would
+handle the same message.</p>
+<p>All messages from the broadcaster go through router A, so A sees all
+four copies of every message. Router C sees only one copy of each
+message for its listener. However, routers B and D would see three
+copies of every message since routers B and D are on the cheapest path
+for listeners 1, 2, and 3. When you consider that the broadcast host
+must send hundreds of messages each second for a radio broadcast, that
+is a lot of extra traffic.</p>
+<p>A brute force solution is for the broadcast host to send a single copy
+of the broadcast message and let the routers sort things out. In this
+case, the easiest solution is a strategy called <strong>uncontrolled
+flooding</strong>. The flooding strategy works as follows. Each message starts
+with a time to live (<code>ttl</code>) value set to some number greater than or
+equal to the number of edges between the broadcast host and its most
+distant listener. Each router gets a copy of the message and passes the
+message on to <em>all</em> of its neighboring routers. When the message is
+passed on the <code>ttl</code> is decreased. Each router continues to send copies
+of the message to all its neighbors until the <code>ttl</code> value reaches 0. It
+is easy to convince yourself that uncontrolled flooding generates many
+more unnecessary messages than our first strategy.</p>
+<p>The solution to this problem lies in the construction of a minimum
+weight <strong>spanning tree</strong>. Formally we define the minimum spanning tree
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span></span> for a graph <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mo>=</mo><mo>(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">G = (V,E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">G</span><span class="mrel">=</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> as follows. <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">T</span></span></span></span> is an acyclic subset
+of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">E</span></span></span></span> that connects all the vertices in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span></span></span></span>. The sum of the weights
+of the edges in T is minimized.</p>
+<p>The diagram below shows a simplified version of the broadcast graph and
+highlights the edges that form a minimum spanning tree for the graph.
+Now to solve our broadcast problem, the broadcast host simply sends a
+single copy of the broadcast message into the network. Each router
+forwards the message to any neighbor that is part of the spanning tree,
+excluding the neighbor that just sent it the message. In this example A
+forwards the message to B. B forwards the message to D and C. D forwards
+the message to E, which forwards it to F, which forwards it to G. No
+router sees more than one copy of any message, and all the listeners
+that are interested see a copy of the message.</p>
+<p>
+  <figure>
+    <img src="figures/minimum-spanning-tree.png" alt="Minimum spanning tree for the broadcast
+graph">
+    <figcaption>Minimum spanning tree for the broadcast
+graph</figcaption>
+  </figure></p>
+<p>The algorithm we will use to solve this problem is called Prim’s
+algorithm. Prim’s algorithm belongs to a family of algorithms called the
+“greedy algorithms” because at each step we will choose the cheapest
+next step. In this case the cheapest next step is to follow the edge
+with the lowest weight. Our last step is to develop Prim’s algorithm.</p>
+<p>The basic idea in constructing a spanning tree is as follows:</p>
+<pre><code>While T is not yet a spanning tree
+   Find an edge that is safe to add to the tree
+   Add the new edge to T
+
+
+</code></pre><p>The trick is in the step that directs us to “find an edge that is safe.”
+We define a safe edge as any edge that connects a vertex that is in the
+spanning tree to a vertex that is not in the spanning tree. This ensures
+that the tree will always remain a tree and therefore have no cycles.</p>
+<p>The Python code to implement Prim’s algorithm is shown below. Prim’s
+algorithm is similar to Dijkstra’s algorithm in that they both use a
+priority queue to select the next vertex to add to the growing graph.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+<span class="token keyword">import</span> heapq
+
+
+<span class="token keyword">def</span> <span class="token function">create_spanning_tree</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> starting_vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    mst <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+    visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span>starting_vertex<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    edges <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">(</span>cost<span class="token punctuation">,</span> starting_vertex<span class="token punctuation">,</span> to<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> to<span class="token punctuation">,</span> cost <span class="token keyword">in</span> graph<span class="token punctuation">[</span>starting_vertex<span class="token punctuation">]</span><span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+    heapq<span class="token punctuation">.</span>heapify<span class="token punctuation">(</span>edges<span class="token punctuation">)</span>
+
+    <span class="token keyword">while</span> edges<span class="token punctuation">:</span>
+        cost<span class="token punctuation">,</span> frm<span class="token punctuation">,</span> to <span class="token operator">=</span> heapq<span class="token punctuation">.</span>heappop<span class="token punctuation">(</span>edges<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> to <span class="token operator">not</span> <span class="token keyword">in</span> visited<span class="token punctuation">:</span>
+            visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>to<span class="token punctuation">)</span>
+            mst<span class="token punctuation">[</span>frm<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>to<span class="token punctuation">)</span>
+            <span class="token keyword">for</span> to_next<span class="token punctuation">,</span> cost <span class="token keyword">in</span> graph<span class="token punctuation">[</span>to<span class="token punctuation">]</span><span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> to_next <span class="token operator">not</span> <span class="token keyword">in</span> visited<span class="token punctuation">:</span>
+                    heapq<span class="token punctuation">.</span>heappush<span class="token punctuation">(</span>edges<span class="token punctuation">,</span> <span class="token punctuation">(</span>cost<span class="token punctuation">,</span> to<span class="token punctuation">,</span> to_next<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> mst
+
+example_graph <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'A'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'B'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'B'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'A'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'C'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'C'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'A'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'B'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'D'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'B'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'E'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'B'</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'F'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'C'</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'G'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'G'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'F'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+dict<span class="token punctuation">(</span>create_spanning_tree<span class="token punctuation">(</span>example_graph<span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># {'A': set(['B']),</span>
+<span class="token comment">#  'B': set(['C', 'D']),</span>
+<span class="token comment">#  'D': set(['E']),</span>
+<span class="token comment">#  'E': set(['F']),</span>
+<span class="token comment">#  'F': set(['G'])}</span>
+</code></pre>
+
+
+<p>The following sequence of diagrams shows the algorithm in operation on our
+sample tree. We begin with the starting vertex as A. Looking at the neighbors
+of A we can update distances to two of the additional vertices B and C because
+the distances to B and C through A are less than infinite. We can then add B
+and C to the priority queue in the correct order. Update the predecessor links
+for B and C by setting them to point to A. It is important to note that we
+have not formally added B or C to the spanning tree yet. A node is not
+considered to be part of the spanning tree until it is removed from the
+priority queue.</p>
+<p>Since B has the smallest distance we look at B next. Examining B’s
+neighbors we see that D and E can be updated. Both D and E get new
+distance values and their predecessor links are updated. Moving on to
+the next node in the priority queue we find C. The only node C is
+adjacent to that is still in the priority queue is F, thus we can update
+the distance to F and adjust F’s position in the priority queue.</p>
+<p>Now we examine the vertices adjacent to node D. We find that we can
+update E and reduce the distance to E from 6 to 4. When we do this we
+change the predecessor link on E to point back to D, thus preparing it
+to be grafted into the spanning tree but in a different location. The
+rest of the algorithm proceeds as you would expect, adding each new node
+to the tree.</p>
+<p>
+  <figure>
+    <img src="figures/prima.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/primb.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/primc.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/primd.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/prime.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/primf.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/primg.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+
+
+      <div class="navigation">
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Prim’s Spanning Tree Algorithm
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculating the Sum of a List of Numbers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357492">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Calculating the Sum of a List of Numbers
+        <select id="language-switcher"></select>
+      </h1>
+      <p>We will begin our investigation with a simple problem that you already
+know how to solve without using recursion. Suppose that you want to
+calculate the sum of a list of numbers such as: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>7</mn><mo separator="true">,</mo><mn>9</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1, 3, 5, 7, 9]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">5</span><span class="mpunct">,</span><span class="mord mathrm">7</span><span class="mpunct">,</span><span class="mord mathrm">9</span><span class="mclose">]</span></span></span></span>. An
+iterative function that computes the sum is shown below. The function
+uses an accumulator variable (<code>total</code>) to compute a running total of all
+the numbers in the list by starting with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span> and adding each number in
+the list.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">iterative_sum</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    total <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> n <span class="token keyword">in</span> numbers<span class="token punctuation">:</span>
+        total <span class="token operator">=</span> total <span class="token operator">+</span> n
+    <span class="token keyword">return</span> total
+
+iterative_sum<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment"># => 25</span>
+</code></pre>
+
+
+<p>Pretend for a minute that you do not have <code>while</code> loops or <code>for</code> loops.
+How would you compute the sum of a list of numbers? If you were a
+mathematician you might start by recalling that addition is a function
+that is defined for two parameters, a pair of numbers. To redefine the
+problem from adding a list to adding pairs of numbers, we could rewrite
+the list as a fully parenthesized expression. Such an expression looks
+like this:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>(</mo><mo>(</mo><mo>(</mo><mn>1</mn><mo>+</mo><mn>3</mn><mo>)</mo><mo>+</mo><mn>5</mn><mo>)</mo><mo>+</mo><mn>7</mn><mo>)</mo><mo>+</mo><mn>9</mn><mo>)</mo></mrow><annotation encoding="application/x-tex"> ((((1 + 3) + 5) + 7) + 9) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mopen">(</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">3</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">5</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">7</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">9</span><span class="mclose">)</span></span></span></span></div>
+We can also parenthesize the expression the other way around,</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mo>(</mo><mn>3</mn><mo>+</mo><mo>(</mo><mn>5</mn><mo>+</mo><mo>(</mo><mn>7</mn><mo>+</mo><mn>9</mn><mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> (1 + (3 + (5 + (7 + 9)))) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">7</span><span class="mbin">+</span><span class="mord mathrm">9</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div>
+Notice that the innermost set of parentheses, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>7</mn><mo>+</mo><mn>9</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(7 + 9)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathrm">7</span><span class="mbin">+</span><span class="mord mathrm">9</span><span class="mclose">)</span></span></span></span>, is a problem
+that we can solve without a loop or any special constructs. In fact, we
+can use the following sequence of simplifications to compute a final
+sum.</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>=</mo><mtext> </mtext><mo>(</mo><mn>1</mn><mo>+</mo><mo>(</mo><mn>3</mn><mo>+</mo><mo>(</mo><mn>5</mn><mo>+</mo><mo>(</mo><mn>7</mn><mo>+</mo><mn>9</mn><mo>)</mo><mo>)</mo><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> total = \  (1 + (3 + (5 + (7 + 9))))
+ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mrel">=</span><span class="mord mspace"> </span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">7</span><span class="mbin">+</span><span class="mord mathrm">9</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>=</mo><mtext> </mtext><mo>(</mo><mn>1</mn><mo>+</mo><mo>(</mo><mn>3</mn><mo>+</mo><mo>(</mo><mn>5</mn><mo>+</mo><mn>1</mn><mn>6</mn><mo>)</mo><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> 
+total = \  (1 + (3 + (5 + 16)))
+ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mrel">=</span><span class="mord mspace"> </span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">5</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mord mathrm">6</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>=</mo><mtext> </mtext><mo>(</mo><mn>1</mn><mo>+</mo><mo>(</mo><mn>3</mn><mo>+</mo><mn>2</mn><mn>1</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> 
+total = \  (1 + (3 + 21))
+ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mrel">=</span><span class="mord mspace"> </span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>=</mo><mtext> </mtext><mo>(</mo><mn>1</mn><mo>+</mo><mn>2</mn><mn>4</mn><mo>)</mo></mrow><annotation encoding="application/x-tex"> 
+total = \  (1 + 24)
+ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mrel">=</span><span class="mord mspace"> </span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mclose">)</span></span></span></span></div><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>=</mo><mtext> </mtext><mn>2</mn><mn>5</mn></mrow><annotation encoding="application/x-tex"> 
+total = \  25 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mrel">=</span><span class="mord mspace"> </span><span class="mord mathrm">2</span><span class="mord mathrm">5</span></span></span></span></div>
+How can we take this idea and turn it into a Python program? First,
+let’s restate the sum problem in terms of Python lists. We might say the
+the sum of the list <code>numbers</code> is the sum of the first element of the
+list (<code>numbers[0]</code>), and the sum of the numbers in the rest of the list
+(<code>numbers[1:]</code>). To state it in a functional form:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>o</mi></msub><mi>f</mi><mo>(</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi>s</mi><mo>)</mo><mo>=</mo><mi>f</mi><mi>i</mi><mi>r</mi><mi>s</mi><mi>t</mi><mo>(</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi>s</mi><mo>)</mo><mo>+</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>o</mi></msub><mi>f</mi><mo>(</mo><mi>r</mi><mi>e</mi><mi>s</mi><mi>t</mi><mo>(</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi>s</mi><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex"> sum_of(numbers) = first(numbers) + sum_of(rest(numbers)) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord"><span class="mord mathit">m</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">o</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord"><span class="mord mathit">m</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">o</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></div>
+In this equation <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mi>i</mi><mi>r</mi><mi>s</mi><mi>t</mi><mo>(</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi>s</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">first(numbers)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mclose">)</span></span></span></span> returns the first element of the list
+and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>t</mi><mo>(</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi>s</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">rest(numbers)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">e</span><span class="mord mathit">s</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord mathit">b</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">s</span><span class="mclose">)</span></span></span></span> returns a list of everything but the first element.
+This is easily expressed in Python as:</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">sum_of</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>numbers<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">0</span>
+
+    <span class="token keyword">return</span> numbers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> sum_of<span class="token punctuation">(</span>numbers<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+sum_of<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment"># => 25</span>
+</code></pre>
+
+
+<p>There are a few key ideas in this code sample to look at. First, on line
+2 we are checking to see if the list is empty. This check is crucial and
+is our escape clause from the function. The sum of a list of length 0 is
+trivial; it is just zero. Second, on line 5 our function calls itself!
+This is the reason that we call the <code>sum_of</code> algorithm recursive. A
+recursive function is a function that calls itself.</p>
+<p>The diagram below shows the series of <strong>recursive calls</strong> that are
+needed to sum the list <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>7</mn><mo separator="true">,</mo><mn>9</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1, 3, 5, 7, 9]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">5</span><span class="mpunct">,</span><span class="mord mathrm">7</span><span class="mpunct">,</span><span class="mord mathrm">9</span><span class="mclose">]</span></span></span></span>. You should think of this
+series of calls as a series of simplifications. Each time we make a
+recursive call we are solving a smaller problem, until we reach the
+point where the problem cannot get any smaller.</p>
+<p>
+  <figure>
+    <img src="figures/sum-list-in.png" alt="Series of recursive calls adding a list of numbers">
+    <figcaption>Series of recursive calls adding a list of numbers</figcaption>
+  </figure></p>
+<p>When we reach the point where the problem is as simple as it can get, we
+begin to piece together the solutions of each of the small problems
+until the initial problem is solved. The diagram below shows the
+additions that are performed as <code>sum_of</code> works its way backward through
+the series of calls. When <code>sum_of</code> returns from the topmost problem, we
+have the solution to the whole problem.</p>
+<p>
+  <figure>
+    <img src="figures/sum-list-out.png" alt="Series of recursive returns from adding a list of
+numbers">
+    <figcaption>Series of recursive returns from adding a list of
+numbers</figcaption>
+  </figure></p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/recursion/the-three-laws-of-recursion">
+            The Three Laws of Recursion
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Calculating the Sum of a List of Numbers
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

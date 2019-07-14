@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>General Depth First Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357477">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        General Depth First Search
+        <select id="language-switcher"></select>
+      </h1>
+      <p>The knight’s tour is a special case of a depth first search where the
+goal is to create the deepest depth first tree, without any branches.
+The more general depth first search is actually easier. Its goal is to
+search as deeply as possible, connecting as many nodes in the graph as
+possible and branching where necessary.</p>
+<p>It is even possible that a depth first search will create more than one
+tree. When the depth first search algorithm creates a group of trees we
+call this a <strong>depth first forest</strong>. As with the breadth first search our
+depth first search makes use of predecessor links to construct the tree.
+In addition, the depth first search will make use of two additional
+instance variables in the <code>Vertex</code> class. The new instance variables are
+the discovery and finish times. The discovery time tracks the number of
+steps in the algorithm before a vertex is first encountered. The finish
+time is the number of steps in the algorithm before a vertex is colored
+black. As we will see after looking at the algorithm, the discovery and
+finish times of the nodes provide some interesting properties we can use
+in later algorithms.</p>
+<p>The code for our depth first search is shown below. We use a set to
+maintain a record of the nodes that have been visited as we recursively
+traverse through our sample graph. For each vertex, any neighboring
+vertices that have not yet been visited are traversed. This is much like
+our depth first traversal for our knight’s tour solution, except that
+we do not need to keep track of the path taken to reach every vertex,
+allowing us to more simply use our <code>visited</code> set.</p>
+<p>We also introduce a <code>traversal_times</code> dictionary here in which the keys
+are vertices and the values we populate as dictionaries of the form
+<code>{&#39;discovery&#39;: m, &#39;finish&#39;: n}</code>, where the <code>m</code> and <code>n</code> values are
+integers obtained by incrementing a counter before and after each time
+a new vertex is traversed.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+simple_graph <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'A'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'B'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'D'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'C'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'D'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'E'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'E'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'B'</span><span class="token punctuation">,</span> <span class="token string">'F'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'F'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">def</span> <span class="token function">depth_first_search</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> starting_vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    counter <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    traversal_times <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>dict<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">traverse</span><span class="token punctuation">(</span>vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>vertex<span class="token punctuation">)</span>
+        counter<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+        traversal_times<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'discovery'</span><span class="token punctuation">]</span> <span class="token operator">=</span> counter<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">for</span> next_vertex <span class="token keyword">in</span> graph<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> next_vertex <span class="token operator">not</span> <span class="token keyword">in</span> visited<span class="token punctuation">:</span>
+                traverse<span class="token punctuation">(</span>next_vertex<span class="token punctuation">)</span>
+
+        counter<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+        traversal_times<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'finish'</span><span class="token punctuation">]</span> <span class="token operator">=</span> counter<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+    <span class="token comment"># in this case start with just one vertex, but we could equally</span>
+    <span class="token comment"># dfs from all_vertices to produce a dfs forest</span>
+    traverse<span class="token punctuation">(</span>starting_vertex<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> traversal_times
+
+traversal_times <span class="token operator">=</span> depth_first_search<span class="token punctuation">(</span>simple_graph<span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">)</span>
+<span class="token comment"># =></span>
+<span class="token comment"># {</span>
+<span class="token comment">#     'A': {</span>
+<span class="token comment">#         'discovery': 1,</span>
+<span class="token comment">#         'finish': 12</span>
+<span class="token comment">#     },</span>
+<span class="token comment">#     'B': {</span>
+<span class="token comment">#         'discovery': 2,</span>
+<span class="token comment">#         'finish': 11</span>
+<span class="token comment">#     },</span>
+<span class="token comment">#     'C': {</span>
+<span class="token comment">#         'discovery': 3,</span>
+<span class="token comment">#         'finish': 4</span>
+<span class="token comment">#     },</span>
+<span class="token comment">#     'D': {</span>
+<span class="token comment">#         'discovery': 5,</span>
+<span class="token comment">#         'finish': 10</span>
+<span class="token comment">#     },</span>
+<span class="token comment">#     'E': {</span>
+<span class="token comment">#         'discovery': 6,</span>
+<span class="token comment">#         'finish': 9</span>
+<span class="token comment">#     },</span>
+<span class="token comment">#     'F': {</span>
+<span class="token comment">#         'discovery': 7,</span>
+<span class="token comment">#         'finish': 8</span>
+<span class="token comment">#     }</span>
+<span class="token comment"># }</span>
+</code></pre>
+
+
+<p>The <code>traverse</code> method starts with a single vertex called and explores
+all of the neighboring unvisited vertices as deeply as possible. If you
+look carefully at the code for <code>traverse</code> and compare it to breadth
+first search, what you should notice is that the <code>traverse</code> algorithm is
+almost identical to <code>breadth_first_search</code> except that on the last line
+of the inner <code>for</code> loop, <code>traverse</code> calls itself recursively to continue
+the search at a deeper level, whereas <code>breadth_first_search</code> adds the
+node to a queue for later exploration. It is interesting to note that
+where <code>breadth_first_search</code> uses a queue, <code>traverse</code> uses a stack. You
+don’t see a stack in the code, but it is implicit in the recursive call
+to <code>traverse</code>.</p>
+<p>The following sequence of figures illustrates the depth first search
+algorithm in action for a small graph. In these figures, the dotted
+lines indicate edges that are checked, but the node at the other end of
+the edge has already been added to the depth first tree. In the code
+this test is done by checking that the other node has been visited.</p>
+<p>The search begins at vertex A of the graph (below). Since all of the
+vertices are unvisited at the beginning of the search the algorithm
+visits vertex A. The first step in visiting a vertex is to add it to the
+<code>visited</code> set, indicated here with a gray color, and the discovery time
+is set to 1. Since vertex A has two adjacent vertices (B, D) each of
+those need to be visited as well. We’ll make the arbitrary decision that
+we will visit the adjacent vertices in alphabetical order.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-a.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>Vertex B is visited next (see below), so its color is set to gray and
+its discovery time is set to 2. Vertex B is also adjacent to two other
+nodes (C, D) so we will follow the alphabetical order and visit node C
+next.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-b.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>Visiting vertex C (see below) brings us to the end of one branch of the
+tree. After adding the node to <code>visited</code> and setting its discovery time
+to 3, the algorithm also determines that there are no adjacent vertices
+to C.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-c.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>This means that we are done exploring node C and so we can color the
+vertex black, and set the finish time to 4. You can see the state of our
+search at this point below.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-d.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>Since vertex C was the end of one branch we now return to vertex B and
+continue exploring the nodes adjacent to B. The only additional vertex
+to explore from B is D, so we can now visit D (below) and continue our
+search from vertex D.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-e.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>Vertex D quickly leads us to vertex E:</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-f.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>Vertex E has two adjacent vertices, B and F. Normally we would explore
+these adjacent vertices alphabetically, but since B has already been
+visited the algorithm recognizes that it should not visit B since doing
+so would put the algorithm in a loop! So exploration continues with the
+next vertex in the list, namely F.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-g.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>Vertex F has only one adjacent vertex, C, but since C has been visited
+there is nothing else to explore, and the algorithm has reached the end
+of another branch. From here on, you will see that the algorithm works
+its way back to the first node, setting finish times.</p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-h.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-i.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-j.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-k.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/depth-first-search-l.png" alt="Constructing the depth first search
+tree">
+    <figcaption>Constructing the depth first search
+tree</figcaption>
+  </figure></p>
+<p>The starting and finishing times for each node display a property called
+the <strong>parenthesis property</strong>. This property means that all the children
+of a particular node in the depth first tree have a later discovery time
+and an earlier finish time than their parent.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/graphs/topological-sorting">
+            Topological Sorting
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                General Depth First Search
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

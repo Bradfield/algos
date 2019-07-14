@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Knight’s Tour</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357481">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        A Knight’s Tour
+        <select id="language-switcher"></select>
+      </h1>
+      <p>The “<a href="https://en.wikipedia.org/wiki/Knight%27s_tour">knight’s tour</a>” is
+a classic problem in graph theory, first posed over 1,000 years ago and
+pondered by legendary mathematicians including Leonhard Euler before
+finally being solved in 1823. We will use the knight’s tour problem to
+illustrate a second common graph algorithm called depth first search.</p>
+<p>The knight’s tour puzzle is played on a chess board with a single chess
+piece, the knight. The object of the puzzle is to find a sequence of
+moves that allow the knight to visit every square on the board exactly
+once, like so:</p>
+<p>
+  <figure>
+    <img src="figures/knights-tour.gif" alt="One possible knight’s tour">
+    <figcaption>One possible knight’s tour</figcaption>
+  </figure></p>
+<p>One such sequence is called a “tour.” The upper bound on the
+number of possible legal tours for an eight-by-eight chessboard is known
+to be <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">.</mi><mn>3</mn><mn>0</mn><mn>5</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mn>3</mn><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.305 \times 10^{35}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">3</span><span class="mord mathrm">0</span><span class="mord mathrm">5</span><span class="mbin">×</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">3</span><span class="mord mathrm">5</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>; however, there are even more possible
+dead ends. Clearly this is a problem that requires some real brains,
+some real computing power, or both.</p>
+<p>Once again we will solve the problem using two main steps:</p>
+<ul>
+<li>Represent the legal moves of a knight on a chessboard as a graph.</li>
+<li>Use a graph algorithm to find a path where every vertex on the graph
+is visited exactly once.</li>
+</ul>
+<h2 id="building-the-knight-s-tour-graph">Building the Knight’s Tour Graph</h2>
+<p>To represent the knight’s tour problem as a graph we will use the
+following two ideas: Each square on the chessboard can be represented as
+a node in the graph. Each legal move by the knight can be represented as
+an edge in the graph.</p>
+<p>We will use a Python dictionary to hold our graph, with the keys being
+tuples of coordinates representing the squares of the board, and the
+values being sets representing the valid squares to which a knight can
+move from that square.</p>
+<p>To build the full graph for an n-by-n board we can use the Python
+function shown below. The <code>build_graph</code> function makes one pass
+over the entire board. At each square on the board the
+<code>build_graph</code> function calls a helper generator, <code>legal_moves_from</code>, to
+generate a list of legal moves for that position on the board. All legal
+moves are then made into undirected edges of the graph by adding the
+vertices appropriately to one anothers sets of legal moves.</p>
+  <pre><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+
+
+<span class="token keyword">def</span> <span class="token function">add_edge</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> vertex_a<span class="token punctuation">,</span> vertex_b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    graph<span class="token punctuation">[</span>vertex_a<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>vertex_b<span class="token punctuation">)</span>
+    graph<span class="token punctuation">[</span>vertex_b<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>vertex_a<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">build_graph</span><span class="token punctuation">(</span>board_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    graph <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> row <span class="token keyword">in</span> range<span class="token punctuation">(</span>board_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> col <span class="token keyword">in</span> range<span class="token punctuation">(</span>board_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> to_row<span class="token punctuation">,</span> to_col <span class="token keyword">in</span> legal_moves_from<span class="token punctuation">(</span>row<span class="token punctuation">,</span> col<span class="token punctuation">,</span> board_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                add_edge<span class="token punctuation">(</span>graph<span class="token punctuation">,</span> <span class="token punctuation">(</span>row<span class="token punctuation">,</span> col<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>to_row<span class="token punctuation">,</span> to_col<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> graph
+</code></pre>
+
+<p>The <code>legal_moves_from</code> generator below takes the position of the knight
+on the board and yields any of the eight possible moves that are still
+on the board.</p>
+  <pre><code class="language-python">MOVE_OFFSETS <span class="token operator">=</span> <span class="token punctuation">(</span>
+              <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                     <span class="token punctuation">(</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span>  <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                     <span class="token punctuation">(</span> <span class="token number">2</span><span class="token punctuation">,</span>  <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+              <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>  <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span> <span class="token number">1</span><span class="token punctuation">,</span>  <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">legal_moves_from</span><span class="token punctuation">(</span>row<span class="token punctuation">,</span> col<span class="token punctuation">,</span> board_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> row_offset<span class="token punctuation">,</span> col_offset <span class="token keyword">in</span> MOVE_OFFSETS<span class="token punctuation">:</span>
+        move_row<span class="token punctuation">,</span> move_col <span class="token operator">=</span> row <span class="token operator">+</span> row_offset<span class="token punctuation">,</span> col <span class="token operator">+</span> col_offset
+        <span class="token keyword">if</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> move_row <span class="token operator">&lt;</span> board_size <span class="token operator">and</span> <span class="token number">0</span> <span class="token operator">&lt;=</span> move_col <span class="token operator">&lt;</span> board_size<span class="token punctuation">:</span>
+            <span class="token keyword">yield</span> move_row<span class="token punctuation">,</span> move_col
+</code></pre>
+
+<p>The illustration below shows the complete graph of possible
+moves on an eight-by-eight board. There are exactly 336 edges in the
+graph. Notice that the vertices corresponding to the edges of the board
+have fewer connections (legal moves) than the vertices in the middle of
+the board. Once again we can see how sparse the graph is. If the graph
+was fully connected there would be 4,096 edges. Since there are only 336
+edges, the adjacency matrix would be only 8.2 percent full.</p>
+<p>
+  <figure>
+    <img src="figures/knights-tour-legal-moves.png" alt="All legal moves for a knight on an 8x8 chessboard">
+    <figcaption>All legal moves for a knight on an 8x8 chessboard</figcaption>
+  </figure></p>
+<h2 id="implementing-knight-s-tour">Implementing Knight’s Tour</h2>
+<p>The search algorithm we will use to solve the knight’s tour problem is
+called <strong>depth first search</strong> (<strong>DFS</strong>). Whereas the breadth first
+search algorithm discussed in the previous section builds a search tree
+one level at a time, a depth first search creates a search tree by
+exploring one branch of the tree as deeply as possible.</p>
+<p>The depth first exploration of the graph is exactly what we need in
+order to find a path that has exactly 63 edges. We will see that when
+the depth first search algorithm finds a dead end (a place in the graph
+where there are no more moves possible) it backs up the tree to the next
+deepest vertex that allows it to make a legal move.</p>
+<p>The <code>find_solution_for</code> function takes just two arguments: a <code>board_size</code>
+argument and a heuristic function, which you should ignore for now but
+to which we will return.</p>
+<p>It then constructs a graph using the <code>build_graph</code> function described
+above, and for each vertex in the graph attempts to traverse depth first
+by way of the <code>traverse</code> function.</p>
+<p>The <code>traverse</code> function is a little more interesting. It accepts a path,
+as a list of coordinates, as well as the vertex currently
+being considered. If the traversal has proceeded deep enough that we
+know that every square has been visited once, then we return the full
+path traversed.</p>
+<p>Otherwise, we use our graph to look up the legal moves from the current
+vertex, and exclude the vertices that we know have already been visited,
+to determine the vertices that are <code>yet_to_visit</code>. At this point we
+recursively call traverse with each of the vertices to visit, along with
+the path to reach that vertex including the current vertex. If any of
+the recursive calls return a path, then that path is the return value of
+the outer call, otherwise we return None.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">first_true</span><span class="token punctuation">(</span>sequence<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> item <span class="token keyword">in</span> sequence<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> item<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> item
+    <span class="token keyword">return</span> None
+
+
+<span class="token keyword">def</span> <span class="token function">find_solution_for</span><span class="token punctuation">(</span>board_size<span class="token punctuation">,</span> heuristic<span class="token operator">=</span><span class="token keyword">lambda</span> graph<span class="token punctuation">:</span> None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    graph <span class="token operator">=</span> build_graph<span class="token punctuation">(</span>board_size<span class="token punctuation">)</span>
+    total_squares <span class="token operator">=</span> board_size <span class="token operator">*</span> board_size
+
+    <span class="token keyword">def</span> <span class="token function">traverse</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> current_vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">==</span> total_squares<span class="token punctuation">:</span>
+            <span class="token comment"># including the current square, we've visited every square,</span>
+            <span class="token comment"># so return the path as a solution</span>
+            <span class="token keyword">return</span> path <span class="token operator">+</span> <span class="token punctuation">[</span>current_vertex<span class="token punctuation">]</span>
+
+        yet_to_visit <span class="token operator">=</span> graph<span class="token punctuation">[</span>current_vertex<span class="token punctuation">]</span> <span class="token operator">-</span> set<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> yet_to_visit<span class="token punctuation">:</span>
+            <span class="token comment"># no unvisited neighbors, so dead end</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+
+        <span class="token comment"># try all valid paths from here</span>
+        next_vertices <span class="token operator">=</span> sorted<span class="token punctuation">(</span>yet_to_visit<span class="token punctuation">,</span> heuristic<span class="token punctuation">(</span>graph<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> first_true<span class="token punctuation">(</span>traverse<span class="token punctuation">(</span>path <span class="token operator">+</span> <span class="token punctuation">[</span>current_vertex<span class="token punctuation">]</span><span class="token punctuation">,</span> vertex<span class="token punctuation">)</span>
+                          <span class="token keyword">for</span> vertex <span class="token keyword">in</span> next_vertices<span class="token punctuation">)</span>
+
+    <span class="token comment"># try to find a solution from any square on the board</span>
+    <span class="token keyword">return</span> first_true<span class="token punctuation">(</span>traverse<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> starting_vertex<span class="token punctuation">)</span>
+                      <span class="token keyword">for</span> starting_vertex <span class="token keyword">in</span> graph<span class="token punctuation">)</span>
+
+
+<span class="token comment"># find_solution_for(5)  # => [(1, 3), (0, 1), (2, 0), (4, 1), (2, 2), ... ]</span>
+</code></pre>
+
+<p>Let’s look at a simple example of an equivalent of this <code>traverse</code>
+function in action.</p>
+<p>
+  <figure>
+    <img src="figures/ktdfsa.png" alt="Start with vertex A">
+    <figcaption>Start with vertex A</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfsb.png" alt="Explore B">
+    <figcaption>Explore B</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfsc.png" alt="Vertex C is a dead end">
+    <figcaption>Vertex C is a dead end</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfsd.png" alt="Backtrack to B">
+    <figcaption>Backtrack to B</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfse.png" alt="Explore D">
+    <figcaption>Explore D</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfsf.png" alt="Explore E">
+    <figcaption>Explore E</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfsg.png" alt="Explore F">
+    <figcaption>Explore F</figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/ktdfsh.png" alt="Finish">
+    <figcaption>Finish</figcaption>
+  </figure></p>
+<p>It is remarkable that our choice of data structure and
+algorithm has allowed us to straightforwardly solve a problem that
+remained impervious to thoughtful mathematical investigation for
+centuries.</p>
+<p>With some modification, the algorithm can also be used to discover
+one of a number of “closed” (circular) tours, which can therefore be
+started at any square of the board:</p>
+<p>
+  <figure>
+    <img src="figures/knights-tour-closed.png" alt="A closed tour">
+    <figcaption>A closed tour</figcaption>
+  </figure></p>
+<h2 id="knight-s-tour-analysis">Knight’s Tour Analysis</h2>
+<p>There is one last interesting topic regarding the knight’s tour problem,
+then we will move on to the general version of the depth first search.
+The topic is performance. In particular, our algorithm is very sensitive
+to the method you use to select the next vertex to visit. For example,
+on a five-by-five board you can produce a path in about 1.5 seconds on a
+reasonably fast computer. But what happens if you try an eight-by-eight
+board? In this case, depending on the speed of your computer, you may
+have to wait up to a half hour to get the results! The reason for this
+is that the knight’s tour problem as we have implemented it so far is an
+exponential algorithm of size <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>k</mi><mi>N</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(k^N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>, where N is the number of squares
+on the chess board, and k is a small constant.
+The diagram below can help us visualize why this is so.</p>
+<p>
+  <figure>
+    <img src="figures/8-array-tree.png" alt="A search tree for the knight’s tour">
+    <figcaption>A search tree for the knight’s tour</figcaption>
+  </figure></p>
+<p>The root of the tree represents the starting point of the search. From
+there the algorithm generates and checks each of the possible moves the
+knight can make. As we have noted before the number of moves possible
+depends on the position of the knight on the board. In the corners there
+are only two legal moves, on the squares adjacent to the corners there
+are three and in the middle of the board there are eight. The diagram
+below shows the number of moves possible for each position on a board.
+At the next level of the tree there are once again between 2 and 8
+possible next moves from the position we are currently exploring. The
+number of possible positions to examine corresponds to the number of
+nodes in the search tree.</p>
+<p>
+  <figure>
+    <img src="figures/move-count.png" alt="Number of possible moves for each square">
+    <figcaption>Number of possible moves for each square</figcaption>
+  </figure></p>
+<p>We have already seen that the number of nodes in a binary tree of height
+N is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{N+1}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.924661em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span>. For a tree with nodes that may have up to eight
+children instead of two the number of nodes is much larger. Because the
+branching factor of each node is variable, we could estimate the number
+of nodes using an average branching factor. The important thing to note
+is that this algorithm is exponential: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>k</mi><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k^{N+1}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:0.924661em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span> is the
+average branching factor for the board. Let’s look at how rapidly this
+grows! For a board that is 5x5 the tree will be 25 levels deep, or N =
+24 counting the first level as level 0. The average branching factor is
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mn>3</mn><mi mathvariant="normal">.</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">k = 3.8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">3</span><span class="mord mathrm">.</span><span class="mord mathrm">8</span></span></span></span> So the number of nodes in the search tree is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mi mathvariant="normal">.</mi><msup><mn>8</mn><mrow><mn>2</mn><mn>5</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">3.8^{25}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mord mathrm">.</span><span class="mord"><span class="mord mathrm">8</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">5</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span> or
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mi mathvariant="normal">.</mi><mn>1</mn><mn>2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mn>1</mn><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3.12 \times 10^{14}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mord mathrm">.</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">4</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>. For a 6x6 board, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mn>4</mn><mi mathvariant="normal">.</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">k = 4.4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">4</span><span class="mord mathrm">.</span><span class="mord mathrm">4</span></span></span></span>, there are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">.</mi><mn>5</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mn>2</mn><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.5
+\times 10^{23}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">5</span><span class="mbin">×</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">3</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> nodes, and for a regular 8x8 chess board, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mn>5</mn><mi mathvariant="normal">.</mi><mn>2</mn><mn>5</mn></mrow><annotation encoding="application/x-tex">k = 5.25</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">5</span><span class="mord mathrm">.</span><span class="mord mathrm">2</span><span class="mord mathrm">5</span></span></span></span>,
+there are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">.</mi><mn>3</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mn>4</mn><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.3 \times 10^{46}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">3</span><span class="mbin">×</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">4</span><span class="mord mathrm">6</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>. Of course, since there are multiple
+solutions to the problem we won’t have to explore every single node, but
+the fractional part of the nodes we do have to explore is just a
+constant multiplier which does not change the exponential nature of the
+problem. We will leave it as an exercise for you to see if you can
+express <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span> as a function of the board size.</p>
+<p>Luckily there is a way to speed up the eight-by-eight case so that it
+runs in under one second. In the code sample below we show the code that
+speeds up the <code>traverse</code>. This function, called <code>warnsdorffs_heuristic</code>
+when passed as the heuristic function to <code>find_solution_for</code> above will
+cause the <code>next_vertices</code> to be sorted prioritizing those who which have
+the <em>fewest</em> subsequent legal moves.</p>
+<p>This may seem counterintutitive; why not select the node that has the
+<em>most</em> available moves? The problem with using the vertex with the most
+available moves as your next vertex on the path is that it tends to have
+the knight visit the middle squares early on in the tour. When this
+happens it is easy for the knight to get stranded on one side of the
+board where it cannot reach unvisited squares on the other side of the
+board. On the other hand, visiting the squares with the fewest available
+moves first pushes the knight to visit the squares around the edges of
+the board first. This ensures that the knight will visit the hard-to-
+reach corners early and can use the middle squares to hop across the
+board only when necessary. Utilizing this kind of knowledge to speed up
+an algorithm is called a heuristic. Humans use heuristics every day to
+help make decisions, heuristic searches are often used in the field of
+artificial intelligence. This particular heuristic is called
+Warnsdorff’s heuristic, named after H. C. Warnsdorff who published his
+idea in 1823, becoming the first person to describe a procedure to
+complete the knight’s tour.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">warnsdorffs_heuristic</span><span class="token punctuation">(</span>graph<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment">#Given a graph, return a comparator function that prioritizes nodes</span>
+    <span class="token comment">#with the fewest subsequent moves</span>
+    <span class="token keyword">def</span> <span class="token function">comparator</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">(</span>graph<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> len<span class="token punctuation">(</span>graph<span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> comparator
+
+<span class="token comment"># find_solution_for(8, warnsdorffs_heuristic)</span>
+<span class="token comment"># => [(7, 3), (6, 1), (4, 0), (2, 1), (0, 0), (1, 2), ... ]</span>
+</code></pre>
+
+<p>For fun, here is a very large (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>3</mn><mn>0</mn><mo>×</mo><mn>1</mn><mn>3</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">130 \times 130</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">3</span><span class="mord mathrm">0</span><span class="mbin">×</span><span class="mord mathrm">1</span><span class="mord mathrm">3</span><span class="mord mathrm">0</span></span></span></span>) open knight’s
+tour created using Warnsdorff’s heuristic:</p>
+<p>
+  <figure>
+    <img src="figures/knights-tour-130.png" alt="130x130 open tour">
+    <figcaption>130x130 open tour</figcaption>
+  </figure></p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/graphs/depth-first-search">
+            General Depth First Search
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                A Knight’s Tour
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

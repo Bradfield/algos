@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Parse Trees</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357510">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Parse Trees
+        <select id="language-switcher"></select>
+      </h1>
+      <p>With the implementation of our tree data structure complete, we now look
+at an example of how a tree can be used to solve some real problems. In
+this section we will look at parse trees. Parse trees can be used to
+represent real-world constructions like sentences or mathematical
+expressions.</p>
+<p>The diagram below shows the hierarchical structure of a
+simple sentence. Representing a sentence as a tree structure allows us
+to work with the individual parts of the sentence by using subtrees.</p>
+<p>
+  <figure>
+    <img src="figures/parse-tree-sentence.png" alt="A parse tree for a simple sentence">
+    <figcaption>A parse tree for a simple sentence</figcaption>
+  </figure></p>
+<p>We can also represent a mathematical expression such as
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mo>(</mo><mn>7</mn><mo>+</mo><mn>3</mn><mo>)</mo><mo>×</mo><mo>(</mo><mn>5</mn><mo>−</mo><mn>2</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">((7 + 3) \times (5 - 2))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathrm">7</span><span class="mbin">+</span><span class="mord mathrm">3</span><span class="mclose">)</span><span class="mbin">×</span><span class="mopen">(</span><span class="mord mathrm">5</span><span class="mbin">−</span><span class="mord mathrm">2</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> as a parse tree, as shown below.</p>
+<p>
+  <figure>
+    <img src="figures/parse-tree-math-expression.png" alt="Parse tree for (7+3) * (5-2)">
+    <figcaption>Parse tree for (7+3) * (5-2)</figcaption>
+  </figure></p>
+<p>We have already looked at fully
+parenthesized expressions, so what do we know about this expression? We
+know that multiplication has a higher precedence than either addition or
+subtraction. Because of the parentheses, we know that before we can do
+the multiplication we must evaluate the parenthesized addition and
+subtraction expressions. The hierarchy of the tree helps us understand
+the order of evaluation for the whole expression. Before we can evaluate
+the top-level multiplication, we must evaluate the addition and the
+subtraction in the subtrees. The addition, which is the left subtree,
+evaluates to 10. The subtraction, which is the right subtree, evaluates
+to 3. Using the hierarchical structure of trees, we can simply replace
+an entire subtree with one node once we have evaluated the expressions
+in the children. Applying this replacement procedure gives us the
+simplified tree shown below.</p>
+<p>
+  <figure>
+    <img src="figures/parse-tree-math-simplified.png" alt="A simplified parse tree for (7+3) * (5-2)">
+    <figcaption>A simplified parse tree for (7+3) * (5-2)</figcaption>
+  </figure></p>
+<p>In the rest of this section we are going to examine parse trees in more
+detail. In particular we will look at how to build a parse tree from a fully parenthesized mathematical expression, and how to evaluate the expression stored in a parse tree.</p>
+<p>The first step in building a parse tree is to break up the expression
+string into a list of tokens. There are four different kinds of tokens
+to consider: left parentheses, right parentheses, operators, and
+operands. We know that whenever we read a left parenthesis we are
+starting a new expression, and hence we should create a new tree to
+correspond to that expression. Conversely, whenever we read a right
+parenthesis, we have finished an expression. We also know that operands
+are going to be leaf nodes and children of their operators. Finally, we
+know that every operator is going to have both a left and a right child.</p>
+<p>Using the information from above we can define four rules as follows:</p>
+<ol>
+<li>If the current token is a <code>&#39;(&#39;</code>, add a new node as the left child of
+the current node, and descend to the left child.</li>
+<li>If the current token is in the list <code>[&#39;+&#39;,&#39;-&#39;,&#39;/&#39;,&#39;*&#39;]</code>, set the
+root value of the current node to the operator represented by the
+current token. Add a new node as the right child of the current node
+and descend to the right child.</li>
+<li>If the current token is a number, set the root value of the current
+node to the number and return to the parent.</li>
+<li>If the current token is a <code>&#39;)&#39;</code>, go to the parent of the
+current node.</li>
+</ol>
+<p>Before writing the Python code, let’s look at an example of the rules
+outlined above in action. We will use the expression <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>3</mn><mo>+</mo><mo>(</mo><mn>4</mn><mo>×</mo><mn>5</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(3 + (4 \times 5))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">4</span><span class="mbin">×</span><span class="mord mathrm">5</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>. We
+will parse this expression into the following list of character tokens
+<code>[&#39;(&#39;, &#39;3&#39;, &#39;+&#39;, &#39;(&#39;, &#39;4&#39;, &#39;*&#39;, &#39;5&#39; ,&#39;)&#39;,&#39;)&#39;]</code>. Initially we will
+start out with a parse tree that consists of an empty root node.
+The figures below illustrate the structure and contents
+of the parse tree, as each new token is processed.</p>
+<p>
+  <figure>
+    <img src="figures/buildExp1.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp2.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp3.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp4.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp5.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp6.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp7.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/buildExp8.png" alt="Tracing parse tree construction">
+    <figcaption>Tracing parse tree construction</figcaption>
+  </figure></p>
+<p>Using the above, let’s walk through the example
+step by step:</p>
+<ol>
+<li>Create an empty tree.</li>
+<li>Read ( as the first token. By rule 1, create a new node as the left
+child of the root. Make the current node this new child.</li>
+<li>Read 3 as the next token. By rule 3, set the root value of the
+current node to 3 and go back up the tree to the parent.</li>
+<li>Read + as the next token. By rule 2, set the root value of the
+current node to + and add a new node as the right child. The new
+right child becomes the current node.</li>
+<li>Read a ( as the next token. By rule 1, create a new node as the left
+child of the current node. The new left child becomes the
+current node.</li>
+<li>Read a 4 as the next token. By rule 3, set the value of the current
+node to 4. Make the parent of 4 the current node.</li>
+<li>Read * as the next token. By rule 2, set the root value of the
+current node to * and create a new right child. The new right child
+becomes the current node.</li>
+<li>Read 5 as the next token. By rule 3, set the root value of the
+current node to 5. Make the parent of 5 the current node.</li>
+<li>Read ) as the next token. By rule 4 we make the parent of * the
+current node.</li>
+<li>Read ) as the next token. By rule 4 we make the parent of + the
+current node. At this point there is no parent for + so we are done.</li>
+</ol>
+<p>From the example above, it is clear that we need to keep track of the current
+node as well as the parent of the current node. A simple solution to keeping
+track of parents as we traverse the tree is to use a stack. Whenever we want
+to descend to a child of the current node, we first push the current node on
+the stack. When we want to return to the parent of the current node, we pop
+the parent off the stack.</p>
+<p>Using the rules described above, along with the stack and binary tree abstract
+data types, we are now ready to write a Python function to create a parse
+tree. The code for our parse tree builder is presented below.</p>
+  <pre><code class="language-python"><span class="token keyword">import</span> operator
+
+OPERATORS <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'+'</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>add<span class="token punctuation">,</span>
+    <span class="token string">'-'</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>sub<span class="token punctuation">,</span>
+    <span class="token string">'*'</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>mul<span class="token punctuation">,</span>
+    <span class="token string">'/'</span><span class="token punctuation">:</span> operator<span class="token punctuation">.</span>truediv
+<span class="token punctuation">}</span>
+LEFT_PAREN <span class="token operator">=</span> <span class="token string">'('</span>
+RIGHT_PAREN <span class="token operator">=</span> <span class="token string">')'</span>
+
+
+<span class="token keyword">def</span> <span class="token function">build_parse_tree</span><span class="token punctuation">(</span>expression<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    tree <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    stack <span class="token operator">=</span> <span class="token punctuation">[</span>tree<span class="token punctuation">]</span>
+    node <span class="token operator">=</span> tree
+    <span class="token keyword">for</span> token <span class="token keyword">in</span> expression<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> token <span class="token operator">==</span> LEFT_PAREN<span class="token punctuation">:</span>
+            node<span class="token punctuation">[</span><span class="token string">'left'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+            stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+            node <span class="token operator">=</span> node<span class="token punctuation">[</span><span class="token string">'left'</span><span class="token punctuation">]</span>
+        <span class="token keyword">elif</span> token <span class="token operator">==</span> RIGHT_PAREN<span class="token punctuation">:</span>
+            node <span class="token operator">=</span> stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> token <span class="token keyword">in</span> OPERATORS<span class="token punctuation">:</span>
+            node<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span> <span class="token operator">=</span> token
+            node<span class="token punctuation">[</span><span class="token string">'right'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+            stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+            node <span class="token operator">=</span> node<span class="token punctuation">[</span><span class="token string">'right'</span><span class="token punctuation">]</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            node<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span> <span class="token operator">=</span> int<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+            parent <span class="token operator">=</span> stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            node <span class="token operator">=</span> parent
+    <span class="token keyword">return</span> tree
+</code></pre>
+
+
+<p>The four rules for building a parse tree are coded as the four clauses
+of the <code>if</code> statement above. In each case you can see that the code implements
+the rule.</p>
+<p>Now that we have built a parse tree, we can write a function to evaluate it,
+returning the numerical result. To write this function, we will make use of
+the hierarchical nature of the tree to write an algorithm that evaluates a
+parse tree by recursively evaluating each subtree.</p>
+<p>A natural base case for recursive algorithms that operate on trees is to check
+for a leaf node. In a parse tree, the leaf nodes will always be operands.
+Since numerical objects like integers and floating points require no further
+interpretation, the <code>evaluate</code> function can simply return the value stored in
+the leaf node. The recursive step that moves the function toward the base case
+is to call <code>evaluate</code> on both the left and the right children of the current
+node. The recursive call effectively moves us down the tree, toward a leaf
+node.</p>
+<p>To put the results of the two recursive calls together, we can simply apply
+the operator stored in the parent node to the results returned from evaluating
+both children. In the example from above we see that the two children of the
+root evaluate to themselves, namely 10 and 3. Applying the multiplication
+operator gives us a final result of 30.</p>
+<p>The code for a recursive <code>evaluate</code> function is shown below. First, we obtain
+references to the left and the right children of the current node. If both the
+left and right children evaluate to <code>None</code>, then we know that the current node
+is really a leaf node. If the current node is not a leaf node, look up the
+operator in the current node and apply it to the results from recursively
+evaluating the left and right children.</p>
+<p>To implement the arithmetic, we use a dictionary with the keys
+<code>&#39;+&#39;, &#39;-&#39;, &#39;*&#39;</code>, and <code>&#39;/&#39;</code>. The values stored in the dictionary are
+functions from Python’s operator module. The operator module provides us
+with the functional versions of many commonly used operators. When we
+look up an operator in the dictionary, the corresponding function object
+is retrieved. Since the retrieved object is a function, we can call it
+in the usual way <code>function(param1, param2)</code>. So the lookup
+<code>OPERATORS[&#39;+&#39;](2, 2)</code> is equivalent to <code>operator.add(2, 2)</code>.</p>
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">evaluate</span><span class="token punctuation">(</span>tree<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        operate <span class="token operator">=</span> OPERATORS<span class="token punctuation">[</span>tree<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> operate<span class="token punctuation">(</span>evaluate<span class="token punctuation">(</span>tree<span class="token punctuation">[</span><span class="token string">'left'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> evaluate<span class="token punctuation">(</span>tree<span class="token punctuation">[</span><span class="token string">'right'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+        <span class="token comment"># no left or no right, so is a leaf - our base case</span>
+        <span class="token keyword">return</span> tree<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span>
+</code></pre>
+
+
+<p>Finally, we will trace the <code>evaluate</code> function on the parse tree we created
+above. When we first call <code>evaluate</code>, we pass the root of the entire tree as
+the parameter <code>parse_tree</code>. Then since the left and right children exist, we
+look up the operator in the root of the tree, which is <code>&#39;+&#39;</code>, and which maps
+to the <code>operator.add</code> function. As usual for a Python function call, the first
+thing Python does is to evaluate the parameters that are passed to the
+function. In this case both parameters are recursive function calls to our
+<code>evaluate</code> function. Using left-to-right evaluation, the first recursive call
+goes to the left. In the first recursive call the <code>evaluate</code> function is given
+the left subtree. We find that the node has no left or right children, so we
+are in a leaf node. When we are in a leaf node we just return the value stored
+in the leaf node as the result of the evaluation. In this case we return the
+integer 3.</p>
+<p>At this point we have one parameter evaluated for our top-level call to
+<code>operator.add</code>. But we are not done yet. Continuing the left-to-right
+evaluation of the parameters, we now make a recursive call to evaluate
+the right child of the root. We find that the node has both a left and a
+right child so we look up the operator stored in this node, <code>&#39;*&#39;</code>, and
+call this function using the left and right children as the parameters.
+At this point you can see that both recursive calls will be to leaf
+nodes, which will evaluate to the integers four and five respectively.
+With the two parameters evaluated, we return the result of
+<code>operator.mul(4, 5)</code>. At this point we have evaluated the operands for
+the top level <code>&#39;+&#39;</code> operator and all that is left to do is finish the
+call to <code>operator.add(3, 20)</code>. The result of the evaluation of the entire
+expression tree for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>3</mn><mo>+</mo><mo>(</mo><mn>4</mn><mo>×</mo><mn>5</mn><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">(3 + (4 \times 5))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathrm">3</span><span class="mbin">+</span><span class="mopen">(</span><span class="mord mathrm">4</span><span class="mbin">×</span><span class="mord mathrm">5</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span> is 23.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/tree-traversals">
+            Tree Traversals
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Parse Trees
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

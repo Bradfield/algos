@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Programming</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357494">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Dynamic Programming
+        <select id="language-switcher"></select>
+      </h1>
+      <p>Dynamic programming is a powerful technique for solving a certain class
+of problems, typically in a more efficient manner than the corresponding
+recursive strategy. Specifically, when a problem consists of
+“overlapping subproblems,” a recursive strategy may lead to redundant
+computation. The corresponding dynamic programming strategy may
+avoid such waste by addressing and solving the subproblems one at a time
+in a manner without overlap.</p>
+<p>This idea is difficult to understand in the abstract, so let’s consider
+a couple of examples.</p>
+<p>Firstly, let’s write a function to return the nth Fibonacci number: the nth
+number in the sequence constructed by starting with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0, 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span></span></span></span> and calculating
+subsequent numbers as the sum of the previous two numbers, like so:</p>
+<p><div class="katex-block"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>5</mn><mo separator="true">,</mo><mn>8</mn><mo separator="true">,</mo><mn>1</mn><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mn>1</mn><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex"> 0, 1, 1, 2, 3, 5, 8, 13, 21 ... </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mpunct">,</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">5</span><span class="mpunct">,</span><span class="mord mathrm">8</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span></span></span></span></div>
+The Fibonacci sequence may be familiar enough to you that you are able
+to take a “top down” approach: identifying the
+recursive relationship simply by considering the definition of the
+Fibonacci sequence. In other words, a “top down” approach considers the
+statement “calculating subsequent numbers as the sum of the previous two
+numbers” and recognizes the relationship <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>f</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>f</mi><mo>(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">f(n) = f(n-1) + f(n-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">−</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span>.</p>
+<p>With 0 and 1 as our base cases, this leads to an implementation in code that
+looks very much like the mathematical definition of the sequence:</p>
+<div data-language="python">
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">fib</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> n  <span class="token comment"># base cases: return 0 or 1 if n is 0 or 1, respectively</span>
+    <span class="token keyword">return</span> fib<span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> fib<span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span>
+</code></pre>
+
+</div>
+<div data-language="javascript">
+  <pre><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">fib</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> n
+  <span class="token keyword">return</span> <span class="token function">fib</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">fib</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+</div>
+<p>This is a correct solution, but it poses a problem evident to those who run
+<code>fib(50)</code> and wait for an answer. The running time of this implementation is
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> due to a very large number of redundant recursive executions. When
+we call <code>fib(n)</code> we recursively call <code>fib(n - 1)</code> and <code>fib(n - 2)</code> which
+themselves call (i) <code>fib(n - 2)</code> and <code>fib(n - 3)</code>; and, (ii) <code>fib(n - 3)</code>
+and <code>fib(n - 4)</code>, respectively.</p>
+<p>We can see that there are some redundant calls,
+and you may recognize that each of those redundant calls trigger trees of
+further entirely redundant calls. This can be seen more clearly by drawing out
+the call tree for <code>fib(5)</code>, as we do below:</p>
+<figure>
+  <svg id="fib-5-call-tree" />
+</figure>
+
+<script>
+drawTree('#fib-5-call-tree', {
+  name: 'fib(5)',
+  children: [
+    {
+      name: 'fib(4)',
+      children: [
+        {
+          name: 'fib(3)',
+          children: [
+            {
+              name: 'fib(2)',
+              children: [
+                { name: 'fib(1)' },
+                { name: 'fib(0)' }
+              ]
+            },
+            { name: 'fib(1)' }
+          ]
+        },
+        {
+          name: 'fib(2)',
+          children: [
+            { name: 'fib(1)' },
+            { name: 'fib(0)' }
+          ]
+        },
+      ]
+    },
+    {
+      name: 'fib(3)',
+      children: [
+        {
+          name: 'fib(2)',
+          children: [
+            { name: 'fib(1)' },
+            { name: 'fib(0)' }
+          ]
+        },
+        { name: 'fib(1)' }
+      ]
+    }
+  ]
+})
+</script>
+
+<p>We can see that the entirety of the <code>fib(3)</code> subtree is duplicated below
+the <code>fib(4)</code> subtree, and the <code>fib(2)</code> subtree occurs three times. As
+<code>n</code> increases, the size of the redundant call subtrees increases
+dramatically, while the number of unique calls only grows linearly.
+Ideally we would only perform the calculations required, giving us <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">0(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>
+running time.</p>
+<p>This is a good time to consider that the “top down” approach of
+recursive problem solving has a counterpart, the unsurprising “bottom
+up” approach of dynamic programming.</p>
+<p>Applying dynamic programming to this problem, we ask ourselves “starting
+with 0 and 1, how do we build up an answer to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>?” If <code>n</code> were 0
+or 1, we could answer immediately. If it were 2, however, we would need
+to add 0 and 1 to determine the answer: 1. If n were 3, we would
+need to add the answer to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>(</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">f(2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span>, that we just determined, to the 1
+that we previously determined, giving a total of 2. Following this strategy, we
+obtain 3, 5, 8, etc., until we have reached the answer for our <code>n</code>.</p>
+<p>At any point in time we only need to retain a memory of the previous two
+calculations, and we never obtain the same sum twice.</p>
+<p>An implementation of this strategy might look like:</p>
+<div data-language="python">
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">fib</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    a<span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span>
+    <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        a<span class="token punctuation">,</span> b <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">,</span> a
+    <span class="token keyword">return</span> a
+</code></pre>
+
+</div>
+<div data-language="javascript">
+  <pre><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">fib</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">1</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> temp <span class="token operator">=</span> a
+    a <span class="token operator">=</span> a <span class="token operator">+</span> b
+    b <span class="token operator">=</span> temp
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> a
+<span class="token punctuation">}</span>
+</code></pre>
+
+</div>
+<p>With this implementation, we sacrifice some of the elegance and
+readability of our recursive solution, but gain a much better <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>
+running time and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> space cost.</p>
+<p>Let’s now consider a problem where both the recursive and dynamic
+programming approaches require a little more work to discover.</p>
+<p>Given a lattice of height <code>H</code> and width <code>W</code>, how many unique shortest
+paths exist from the top left corner to bottom right corner?</p>
+<p>For instance, consider the lattice of height and width 2:</p>
+<figure>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge" d="M50 50 H100" />
+    <path class="graph-edge" d="M100 50 H150" />
+    <path class="graph-edge" d="M50 100 H100" />
+    <path class="graph-edge" d="M100 100 H150" />
+    <path class="graph-edge" d="M50 150 H100" />
+    <path class="graph-edge" d="M100 150 H150" />
+    <path class="graph-edge" d="M50 50 V100" />
+    <path class="graph-edge" d="M50 100 V150" />
+    <path class="graph-edge" d="M100 50 V100" />
+    <path class="graph-edge" d="M100 100 V150" />
+    <path class="graph-edge" d="M150 50 V100" />
+    <path class="graph-edge" d="M150 100 V150" />
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+</figure>
+
+<p>We can see that the shortest path from top left to bottom right will
+be of length 4, and that there are 6 unique paths of length 4:</p>
+<figure>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <br/>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 150 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="50" cy="150" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+</figure>
+
+<p>Exploring this problem, we realize that any shortest path must always
+progress down and to the right—any path that progresses up or left
+at any point has no chance of being “shortest”. Exploring further,
+we note that by grouping those paths that start with a right step
+(shown on the top line above) and those that start with a down step
+(shown on the bottom line below), we can break this traversal problem
+into subproblems.</p>
+<p>Specifically, the total number of paths along a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>×</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">H \times W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span> lattice
+is the sum of those along a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>H</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>×</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">(H - 1) \times W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span> lattice and a
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>×</mo><mo>(</mo><mi>W</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">H \times (W - 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">×</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> lattice.</p>
+<p>Continuing with our <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2 \times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord mathrm">2</span></span></span></span> example, the paths starting with a right step lead to the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1 \times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mbin">×</span><span class="mord mathrm">2</span></span></span></span> subproblem with these three solutions:</p>
+<figure>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+  <svg height=200 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 150 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 V150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 100 V150"/>
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="150" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="150" r="5" />
+  </svg>
+</figure>
+
+<p>Looking closely, we see this as a repetition of the right hand portion
+of our first three solutions to the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2 \times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord mathrm">2</span></span></span></span> problem.</p>
+<p>Similarly, the paths starting downward on our <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2 \times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord mathrm">2</span></span></span></span> problem
+lead to the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2 \times 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord mathrm">1</span></span></span></span> subproblem with the following three
+solutions:</p>
+<figure>
+   <svg height=150 width=200 version="1.1">
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+  </svg>
+  <svg height=150 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M150 50 V100"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+  </svg>
+  <svg height=150 width=200 version="1.1">
+    <path class="graph-edge graph-edge-emphasized" d="M50 50 H100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M100 50 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 100 H100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 100 H150"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M50 50 V100"/>
+    <path class="graph-edge graph-edge-deemphasized" d="M100 50 V100"/>
+    <path class="graph-edge graph-edge-emphasized" d="M150 50 V100"/>
+    <circle class="graph-node" cx="50" cy="50" r="5" />
+    <circle class="graph-node" cx="50" cy="100" r="5" />
+    <circle class="graph-node" cx="100" cy="50" r="5" />
+    <circle class="graph-node" cx="100" cy="100" r="5" />
+    <circle class="graph-node" cx="150" cy="50" r="5" />
+    <circle class="graph-node" cx="150" cy="100" r="5" />
+  </svg>
+</figure>
+
+<p>This time by looking closely we see that this is a repetition of the
+bottom portion of our final three solutions to the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2 \times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord mathrm">2</span></span></span></span>
+problem.</p>
+<p>We can say then with some confidence that the total number of paths
+along a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>×</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">H \times W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span> lattice is the sum of those along a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>H</mi><mo>−</mo><mn>1</mn><mo>)</mo><mo>×</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">(H - 1) \times W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span>
+lattice and a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>×</mo><mo>(</mo><mi>W</mi><mo>−</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">H \times (W - 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">×</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mbin">−</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> lattice. Thus by taking a top down
+approach to explore the recursive nature of the problem, we’ve identified
+a recursive relationship: <code>f(h, w) = f(h, w - 1) + f(w, h - 1)</code>.</p>
+<p>Before we can write a recursive solution to the problem, we must also
+recognize the base case: when the <code>h</code> or <code>w</code> of our subproblem
+is <code>0</code>, we are dealing with a straight line, so the number of paths
+is simply <code>1</code>.</p>
+<p>Putting our base case and general case together, we obtain a succinct recursive
+solution:</p>
+<div data-language="python">
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">num_paths</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> height <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> width <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> num_paths<span class="token punctuation">(</span>height<span class="token punctuation">,</span> width <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> num_paths<span class="token punctuation">(</span>height <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> width<span class="token punctuation">)</span>
+</code></pre>
+
+</div>
+<div data-language="javascript">
+  <pre><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">numPaths</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">height<span class="token punctuation">,</span> width</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>height <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">||</span> width <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">1</span>
+  <span class="token keyword">return</span> <span class="token function">numPaths</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">numPaths</span><span class="token punctuation">(</span>height <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> width<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+</div>
+<p>Unfortunately, we find ourselves with another <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> solution
+(where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><mi>H</mi><mo>+</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">n = H + W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span>) due
+to redundant calls in our overlapping subproblems. For instance,
+calculating <code>f(3, 2)</code> involves calculating <code>f(2, 2)</code> and <code>f(3, 1)</code>,
+but then in calculating <code>f(2, 3)</code> we redundantly call <code>f(2, 2)</code> once
+more.</p>
+<p>Consider the call tree of <span data-language="python"><code>num_paths(2, 2)</code></span><span data-language="javascript"><code>numPaths(2, 2)</code></span> to convince yourself
+that the running time is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>:</p>
+<figure>
+  <svg id="lattice-2-2-call-tree" />
+</figure>
+
+<script>
+drawTree('#lattice-2-2-call-tree', {
+  name: 'f(2, 2)',
+  children: [
+    {
+      name: 'f(2, 1)',
+      children: [
+        { name: 'f(2, 0)' },
+        {
+          name: 'f(1, 1)',
+          children: [
+            { name: 'f(1, 0)' },
+            { name: 'f(0, 1)' }
+          ]
+        },
+      ]
+    },
+    {
+      name: 'f(1, 2)',
+      children: [
+        {
+          name: 'f(1, 1)',
+          children: [
+            { name: 'f(1, 0)' },
+            { name: 'f(0, 1)' }
+          ]
+        },
+        { name: 'f(0, 2)' }
+      ]
+    },
+  ]
+})
+</script>
+
+<p>Once again this should be a signal to us that we may be able to find
+a faster solution by going bottom up, computing and storing the answer
+to subproblems before we address the core problem.</p>
+<p>After some exploration of the problem, you may come to recognize that in order
+to calculate the number of unique paths to any point on the lattice, we must
+solve the subproblems of the number of paths to each of the points to the left
+and above the point in question. In turn, those subproblems can be solved if
+we first answer the subproblems of the number of paths to each of the points
+to the left and above <em>those</em> points. The logical conclusion is that if we
+start with the top leftmost point (which we can say can be reached in only 1
+way) we can then iterate through every point of the lattice, row by row, and
+calculate the paths to that point as the sum of the paths to the points above
+and to the left, which by the nature of our iteration we have already calculated
+precisely one time.</p>
+<p>We can use a list of lists to store our computed values
+as we proceed. For a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>×</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">H \times W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span> lattice, we can use a <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>H</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>×</mo><mo>(</mo><mi>W</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(H + 1) \times (W + 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mbin">×</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>
+list of lists, with each entry representing the number of paths that
+one may take to arrive at that vertex. We may initialize the values to
+1, as we know that there is only one way to arrive at a vertex on the
+top or left edges. Then, iterating through each entry of each row, we
+can determine the number of paths to that vertex by adding the number
+of paths to the vertexes directly above and to the left. Finally, we
+access the value computed in the last entry of the last row of our memo,
+which represents the number of paths to traverse the entire lattice.</p>
+<p>For instance, this is the memo that we will generate in the process of
+computing <code>f(2, 2)</code> using this strategy:</p>
+  <pre><code class="language-python"><span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+</code></pre>
+
+
+<p>Again we arrive at our answer 6.</p>
+<p>This is what the memo looks like for <code>f(10, 10)</code>:</p>
+  <pre><code class="language-python"><span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">36</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">66</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token number">56</span><span class="token punctuation">,</span> <span class="token number">84</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">,</span> <span class="token number">165</span><span class="token punctuation">,</span> <span class="token number">220</span><span class="token punctuation">,</span> <span class="token number">286</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">126</span><span class="token punctuation">,</span> <span class="token number">210</span><span class="token punctuation">,</span> <span class="token number">330</span><span class="token punctuation">,</span> <span class="token number">495</span><span class="token punctuation">,</span> <span class="token number">715</span><span class="token punctuation">,</span> <span class="token number">1001</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">56</span><span class="token punctuation">,</span> <span class="token number">126</span><span class="token punctuation">,</span> <span class="token number">252</span><span class="token punctuation">,</span> <span class="token number">462</span><span class="token punctuation">,</span> <span class="token number">792</span><span class="token punctuation">,</span> <span class="token number">1287</span><span class="token punctuation">,</span> <span class="token number">2002</span><span class="token punctuation">,</span> <span class="token number">3003</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">84</span><span class="token punctuation">,</span> <span class="token number">210</span><span class="token punctuation">,</span> <span class="token number">462</span><span class="token punctuation">,</span> <span class="token number">924</span><span class="token punctuation">,</span> <span class="token number">1716</span><span class="token punctuation">,</span> <span class="token number">3003</span><span class="token punctuation">,</span> <span class="token number">5005</span><span class="token punctuation">,</span> <span class="token number">8008</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">36</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">,</span> <span class="token number">330</span><span class="token punctuation">,</span> <span class="token number">792</span><span class="token punctuation">,</span> <span class="token number">1716</span><span class="token punctuation">,</span> <span class="token number">3432</span><span class="token punctuation">,</span> <span class="token number">6435</span><span class="token punctuation">,</span> <span class="token number">11440</span><span class="token punctuation">,</span> <span class="token number">19448</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token number">165</span><span class="token punctuation">,</span> <span class="token number">495</span><span class="token punctuation">,</span> <span class="token number">1287</span><span class="token punctuation">,</span> <span class="token number">3003</span><span class="token punctuation">,</span> <span class="token number">6435</span><span class="token punctuation">,</span> <span class="token number">12870</span><span class="token punctuation">,</span> <span class="token number">24310</span><span class="token punctuation">,</span> <span class="token number">43758</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">220</span><span class="token punctuation">,</span> <span class="token number">715</span><span class="token punctuation">,</span> <span class="token number">2002</span><span class="token punctuation">,</span> <span class="token number">5005</span><span class="token punctuation">,</span> <span class="token number">11440</span><span class="token punctuation">,</span> <span class="token number">24310</span><span class="token punctuation">,</span> <span class="token number">48620</span><span class="token punctuation">,</span> <span class="token number">92378</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">66</span><span class="token punctuation">,</span> <span class="token number">286</span><span class="token punctuation">,</span> <span class="token number">1001</span><span class="token punctuation">,</span> <span class="token number">3003</span><span class="token punctuation">,</span> <span class="token number">8008</span><span class="token punctuation">,</span> <span class="token number">19448</span><span class="token punctuation">,</span> <span class="token number">43758</span><span class="token punctuation">,</span> <span class="token number">92378</span><span class="token punctuation">,</span> <span class="token number">184756</span><span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+</code></pre>
+
+
+<p>Below is a possible implementation of the dynamic programming strategy
+we have discussed.</p>
+<div data-language="python">
+  <pre><code class="language-python"><span class="token keyword">def</span> <span class="token function">num_paths_dp</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    memo <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>width <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> height <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> row <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>memo<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> j<span class="token punctuation">,</span> _ <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> j <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                <span class="token keyword">continue</span>
+            memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> memo<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> memo<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+</code></pre>
+
+</div>
+<div data-language="javascript">
+  <pre><code class="language-javascript"><span class="token keyword">const</span> numPathsDp <span class="token operator">=</span> <span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> memo <span class="token operator">=</span> Array<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token function">Array</span><span class="token punctuation">(</span>height <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
+    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> Array<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token function">Array</span><span class="token punctuation">(</span>width <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> memo<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> row <span class="token operator">=</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> row<span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> memo<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> memo<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> memo<span class="token punctuation">[</span>height<span class="token punctuation">]</span><span class="token punctuation">[</span>width<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+</div>
+<p>Both the time and space cost for this implementation are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>H</mi><mo>×</mo><mi>W</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(H \times W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">×</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mclose">)</span></span></span></span>,
+compared to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mrow><mi>H</mi><mo>+</mo><mi>W</mi></mrow></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^{H + W})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8413309999999999em;"></span><span class="strut bottom" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> time and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>H</mi><mo>+</mo><mi>W</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(H + W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mclose">)</span></span></span></span> space previously, making a big time difference as <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span></span></span></span>
+and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi></mrow><annotation encoding="application/x-tex">W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">W</span></span></span></span> increase.</p>
+<p>If space is of particular concern, the space cost could be decreased to
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>W</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mclose">)</span></span></span></span> by retaining a memo of the prior row only. This is left as an
+exercise for the reader.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/searching/searching">
+            Searching
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Dynamic Programming
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

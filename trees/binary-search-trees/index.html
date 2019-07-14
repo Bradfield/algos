@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binary Search Trees</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357507">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Binary Search Trees
+        <select id="language-switcher"></select>
+      </h1>
+      <p>So far we have seen two different ways to implement the <strong>map</strong> abstract
+data type—binary search on a list, and hash tables. In this section we
+will consider the binary tree, which is the basis of another common
+implementation of maps focused on efficient searching.</p>
+<p>Before we look at the implementation, let’s review the interface
+provided by the map ADT. Notice that this interface is very
+similar to the Python dictionary.</p>
+<ul>
+<li><code>Map()</code> Create a new, empty map.</li>
+<li><code>put(key, val)</code> Add a new key-value pair to the map. If the key is
+already in the map then replace the old value with the new value.</li>
+<li><code>get(key)</code> Given a key, return the value stored in the map or
+<code>None</code> otherwise.</li>
+<li><code>del</code> Delete the key-value pair from the map using a statement of
+the form <code>del map[key]</code>.</li>
+<li><code>len()</code> Return the number of key-value pairs stored in the map.</li>
+<li><code>in</code> Return <code>True</code> for a statement of the form <code>key in map</code>, if the
+given key is in the map.</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<p>A binary search tree relies on the property that keys that are less than
+the parent are found in the left subtree, and keys that are greater than
+the parent are found in the right subtree. We will call this the <strong>BST
+property</strong>. As we implement the <code>Map</code> interface as described above, the
+BST property will guide our implementation. The diagram below
+illustrates this property of a binary search tree, showing the keys
+without any associated values. Notice that the property holds for each
+parent and child. All of the keys in the left subtree are less than the
+key in the root; all of the keys in the right subtree are greater than
+the root.</p>
+<p>
+  <figure>
+    <img src="figures/simple-binary-search-tree.png" alt="A simple binary search tree">
+    <figcaption>A simple binary search tree</figcaption>
+  </figure></p>
+<p>Now that you know what a binary search tree is, we will look at how a
+binary search tree is constructed. The search tree above represents the nodes that exist after we
+have inserted the following keys in the order:
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>7</mn><mn>0</mn><mo separator="true">,</mo><mn>3</mn><mn>1</mn><mo separator="true">,</mo><mn>9</mn><mn>3</mn><mo separator="true">,</mo><mn>9</mn><mn>4</mn><mo separator="true">,</mo><mn>1</mn><mn>4</mn><mo separator="true">,</mo><mn>2</mn><mn>3</mn><mo separator="true">,</mo><mn>7</mn><mn>3</mn></mrow><annotation encoding="application/x-tex">70, 31, 93, 94, 14, 23, 73</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">7</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">3</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathrm">9</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">9</span><span class="mord mathrm">4</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mord mathrm">4</span><span class="mpunct">,</span><span class="mord mathrm">2</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">7</span><span class="mord mathrm">3</span></span></span></span>. Since 70 was the first key inserted into the
+tree, it is the root. Next, 31 is less than 70, so it becomes the left
+child of 70. Next, 93 is greater than 70, so it becomes the right child
+of 70. Now we have two levels of the tree filled, so the next key is
+going to be the left or right child of either 31 or 93. Since 94 is
+greater than 70 and 93, it becomes the right child of 93. Similarly 14
+is less than 70 and 31, so it becomes the left child of 31. 23 is also
+less than 31, so it must be in the left subtree of 31. However, it is
+greater than 14, so it becomes the right child of 14.</p>
+<p>To implement the binary search tree, we will use the nodes and
+references approach. While it would be possible in Python to implement
+the tree using <code>dict</code>s as we have elsewhere in this chapter, doing so
+presupposes that we have the very associative structure that we are
+implementing!</p>
+<p>Our implementation will use two classes: <code>TreeNode</code> to house the lower
+level logic to construct and manipulate the tree itself, and
+<code>BinarySearchTree</code> to hold a reference to the root node and provide a
+map-like interface to the user.</p>
+<p>The <code>TreeNode</code> class provides many helper functions that make the work
+done in the <code>BinarySearchTree</code> class methods much easier. The
+constructor for a <code>TreeNode</code>, along with these helper functions, is
+shown below. As you can see, many of these helper functions help to
+classify a node according to its own position as a child, (left or
+right) and the kind of children the node has. The <code>TreeNode</code> class will
+also explicitly keep track of the parent as an attribute of each node.
+You will see why this is important when we discuss the implementation
+for the <code>del</code> operator.</p>
+<p>One of the more interesting methods of <code>TreeNode</code> provides an interface
+to simply iterate over all the keys in the tree in order. You already
+know how to traverse a binary tree in order, using the <code>inorder</code>
+traversal algorithm. However, because we want our iterator to operate
+lazily, in this case we use the <code>yield</code> keyword to define our <code>__iter__</code>
+method as a Python generator. Pay close attention to the <code>__iter__</code>
+implementation as at first glance you might think that the code is
+not recursive: in fact, because <code>__iter__</code> overrides the <code>for x
+in</code> operation for iteration, it really is recursive!</p>
+<p>Our full implementation of <code>TreeNode</code> is provided below. It includes
+three further methods <code>find_successor</code>, <code>find_min</code> and <code>splice_out</code>
+which you can ignore for now as we will return to them later when
+discussing deletion.</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">TreeNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> left<span class="token operator">=</span>None<span class="token punctuation">,</span> right<span class="token operator">=</span>None<span class="token punctuation">,</span> parent<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> val
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> left
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> right
+        self<span class="token punctuation">.</span>parent <span class="token operator">=</span> parent
+
+    <span class="token keyword">def</span> <span class="token function">is_left_child</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>parent <span class="token operator">and</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">==</span> self
+
+    <span class="token keyword">def</span> <span class="token function">is_right_child</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>parent <span class="token operator">and</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">==</span> self
+
+    <span class="token keyword">def</span> <span class="token function">is_leaf</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token operator">not</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>right <span class="token operator">or</span> self<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">has_any_children</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>right <span class="token operator">or</span> self<span class="token punctuation">.</span>left
+
+    <span class="token keyword">def</span> <span class="token function">has_both_children</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>right <span class="token operator">and</span> self<span class="token punctuation">.</span>left
+
+    <span class="token keyword">def</span> <span class="token function">has_one_child</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>has_any_children<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">and</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>has_both_children<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">replace_node_data</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> val
+        self<span class="token punctuation">.</span>left <span class="token operator">=</span> left
+        self<span class="token punctuation">.</span>right <span class="token operator">=</span> right
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>left<span class="token punctuation">.</span>parent <span class="token operator">=</span> self
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>right<span class="token punctuation">.</span>parent <span class="token operator">=</span> self
+
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            <span class="token comment"># `in` calls `__iter__` so is recursive</span>
+            <span class="token keyword">for</span> elem <span class="token keyword">in</span> self<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+                <span class="token keyword">yield</span> elem
+
+        <span class="token keyword">yield</span> self<span class="token punctuation">.</span>key
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+            <span class="token comment"># recurse again</span>
+            <span class="token keyword">for</span> elem <span class="token keyword">in</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+                <span class="token keyword">yield</span> elem
+
+    <span class="token keyword">def</span> <span class="token function">find_successor</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">.</span>right<span class="token punctuation">.</span>find_min<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>parent <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">.</span>parent
+
+        self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+        successor <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>find_successor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> self
+        <span class="token keyword">return</span> successor
+
+    <span class="token keyword">def</span> <span class="token function">find_min</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        current <span class="token operator">=</span> self
+        <span class="token keyword">while</span> current<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+            current <span class="token operator">=</span> current<span class="token punctuation">.</span>left
+        <span class="token keyword">return</span> current
+
+    <span class="token keyword">def</span> <span class="token function">splice_out</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_leaf<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> None
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            promoted_node <span class="token operator">=</span> self<span class="token punctuation">.</span>left <span class="token operator">or</span> self<span class="token punctuation">.</span>right
+
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> promoted_node
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> promoted_node
+            promoted_node<span class="token punctuation">.</span>parent <span class="token operator">=</span> self<span class="token punctuation">.</span>parent
+
+    </code></pre>
+
+<p>Now that we have our <code>TreeNode</code> class we can begin to write
+<code>BinarySearchTree</code> itself. Recall that the core functionality of this
+class will be to enable <code>put</code>ing to and <code>get</code>ing from the tree, so we
+begin our implementation with the <code>put</code> functionality.</p>
+<p>In order to enable the <code>tree[1] = &#39;foo&#39;</code> style assignment interface for
+our <code>BinarySearchTree</code> instances, we override the <code>__setitem__</code> magic
+method. In this method we first check to see if the tree already has a
+root. If there is not a root then we create a new <code>TreeNode</code> and set it
+as the root of the tree. If a root node is already in place then <code>put</code>
+calls the private, recursive, helper function <code>_put</code> to search the tree
+according to the following algorithm:</p>
+<ul>
+<li>Starting at the root of the tree, search the binary tree comparing
+the new key to the key in the current node. If the new key is less
+than the current node, search the left subtree. If the new key is
+greater than the current node, search the right subtree.</li>
+<li>When there is no left (or right) child to search, we have found the
+position in the tree where the new node should be installed.</li>
+<li>To add a node to the tree, create a new <code>TreeNode</code> object and insert
+the object at the point discovered in the previous step.</li>
+</ul>
+<p>The code below shows the Python code for inserting a new
+node in the tree. The <code>_put</code> function is written recursively following
+the steps outlined above. Notice that when a new child is inserted into
+the tree, the <code>node</code> is passed to the new tree as the parent.</p>
+<p>One important problem with our implementation of insert is that
+duplicate keys are not handled properly. As our tree is implemented a
+duplicate key will create a new node with the same key value in the
+right subtree of the node having the original key. The result of this is
+that the node with the new key will never be found during a search. A
+better way to handle the insertion of a duplicate key is for the value
+associated with the new key to replace the old value. We leave fixing
+this bug as an exercise for you.</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">BinarySearchTree</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    TreeNodeClass <span class="token operator">=</span> TreeNode
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> None
+        self<span class="token punctuation">.</span>size <span class="token operator">=</span> <span class="token number">0</span>
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>size
+
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>root<span class="token punctuation">.</span>__iter__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__setitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>root<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>root <span class="token operator">=</span> self<span class="token punctuation">.</span>TreeNodeClass<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>size <span class="token operator">=</span> self<span class="token punctuation">.</span>size <span class="token operator">+</span> <span class="token number">1</span>
+
+    <span class="token keyword">def</span> <span class="token function">_put</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> key <span class="token operator">&lt;</span> node<span class="token punctuation">.</span>key<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>left <span class="token operator">=</span> self<span class="token punctuation">.</span>TreeNodeClass<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>_put<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>right <span class="token operator">=</span> self<span class="token punctuation">.</span>TreeNodeClass<span class="token punctuation">(</span>key<span class="token punctuation">,</span> val<span class="token punctuation">,</span> parent<span class="token operator">=</span>node<span class="token punctuation">)</span>
+
+    </code></pre>
+
+
+<p>The diagram below illustrates the process for inserting a new
+node into a binary search tree. The lightly shaded nodes indicate the
+nodes that were visited during the insertion process.</p>
+<p>
+  <figure>
+    <img src="figures/binary-search-tree-put.png" alt="Inserting a node with key = 19">
+    <figcaption>Inserting a node with key = 19</figcaption>
+  </figure></p>
+<p>Once the tree is constructed, the next task is to implement the
+retrieval of a value for a given key. The <code>get</code> functionality is even easier
+than the <code>put</code> functionality because we simply search the tree recursively
+until we get to a non-matching leaf node or find a matching key. When
+a matching key is found, the value stored in the val of the node is
+returned.</p>
+<p>Again, inorder to enable a <code>tree[1]</code> retrieval interface, we overload
+one of Python’s magic methods—in this case <code>__getitem__</code>. Just like with
+<code>__setitem__</code>, the primary purpose of this method is to handle presence
+and absence of a root node, and delegates the core <code>get</code> functionality
+to <code>_get</code>.</p>
+<p>The search code in the <code>_get</code> method uses the same logic
+for choosing the left or right child as the <code>_put</code> method. Notice that
+the <code>_get</code> method returns a <code>TreeNode</code> to <code>__getitem__</code>, this allows <code>_get</code> to
+be used as a flexible helper method for other <code>BinarySearchTree</code> methods
+that may need to make use of other data from the <code>TreeNode</code> besides the
+val.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>root<span class="token punctuation">:</span>
+            result <span class="token operator">=</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> result<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> result<span class="token punctuation">.</span>val
+        <span class="token keyword">raise</span> KeyError
+
+    <span class="token keyword">def</span> <span class="token function">_get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> node<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>key <span class="token operator">==</span> key<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> node
+        <span class="token keyword">if</span> key <span class="token operator">&lt;</span> node<span class="token punctuation">.</span>key<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+
+    </code></pre>
+
+<p>Using <code>_get</code>, we can implement the <code>in</code> operation by writing a
+<code>__contains__</code> method for the <code>BinarySearchTree</code>. The <code>__contains__</code>
+method will simply call <code>_get</code> and return <code>True</code> if <code>_get</code> returns a
+value, or <code>False</code> if it returns <code>None</code>. The code for <code>__contains__</code> is
+shown below.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">__contains__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> bool<span class="token punctuation">(</span>self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    </code></pre>
+
+
+<p>Finally, we turn our attention to the most challenging method in the
+binary search tree: the deletion of a key. The first task is
+to find the node to delete by searching the tree. If the tree has more
+than one node we search using the <code>_get</code> method to find the <code>TreeNode</code>
+that needs to be removed. If the tree only has a single node, that means
+we are removing the root of the tree, but we still must check to make
+sure the key of the root matches the key that is to be deleted. In
+either case if the key is not found the <code>del</code> operator raises an error.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">delete</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>size <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">:</span>
+            node_to_remove <span class="token operator">=</span> self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> self<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> node_to_remove<span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>node_to_remove<span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>size <span class="token operator">=</span> self<span class="token punctuation">.</span>size <span class="token operator">-</span> <span class="token number">1</span>
+                <span class="token keyword">return</span>
+        <span class="token keyword">elif</span> self<span class="token punctuation">.</span>size <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">and</span> self<span class="token punctuation">.</span>root<span class="token punctuation">.</span>key <span class="token operator">==</span> key<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>root <span class="token operator">=</span> None
+            self<span class="token punctuation">.</span>size <span class="token operator">=</span> self<span class="token punctuation">.</span>size <span class="token operator">-</span> <span class="token number">1</span>
+            <span class="token keyword">return</span>
+
+        <span class="token keyword">raise</span> KeyError<span class="token punctuation">(</span><span class="token string">'Error, key not in tree'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__delitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        </code></pre>
+
+
+<p>Once we’ve found the node containing the key we want to delete, there
+are three cases that we must consider:</p>
+<ol>
+<li>The node to be deleted has no children</li>
+<li>The node to be deleted has only one child</li>
+<li>The node to be deleted has two children</li>
+</ol>
+<p>The first case is straightforward. If
+the current node has no children all we need to do is delete the node
+and remove the reference to this node in the parent. The code for this
+case is shown below.</p>
+  <pre><code class="language-python">    <span class="token keyword">def</span> <span class="token function">remove</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_leaf<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">and</span> node<span class="token punctuation">.</span>parent <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> node <span class="token operator">==</span> node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> None
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+            </code></pre>
+
+<p>
+  <figure>
+    <img src="figures/binary-search-tree-delete-1.png" alt="Deleting Node 16, a node without
+children">
+    <figcaption>Deleting Node 16, a node without
+children</figcaption>
+  </figure></p>
+<p>The second case is only slightly more complicated (see below). If a node
+has only a single child, then we can simply promote the child to take
+the place of its parent. The code for this case is shown in the next
+code sample. As you look at this code you will see that there are six
+cases to consider. Since the cases are symmetric with respect to either
+having a left or right child we will just discuss the case where the
+current node has a left child. The decision proceeds as follows:</p>
+<ol>
+<li>If the current node is a left child then we only need to update the
+parent reference of the left child to point to the parent of the
+current node, and then update the left child reference of the parent
+to point to the current node’s left child.</li>
+<li>If the current node is a right child then we only need to update the
+parent reference of the right child to point to the parent of the
+current node, and then update the right child reference of the
+parent to point to the current node’s right child.</li>
+<li>If the current node has no parent, it must be the root. In this case
+we will just replace the <code>key</code>, <code>val</code>, <code>left</code>, and
+<code>right</code> data by calling the <code>replace_node_data</code> method on
+the root.</li>
+</ol>
+<p>Code for this decision process may look like:</p>
+  <pre><code class="language-python">        <span class="token keyword">elif</span> node<span class="token punctuation">.</span>has_one_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            promoted_node <span class="token operator">=</span> node<span class="token punctuation">.</span>left <span class="token operator">or</span> node<span class="token punctuation">.</span>right
+
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>is_left_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                promoted_node<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+                node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>left <span class="token operator">=</span> promoted_node
+            <span class="token keyword">elif</span> node<span class="token punctuation">.</span>is_right_child<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                promoted_node<span class="token punctuation">.</span>parent <span class="token operator">=</span> node<span class="token punctuation">.</span>parent
+                node<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>right <span class="token operator">=</span> promoted_node
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                node<span class="token punctuation">.</span>replace_node_data<span class="token punctuation">(</span>
+                    promoted_node<span class="token punctuation">.</span>key<span class="token punctuation">,</span>
+                    promoted_node<span class="token punctuation">.</span>val<span class="token punctuation">,</span>
+                    promoted_node<span class="token punctuation">.</span>left<span class="token punctuation">,</span>
+                    promoted_node<span class="token punctuation">.</span>right
+                <span class="token punctuation">)</span>
+
+            </code></pre>
+
+<p>
+  <figure>
+    <img src="figures/binary-search-tree-delete-2.png" alt="Deleting node 25, a node that has a single
+child">
+    <figcaption>Deleting node 25, a node that has a single
+child</figcaption>
+  </figure></p>
+<p>The third case is the most difficult case to handle (see below). If a
+node has two children, then it is unlikely that we can simply promote
+one of them to take the node’s place. We can, however, search the tree
+for a node that can be used to replace the one scheduled for deletion.
+What we need is a node that will preserve the binary search tree
+relationships for both of the existing left and right subtrees. The node
+that will do this is the node that has the next-largest key in the tree.
+We call this node the <strong>successor</strong>, and we will look at a way to find
+the successor shortly. The successor is guaranteed to have no more than
+one child, so we know how to remove it using the two cases for deletion
+that we have already implemented. Once the successor has been removed,
+we simply put it in the tree in place of the node to be deleted.</p>
+<p>
+  <figure>
+    <img src="figures/binary-search-tree-delete-3.png" alt="Deleting node 5, a node with two
+children">
+    <figcaption>Deleting node 5, a node with two
+children</figcaption>
+  </figure></p>
+<p>The code to handle the third case is shown below. Notice
+that we make use of the helper methods <code>find_successor</code> and <code>find_min</code> to
+find the successor. To remove the successor, we make use of the method
+<code>splice_out</code>. The reason we use <code>splice_out</code> is that it goes directly to
+the node we want to splice out and makes the right changes. We could
+call <code>delete</code> recursively, but then we would waste time re-searching for
+the key node.</p>
+  <pre><code class="language-python">        <span class="token keyword">else</span><span class="token punctuation">:</span>  <span class="token comment"># has both children</span>
+            successor <span class="token operator">=</span> node<span class="token punctuation">.</span>find_successor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> successor<span class="token punctuation">:</span>
+                successor<span class="token punctuation">.</span>splice_out<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                node<span class="token punctuation">.</span>key <span class="token operator">=</span> successor<span class="token punctuation">.</span>key
+                node<span class="token punctuation">.</span>val <span class="token operator">=</span> successor<span class="token punctuation">.</span>val
+    </code></pre>
+
+
+<p>The code to find the successor is shown above and as you can see is a
+method of the <code>TreeNode</code> class. This code makes use of the same
+properties of binary search trees that cause an inorder traversal to
+print out the nodes in the tree from smallest to largest. There are
+three cases to consider when looking for the successor:</p>
+<ol>
+<li>If the node has a right child, then the successor is the smallest
+key in the right subtree.</li>
+<li>If the node has no right child and is the left child of its parent,
+then the parent is the successor.</li>
+<li>If the node is the right child of its parent, and itself has no
+right child, then the successor to this node is the successor of its
+parent, excluding this node.</li>
+</ol>
+<p>The first condition is the only one that matters for us when deleting a
+node from a binary search tree.</p>
+<p>The <code>find_min</code> method is called to find the minimum key in a subtree. You
+should convince yourself that the minimum valued key in any binary
+search tree is the leftmost child of the tree. Therefore the <code>find_min</code>
+method simply follows the <code>left</code> references in each node of the
+subtree until it reaches a node that does not have a left child.</p>
+<h2 id="analysis">Analysis</h2>
+<p>With the implementation of a binary search tree now complete, we will do
+a quick analysis of the methods we have implemented. Let’s first look at
+the <code>put</code> method. The limiting factor on its performance is the height
+of the binary tree. Recall that the height
+of a tree is the number of edges between the root and the deepest leaf
+node. The height is the limiting factor because when we are searching
+for the appropriate place to insert a node into the tree, we will need
+to do at most one comparison at each level of the tree.</p>
+<p>What is the height of a binary tree likely to be? The answer to this
+question depends on how the keys are added to the tree. If the keys are
+added in a random order, the height of the tree is going to be around
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">\log_2{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.9388799999999999em;vertical-align:-0.24444em;"></span><span class="base textstyle uncramped"><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span></span></span></span> where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> is the number of nodes in the tree. This is
+because if the keys are randomly distributed, around half of them will be
+less than the root and half will be greater than the root. Remember that
+in a binary tree there is one node at the root, two nodes in the next
+level, and four at the next. The number of nodes at any particular level
+is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>d</mi></msup></mrow><annotation encoding="application/x-tex">2^d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:0.849108em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">d</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">d</span></span></span></span> is the depth of the level. The total number of nodes
+in a perfectly balanced binary tree is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi>h</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{h+1}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:0.932438em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">h</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathrm">1</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span></span></span></span> represents
+the height of the tree.</p>
+<p>A perfectly balanced tree has the same number of nodes in the left
+subtree as it does in the right subtree. In a balanced binary tree, the worst-case
+performance of <code>put</code> is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log_2{n})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> is the number of nodes
+in the tree. Notice that this is the inverse relationship to the
+calculation in the previous paragraph. So <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>log</mi><mn>2</mn></msub><mrow><mi>n</mi></mrow></mrow><annotation encoding="application/x-tex">\log_2{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.9388799999999999em;vertical-align:-0.24444em;"></span><span class="base textstyle uncramped"><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span></span></span></span> gives us the
+height of the tree, and represents the maximum number of comparisons
+that <code>put</code> will need to do as it searches for the proper place to insert
+a new node.</p>
+<p>Unfortunately it is possible to construct a search tree that has height
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> simply by inserting the keys in sorted order! An example of such a
+tree is shown below. In this
+case the performance of the <code>put</code> method is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>.</p>
+<p>
+  <figure>
+    <img src="figures/skewed-tree.png" alt="A skewed binary search tree would give poor performance">
+    <figcaption>A skewed binary search tree would give poor performance</figcaption>
+  </figure></p>
+<p>Now that you understand that the performance of the <code>put</code> method is
+limited by the height of the tree, you can probably guess that other
+methods, <code>get</code>, <code>in</code>, and <code>del</code>, are limited as well. Since <code>get</code> searches
+the tree to find the key, in the worst case the tree is searched all the
+way to the bottom and no key is found. At first glance <code>del</code> might seem
+more complicated, since it may need to search for the successor before
+the deletion operation can complete. But remember that the worst-case
+scenario to find the successor is also just the height of the tree which
+means that you would simply double the work. Since doubling is a
+constant factor it does not change worst case</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/trees/avl-trees">
+            AVL Trees
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Binary Search Trees
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

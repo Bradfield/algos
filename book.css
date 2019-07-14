@@ -1,0 +1,321 @@
+/* COLOR SCHEME */
+
+/*
+
+#243340 - very dark blue, use for main text and significant lines on figures
+#07c - link default
+
+#eee - graph edge de-emphasized
+*/
+
+
+/* layout */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-of-contents {
+  flex: 0 0 auto;
+  font-size: 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 20px 30px 40px;
+  width: 350px;
+}
+
+.chapters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chapter {
+  flex: 1 1 auto;
+  min-width: 320px;
+}
+
+.page {
+  flex: auto;
+  background: white;
+  height: 100%;
+  overflow: auto;
+  padding: 0 40px 120px;
+}
+
+.content {
+  margin: auto;
+  max-width: 720px;
+}
+
+.navigation {
+  margin: 60px 0;
+  font-style: italic;
+  text-align: right;
+}
+
+@media (max-width: 1190px) {
+  .container {
+    display: block;
+  }
+  .table-of-contents {
+    width: 100%;
+  }
+  .page {
+    height: initial;
+  }
+}
+
+
+/* type + color */
+
+@font-face {
+  font-family: 'Whitney';
+  src: url('./WhitneyHTF-Light.woff') format('woff');
+  font-weight: 300;
+  font-variant: normal;
+}
+
+@font-face {
+  font-family: 'Whitney';
+  src: url('./WhitneyHTF-Medium.woff') format('woff');
+  font-weight: 400;
+  font-variant: normal;
+}
+
+html {
+  background: rgb(242, 242, 242);
+  color: #243340;
+  font-family: 'Whitney', helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1.6em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: lighter;
+  line-height: 1.3em;
+  margin: 1.5em 0 1em;
+}
+
+.table-of-contents h1 {
+  margin-top: 1em;
+}
+
+.footnote {
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+blockquote {
+  border-left: 5px solid rgba(36, 51, 64, 0.1);
+  margin-left: 0;
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #07c;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0c65a5;
+}
+
+a:hover {
+  color: #30a7fc;
+}
+
+.chapter ol {
+  padding: 0;
+}
+
+code, code[class*="language-"] {
+  font-family: Inconsolata, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+pre {
+  background: rgba(242, 242, 242, 0.5);
+  padding: 20px;
+  overflow-x: auto;
+}
+
+figure {
+  text-align: center;
+  margin: 0;
+}
+
+figure img {
+  max-width: 100%
+}
+
+figcaption {
+  font-style: italic;
+  margin: 10px 0;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 10px 10px;
+  line-height: inherit;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0,0,0,.125);
+}
+
+th { vertical-align: bottom }
+td { vertical-align: top }
+
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+.katex-block {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.graph-node, .dot {
+  fill: #243340;
+  stroke-width: 0px;
+}
+
+svg text {
+  font-family: Inconsolata, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  color: #243340;
+}
+
+.graph-edge, .axis path, .axis line {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+  /*marker-end: url(#arrowhead);*/
+}
+
+.graph-edge-emphasized {
+  stroke: #243340;
+  stroke-width: 4px;
+}
+
+.graph-edge-deemphasized {
+  stroke: #eee;
+}
+
+#language-switcher {
+  float: right;
+  font-size: 16px;
+  margin: 15px 0 0 20px;
+  visibility: hidden;
+}
+
+[data-language-switcher-enabled] [data-language] {
+  visibility: hidden;
+}
+
+#svg-refs {
+  width: 0;
+  height: 0;
+}
+
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
+}
+
+hr {
+  margin: 2em;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+p.crux {
+  padding: 6px 18px 12px;
+  background-color: rgb(222, 255, 222);
+  color: rgb(70, 140, 70);
+}
+
+p.crux::before {
+  content: "the crux";
+  display: block;
+  font-variant: small-caps;
+  margin-bottom: 2px;
+  font-size: 17px;
+}
+
+div.concealed {
+  background: repeating-linear-gradient(
+    135deg,
+    rgb(242, 242, 242),
+    rgb(242, 242, 242) 12px,
+    rgba(0, 119, 204, 0.2) 8px,
+    rgba(0, 119, 204, 0.2) 20px
+  );
+  position: relative;
+}
+
+div.concealed:hover {
+  cursor: pointer;
+  background: repeating-linear-gradient(
+    135deg,
+    rgb(242, 242, 242),
+    rgb(242, 242, 242) 12px,
+    rgba(0, 119, 204, 0.3) 8px,
+    rgba(0, 119, 204, 0.3) 20px
+  );
+}
+
+div.concealed * {
+  visibility: hidden;
+}
+
+div.concealed::before {
+  content: 'reveal';
+  font-variant: small-caps;
+  font-size: 17px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: rgb(242, 242, 242);
+  color: rgba(0, 119, 204, 0.7);
+  padding: 0px 12px 0px;
+  line-height: 25px;
+  height: 28px;
+}

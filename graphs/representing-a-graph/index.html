@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Representing a Graph</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357483">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Representing a Graph
+        <select id="language-switcher"></select>
+      </h1>
+      <p>In this section we will look at two common abstract representations of graphs:
+the adjacency matrix and the unfortunately named adjacency “list”. The
+adjacency list is really a mapping, so in this section we also consider two
+possible representations in Python of the adjacency list: one an object-oriented
+approach with a Python <code>dict</code> as its underlying data type, and one just using
+a plain <code>dict</code> directly.</p>
+<p>It’s useful to be familiar with many ways to represent graphs as you will
+encounter them everywhere. Ultimately though, we see the adjacency list
+representation using a pure map type (such as a <code>dict</code> in Python) as the most
+intuitive and flexible.</p>
+<h2 id="the-adjacency-matrix">The Adjacency Matrix</h2>
+<p>One of the easiest ways to implement a graph is to use a two-dimensional
+matrix. In this matrix implementation, each of the rows and columns
+represent a vertex in the graph. The value that is stored in the cell at
+the intersection of row <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> and column <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> indicates if there is an
+edge from vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> to vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span>. When two vertices are connected
+by an edge, we say that they are <strong>adjacent</strong>. The diagram below
+illustrates the adjacency matrix for the example graph we presented
+earlier. A value in a cell represents the weight of the edge from vertex
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> to vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span>.</p>
+<p>
+  <figure>
+    <img src="figures/adjacency-matrix.png" alt="An adjacency matrix representation for a graph">
+    <figcaption>An adjacency matrix representation for a graph</figcaption>
+  </figure></p>
+<p>The advantage of the adjacency matrix is that it is simple, and for
+small graphs it is easy to see which nodes are connected to other nodes.
+However, notice that most of the cells in the matrix are empty. Because
+most of the cells are empty we say that this matrix is “sparse.” A
+matrix is not a very efficient way to store sparse data. In fact, in
+Python you must go out of your way to even create a matrix structure
+like the one above.</p>
+<p>The adjacency matrix is a good implementation for a graph when the
+number of edges is large. But what do we mean by large? How many edges
+would be needed to fill the matrix? Since there is one row and one
+column for every vertex in the graph, the number of edges required to
+fill the matrix is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>V</mi><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">|V|^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">∣</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathrm">∣</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>. A matrix is full when every vertex is
+connected to every other vertex. There are few real problems that
+approach this sort of connectivity. The problems we will look at in this
+section all involve graphs that are sparsely connected.</p>
+<h2 id="the-adjacency-list">The Adjacency List</h2>
+<p>A more space-efficient way to implement a sparsely connected graph is to
+use the unfortunately named adjacency list structure. In an adjacency list implementation we keep a
+master collection of all the vertices in the Graph object and then each vertex
+object in the graph maintains a list of the other vertices that it is
+connected to. In our implementation of the <code>Vertex</code> class we will use a
+dictionary rather than a list as our master collection, where the dictionary keys are the
+vertices, and the values are the weights. The diagram below shows an
+adjacency list representation of the example graph we have been discussing.</p>
+<p>
+  <figure>
+    <img src="figures/adjacency-list.png" alt="An adjacency list representation of a graph">
+    <figcaption>An adjacency list representation of a graph</figcaption>
+  </figure></p>
+<p>The advantage of the adjacency list implementation is that it allows us
+to compactly represent a sparse graph. The adjacency list also allows us
+to easily find all the links that are directly connected to a particular
+vertex.</p>
+<h2 id="an-object-oriented-approach">An Object-Oriented Approach</h2>
+<p>Using dictionaries, it is easy to implement the adjacency list in Python. In
+this implementation we create two classes: <code>Graph</code>, which holds the master list
+of vertices, and <code>Vertex</code>, which will represent each vertex in the graph.</p>
+<p>Each <code>Vertex</code> uses a dictionary to keep track of the vertices to which
+it is connected, and the weight of each edge. If we weren’t concerned
+with edge weights, we could use a set in place of a dictionary. This
+dictionary is called <code>neighbors</code>.</p>
+<p>In the code below, the <code>add_neighbor</code> method is used to add a connection
+from this vertex to another. The <code>get_connections</code> method returns all of
+the vertices in the adjacency list, as represented by the <code>neighbors</code>
+instance variable. The <code>get_weight</code> method returns the weight of the
+edge from this vertex to the vertex passed as a parameter.</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Vertex</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>key <span class="token operator">=</span> key
+        self<span class="token punctuation">.</span>neighbors <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">def</span> <span class="token function">add_neighbor</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> neighbor<span class="token punctuation">,</span> weight<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>neighbors<span class="token punctuation">[</span>neighbor<span class="token punctuation">]</span> <span class="token operator">=</span> weight
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'{} neighbors: {}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>
+            self<span class="token punctuation">.</span>key<span class="token punctuation">,</span>
+            <span class="token punctuation">[</span>x<span class="token punctuation">.</span>key <span class="token keyword">for</span> x <span class="token keyword">in</span> self<span class="token punctuation">.</span>neighbors<span class="token punctuation">]</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">get_connections</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>neighbors<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">get_weight</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> neighbor<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>neighbors<span class="token punctuation">[</span>neighbor<span class="token punctuation">]</span>
+</code></pre>
+
+
+<p>The <code>Graph</code> class, shown below, contains a dictionary that maps vertex
+names to vertex objects. <code>Graph</code> also provides methods for adding
+vertices to a graph and connecting one vertex to another. The
+<code>get_vertices</code> method returns the names of all of the vertices in the
+graph. In addition, we have implemented the <code>__iter__</code> method to make it
+easy to iterate over all the vertex objects in a particular graph.
+Together, the two methods allow you to iterate over the vertices in a
+graph by name, or by the objects themselves.</p>
+  <pre><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Graph</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>verticies <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+    <span class="token keyword">def</span> <span class="token function">add_vertex</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>verticies<span class="token punctuation">[</span>vertex<span class="token punctuation">.</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> vertex
+
+    <span class="token keyword">def</span> <span class="token function">get_vertex</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> self<span class="token punctuation">.</span>verticies<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+        <span class="token keyword">except</span> KeyError<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+
+    <span class="token keyword">def</span> <span class="token function">__contains__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> key <span class="token keyword">in</span> self<span class="token punctuation">.</span>verticies
+
+    <span class="token keyword">def</span> <span class="token function">add_edge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> from_key<span class="token punctuation">,</span> to_key<span class="token punctuation">,</span> weight<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> from_key <span class="token operator">not</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>verticies<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>add_vertex<span class="token punctuation">(</span>Vertex<span class="token punctuation">(</span>from_key<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> to_key <span class="token operator">not</span> <span class="token keyword">in</span> self<span class="token punctuation">.</span>verticies<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>add_vertex<span class="token punctuation">(</span>Vertex<span class="token punctuation">(</span>to_key<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>verticies<span class="token punctuation">[</span>from_key<span class="token punctuation">]</span><span class="token punctuation">.</span>add_neighbor<span class="token punctuation">(</span>self<span class="token punctuation">.</span>verticies<span class="token punctuation">[</span>to_key<span class="token punctuation">]</span><span class="token punctuation">,</span> weight<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">get_vertices</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>verticies<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__iter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> iter<span class="token punctuation">(</span>self<span class="token punctuation">.</span>verticies<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+
+
+<p>Using the <code>Graph</code> and <code>Vertex</code> classes just defined, the following
+Python session creates our example graph. First we create six vertices
+numbered 0 through 5. Then we display the vertex dictionary. Notice that
+for each key 0 through 5 we have created an instance of a <code>Vertex</code>.
+Next, we add the edges that connect the vertices together. Finally, a
+nested loop verifies that each edge in the graph is properly stored.</p>
+<pre><code>&gt;&gt;&gt; g = Graph()
+&gt;&gt;&gt; for i in range(6):
+...     g.add_vertex(Vertex(i))
+&gt;&gt;&gt; g.verticies
+{0: &lt;adjGraph.Vertex instance at 0x41e18&gt;,
+ 1: &lt;adjGraph.Vertex instance at 0x7f2b0&gt;,
+ 2: &lt;adjGraph.Vertex instance at 0x7f288&gt;,
+ 3: &lt;adjGraph.Vertex instance at 0x7f350&gt;,
+ 4: &lt;adjGraph.Vertex instance at 0x7f328&gt;,
+ 5: &lt;adjGraph.Vertex instance at 0x7f300&gt;}
+&gt;&gt;&gt; g.add_edge(0, 1, 5)
+&gt;&gt;&gt; g.add_edge(0, 5, 2)
+&gt;&gt;&gt; g.add_edge(1, 2, 4)
+&gt;&gt;&gt; g.add_edge(2, 3, 9)
+&gt;&gt;&gt; g.add_edge(3, 4, 7)
+&gt;&gt;&gt; g.add_edge(3, 5, 3)
+&gt;&gt;&gt; g.add_edge(4, 0, 1)
+&gt;&gt;&gt; g.add_edge(5, 4, 8)
+&gt;&gt;&gt; g.add_edge(5, 2, 1)
+&gt;&gt;&gt; for v in g:
+...     for w in v.get_connections():
+...         print(&#39;{} -&gt; {}&#39;.format(v.key, w.key))
+...
+0 -&gt; 5
+0 -&gt; 1
+1 -&gt; 2
+2 -&gt; 3
+3 -&gt; 4
+3 -&gt; 5
+4 -&gt; 0
+5 -&gt; 4
+5 -&gt; 2
+</code></pre><h2 id="using-dictionaries-directly">Using Dictionaries Directly</h2>
+<p>As with our node and edges representation of trees, you may wonder whether it
+is worthwhile to wrap the underlying structure of our graph with classes as
+we have above. This will depend on the context, but our general preference is
+actually to work directly with the data structure. Doing so allows us to more
+easily print or otherwise debug a graph, create a graph as a literal composite
+type, and serialize a graph for instance to JSON.</p>
+<p>The example graph above would simply look like:</p>
+  <pre><code class="language-python"><span class="token punctuation">{</span>
+    <span class="token number">0</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">1</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">2</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">:</span> <span class="token number">9</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">3</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">:</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">4</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token number">5</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">:</span> <span class="token number">8</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+
+<p>For the remainder of the chapter, we will use dictionaries directly in most
+cases.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/graphs/word-ladder">
+            Word Ladders
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Representing a Graph
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/dijkstras-algorithm">Shortest Path with Dijkstra’s Algorithm</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>

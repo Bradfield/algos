@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shortest Path with Dijkstra’s Algorithm</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://bradfieldcs.com/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
+  <link rel="stylesheet" href="/algos/book.css?v=1563130357478">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="/algos/language-switching.js"></script>
+  <script src="/algos/figures.js"></script>
+  <script src="/algos/concealed-portions.js"></script>
+
+</head>
+<body>
+
+
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+
+
+<div class="container">
+
+  <div class="page">
+    <div class="content">
+      <h1>
+        Shortest Path with Dijkstra’s Algorithm
+        <select id="language-switcher"></select>
+      </h1>
+      <p>When you surf the web, send an email, or log in to a laboratory computer
+from another location on campus a lot of work is going on behind the
+scenes to get the information on your computer transferred to another
+computer. The in-depth study of how information flows from one computer
+to another over the Internet is the primary topic for a class in
+computer networking. However, we will talk about how the Internet works
+just enough to understand another very important graph algorithm.</p>
+<p>
+  <figure>
+    <img src="figures/internet.png" alt="Overview of connectivity in the internet">
+    <figcaption>Overview of connectivity in the internet</figcaption>
+  </figure></p>
+<p>The diagram above shows you a high-level overview of how communication
+on the Internet works. When you use your browser to request a web page
+from a server, the request must travel over your local area network and
+out onto the Internet through a router. The request travels over the
+Internet and eventually arrives at a router for the local area network
+where the server is located. The web page you requested then travels
+back through the same routers to get to your browser. Inside the cloud
+labeled “Internet” in the diagram are additional routers. The job of all
+of these routers is to work together to get your information from place
+to place. You can see there are many routers for yourself if your
+computer supports the <code>traceroute</code> command. The text below shows the
+output of running <code>traceroute google.com</code> on the author’s computer,
+which illustrates that there are 12 routers between him and the Google
+server responding to the request.</p>
+<pre><code>traceroute to google.com (216.58.192.46), 64 hops max, 52 byte packets
+ 1  192.168.0.1 (192.168.0.1)  3.420 ms  1.133 ms  0.865 ms
+ 2  gw-mosca207.static.monkeybrains.net (199.188.195.1)  14.678 ms  9.725 ms  6.752 ms
+ 3  mosca.mosca-activspace.core.monkeybrains.net (172.17.18.58)  8.919 ms  8.277 ms  7.804 ms
+ 4  lemon.lemon-mosca-10gb.core.monkeybrains.net (208.69.43.185)  6.724 ms  7.369 ms  6.701 ms
+ 5  38.88.216.117 (38.88.216.117)  8.420 ms  11.860 ms  6.813 ms
+ 6  be2682.ccr22.sfo01.atlas.cogentco.com (154.54.6.169)  7.392 ms  7.250 ms  8.241 ms
+ 7  be2164.ccr21.sjc01.atlas.cogentco.com (154.54.28.34)  8.710 ms  8.301 ms  8.501 ms
+ 8  be2000.ccr21.sjc03.atlas.cogentco.com (154.54.6.106)  9.072 ms
+    be2047.ccr21.sjc03.atlas.cogentco.com (154.54.5.114)  11.034 ms
+    be2000.ccr21.sjc03.atlas.cogentco.com (154.54.6.106)  10.243 ms
+ 9  38.88.224.6 (38.88.224.6)  8.420 ms  10.637 ms  8.855 ms
+10  209.85.249.5 (209.85.249.5)  9.142 ms  17.734 ms  12.211 ms
+11  74.125.37.43 (74.125.37.43)  8.792 ms  9.290 ms  8.893 ms
+12  nuq04s30-in-f14.1e100.net (216.58.192.46)  8.759 ms  8.705 ms  8.502 ms
+</code></pre><p>Each router on the Internet is connected to one or more other routers.
+So if you run the <code>traceroute</code> command at different times of the day,
+you are likely to see that your information flows through different
+routers at different times. This is because there is a cost associated
+with each connection between a pair of routers that depends on the
+volume of traffic, the time of day, and many other factors. By this time
+it will not surprise you to learn that we can represent the network of
+routers as a graph with weighted edges.</p>
+<p>
+  <figure>
+    <img src="figures/route-graph.png" alt="Connections and weights between routers in the
+internet">
+    <figcaption>Connections and weights between routers in the
+internet</figcaption>
+  </figure></p>
+<p>Above we show a small example of a weighted graph that represents the
+interconnection of routers in the Internet. The problem that we want to
+solve is to find the path with the smallest total weight along which to
+route any given message. This problem should sound familiar because it
+is similar to the problem we solved using a breadth first search, except
+that here we are concerned with the total weight of the path rather than
+the number of hops in the path. It should be noted that if all the
+weights are equal, the problem is the same.</p>
+<h2 id="dijkstra-s-algorithm">Dijkstra’s Algorithm</h2>
+<p>The algorithm we are going to use to determine the shortest path is
+called “Dijkstra’s algorithm.” Dijkstra’s algorithm is an iterative
+algorithm that provides us with the shortest path from one particular
+starting node to all other nodes in the graph. Again this is similar to
+the results of a breadth first search.</p>
+<p>To keep track of the total cost from the start node to each destination
+we will make use of a <code>distances</code> dictionary which we will initialize to
+<code>0</code> for the start vertex, and <code>infinity</code> for the other vertices. Our
+algorithm will update these values until they represent the smallest
+weight path from the start to the vertex in question, at which point we
+will return the <code>distances</code> dictionary.</p>
+<p>The algorithm iterates once for every vertex in the graph; however, the
+order that we iterate over the vertices is controlled by a priority
+queue. The value that is used to determine the order of the objects in
+the priority queue is the distance from our starting vertex. By using a
+priority queue, we ensure that as we explore one vertex after another,
+we are always exploring the one with the smallest distance.</p>
+<p>The code for Dijkstra’s algorithm is shown below.</p>
+  <pre><code class="language-python"><span class="token keyword">import</span> heapq
+
+
+<span class="token keyword">def</span> <span class="token function">calculate_distances</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> starting_vertex<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    distances <span class="token operator">=</span> <span class="token punctuation">{</span>vertex<span class="token punctuation">:</span> float<span class="token punctuation">(</span><span class="token string">'infinity'</span><span class="token punctuation">)</span> <span class="token keyword">for</span> vertex <span class="token keyword">in</span> graph<span class="token punctuation">}</span>
+    distances<span class="token punctuation">[</span>starting_vertex<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+
+    pq <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> starting_vertex<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">while</span> len<span class="token punctuation">(</span>pq<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+        current_distance<span class="token punctuation">,</span> current_vertex <span class="token operator">=</span> heapq<span class="token punctuation">.</span>heappop<span class="token punctuation">(</span>pq<span class="token punctuation">)</span>
+
+        <span class="token comment"># Nodes can get added to the priority queue multiple times. We only</span>
+        <span class="token comment"># process a vertex the first time we remove it from the priority queue.</span>
+        <span class="token keyword">if</span> current_distance <span class="token operator">></span> distances<span class="token punctuation">[</span>current_vertex<span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+
+        <span class="token keyword">for</span> neighbor<span class="token punctuation">,</span> weight <span class="token keyword">in</span> graph<span class="token punctuation">[</span>current_vertex<span class="token punctuation">]</span><span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            distance <span class="token operator">=</span> current_distance <span class="token operator">+</span> weight
+
+            <span class="token comment"># Only consider this new path if it's better than any path we've</span>
+            <span class="token comment"># already found.</span>
+            <span class="token keyword">if</span> distance <span class="token operator">&lt;</span> distances<span class="token punctuation">[</span>neighbor<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                distances<span class="token punctuation">[</span>neighbor<span class="token punctuation">]</span> <span class="token operator">=</span> distance
+                heapq<span class="token punctuation">.</span>heappush<span class="token punctuation">(</span>pq<span class="token punctuation">,</span> <span class="token punctuation">(</span>distance<span class="token punctuation">,</span> neighbor<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> distances
+
+
+example_graph <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'U'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'V'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'W'</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">'X'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'V'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'U'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'X'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'W'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'W'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'V'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'U'</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">'X'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'Y'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'Z'</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'X'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'U'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'V'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'W'</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'Y'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'Y'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'X'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'W'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'Z'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">'Z'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'W'</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">'Y'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>calculate_distances<span class="token punctuation">(</span>example_graph<span class="token punctuation">,</span> <span class="token string">'X'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># => {'U': 1, 'W': 2, 'V': 2, 'Y': 1, 'X': 0, 'Z': 2}</span>
+</code></pre>
+
+<p>Dijkstra’s algorithm uses a priority queue, which we introduced in the
+trees chapter and which we achieve here using Python’s <code>heapq</code> module.</p>
+<p>The entries in our priority queue are tuples of <code>(distance, vertex)</code>
+which allows us to maintain a queue of vertices sorted by distance.</p>
+<p>When the distance to a vertex that is already in the queue is reduced,
+we wish to update the distance and thereby give it a different priority.
+We accomplish this by just adding another entry to the priority queue for
+the same vertex. (We also include a check after removing an entry from
+the priority queue, in order to make sure that we only process each
+vertex once.)</p>
+<p>Let’s walk through an application of Dijkstra’s algorithm one vertex at
+a time using the following sequence of diagrams as our guide. We begin
+with the vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span>. The three vertices adjacent to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> are <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo separator="true">,</mo><mi>w</mi><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">v,w,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span></span></span></span> and
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>. Since the initial distances to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mo separator="true">,</mo><mi>w</mi><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">v,w,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> are all initialized
+to <code>infinity</code>, the new costs to get to them through the start node are
+all their direct costs. So we update the costs to each of these three
+nodes. The state of the algorithm is:</p>
+<p>
+  <figure>
+    <img src="figures/dijkstraa.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>In the next iteration of the <code>while</code> loop we examine the vertices that
+are adjacent to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span>. The vertex <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> is next because it has the lowest
+overall cost and therefore will be the first entry removed from the
+priority queue. At <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> we look at its neighbors <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo separator="true">,</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">u,v,w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>. For
+each neighboring vertex we check to see if the distance to that vertex
+through <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> is smaller than the previously known distance. Obviously
+this is the case for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> since its distance was <code>infinity</code>. It is not
+the case for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> or <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> since their distances are 0 and 2 respectively.
+However, we now learn that the distance to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> is smaller if we go
+through <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> than from <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> directly to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span>. Since that is the case we
+update <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> with a new distance and add another entry to the priority
+queue. The state of the algorithm is now:</p>
+<p>
+  <figure>
+    <img src="figures/dijkstrab.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>The next step is to look at the vertices neighboring <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> (below). This
+step results in no changes to the graph, so we move on to node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>.</p>
+<p>
+  <figure>
+    <img src="figures/dijkstrac.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>At node <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> (below) we discover that it is cheaper to get to both
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.04398em;">z</span></span></span></span>, so we adjust the distances accordingly.</p>
+<p>
+  <figure>
+    <img src="figures/dijkstrad.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>Finally we check nodes <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.04398em;">z</span></span></span></span>. However, no additional changes
+are found and so the priority queue is empty and Dijkstra’s algorithm
+exits.</p>
+<p>
+  <figure>
+    <img src="figures/dijkstrae.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>
+  <figure>
+    <img src="figures/dijkstraf.png" alt=" ">
+    <figcaption> </figcaption>
+  </figure></p>
+<p>It is important to note that Dijkstra’s algorithm works only when the
+weights are all positive. You should convince yourself that if you
+introduced a negative weight on one of the edges to the graph that the
+algorithm would never exit.</p>
+<p>We will note that to route messages through the Internet, other
+algorithms are used for finding the shortest path. One of the problems
+with using Dijkstra’s algorithm on the Internet is that you must have a
+complete representation of the graph in order for the algorithm to run.
+The implication of this is that every router has a complete map of all
+the routers in the Internet. In practice this is not the case and other
+variations of the algorithm allow each router to discover the graph as
+they go. One such algorithm that you may want to read about is called
+the “distance vector” routing algorithm.</p>
+<h2 id="analysis-of-dijkstra-s-algorithm">Analysis of Dijkstra’s Algorithm</h2>
+<p>We will now consider the running time of Dijkstra’s algorithm.</p>
+<p>Building the <code>distances</code> dictionary takes <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>V</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(V)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span> time since we add
+every vertex in the graph to the dictionary.</p>
+<p>The <code>while</code> loop is executed once for every entry that gets added to
+the priority queue. An entry can only be added when we explore an edge,
+so there are at most <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> iterations of the <code>while</code> loop.</p>
+<p>The <code>for</code> loop is executed at most once for every vertex, since the
+<code>current_distance &gt; distances[current_vertex]</code> check ensures that we
+only process a vertex once. The <code>for</code> loop iterates over outgoing
+edges, so among all iterations of the <code>while</code> loop, the body of the
+<code>for</code> loop executes at most <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> times.</p>
+<p>Finally, if we consider that each priority queue operation (adding or
+removing an entry) is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>, we conclude that the total running
+time is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>V</mi><mo>+</mo><mi>E</mi><mi>log</mi><mi>E</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(V + E \log E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>.</p>
+
+
+      <div class="navigation">
+        
+          Next:
+          <a href="/algos/graphs/strongly-connected-components">
+            Strongly Connected Components
+          </a>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h1>Practical Algorithms and&nbsp;Data&nbsp;Structures</h2>
+    <a href="/algos/">Introduction</a>
+
+    <div class="chapters">
+      
+        
+        <div class="chapter">
+          <h2>Analysis</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/introduction">The Big Picture</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/big-o-notation">Big O Notation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/an-anagram-detection-example">An Anagram Detection Example</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/analysis/performance-of-python-types">Performance of Python Types</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Stacks</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/introduction">Introduction to Stacks</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/implementation">A Stack Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/balanced-parentheses">Balanced Parentheses</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/converting-number-bases">Converting Number Bases</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/stacks/infix-prefix-and-postfix-expressions">Infix, Prefix and Postfix Expressions</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Queues</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/introduction">Introduction to Queues</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/implementation">A Queue Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/queues/simulating-hot-potato">Simulating Hot Potato</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Deques</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/introduction">Introduction to Deques</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/implementation">A Deque Implementation</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/deques/palindrome-checker">Palindrome Checker</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Lists</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/introduction">Introduction to Lists</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-unordered-list">Implementing an Unordered List</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/lists/implementing-an-ordered-list">Implementing an Ordered List</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Recursion</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/introduction">Introduction to Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/calculating-the-sum-of-a-list-of-numbers">Calculating the Sum of a List of Numbers</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/the-three-laws-of-recursion">The Three Laws of Recursion</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/converting-an-integer-to-a-string">Converting an Integer to Any Base</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/tower-of-hanoi">Tower of Hanoi</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/recursion/dynamic-programming">Dynamic Programming</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Searching</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/searching">Searching</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-sequential-search">The Sequential Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/the-binary-search">The Binary Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/searching/hashing">Hashing</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Trees</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/introduction">Introduction to Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/representing-a-tree">Representing a Tree</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/parse-trees">Parse Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/tree-traversals">Tree Traversals</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/priority-queues-with-binary-heaps">Priority Queues with Binary Heaps</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/binary-search-trees">Binary Search Trees</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/trees/avl-trees">AVL Trees</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+        
+        <div class="chapter">
+          <h2>Graphs</h2>
+          <ol>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/introduction">Introduction to Graphs</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/representing-a-graph">Representing a Graph</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/word-ladder">Word Ladders</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/knights-tour">A Knight’s Tour</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/depth-first-search">General Depth First Search</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/topological-sorting">Topological Sorting</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                
+                Shortest Path with Dijkstra’s Algorithm
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/strongly-connected-components">Strongly Connected Components</a>
+              
+            </li>
+          
+            
+            <li>
+              
+                <a href="/algos/graphs/prims-spanning-tree-algorithm">Prim’s Spanning Tree Algorithm</a>
+              
+            </li>
+          
+          </ol>
+        </div>
+      
+    </div>
+
+  </div>
+
+</div><!-- .container -->
+
+<svg id="svg-refs">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refx="0" refy="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="context-stroke" />
+    </marker>
+  </defs>
+</svg>
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71655366-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+</html>
