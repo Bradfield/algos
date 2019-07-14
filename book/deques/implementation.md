@@ -10,25 +10,25 @@ In practice, the most straightforward way to utilize a deque in Python will be t
 ```python
 class Deque(object):
     def __init__(self):
-        self.__items = []
+        self._items = []
 
     def is_empty(self):
-        return self.__items == []
+        return self._items == []
 
     def add_front(self, item):
-        self.__items.append(item)
+        self._items.append(item)
 
     def add_rear(self, item):
-        self.__items.insert(0,item)
+        self._items.insert(0,item)
 
     def remove_front(self):
-        return self.__items.pop()
+        return self._items.pop()
 
     def remove_rear(self):
-        return self.__items.pop(0)
+        return self._items.pop(0)
 
     def size(self):
-        return len(self.__items)
+        return len(self._items)
 ```
 
 In `remove_front` we use the `pop` method to remove the last element from
