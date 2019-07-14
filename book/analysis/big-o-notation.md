@@ -11,7 +11,7 @@ This abstraction is exactly what we need: it characterizes an algorithm’s effi
 
 Intuitively, we can see that the first algorithm (`sum_of_n`) is doing more work than the second (`arithmetic_sum`): some program steps are being repeated, and the program takes even longer if we increase the value of `n`. But we need to be more precise.
 
-The most expensive unit of computation in `sum_of_n` is variable assignment. If we counted the number of assignment statements, we would have a worthy approximation of the algorithm's execution time: there's an initial assignment statement (`total = 0`) that is performed only once, followed by a loop that executes (`total += i`) a total of `n` times.
+The most expensive unit of computation in `sum_of_n` is variable assignment. If we counted the number of assignment statements, we would have a worthy approximation of the algorithm's execution time: there's an initial assignment statement (`total = 0`) that is performed only once, followed by a loop that executes the loop body (`total += i`) `n` times.
 
 We can denote this more succinctly with function $$T$$, where $$T(n)=1+n$$.
 
