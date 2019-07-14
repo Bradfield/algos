@@ -84,7 +84,7 @@ will return the `distances` dictionary.
 The algorithm iterates once for every vertex in the graph; however, the
 order that we iterate over the vertices is controlled by a priority
 queue. The value that is used to determine the order of the objects in
-the priority queue is the distance from our starting vector. By using a
+the priority queue is the distance from our starting vertex. By using a
 priority queue, we ensure that as we explore one vertex after another,
 we are always exploring the one with the smallest distance.
 
@@ -98,24 +98,23 @@ def calculate_distances(graph, starting_vertex):
     distances = {vertex: float('infinity') for vertex in graph}
     distances[starting_vertex] = 0
 
-    entry_lookup = {}
-    pq = []
-
-    for vertex, distance in distances.items():
-        entry = [distance, vertex]
-        entry_lookup[vertex] = entry
-        pq.append(entry)
-
-    heapq.heapify(pq)
-
+    pq = [(0, starting_vertex)]
     while len(pq) > 0:
-        _, current_vertex = heapq.heappop(pq)
+        current_distance, current_vertex = heapq.heappop(pq)
 
-        for neighbor, neighbor_distance in graph[current_vertex].items():
-            distance = distances[current_vertex] + neighbor_distance
+        # Nodes can get added to the priority queue multiple times. We only
+        # process a vertex the first time we remove it from the priority queue.
+        if current_distance > distances[current_vertex]:
+            continue
+
+        for neighbor, weight in graph[current_vertex].items():
+            distance = current_distance + weight
+
+            # Only consider this new path if it's better than any path we've
+            # already found.
             if distance < distances[neighbor]:
                 distances[neighbor] = distance
-                entry_lookup[neighbor][0] = distance
+                heapq.heappush(pq, (distance, neighbor))
 
     return distances
 
@@ -128,22 +127,22 @@ example_graph = {
     'Y': {'X': 1, 'W': 1, 'Z': 1},
     'Z': {'W': 5, 'Y': 1},
 }
-# calculate_distances(example_graph, 'X')
+print(calculate_distances(example_graph, 'X'))
 # => {'U': 1, 'W': 2, 'V': 2, 'Y': 1, 'X': 0, 'Z': 2}
 
 """
 Dijkstra’s algorithm uses a priority queue, which we introduced in the
 trees chapter and which we achieve here using Python’s `heapq` module.
 
-The entries in our priority queue are lists of `[distance, vertex]`
+The entries in our priority queue are tuples of `(distance, vertex)`
 which allows us to maintain a queue of vertices sorted by distance.
 
 When the distance to a vertex that is already in the queue is reduced,
-we wish to update the distance and thereby move it to the front of the
-queue. We accomplish this by maintaining a mapping of vertices to
-entries in our queues as `entry_lookup`. When we wish to update the
-distance to a vertex, we retrieve the entry from `entry_lookup` and
-update the 0-th item in the list.
+we wish to update the distance and thereby give it a different priority.
+We accomplish this by just adding another entry to the priority queue for
+the same vertex. (We also include a check after removing an entry from
+the priority queue, in order to make sure that we only process each
+vertex once.)
 
 Let’s walk through an application of Dijkstra’s algorithm one vertex at
 a time using the following sequence of diagrams as our guide. We begin
@@ -151,15 +150,13 @@ with the vertex $$u$$. The three vertices adjacent to $$u$$ are $$v,w,$$ and
 $$x$$. Since the initial distances to $$v,w,$$ and $$x$$ are all initialized
 to `infinity`, the new costs to get to them through the start node are
 all their direct costs. So we update the costs to each of these three
-nodes. We also set the predecessor for each node to $$u$$ and we add each
-node to the priority queue. We use the distance as the key for the
-priority queue. The state of the algorithm is:
+nodes. The state of the algorithm is:
 
 ![ ](figures/dijkstraa.png)
 
 In the next iteration of the `while` loop we examine the vertices that
 are adjacent to $$u$$. The vertex $$x$$ is next because it has the lowest
-overall cost and therefore bubbled its way to the beginning of the
+overall cost and therefore will be the first entry removed from the
 priority queue. At $$x$$ we look at its neighbors $$u,v,w$$ and $$y$$. For
 each neighboring vertex we check to see if the distance to that vertex
 through $$x$$ is smaller than the previously known distance. Obviously
@@ -167,8 +164,8 @@ this is the case for $$y$$ since its distance was `infinity`. It is not
 the case for $$u$$ or $$v$$ since their distances are 0 and 2 respectively.
 However, we now learn that the distance to $$w$$ is smaller if we go
 through $$x$$ than from $$u$$ directly to $$w$$. Since that is the case we
-update $$w$$ with a new distance and change the predecessor for $$w$$ from
-$$u$$ to $$x$$. The state of the algorithm is now:
+update $$w$$ with a new distance and add another entry to the priority
+queue. The state of the algorithm is now:
 
 ![ ](figures/dijkstrab.png)
 
@@ -178,8 +175,7 @@ step results in no changes to the graph, so we move on to node $$y$$.
 ![ ](figures/dijkstrac.png)
 
 At node $$y$$ (below) we discover that it is cheaper to get to both
-$$w$$ and $$z$$, so we adjust the distances and predecessor links
-accordingly.
+$$w$$ and $$z$$, so we adjust the distances accordingly.
 
 ![ ](figures/dijkstrad.png)
 
@@ -209,15 +205,22 @@ the “distance vector” routing algorithm.
 Analysis of Dijkstra’s Algorithm
 ---
 
-Finally, let us look at the running time of Dijkstra’s algorithm. We
-first note that building the priority queue takes $$O(V)$$ time since we
-initially add every vertex in the graph to the priority queue. Once the
-queue is constructed the `while` loop is executed once for every vertex
-since vertices are all added at the beginning and only removed after
-that. Within that loop each call to `heappop`, takes $$O(\log V)$$ time.
-Taken together that part of the loop and the calls to heappop take $$O(V
-\log(V))$$. The `for` loop is executed once for each edge in the graph,
-and within the `for` loop updating the distance for the neighbor vertex
-in the priority queue takes time $$O(E\log(V)).$$ So the combined
-running time is $$O((V+E) \log(V)).$$
+We will now consider the running time of Dijkstra’s algorithm.
+
+Building the `distances` dictionary takes $$O(V)$$ time since we add
+every vertex in the graph to the dictionary.
+
+The `while` loop is executed once for every entry that gets added to
+the priority queue. An entry can only be added when we explore an edge,
+so there are at most $$O(E)$$ iterations of the `while` loop.
+
+The `for` loop is executed at most once for every vertex, since the
+`current_distance > distances[current_vertex]` check ensures that we
+only process a vertex once. The `for` loop iterates over outgoing
+edges, so among all iterations of the `while` loop, the body of the
+`for` loop executes at most $$O(E)$$ times.
+
+Finally, if we consider that each priority queue operation (adding or
+removing an entry) is $$O(\log E)$$, we conclude that the total running
+time is $$O(V + E \log E)$$.
 """
