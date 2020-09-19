@@ -209,7 +209,7 @@ The example graph above would simply look like:
     2: {3: 9},
     3: {4: 7, 5: 3},
     4: {0: 1},
-    5: {4: 8}
+    5: {2: 1, 4: 8}
 }
 ```
 
