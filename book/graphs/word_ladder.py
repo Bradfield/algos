@@ -187,7 +187,7 @@ from collections import deque
 
 
 def traverse(graph, starting_vertex):
-    visited = set()
+    visited = set({starting_vertex})
     queue = deque([[starting_vertex]])
     while queue:
         path = queue.popleft()
