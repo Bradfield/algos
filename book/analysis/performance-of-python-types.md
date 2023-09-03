@@ -56,7 +56,7 @@ Reversing a list is $$O(n)$$ since we must reposition each element.
 
 ### Sorting
 
-Finally (and least intuitively), [sorting in Python](http://svn.python.org/view/python/trunk/Objects/listsort.txt?revision=69846&view=markup) is $$O(n\log{n})$$ and [beyond the scope of this book](https://en.wikipedia.org/wiki/Timsort) to demonstrate.
+Finally (and least intuitively), [sorting in Python](https://github.com/python/cpython/blob/main/Objects/listsort.txt) is $$O(n\log{n})$$ and [beyond the scope of this book](https://en.wikipedia.org/wiki/Timsort) to demonstrate.
 
 For reference, we’ve summarized the performance characteristics of
 Python's list operations in the table below:
