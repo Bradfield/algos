@@ -48,11 +48,11 @@ First, we use the Python builtin function `sorted` to return an iterable of sort
 
 Here is a possible implementation using this strategy:
 """
-from itertools import izip_longest
+from itertools import zip_longest
 
 
 def anagram_sort_and_compare(s1, s2):
-    for a, b in izip_longest(sorted(s1), sorted(s2)):
+    for a, b in zip_longest(sorted(s1), sorted(s2)):
         if a != b:
             return False
     return True
