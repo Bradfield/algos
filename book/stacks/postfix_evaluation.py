@@ -2,7 +2,7 @@ import operator
 
 OPERATION = {
     '*': operator.mul,
-    '/': operator.div,
+    '/': operator.truediv,
     '-': operator.sub,
     '+': operator.add
 }
