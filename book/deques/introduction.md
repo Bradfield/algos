@@ -55,4 +55,4 @@ Deque Operation | Deque Contents | Return Value
 `d.is_empty()` | `['dog', 4, 'cat', True]` |   `False`
 `d.add_rear(8.4)` |  `[8.4, 'dog', 4, 'cat',True]` |
 `d.remove_rear()` |  `['dog', 4, 'cat', True]` |   `8.4`
-`d.remove_front()` | `['dog', 4, 'cat'] | `True`
+`d.remove_front()` | `['dog', 4, 'cat']` | `True`
