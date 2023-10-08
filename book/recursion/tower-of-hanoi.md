@@ -94,16 +94,16 @@ def move_disk(from_pole, to_pole):
     print('moving disk from {} to {}'.format(from_pole, to_pole))
 ```
 
-Now, calling `move_tower` with the arguments `3, 'A', 'B', 'C'` will give us the output:
+Now, calling `move_tower` with the arguments `3, 'A', 'C', 'B'` will give us the output:
 
 ```
-moving disk from A to B
 moving disk from A to C
-moving disk from B to C
 moving disk from A to B
-moving disk from C to A
 moving disk from C to B
-moving disk from A to B
+moving disk from A to C
+moving disk from B to A
+moving disk from B to C
+moving disk from A to C
 ```
 
 Now that you have seen the code for both `move_tower` and `move_disk`, you
