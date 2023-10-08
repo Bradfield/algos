@@ -69,10 +69,12 @@ in steps 1 and 3. Below we present a possible Python solution to the Tower of Ha
 
 ```python
 def move_tower(height, from_pole, to_pole, with_pole):
-    if height >= 1:
-        move_tower(height - 1, from_pole, with_pole, to_pole)
-        move_disk(from_pole, to_pole)
-        move_tower(height - 1, with_pole, to_pole, from_pole)
+    if height == 0:
+        return
+    
+    move_tower(height - 1, from_pole, with_pole, to_pole)
+    move_disk(from_pole, to_pole)
+    move_tower(height - 1, with_pole, to_pole, from_pole)
 ```
 
 Notice that the code above is almost identical
