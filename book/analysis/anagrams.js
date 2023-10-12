@@ -91,7 +91,7 @@ assert.equal(false, anagramSortAndCompare('abcde', 'abcd'))
 At first glance you may be tempted to think that this algorithm is
 $$O(n)$$, since there is one simple iteration to compare the *n*
 characters after the sorting process. However, the two calls to the
-Python `sorted` method are not without their own cost. Sorting is
+Javascript `sort` method are not without their own cost. Sorting is
 typically either $$O(n^{2})$$ or $$O(n\log n)$$, so the sorting
 operations dominate the iteration. In the end, this algorithm will have
 the same order of magnitude as that of the sorting process.
